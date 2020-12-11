@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+    <meta charset="UTF-8">
+    <meta property="og:title" content="RouteToUni"/>
+    <script src="static/js/node_modules/animejs/lib/anime.min.js"></script>
+    <link rel="stylesheet" href="../static/css/styles.css">
+    <link rel="stylesheet" type="text/css" media="only screen and (max-device-width: 480px)" href="static/css/mobile-stylesheet.css" />
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <title>RouteToUni</title>
+</head>
+<body>
+    <div id="homeLayout" onclick="newFireWorkStar(event.pageX - container.offsetLeft, event.pageY - container.offsetTop);">
+        <img src="static/images/back.svg" id="back" onclick="backPress()" alt="Back button"/>
+        <a href="{{ url_for('register') }}">
+            <span id="signUp" onmouseover="bubbleHover('#signUp')" onmouseout="bubbleLeave('#signUp')">SIGN UP</span>
+        </a>
+
+
+        <div id="universityHeading">
+            <img src="static/images/newcasltelogo.png" id="newcastleLogo" alt="Newcastle University logo"/>
+            <h1 id="newcastleText">Newcastle</h1>
+            <h1 id="universityText">University</h1>
+        </div>
+
+        <span id="bubble1" onclick="bubbleClick('bubble1', '#chatImg')" onmouseover="bubbleHover('#bubble1')" onmouseout="bubbleLeave('#bubble1')">
+            <img id="chatImg" src="../static/images/bubbles/chat.png" alt="Chat"/>
+            <span class="bubble1Text">Chat</span></span>
+        <span id="bubble2" onclick="bubbleClick('bubble2', '#helpImg')" onmouseover="bubbleHover('#bubble2')" onmouseout="bubbleLeave('#bubble2')">
+            <img id="helpImg" src="../static/images/bubbles/help.png" alt="Help"/>
+            <span class="bubble2Text">Help Bot</span></span></span>
+        <span id="bubble3" onclick="bubbleClick('bubble3', '#drinksImg')" onmouseover="bubbleHover('#bubble3')" onmouseout="bubbleLeave('#bubble3')">
+            <img id="drinksImg" src="../static/images/bubbles/drinks.png" alt="Drinks"/>
+            <span class="bubble3Text">Pubs & Clubs</span></span></span>
+        <span id="bubble4" onclick="bubbleClick('bubble4', '#locationImg')" onmouseover="bubbleHover('#bubble4')" onmouseout="bubbleLeave('#bubble4')">
+            <img id="locationImg" src="../static/images/bubbles/location.png" alt="Location"/>
+            <span class="bubble4Text">Campus Map</span></span></span>
+        <span id="bubble5" onclick="bubbleClick('bubble5', '#accommodationImg')" onmouseover="bubbleHover('#bubble5')" onmouseout="bubbleLeave('#bubble5')">
+            <img id="accommodationImg" src="../static/images/bubbles/home.png" alt="Accommodation"/>
+            <span class="bubble5Text">Accommodation</span></span></span>
+        <span id="bubble6" onclick="bubbleClick('bubble6', '#healthImg')" onmouseover="bubbleHover('#bubble6')" onmouseout="bubbleLeave('#bubble6')">
+            <img id="healthImg" src="../static/images/bubbles/health.png" alt="Health"/>
+            <span class="bubble6Text">Health</span></span></span>
+        <span id="bubble7" onclick="bubbleClick('bubble7', '#contactsImg')" onmouseover="bubbleHover('#bubble7')" onmouseout="bubbleLeave('#bubble7')">
+            <img id="contactsImg" src="../static/images/bubbles/people.png" alt="Contacts"/>
+            <span class="bubble7Text">Societies</span></span></span>
+        <span id="bubble8" onclick="bubbleClick('bubble8', '#revisionImg')" onmouseover="bubbleHover('#bubble8')" onmouseout="bubbleLeave('#bubble8')">
+            <img id="revisionImg" src="../static/images/bubbles/revision.png" alt="Revision"/>
+            <span class="bubble8Text">Revision</span></span></span>
+    </div>
+
+    <div id="signUpDialog" class="signUpDialog">
+        <div class="signUpDialogContent">
+            <div>
+                <span id="signUpClose" style="margin-left: 10px" class="close">&times;</span>
+                <h3>Sign Up</h3>
+            </div>
+
+            <p id="emailText">Email:</p>
+            <label for="signUpEmail"></label><input type="email" name="username" id="signUpEmail"><br>
+
+            <p id="passwordText">Password:</p>
+            <label for="signUpPassword"></label><input type="password" name="password" id="signUpPassword"><br><br>
+
+            <button onclick="signUp()" id="login">SIGN UP</button>
+        </div>
+    </div>
+
+    <script src="static/js/animations.js"></script>
+    <script src="static/js/fireworks.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+    <!-- Initialize Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-analytics.js"></script>
+    <script src="static/js/init.js"></script>
+    <script src="static/js/login.js"></script>
+</body>
+</html>

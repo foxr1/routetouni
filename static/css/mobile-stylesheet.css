@@ -1,0 +1,230 @@
+html, body {
+    background-color: #003a65;
+    position: fixed;
+    overflow-x: hidden;
+    overflow-y: visible;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    left:0;
+    right:0;
+}
+
+#homeLayout {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    text-align: center;
+    --x: 0px;
+    --y: 0px;
+    /*transform-style: preserve-3d;*/
+}
+
+#newcastleLogo {
+    height: 18vw;
+    width: 16vw;
+    position: absolute;
+    text-align: center;
+    top: 52%;
+    left: 50%;
+    transform: translate(-190%, -42%);
+    -webkit-filter: drop-shadow(0 0 2px #1f1f1f);
+    filter: drop-shadow(0 0 2px #1f1f1f);
+}
+
+#universityHeading {
+    position: absolute;
+    text-align: center;
+    top: 9%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#newcastleText {
+    text-align: center;
+    font-size: 9vw;
+    font-family: 'GilroyBold', 'sans-serif';
+    line-height: 0.8em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-30%, -190%);
+    color: white;
+    text-shadow: 0 0 5px #000000;
+}
+
+#universityText {
+    text-align: center;
+    font-size: 9.6vw;
+    font-family: 'GilroyMedium', 'sans-serif';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-30%, -60%);
+    color: white;
+    text-shadow: 0 0 5px #000000;
+}
+
+#back {
+    height: 80px;
+    width: 80px;
+    fill: white;
+    top: 2%;
+    left: -100px;
+    position: absolute;
+    cursor: pointer;
+    z-index: 3;
+}
+
+#bubble1 {
+    height: 12vh;
+    width: 12vh;
+    background-color: #d91a35;
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    top: 20%;
+    left: 38%;
+    box-shadow: 0 0 5px #8a1425;
+    z-index: 0;
+}
+
+#chatImg {
+    height: 7vh;
+    margin-top: 21%;
+    z-index: 1;
+}
+
+#bubble2 {
+    height: 12vh;
+    width: 12vh;
+    background-color: #d91a35;
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    left: 38%;
+    top: 36%;
+    box-shadow: 0 0 5px #8a1425;
+    z-index: 0;
+}
+
+#helpImg {
+    height: 7.5vh;
+    margin-top: 15%;
+    z-index: 1;
+}
+
+#bubble3 {
+    height: 12vh;
+    width: 12vh;
+    background-color: #d91a35;
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    top: 52%;
+    left: 38%;
+    box-shadow: 0 0 5px #8a1425;
+    z-index: 0;
+}
+
+#drinksImg {
+    height: 7.5vh;
+    margin-top: 15%;
+    margin-left: 10%;
+    z-index: 1;
+}
+
+#bubble4 {
+    height: 12vh;
+    width: 12vh;
+    background-color: #d91a35;
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    top: 68%;
+    left: 38%;
+    box-shadow: 0 0 5px #8a1425;
+    z-index: 0;
+}
+
+#locationImg {
+    height: 7.5vh;
+    margin-top: 15%;
+    z-index: 1;
+}
+
+#bubble5 {
+    height: 12vh;
+    width: 12vh;
+    background-color: #d91a35;
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    top: 132%;
+    left: 38%;
+    box-shadow: 0 0 5px #8a1425;
+    z-index: 0;
+}
+
+#accommodationImg {
+    height: 7vh;
+    margin-top: 15%;
+    z-index: 1;
+}
+
+#bubble6 {
+    height: 12vh;
+    width: 12vh;
+    background-color: #d91a35;
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    top: 84%;
+    left: 38%;
+    box-shadow: 0 0 5px #8a1425;
+    z-index: 0;
+}
+
+#healthImg {
+    height: 7vh;
+    margin-top: 15%;
+    z-index: 1;
+}
+
+#bubble7 {
+    height: 12vh;
+    width: 12vh;
+    background-color: #d91a35;
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    left: 38%;
+    top: 100%;
+    box-shadow: 0 0 5px #8a1425;
+    z-index: 0;
+}
+
+#contactsImg {
+    height: 5.7vh;
+    margin-top: 23%;
+    z-index: 1;
+}
+
+#bubble8 {
+    height: 12vh;
+    width: 12vh;
+    background-color: #d91a35;
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    top: 116%;
+    left: 38%;
+    box-shadow: 0 0 5px #8a1425;
+    z-index: 0;
+}
+
+#revisionImg {
+    height: 7vh;
+    margin-top: 17%;
+    z-index: 1;
+}
