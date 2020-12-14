@@ -22,7 +22,7 @@ def favicon():
 
 
 @app.route('/news_feed')
-def register():
+def news_feed():
     return render_template("news_feed.html")
 
 
