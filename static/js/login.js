@@ -14,7 +14,7 @@ function signUp() {
     let password = document.getElementById("signUpPassword").value;
     firebase.auth().createUserWithEmailAndPassword(email, password)
         .then((user) => {
-            hideDialog("signUpDialog");
+            window.open("{{ url_for('index') }}");
         })
         .catch((error) => {
             var errorCode = error.code;

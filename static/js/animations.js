@@ -169,3 +169,17 @@ function backPress() {
         }
     }
 }
+
+function pageTransition(page1, page2) {
+    let page1Transition = anime({
+        targets: page1,
+        left: '-100%', duration: 750,
+        easing: 'easeInOutQuad'
+    });
+
+    page1Transition.finished.then(openNextPage);
+
+    function openNextPage() {
+        window.open(page2, "_self");
+    }
+}

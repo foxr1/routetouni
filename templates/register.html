@@ -1,56 +1,58 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <meta name="1081173404847-ddjfjkqhfj79u9qiv7lrsajibo3vtgqc" content="1081173404847-ddjfjkqhfj79u9qiv7lrsajibo3vtgqc.apps.googleusercontent.com">
-    <title>Register - Brand</title>
-    <link rel="stylesheet" href="static/bootstrap/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <meta name="google-signin-client_id" content="1081173404847-ddjfjkqhfj79u9qiv7lrsajibo3vtgqc.apps.googleusercontent.com"/>
+    <title>Register - RouteToUni</title>
+    <script src="static/js/node_modules/animejs/lib/anime.min.js"></script>
+    <link rel="stylesheet" href="../static/css/styles.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
-    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
-    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/fonts/fontawesome5-overrides.min.css">
 </head>
+<body>
+    <div id="signUpDialog" class="signUpDialog">
+        <div class="signUpDialogContent">
+            <h3>Sign Up</h3>
 
-<body class="bg-gradient-primary">
-    <div class="container" style="width: 518px;">
-        <div class="card shadow-lg o-hidden border-0 my-5">
-            <div class="card-body p-0">
-                <div class="row">
-                    <div class="col-lg-7 col-xl-12">
-                        <div class="p-5" style="width: 463px;">
-                            <div class="text-center">
-                                <h4 class="text-dark mb-4">Create an Account!</h4>
-                            </div>
-                            <form class="user">
-                                <div class="form-group row">
-                                    <div class="col-sm-6 mb-3 mb-sm-0"><input class="form-control form-control-user" type="text" id="exampleFirstName" placeholder="First Name" name="first_name"></div>
-                                    <div class="col-sm-6"><input class="form-control form-control-user" type="text" id="exampleFirstName" placeholder="Last Name" name="last_name"></div>
-                                </div>
-                                <div class="form-group"><input class="form-control form-control-user" type="email" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Email Address" name="email"></div>
-                                <div class="form-group row">
-                                    <div class="col-sm-6 mb-3 mb-sm-0"><input class="form-control form-control-user" type="password" id="examplePasswordInput" placeholder="Password" name="password"></div>
-                                    <div class="col-sm-6"><input class="form-control form-control-user" type="password" id="exampleRepeatPasswordInput" placeholder="Repeat Password" name="password_repeat"></div>
-                                </div><button class="btn btn-primary btn-block text-white btn-user" type="submit">Register Account</button>
-                                <hr><a class="btn btn-primary btn-block text-white btn-google btn-user" role="button"><i class="fab fa-google"></i>&nbsp; Register with Google</a>
-                                <hr>
-                            </form>
-                            <div class="text-center"><a class="small" href="forgot-password.html">Forgot Password?</a></div>
-                            <div class="text-center"><a class="small" href="{{ url_for('login') }}">Already have an account? Login!</a></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <label for="firstName"></label><input type="text" name="name" id="firstName" placeholder="First Name" style="font-family: Nunito"><label for="lastName"></label><input type="text" name="name" id="lastName" placeholder="Surname" style="font-family: Nunito"><br><br>
+
+            <label for="signUpEmail"></label><input type="email" name="email" id="signUpEmail" placeholder="Email" style="font-family: Nunito"><br><br>
+
+            <label for="signUpPassword"></label><input type="password" name="password" id="signUpPassword" placeholder="Password" style="font-family: Nunito"><br><br>
+
+            <button onclick="signUp()" id="signUpBtn" style="font-family: Nunito">Sign Up</button>
+            <hr><div id="g-signin" class="g-signin2" data-onsuccess="onSignIn" style></div>
         </div>
     </div>
-    <script src="static/js/jquery.min.js"></script>
-    <script src="static/bootstrap/js/bootstrap.min.js"></script>
-    <script src="static/js/chart.min.js"></script>
-    <script src="static/js/bs-init.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
-    <script src="static/js/theme.js"></script>
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
-</body>
 
+    <script>
+       let page2Transition = anime({
+                targets: '#signUpDialog',
+                translateX: [1500, 0], duration: 750,
+                easing: 'easeInOutQuad'
+            });
+    </script>
+
+    <script>
+    function onSuccess(googleUser) {
+
+      console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+
+    }
+    function onFailure(error) {
+      console.log(error);
+    }
+    function renderButton() {
+      gapi.signin2.render('g-signin', {
+        'scope': 'profile email',
+        'width': 300,
+        'height': 50,
+        'longtitle': true,
+        'onsuccess': onSuccess,
+        'onfailure': onFailure
+      });
+    }
+    </script>
+
+    <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+</body>
 </html>
