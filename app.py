@@ -21,5 +21,10 @@ def favicon():
                                'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 
+@app.route('/news_feed')
+def register():
+    return render_template("news_feed.html")
+
+
 if __name__ == '__main__':
     app.run(debug=True)

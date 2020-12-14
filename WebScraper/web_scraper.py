@@ -1,16 +1,7 @@
-import urllib
-from bs4 import BeautifulSoup
-from urllib.request import urlopen
-import urllib
-import requests
-import fileinput
-import wget
-import html2text
 import re
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 import io
-from pprint import pprint
 
 
 def main():
