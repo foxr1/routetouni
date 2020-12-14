@@ -9,12 +9,13 @@
     <link rel="stylesheet" href="../static/css/styles.css">
     <link rel="stylesheet" type="text/css" media="only screen and (max-device-width: 480px)" href="static/css/mobile-stylesheet.css" />
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
     <title>RouteToUni</title>
 </head>
 <body>
     <div id="homeLayout" onclick="newFireWorkStar(event.pageX - container.offsetLeft, event.pageY - container.offsetTop);">
         <img src="static/images/back.svg" id="back" onclick="backPress()" alt="Back button"/>
-        <span id="signUp" onmouseover="bubbleHover('#signUp')" onmouseout="bubbleLeave('#signUp')" onclick="pageTransition('#homeLayout', 'register')">Sign Up</span>
+        <span id="signUp" onmouseover="bubbleHover('#signUp')" onmouseout="bubbleLeave('#signUp')" onclick="checkLogin()">Sign Up</span>
 
         <div id="universityHeading">
             <img src="static/images/newcasltelogo.png" id="newcastleLogo" alt="Newcastle University logo"/>
@@ -59,8 +60,37 @@
     <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-analytics.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-database.js"></script>
     <script src="static/js/init.js"></script>
-    <script src="../static/js/auth.js"></script>
+    <script src="static/js/auth.js"></script>
+    <script src="https://apis.google.com/js/platform.js?onload=onLoadCallback" async defer></script>
+    <script>
+        window.onLoadCallback = function(){
 
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
+        }
+    </script>
+
+    <script>
+        // Check if a user is logged in.
+        var signUpBtn = document.getElementById("signUp");
+
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                signUpBtn.textContent = "Logout";
+            } else {
+                // No user is signed in.
+            }
+        });
+
+        if (sessionStorage.getItem('email') != null) {
+            signUpBtn.textContent = "Logout";
+        }
+
+        function checkLogin() {
+            if (signUpBtn.textContent === "Logout") {
+                logout();
+            } else {
+                pageTransition('#homeLayout', 'register');
+            }
+        }
+    </script>
 </body>
 </html>

@@ -17,7 +17,7 @@ function signUp(firstname, lastname, course, email, password) {
                 email: email
             }, (error) => {
                 if (error) {
-                    // The write failed...
+                    console.log(error);
                 } else {
                     window.open("/", "_self");
                 }
@@ -32,10 +32,25 @@ function signUp(firstname, lastname, course, email, password) {
 }
 
 function logout() {
-    firebase.auth().signOut().then(function() {
-        // Sign-out successful.
-    }).catch(function(error) {
-        // An error happened.
+    // First logout of Google.
+    gapi.load('auth2', function() {
+        gapi.auth2.init({
+            client_id: "1081173404847-ddjfjkqhfj79u9qiv7lrsajibo3vtgqc.apps.googleusercontent.com",
+        }).then(function(auth2) {
+            auth2.signOut().then(function () {
+                console.log('User signed out.');
+                sessionStorage.clear();
+
+                // Logout of Firebase.
+                firebase.auth().signOut().then(function() {
+                    window.open("/", "_self");
+                }).catch(function(error) {
+                    // An error happened.
+                });
+            });
+        });
     });
+
+
 }
 

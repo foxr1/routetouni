@@ -183,3 +183,13 @@ function pageTransition(page1, page2) {
         window.open(page2, "_self");
     }
 }
+
+function openSignUp() {
+    let signUpAnim = anime({
+        targets: "#signUp",
+        left: '50%',
+        top: '50%',
+
+        easing: 'easeInOutQuad'
+    });
+}

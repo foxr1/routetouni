@@ -10,6 +10,7 @@ var firebaseConfig = {
     measurementId: "G-DE01D2GM7L",
     databaseUrl: "https://route2uni-default-rtdb.firebaseio.com/"
 };
+
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();

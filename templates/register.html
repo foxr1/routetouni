@@ -71,10 +71,24 @@
     <script>
     function onSuccess(googleUser) {
         var profile = googleUser.getBasicProfile();
-        sessionStorage.setItem("firstname", profile.getGivenName());
-        sessionStorage.setItem("lastname", profile.getFamilyName());
-        sessionStorage.setItem("email", googleUser.getBasicProfile().getEmail());
-        window.open('/gregister', "_self");
+        var email = profile.getEmail();
+
+        firebase.database().ref('users').once('value', function(snapshot) {
+            var exists = false;
+            snapshot.forEach(function(childSnapshot) {
+                if (email === childSnapshot.val().email){
+                    exists = true;
+                }
+            });
+            sessionStorage.setItem("firstname", profile.getGivenName());
+            sessionStorage.setItem("lastname", profile.getFamilyName());
+            sessionStorage.setItem("email", googleUser.getBasicProfile().getEmail());
+            if (exists === true) {
+                window.open('/', "_self");
+            } else {
+                window.open('/gregister', "_self");
+            }
+        });
     }
 
     function onFailure(error) {

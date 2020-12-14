@@ -1,8 +1,15 @@
 import os
 
 from flask import Flask, render_template, send_from_directory
+import firebase_admin
+from firebase_admin import db
 
 app = Flask(__name__)
+
+
+firebase_admin.initialize_app(options={
+    'databaseURL': 'https://route2uni-default-rtdb.firebaseio.com/'
+})
 
 
 @app.route('/')
