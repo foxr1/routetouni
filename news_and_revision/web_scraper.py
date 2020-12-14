@@ -71,9 +71,8 @@ def organise(text_as_list, url_list):
         list2.append(url_list[j])
         list3.append(list2)
 
-    correct_list = list3
-    print(len(correct_list))
+    news_list = list3
+    return news_list
 
 
-if __name__ == "__main__":
-    main()
+
