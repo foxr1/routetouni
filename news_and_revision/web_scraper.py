@@ -1,16 +1,7 @@
-import urllib
-from bs4 import BeautifulSoup
-from urllib.request import urlopen
-import urllib
-import requests
-import fileinput
-import wget
-import html2text
 import re
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 import io
-from pprint import pprint
 
 
 def main():
@@ -80,9 +71,8 @@ def organise(text_as_list, url_list):
         list2.append(url_list[j])
         list3.append(list2)
 
-    correct_list = list3
-    print(len(correct_list))
+    news_list = list3
+    return news_list
 
 
-if __name__ == "__main__":
-    main()
+
