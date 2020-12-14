@@ -341,7 +341,7 @@ body {
 }
 
 /*Register Page*/
-.signUpDialog {
+.signUpDialog, .loginDialog, .gSignUpDialog {
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
     padding-top: 10%; /* Location of the box */
@@ -357,7 +357,7 @@ body {
     background-color: rgba(0, 0, 0, 0); /* Black w/ opacity */
 }
 
-.signUpDialogContent {
+.signUpDialogContent, .loginDialogContent, .gSignUpDialogContent {
     background-color: #142e51;
     margin: auto;
     padding: 20px;
@@ -381,19 +381,9 @@ body {
     cursor: pointer;
 }
 
-#email {
+#signUpEmail, #loginEmail, #loginPassword {
     position: relative;
-    font-family: 'Arial', 'sans-serif';
-    font-size: 16px;
-    width: 100%;
-    max-width: 294px;
-}
-
-#signUpEmail {
-    position: relative;
-    font-family: 'Arial', 'sans-serif';
-    font-size: 16px;
-    width: 100%;
+    width: 95%;
     max-width: 294px;
 }
 
@@ -413,15 +403,7 @@ input:focus {
     border: 1px solid #459bc8;
 }
 
-#signUpPassword {
-    position: relative;
-    font-family: 'Arial', 'sans-serif';
-    font-size: 16px;
-    width: 100%;
-    max-width: 294px;
-}
-
-#signUpBtn {
+#signUpBtn, #loginBtn, #gSignUp {
     -webkit-border-radius: 20px;
     -moz-border-radius: 20px;
     border-radius: 15px;
@@ -445,6 +427,27 @@ p {
     color: white;
 }
 
-#firstName, #lastName {
+#firstName, #lastName, #signUpPassword, #signUpPasswordRepeat, #gPassword, #gPasswordRepeat {
     width: 45%;
+}
+
+#courses {
+    width: 100%;
+}
+
+#signInLink {
+    color: #5163ba;
+    text-align: center;
+}
+
+hr {
+    border: 0;
+    height: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.select2-selection__rendered, .select2-results__options {
+    font-family: Nunito, sans-serif;
+    font-size: 14px;
 }

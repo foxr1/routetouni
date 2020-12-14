@@ -16,7 +16,6 @@
         <img src="static/images/back.svg" id="back" onclick="backPress()" alt="Back button"/>
         <span id="signUp" onmouseover="bubbleHover('#signUp')" onmouseout="bubbleLeave('#signUp')" onclick="pageTransition('#homeLayout', 'register')">Sign Up</span>
 
-
         <div id="universityHeading">
             <img src="static/images/newcasltelogo.png" id="newcastleLogo" alt="Newcastle University logo"/>
             <h1 id="newcastleText">Newcastle</h1>
@@ -46,19 +45,21 @@
             <span class="bubble7Text">Societies</span></span></span>
         <span id="bubble8" onclick="bubbleClick('bubble8', '#revisionImg')" onmouseover="bubbleHover('#bubble8')" onmouseout="bubbleLeave('#bubble8')">
             <img id="revisionImg" src="../static/images/bubbles/revision.png" alt="Revision"/>
-            <span class="bubble8Text">Revision</span></span></span>
+            <span class="bubble8Text">News & Revision</span></span></span>
     </div>
 
     <script src="static/js/animations.js"></script>
-    <script src="static/js/fireworks.js"></script>
+    <<script src="static/js/fireworks.js"></script>>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
     <!-- Initialize Firebase -->
     <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-database.js"></script>
     <script src="static/js/init.js"></script>
-    <script src="static/js/login.js"></script>
+    <script src="../static/js/auth.js"></script>
 
     <script src="https://apis.google.com/js/platform.js" async defer></script>
 </body>

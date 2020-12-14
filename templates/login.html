@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - RouteToUni</title>
+    <script src="static/js/node_modules/animejs/lib/anime.min.js"></script>
+    <link rel="stylesheet" href="../static/css/styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+</head>
+<body>
+    <div id="loginDialog" class="loginDialog">
+        <div class="loginDialogContent">
+            <h3>Login</h3>
+            <label for="loginEmail"></label><input type="email" name="email" id="loginEmail" placeholder="Email" style="font-family: Nunito"><br><br>
+
+            <label for="loginPassword"></label><input type="password" name="password" id="loginPassword" placeholder="Password" style="font-family: Nunito"><br><br>
+
+            <button onclick="login(document.getElementById('loginEmail').value, document.getElementById('loginPassword').value)" id="loginBtn" style="font-family: Nunito">Login</button>
+        </div>
+    </div>
+
+    <script>
+        // Login on enter press when password field is highlighted.
+        var input = document.getElementById("loginPassword");
+        input.addEventListener("keyup", function(event) {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                document.getElementById("loginBtn").click();
+            }
+        });
+    </script>
+
+    <!-- Initialize Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-database.js"></script>
+    <script src="static/js/init.js"></script>
+
+    <script src="static/js/auth.js"></script>
+</body>
+</html>

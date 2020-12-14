@@ -15,6 +15,16 @@ def register():
     return render_template("register.html")
 
 
+@app.route('/gregister')
+def gregister():
+    return render_template("google_login.html")
+
+
+@app.route('/login')
+def login():
+    return render_template("login.html")
+
+
 @app.route('/favicon.ico')
 def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'),
