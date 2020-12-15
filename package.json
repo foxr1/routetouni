@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "reconnecting-websocket": "^4.4.0",
+    "socket.io": "^3.0.4"
+  }
+}
