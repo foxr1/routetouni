@@ -93,9 +93,8 @@
         }
 
         firebase.auth().getRedirectResult().then(function(result) {
-            // The signed-in user info.
             var user = result.user;
-            if (user.isNewUser) {
+            if (result.additionalUserInfo.isNewUser) {
                 sessionStorage.setItem('name', user.displayName);
                 sessionStorage.setItem('email', user.email);
                 sessionStorage.setItem('uid', user.uid);
