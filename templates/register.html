@@ -46,10 +46,16 @@
                 <option value="environmental">School of Natural and Environmental Sciences</option>
             </select><br><br>
 
-            <button onclick="signUp(document.getElementById('firstName').value, document.getElementById('lastName').value, document.getElementById('courses').options[document.getElementById('courses').selectedIndex].text, document.getElementById('signUpEmail').value, document.getElementById('signUpPassword').value)" id="signUpBtn" style="font-family: Nunito">Sign Up</button>
-            <hr><div id="g-signin" class="g-signin2" data-onsuccess="onSignIn" style></div>
+            <select name="roles" id="roles">
+                <option value="blank">Select your role</option>
+                <option value="student">Student</option>
+                <option value="mentor">Peer Mentor</option>
+            </select><br><br>
 
-            <hr><a href="{{ url_for('login') }}" id="signInLink" style="font-family: Nunito">Already have an account? Sign in here</a>
+            <button onclick="signUp(document.getElementById('firstName').value, document.getElementById('lastName').value, document.getElementById('courses').options[document.getElementById('courses').selectedIndex].text, document.getElementById('roles').options[document.getElementById('roles').selectedIndex].text, document.getElementById('signUpEmail').value, document.getElementById('signUpPassword').value)" id="signUpBtn" style="font-family: Nunito">Sign Up</button>
+            <br><br><button onclick="handleAuthClick()" id="googleSignIn" style="font-family: Nunito">Sign in with Google</button>
+
+            <br><br><div style="text-align: center"><a href="{{ url_for('login') }}" id="signInLink" style="font-family: Nunito">Already have an account? Sign in here</a></div>
         </div>
     </div>
 
@@ -58,6 +64,7 @@
         // Change the select box to 'select2' library.
         $(document).ready(function() {
             $('#courses').select2();
+            $('#roles').select2();
         });
 
         // Animate sign up box to slide from right hand side.
@@ -68,46 +75,6 @@
         });
     </script>
 
-    <script>
-    function onSuccess(googleUser) {
-        var profile = googleUser.getBasicProfile();
-        var email = profile.getEmail();
-
-        firebase.database().ref('users').once('value', function(snapshot) {
-            var exists = false;
-            snapshot.forEach(function(childSnapshot) {
-                if (email === childSnapshot.val().email){
-                    exists = true;
-                }
-            });
-            sessionStorage.setItem("firstname", profile.getGivenName());
-            sessionStorage.setItem("lastname", profile.getFamilyName());
-            sessionStorage.setItem("email", googleUser.getBasicProfile().getEmail());
-            if (exists === true) {
-                window.open('/', "_self");
-            } else {
-                window.open('/gregister', "_self");
-            }
-        });
-    }
-
-    function onFailure(error) {
-        console.log(error);
-    }
-
-    // Change appearance of google sign in button.
-    function renderButton() {
-        gapi.signin2.render('g-signin', {
-            'scope': 'profile email',
-            'width': 300,
-            'height': 50,
-            'longtitle': true,
-            'onsuccess': onSuccess,
-            'onfailure': onFailure
-        });
-    }
-    </script>
-
     <!-- Initialize Firebase -->
     <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-firestore.js"></script>
@@ -115,8 +82,37 @@
     <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-analytics.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-database.js"></script>
     <script src="static/js/init.js"></script>
-
     <script src="static/js/auth.js"></script>
-    <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+
+    <script>
+        function handleAuthClick() {
+            var provider = new firebase.auth.GoogleAuthProvider();
+            provider.addScope('profile');
+            provider.addScope('email');
+            firebase.auth().signInWithRedirect(provider);
+        }
+
+        firebase.auth().getRedirectResult().then(function(result) {
+            // The signed-in user info.
+            var user = result.user;
+            if (user.isNewUser) {
+                sessionStorage.setItem('name', user.displayName);
+                sessionStorage.setItem('email', user.email);
+                sessionStorage.setItem('uid', user.uid);
+                window.open('/gregister', "_self");
+            } else {
+                window.open('/', "_self");
+            }
+        }).catch(function(error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // The email of the user's account used.
+            var email = error.email;
+            // The firebase.auth.AuthCredential type that was used.
+            var credential = error.credential;
+            // ...
+        });
+    </script>
 </body>
 </html>
