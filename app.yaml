@@ -1,0 +1,19 @@
+#app.yaml
+runtime: python37
+entrypoint: gunicorn -k geventwebsocket.gunicorn.workers.GeventWebSocketWorker -w 1 main:app
+#service: chattest
+
+network:
+  session_affinity: true
+
+# Update with Redis instance details
+env_variables:
+  REDISHOST: '10.9.167.235'
+  REDISPORT: '6379'
+
+# Update with Serverless VPC Access connector details
+vpc_access_connector:
+  name: projects/extreme-lattice-298010/locations/europe-west2/connectors/redis-vpc-connector
+
+
+
