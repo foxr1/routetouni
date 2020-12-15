@@ -1,0 +1,453 @@
+@font-face {
+    font-family: 'GilroyBold';
+    src: url('../fonts/gilroy/gilroy-bold/Gilroy-Bold.eot');
+    src: url('../fonts/gilroy/gilroy-bold/Gilroy-Bold.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/gilroy/gilroy-bold/Gilroy-Bold.woff2') format('woff2'),
+    url('../fonts/gilroy/gilroy-bold/Gilroy-Bold.woff') format('woff'),
+    url('../fonts/gilroy/gilroy-bold/Gilroy-Bold.ttf') format('truetype'),
+    url('../fonts/gilroy/gilroy-bold/Gilroy-Bold.svg#Gilroy-Bold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'GilroyMedium';
+    src: url('../fonts/gilroy/gilroy-medium/Gilroy-Medium.eot');
+    src: url('../fonts/gilroy/gilroy-medium/Gilroy-Medium.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/gilroy/gilroy-medium/Gilroy-Medium.woff2') format('woff2'),
+    url('../fonts/gilroy/gilroy-medium/Gilroy-Medium.woff') format('woff'),
+    url('../fonts/gilroy/gilroy-medium/Gilroy-Medium.ttf') format('truetype'),
+    url('../fonts/gilroy/gilroy-medium/Gilroy-Medium.svg#Gilroy-Medium') format('svg');
+    font-weight: 500;
+    font-style: normal;
+}
+
+html, body {
+    background-color: #003a65;
+    position: fixed;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+}
+
+body {
+	background: linear-gradient(-45deg, #003a65, #103f67, #113448, #0d0c4e);
+	background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+@keyframes    firework-animation {
+    0% {background-color : #ff8426;}
+    25% {background-color : #fffc84;}
+    50% {background-color : #ff83f4;}
+    75% {background-color : #83b6ff;}
+    100% {background-color : #ff8426;}
+}
+@-webkit-keyframes firework-animation {
+    0% {background-color : #ff8426;}
+    25% {background-color : #fffc84;}
+    50% {background-color : #ff83f4;}
+    75% {background-color : #83b6ff;}
+    100% {background-color : #ff8426;}
+}
+.fireWorkParticle {
+    z-index : 0;
+    position: absolute;
+    height : 5px;
+    width : 5px;
+    border-radius : 5px;
+    animation-name : firework-animation;
+    animation-timing-function : linear;
+    animation-duration : 1s;
+    animation-iteration-count : infinite;
+}
+
+#homeLayout {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    text-align: center;
+    --x: 0px;
+    --y: 0px;
+    /*transform-style: preserve-3d;*/
+}
+
+#newcastleLogo {
+    height: 5vw;
+    width: 4vw;
+    position: absolute;
+    text-align: center;
+    top: 52%;
+    left: 50%;
+    transform: translate(-160%, -42%);
+    -webkit-filter: drop-shadow(0 0 2px #1f1f1f);
+    filter: drop-shadow(0 0 2px #1f1f1f);
+}
+
+#universityHeading {
+    position: absolute;
+    text-align: center;
+    top: 48%;
+    left: 47%;
+    transform: translate(-50%, -50%);
+}
+
+#newcastleText {
+    text-align: center;
+    font-size: 2.6vw;
+    font-family: 'GilroyBold', 'sans-serif';
+    line-height: 0.8em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-15%, -190%);
+    color: white;
+    text-shadow: 0 0 5px #000000;
+}
+
+#universityText {
+    text-align: center;
+    font-size: 2.8vw;
+    font-family: 'GilroyMedium', 'sans-serif';
+    font-weight: lighter;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-15%, -60%);
+    color: white;
+    text-shadow: 0 0 5px #000000;
+}
+
+#back {
+    height: 80px;
+    width: 80px;
+    fill: white;
+    top: 2%;
+    left: -100px;
+    position: absolute;
+    cursor: pointer;
+    z-index: 3;
+}
+
+#signUp {
+    font-family: 'GilroyBold', 'sans-serif';
+    color: white;
+    border-radius: 25px;
+    background: #8a1425;
+    padding: 15px;
+    top: 3%;
+    right: 3%;
+    position: absolute;
+    z-index: 0;
+}
+
+#bubble1 {
+    height: 14vh;
+    width: 14vh;
+    background-color: #d91a35;
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    top: 20%;
+    left: 30%;
+    box-shadow: 0 0 5px #8a1425;
+    z-index: 0;
+}
+
+#chatImg {
+    height: 9vh;
+    margin-top: 21%;
+    z-index: 1;
+}
+
+.bubble1Text, .bubble2Text, .bubble3Text, .bubble4Text, .bubble5Text, .bubble6Text, .bubble7Text, .bubble8Text {
+    font-family: 'GilroyMedium', 'sans-serif';
+    font-weight: lighter;
+    visibility: hidden;
+    width: 120px;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -60px;
+
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+#bubble1:hover .bubble1Text, #bubble2:hover .bubble2Text,
+#bubble3:hover .bubble3Text ,#bubble4:hover .bubble4Text,
+#bubble5:hover .bubble5Text, #bubble6:hover .bubble6Text,
+#bubble7:hover .bubble7Text, #bubble8:hover .bubble8Text {
+    visibility: visible;
+    opacity: 1;
+}
+
+#bubble2 {
+    height: 14vh;
+    width: 14vh;
+    background-color: #d91a35;
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    left: 46%;
+    top: 10%;
+    box-shadow: 0 0 5px #8a1425;
+    z-index: 0;
+}
+
+#helpImg {
+    height: 9.5vh;
+    margin-top: 15%;
+    z-index: 1;
+}
+
+#bubble3 {
+    height: 14vh;
+    width: 14vh;
+    background-color: #d91a35;
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    top: 20%;
+    right: 30%;
+    box-shadow: 0 0 5px #8a1425;
+    z-index: 0;
+}
+
+#drinksImg {
+    height: 9.5vh;
+    margin-top: 15%;
+    margin-left: 10%;
+    z-index: 1;
+}
+
+#bubble4 {
+    height: 14vh;
+    width: 14vh;
+    background-color: #d91a35;
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    bottom: 44%;
+    right: 22%;
+    box-shadow: 0 0 5px #8a1425;
+    z-index: 0;
+}
+
+#locationImg {
+    height: 10vh;
+    margin-top: 15%;
+    z-index: 1;
+}
+
+#bubble5 {
+    height: 14vh;
+    width: 14vh;
+    background-color: #d91a35;
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    bottom: 44%;
+    left: 22%;
+    box-shadow: 0 0 5px #8a1425;
+    z-index: 0;
+}
+
+#accommodationImg {
+    height: 9vh;
+    margin-top: 15%;
+    z-index: 1;
+}
+
+#bubble6 {
+    height: 14vh;
+    width: 14vh;
+    background-color: #d91a35;
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    bottom: 20%;
+    right: 30%;
+    box-shadow: 0 0 5px #8a1425;
+    z-index: 0;
+}
+
+#healthImg {
+    height: 9vh;
+    margin-top: 15%;
+    z-index: 1;
+}
+
+#bubble7 {
+    height: 14vh;
+    width: 14vh;
+    background-color: #d91a35;
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    left: 46%;
+    bottom: 10%;
+    box-shadow: 0 0 5px #8a1425;
+    z-index: 0;
+}
+
+#contactsImg {
+    height: 6.5vh;
+    margin-top: 23%;
+    z-index: 1;
+}
+
+#bubble8 {
+    height: 14vh;
+    width: 14vh;
+    background-color: #d91a35;
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    bottom: 20%;
+    left: 30%;
+    box-shadow: 0 0 5px #8a1425;
+    z-index: 0;
+}
+
+#revisionImg {
+    height: 9vh;
+    margin-top: 17%;
+    z-index: 1;
+}
+
+/*Register Page*/
+.signUpDialog, .loginDialog, .gSignUpDialog {
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 10%; /* Location of the box */
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    max-height: 100%;
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0, 0, 0, 0); /* Black w/ opacity */
+}
+
+.signUpDialogContent, .loginDialogContent, .gSignUpDialogContent {
+    background-color: #142e51;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #081730;
+    width: 300px;
+    border-radius: 5px;
+    box-shadow: 0 0 30px 1px #2b2c51;
+}
+
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#signUpEmail, #loginEmail, #loginPassword {
+    position: relative;
+    width: 95%;
+    max-width: 294px;
+}
+
+input{
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 15px;
+    border: 1px solid #071822;
+    color: #000000;
+    height: 30px;
+    padding-left: 10px;
+    font-family: Nunito, serif;
+}
+
+input:focus {
+    outline: none;
+    border: 1px solid #459bc8;
+}
+
+#signUpBtn, #loginBtn, #gSignUp {
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 15px;
+    background-color: cornflowerblue;
+    border: 1px solid #459bc8;
+    color: white;
+    width: 100%;
+    padding: 5px;
+    text-align: center;
+}
+
+h3 {
+    font-family: 'GilroyBold', 'sans-serif';
+    color: white;
+    text-align: center;
+}
+
+p {
+    font-family: 'GilroyMedium', 'sans-serif';
+    font-weight: lighter;
+    color: white;
+}
+
+#firstName, #lastName, #signUpPassword, #signUpPasswordRepeat, #gPassword, #gPasswordRepeat {
+    width: 45%;
+}
+
+#courses {
+    width: 100%;
+}
+
+#signInLink {
+    color: #5163ba;
+    text-align: center;
+}
+
+hr {
+    border: 0;
+    height: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.select2-selection__rendered, .select2-results__options {
+    font-family: Nunito, sans-serif;
+    font-size: 14px;
+}

@@ -1,6 +1,12 @@
 {
+  "name": "routetouni",
+  "version": "1.0.0",
   "dependencies": {
-    "reconnecting-websocket": "^4.4.0",
-    "socket.io": "^3.0.4"
+    "firebase-admin": "^9.4.2",
+    "jquery": "^3.5.1",
+    "tilt.js": "^1.2.1"
+  },
+  "devDependencies": {
+    "animejs": "^3.2.1"
   }
 }
