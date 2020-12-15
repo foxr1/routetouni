@@ -1,6 +1,9 @@
 import os
 
 from flask import Flask, render_template, send_from_directory
+
+from news_and_revision import web_scraper, revision
+
 import firebase_admin
 from firebase_admin import db
 
@@ -40,6 +43,8 @@ def favicon():
 
 @app.route('/news_feed')
 def news_feed():
+    news_list = web_scraper.main()
+    revision_list = revision.main()
     return render_template("news_feed.html")
 
 

@@ -7,7 +7,8 @@ import io
 def main():
     news_url = "https://www.ncl.ac.uk/press/latest/"
     news_file = "news_data.txt"
-    scrape_data(news_url, news_file)
+    news_list = scrape_data(news_url, news_file)
+    return news_list
 
 
 def read_news(news_file, url_list):
@@ -15,7 +16,8 @@ def read_news(news_file, url_list):
     with io.open(news_file, "r", encoding="utf-8") as f:
         for line in f:
             text_as_list.append(line)
-    organise(text_as_list, url_list)
+    news_list = organise(text_as_list, url_list)
+    return news_list
 
 
 def scrape_data(url, news_file):
@@ -45,7 +47,8 @@ def scrape_data(url, news_file):
 
     with io.open(news_file, "w", encoding="utf-8") as f:
         f.write(text)
-    read_news(news_file, correct_url_list)
+    news_list = read_news(news_file, correct_url_list)
+    return news_list
 
 
 def organise(text_as_list, url_list):
@@ -73,6 +76,3 @@ def organise(text_as_list, url_list):
 
     news_list = list3
     return news_list
-
-
-
