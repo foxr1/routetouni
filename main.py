@@ -2,7 +2,7 @@ import os
 import uuid
 import datetime
 import redis
-from flask import Flask, render_template, session, redirect, url_for, request, send_from_directory
+from flask import Flask, render_template, session, redirect, url_for, request, send_from_directory, Blueprint
 from flask_socketio import emit, join_room, leave_room, SocketIO
 
 # Connect to redis on Docker
@@ -20,6 +20,8 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
 
 socketio = SocketIO(app, async_mode=async_mode, logger=True, engineio_logger=True)
+
+main = Blueprint('main', __name__)
 
 
 @app.route('/')
@@ -109,7 +111,6 @@ def chat():
 @socketio.on('joined', namespace='/chat')
 def joined(message):
     room = session.get('room')
-    
 
     join_room(room)
     emit('status', {'msg': session.get('name') + ' has entered the room', "id": 'chat-' + str(room)},
