@@ -4,7 +4,6 @@ import io
 def main():
     data_file = "revision_data.txt"
     revision_list = parse_file(data_file)
-    return revision_list
 
 
 def parse_file(data_file):
@@ -39,4 +38,5 @@ def parse_file(data_file):
                 text_as_list[revision_software_marker + 1:library_marker - 1]]
     library = [text_as_list[library_marker + 1:library_software_marker - 1], text_as_list[library_software_marker + 1:]]
     revision_list = [notetaking, referencing, revision, library]
-    return revision_list
+    print(revision_list)
+

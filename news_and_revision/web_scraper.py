@@ -2,13 +2,14 @@ import re
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 import io
+import pprint
 
 
 def main():
     news_url = "https://www.ncl.ac.uk/press/latest/"
     news_file = "news_data.txt"
     news_list = scrape_data(news_url, news_file)
-    return news_list
+    print(news_list)
 
 
 def read_news(news_file, url_list):
@@ -56,10 +57,8 @@ def organise(text_as_list, url_list):
         if text_as_list[i] == "Latest News\n":
             text_as_list = text_as_list[i + 1:i + 301]
             break
-    print(text_as_list)
     correct_list = []
     new_list = []
-    print(len(text_as_list))
     y = 0
     for x in range(300):
         new_list.append(text_as_list[x])
@@ -75,4 +74,18 @@ def organise(text_as_list, url_list):
         list3.append(list2)
 
     news_list = list3
-    return news_list
+    print(news_list,"\n")
+    create_dictionary(news_list)
+
+
+def create_dictionary(news_list):
+    dictionary = {}
+    for i in range(len(news_list)):
+        a_list = news_list[i]
+        title = {a_list[0]: {"Description": a_list[1], "Date": a_list[2], "URL": a_list[3]}}
+        dictionary.update(title)
+    print(dictionary)
+
+
+if __name__ == "__main__":
+    main()
