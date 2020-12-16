@@ -7,14 +7,16 @@ function login(email, password) {
     });
 }
 
-function signUp(firstname, lastname, course, email, password) {
+function signUp(firstname, lastname, course, role, email, password) {
     firebase.auth().createUserWithEmailAndPassword(email, password)
         .then((user) => {
             firebase.database().ref('users/' + firebase.auth().currentUser.uid).set({
                 firstname: firstname,
                 lastname: lastname,
+                email: email,
                 course: course,
-                email: email
+                role: role,
+                uid: firebase.auth().currentUser.uid
             }, (error) => {
                 if (error) {
                     console.log(error);
@@ -22,7 +24,6 @@ function signUp(firstname, lastname, course, email, password) {
                     window.open("/", "_self");
                 }
             });
-
         })
         .catch((error) => {
             var errorCode = error.code;
@@ -35,7 +36,8 @@ function logout() {
     // First logout of Google.
     gapi.load('auth2', function() {
         gapi.auth2.init({
-            client_id: "1081173404847-ddjfjkqhfj79u9qiv7lrsajibo3vtgqc.apps.googleusercontent.com",
+            apiKey: "AIzaSyCl6CgDwOVVxdvQou38U-v71tZHoH9Fx-k",
+            client_id: "1081173404847-ddjfjkqhfj79u9qiv7lrsajibo3vtgqc.apps.googleusercontent.com"
         }).then(function(auth2) {
             auth2.signOut().then(function () {
                 console.log('User signed out.');

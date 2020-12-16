@@ -71,21 +71,19 @@
     <script>
         // Check if a user is logged in.
         var signUpBtn = document.getElementById("signUp");
+        var loggedIn = false;
 
         firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
                 signUpBtn.textContent = "Logout";
+                loggedIn = true;
             } else {
-                // No user is signed in.
+                loggedIn = false;
             }
         });
 
-        if (sessionStorage.getItem('email') != null) {
-            signUpBtn.textContent = "Logout";
-        }
-
         function checkLogin() {
-            if (signUpBtn.textContent === "Logout") {
+            if (loggedIn) {
                 logout();
             } else {
                 pageTransition('#homeLayout', 'register');

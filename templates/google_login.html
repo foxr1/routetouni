@@ -14,7 +14,6 @@
     <div id="gSignUpDialog" class="gSignUpDialog">
         <div class="gSignUpDialogContent">
             <h3>Sign Up</h3>
-            <label for="gPassword"></label><input type="password" name="password" id="gPassword" placeholder="Password" style="font-family: Nunito"><label for="gPassword"></label><input type="password" name="password" id="gPasswordRepeat" placeholder="Repeat Password" style="font-family: Nunito"><br><br>
 
             <select name="courses" id="courses">
                 <option value="blank">Select your school</option>
@@ -40,7 +39,13 @@
                 <option value="environmental">School of Natural and Environmental Sciences</option>
             </select><br><br>
 
-            <button onclick="signUp(sessionStorage.getItem('firstname'), sessionStorage.getItem('lastname'), document.getElementById('courses').options[document.getElementById('courses').selectedIndex].text, sessionStorage.getItem('email'), document.getElementById('gPassword').value)" id="gSignUp" style="font-family: Nunito">Sign Up</button>
+            <select name="roles" id="roles">
+                <option value="blank">Select your role</option>
+                <option value="student">Student</option>
+                <option value="mentor">Peer Mentor</option>
+            </select><br><br>
+
+            <button onclick="createAccount()" id="gSignUp" style="font-family: Nunito">Sign Up</button>
         </div>
     </div>
 
@@ -48,7 +53,24 @@
         // Change the select box to 'select2' library.
         $(document).ready(function() {
             $('#courses').select2();
+            $('#roles').select2();
         });
+
+        function createAccount() {
+            firebase.database().ref('users/' + sessionStorage.getItem('uid')).set({
+                name: sessionStorage.getItem('name'),
+                email: sessionStorage.getItem('email'),
+                course: document.getElementById('courses').options[document.getElementById('courses').selectedIndex].text,
+                role: document.getElementById('roles').options[document.getElementById('roles').selectedIndex].text,
+                uid: sessionStorage.getItem('uid')
+            }, (error) => {
+                if (error) {
+                    console.log(error);
+                } else {
+                    window.open("/", "_self");
+                }
+            });
+        }
     </script>
 
     <!-- Initialize Firebase -->
