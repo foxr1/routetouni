@@ -29,11 +29,6 @@ def index():
     return render_template("index.html")
 
 
-@app.route('/register')
-def register():
-    return render_template("register.html")
-
-
 @app.route('/gregister')
 def gregister():
     return render_template("google_login.html")
