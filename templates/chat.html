@@ -33,7 +33,7 @@
 				}
 	           $(document).ready(function(){
 					var local_user = $('#my-data').data();
-	               socket = io.connect('wss://' + location.host  + '/chat', {secure:true});
+	               socket = io.connect('ws://' + location.host  + '/chat', {secure:true});
 	               socket.on('connect', function() {
 	                   socket.emit('joined', {'name':local_user.name});
 	               });
@@ -171,7 +171,7 @@
 
                 <div class="col-xs-1 justify-content-center">
 						<div class="input-group" style="width: 70%">
-							<input class="shadow-sm form-control form-control-lg" id="{{ room_id }}-text" placeholder="Enter message...." type="text">
+							<input class="shadow-sm form-control form-control-lg" id="text" placeholder="Enter message...." type="text">
 							<div class="input-group-append">
 								<button class="btn btn-primary" onclick="send_message()" type="button"><i class="fa fa-send-o"></i></button>
 							</div>

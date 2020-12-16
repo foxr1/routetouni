@@ -110,7 +110,7 @@ def chat():
 def joined(message):
     room = session.get('room')
     
-    join_room(20)
+
     join_room(room)
     emit('status', {'msg': session.get('name') + ' has entered the room', "id": 'chat-' + str(room)},
          room=room, prev_msg=get_messages(room, 0, 20))
