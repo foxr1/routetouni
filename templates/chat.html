@@ -4,17 +4,17 @@
 	<meta charset="utf-8">
 	<meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport">
 	<title>Chatting place {{ room }}</title>
-	<link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<link href="static/fonts/font-awesome.min.css" rel="stylesheet">
-	<link href="static/css/Bootstrap-Chat.css" rel="stylesheet">
-	<link href="static/css/styles.css" rel="stylesheet">
+	<link href="static/secondstat/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="static/secondstat/fonts/font-awesome.min.css" rel="stylesheet">
+	<link href="static/secondstat/css/Bootstrap-Chat.css" rel="stylesheet">
+	<link href="static/secondstat/css/styles.css" rel="stylesheet">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
 	</script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js" type="text/javascript">
 	</script>
 	<style>
 
-	#chat {
+	#message-area {
 	       height: 25rem;
 	   overflow-y: scroll;
 	   overflow-x: hidden;
@@ -39,13 +39,14 @@
 	               });
 
 	               socket.on('status', function(data) {
-	                   $('#chat').val($('#chat').val()  + data.msg );
-	                   $('#chat').scrollTop($('#chat')[0].scrollHeight);
+	                   var chat_id = data.id
+	                   $('#'+chat_id).val($('#'+chat_id).val()  + data.msg );
+	                   $('#'+chat_id).scrollTop($('#'+chat_id)[0].scrollHeight);
 	               });
 
 	               socket.on('internal_msg', function(data) {
 
-
+                    var scroll = $('#message-area');
 	               	if (data.name === local_user.name){
 
 
@@ -62,7 +63,8 @@
 	                       '                        <\/div>\n' +
 	                       '                    <\/div>')
 	                   // $('#chat').val($('#chat').val() + data.msg + '\n');
-	                   $(data.id).scrollTop($(data.id)[0].scrollHeight);
+                        scroll.scrollTop(scroll.prop("scrollHeight"));
+
 						}else {
 
 						$(data.id).append('\t\t<div class="media w-50 mb-3">\n' +
@@ -75,8 +77,8 @@
 							   '\t\t\t</div>\n' +
 							   '\t\t</div>')
 	                   // $('#chat').val($('#chat').val() + data.msg + '\n');
-	                   $(data.id).scrollTop($(data.id)[0].scrollHeight);
-
+	                   {#$(data.id).scrollTop($(data.id)[0].scrollHeight);#}
+                        scroll.scrollTop(scroll.prop("scrollHeight"));
 					}
 	               	});
 
@@ -138,7 +140,7 @@
 {% endmacro %}
 
 {% macro conv(name,time,room) %}
-		<a class="list-group-item list-group-item-action   rounded-0" id="{{room}}" data-toggle="tab" href="#{{room}}" role="tab">
+		<a class="list-group-item list-group-item-action rounded-0" id="{{room}}" data-toggle="tab" href="#tabChat-{{room}}" role="tab">
 		<div class="media">
 			<img alt="user" class="rounded-circle" src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg" width="50">
 			<div class="media-body ml-4">
@@ -150,11 +152,12 @@
 		</div></a>
 {% endmacro %}
 
-{% macro tab_cont(msg_dict,room) %}
-		<div aria-labelledby="home-tab" class="tab-pane" id="home" role="tabpanel">
-				<div class="col-md-8">
+{% macro tab_cont(msg_dict,room_id) %}
 
-					<div id="chat">
+		<div aria-labelledby="home-tab" class="tab-pane" id="tabChat-{{ room_id }}" role="tabpanel">
+				<div class="col-md-8">
+                <div class="message-area" id="message-area">
+					<div id="chat-{{ room_id }}">
 						{{ext_user('hi how are you today?','1:38:29 | Dec 14')}}
 							{% for item in msg_dict %}
 								{% if name == item['name']%}
@@ -164,8 +167,9 @@
 								{% endif %}
 						{% endfor %}
 					</div>
+                </div>
 
-					<div class="col-xs-1 justify-content-center">
+                <div class="col-xs-1 justify-content-center">
 						<div class="input-group" style="width: 70%">
 							<input class="shadow-sm form-control form-control-lg" id="text" placeholder="Enter message...." type="text">
 							<div class="input-group-append">
@@ -177,7 +181,6 @@
 			</div>
 {% endmacro %}
 
-	<figure class="figure"></figure>
 		<div class="container">
 			<div class="row">
 				<div class="col-md-4">
@@ -186,30 +189,19 @@
 							<p class="h5 mb-0 py-1">Recent</p>
 						</div>
 						<div class="messages-box">
-							<div class="list-group rounded-0" id="myTab" role="tablist">
+							<div class="list-group rounded-0 active" id="myTab" role="tablist">
 
-
-
-
-								<a class="list-group-item list-group-item-action   rounded-0" id="chat-1" data-toggle="tab" href="#home" role="tab">
-								<div class="media">
-									<img alt="user" class="rounded-circle" src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg" width="50">
-									<div class="media-body ml-4">
-										<div class="d-flex align-items-center justify-content-between mb-1">
-											<h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">25 Dec</small>
-										</div>
-										<p class="font-italic mb-0 text-small">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
-									</div>
-								</div></a>
-
+                                {{ conv(name,'14/232/3333',room) }}
 
 							</div>
 						</div>
 					</div>
 				</div>
 
-                	<div class="tab-content col-md-8">
-						{{tab_cont(prev_msg)}}
+                <div class="tab-content col-md-8">
+						{{tab_cont(prev_msg, room)}}
+
+
 
 
 			<div aria-labelledby="profile-tab" class="tab-pane" id="id" role="tabpanel">
@@ -231,6 +223,7 @@
 						</div>
 									  </form>
 
+
 				 <a href="#" onclick="leave_room();">Leave this room</a>
 
 				</div>
@@ -247,7 +240,7 @@
 		})
 
 		</script>
-		<script src="static/bootstrap/js/bootstrap.min.js">
+		<script src="static/secondstat/bootstrap/js/bootstrap.min.js">
 		</script>
 
 </body>

@@ -157,6 +157,7 @@ body {
     right: 3%;
     position: absolute;
     z-index: 0;
+    cursor: pointer;
 }
 
 #bubble1 {
@@ -415,6 +416,18 @@ input:focus {
     text-align: center;
 }
 
+#googleSignIn {
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 15px;
+    background-color: #963434;
+    border: 1px solid #662828;
+    color: white;
+    width: 100%;
+    padding: 5px;
+    text-align: center;
+}
+
 h3 {
     font-family: 'GilroyBold', 'sans-serif';
     color: white;
@@ -431,7 +444,7 @@ p {
     width: 45%;
 }
 
-#courses {
+#courses, #roles {
     width: 100%;
 }
 
