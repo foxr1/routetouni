@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Login - RouteToUni</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
     <script src="static/js/node_modules/animejs/lib/anime.min.js"></script>
     <link rel="stylesheet" href="../static/css/styles.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
@@ -16,10 +19,68 @@
             <label for="loginPassword"></label><input type="password" name="password" id="loginPassword" placeholder="Password" style="font-family: Nunito"><br><br>
 
             <button onclick="login(document.getElementById('loginEmail').value, document.getElementById('loginPassword').value)" id="loginBtn" style="font-family: Nunito">Login</button>
+
+            <br><br><button onclick="handleAuthClick()" id="googleSignIn" style="font-family: Nunito">Sign in with Google</button>
+
+            <br><br><div style="text-align: center"><a onclick="getSignUp()" id="registerLink" style="font-family: Nunito">Don't have an account? Register here</a></div>
+        </div>
+    </div>
+
+    <div id="signUpDialog" class="signUpDialog">
+        <div class="signUpDialogContent">
+            <h3>Sign Up</h3>
+
+            <label for="firstName"></label><input type="text" name="name" id="firstName" placeholder="First Name" style="font-family: Nunito"><label for="lastName"></label><input type="text" name="name" id="lastName" placeholder="Surname" style="font-family: Nunito"><br><br>
+
+            <label for="signUpEmail"></label><input type="email" name="email" id="signUpEmail" placeholder="Email" style="font-family: Nunito"><br><br>
+
+            <label for="signUpPassword"></label><input type="password" name="password" id="signUpPassword" placeholder="Password" style="font-family: Nunito"><label for="signUpPassword"></label><input type="password" name="password" id="signUpPasswordRepeat" placeholder="Repeat Password" style="font-family: Nunito"><br><br>
+
+            <select name="courses" id="courses">
+                <option value="blank">Select your school</option>
+                <option value="architecture">School of Architecture, Planning and Landscape</option>
+                <option value="artsAndCulture">School of Arts and Cultures</option>
+                <option value="business">Business School</option>
+                <option value="honoursCentre">Combined Honours Centre</option>
+                <option value="educationCommunication">School of Education, Communication and Language Sciences</option>
+                <option value="english">School of English Literature, Language and Linguistics</option>
+                <option value="geography">School of Geography, Politics and Sociology</option>
+                <option value="history">School of History, Classics and Archaeology</option>
+                <option value="law">Newcastle Law School</option>
+                <option value="modernLang">School of Modern Languages</option>
+                <option value="philosophical">Philosophical Studies</option>
+                <option value="biomed">School of Biomedical, Nutritional and Sport Sciences</option>
+                <option value="dental">School of Dental Sciences</option>
+                <option value="medical">School of Medical Education</option>
+                <option value="pharmacy">School of Pharmacy</option>
+                <option value="psychology">School of Psychology</option>
+                <option value="computing">School of Computing</option>
+                <option value="engineering">School of Engineering</option>
+                <option value="mathematics">School of Mathematics, Statistics and Physics</option>
+                <option value="environmental">School of Natural and Environmental Sciences</option>
+            </select><br><br>
+
+            <select name="roles" id="roles">
+                <option value="blank">Select your role</option>
+                <option value="student">Student</option>
+                <option value="mentor">Peer Mentor</option>
+            </select><br><br>
+
+            <button onclick="signUp(document.getElementById('firstName').value, document.getElementById('lastName').value, document.getElementById('courses').options[document.getElementById('courses').selectedIndex].text, document.getElementById('roles').options[document.getElementById('roles').selectedIndex].text, document.getElementById('signUpEmail').value, document.getElementById('signUpPassword').value)" id="signUpBtn" style="font-family: Nunito">Sign Up</button>
+            <br><br><button onclick="handleAuthClick()" id="googleSignIn" style="font-family: Nunito">Sign in with Google</button>
+
+            <br><br><div style="text-align: center"><a onclick="getLogin()" id="registerLink" style="font-family: Nunito">Already have an account? Sign in here</a></div>
         </div>
     </div>
 
     <script>
+        // Animate sign up box to slide from right hand side.
+        let page2Transition = anime({
+            targets: '#loginDialog',
+            translateX: [1500, 0], duration: 750,
+            easing: 'easeInOutQuad'
+        });
+
         // Login on enter press when password field is highlighted.
         var input = document.getElementById("loginPassword");
         input.addEventListener("keyup", function(event) {
@@ -28,6 +89,34 @@
                 document.getElementById("loginBtn").click();
             }
         });
+
+        function getSignUp() {
+            let loginAnim = anime({
+                targets: '#loginDialog',
+                translateX: [0, 1500], duration: 750,
+                easing: 'easeInOutQuad'
+            });
+
+            let signUpAnim = anime({
+                targets: '#signUpDialog',
+                translateX: [-1500, 0], duration: 750,
+                easing: 'easeInOutQuad'
+            });
+        }
+
+        function getLogin() {
+            let signUpAnim = anime({
+                targets: '#signUpDialog',
+                translateX: [0, -1500], duration: 750,
+                easing: 'easeInOutQuad'
+            });
+
+            let loginAnim = anime({
+                targets: '#loginDialog',
+                translateX: [1500, 0], duration: 750,
+                easing: 'easeInOutQuad'
+            });
+        }
     </script>
 
     <!-- Initialize Firebase -->
@@ -37,7 +126,42 @@
     <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-analytics.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-database.js"></script>
     <script src="static/js/init.js"></script>
-
     <script src="static/js/auth.js"></script>
+
+    <script>
+        // Change the select box to 'select2' library.
+        $(document).ready(function() {
+            $('#courses').select2();
+            $('#roles').select2();
+        });
+
+        function handleAuthClick() {
+            var provider = new firebase.auth.GoogleAuthProvider();
+            provider.addScope('profile');
+            provider.addScope('email');
+            firebase.auth().signInWithRedirect(provider);
+        }
+
+        firebase.auth().getRedirectResult().then(function(result) {
+            var user = result.user;
+            if (result.additionalUserInfo.isNewUser) {
+                sessionStorage.setItem('name', user.displayName);
+                sessionStorage.setItem('email', user.email);
+                sessionStorage.setItem('uid', user.uid);
+                window.open('/gregister', "_self");
+            } else {
+                window.open('/', "_self");
+            }
+        }).catch(function(error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // The email of the user's account used.
+            var email = error.email;
+            // The firebase.auth.AuthCredential type that was used.
+            var credential = error.credential;
+            // ...
+        });
+    </script>
 </body>
 </html>
