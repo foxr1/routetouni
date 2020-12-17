@@ -147,7 +147,7 @@ body {
     z-index: 3;
 }
 
-#signUp {
+#login {
     font-family: 'GilroyBold', 'sans-serif';
     color: white;
     border-radius: 25px;
@@ -356,6 +356,7 @@ body {
     overflow: auto; /* Enable scroll if needed */
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0, 0, 0, 0); /* Black w/ opacity */
+    transform: translateX(-1500px);
 }
 
 .signUpDialogContent, .loginDialogContent, .gSignUpDialogContent {
@@ -448,7 +449,8 @@ p {
     width: 100%;
 }
 
-#signInLink {
+#registerLink {
+    cursor: pointer;
     color: #5163ba;
     text-align: center;
 }

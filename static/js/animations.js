@@ -54,7 +54,7 @@ tl
     easing: 'spring',
 }, 1000)
 .add({
-    targets: '#signUp',
+    targets: '#login',
     scale: [0,1],
     easing: 'spring',
 }, 1100);
