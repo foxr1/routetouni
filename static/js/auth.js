@@ -46,23 +46,9 @@ function signUp(firstname, lastname, course, role, email, password) {
 
 function logout() {
     // First logout of Google.
-    gapi.load('auth2', function() {
-        gapi.auth2.init({
-            apiKey: "AIzaSyCl6CgDwOVVxdvQou38U-v71tZHoH9Fx-k",
-            client_id: "1081173404847-ddjfjkqhfj79u9qiv7lrsajibo3vtgqc.apps.googleusercontent.com"
-        }).then(function(auth2) {
-            auth2.signOut().then(function () {
-                console.log('User signed out.');
-                sessionStorage.clear();
+ fetch('/sessionLogout').then(()=> {
+        window.location.assign('/');
 
-                // Logout of Firebase.
-                firebase.auth().signOut().then(function() {
-                    window.open("/", "_self");
-                }).catch(function(error) {
-                    // An error happened.
-                });
-            });
-        });
-    });
+      })
 }
 

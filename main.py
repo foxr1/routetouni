@@ -1,16 +1,14 @@
 import os
 import uuid
 import datetime
-
 import flask
 import redis
-from firebase_admin import exceptions
 from flask import Flask, render_template, session, redirect, url_for, request, send_from_directory, Blueprint
 from flask_socketio import emit, join_room, leave_room, SocketIO
 import firebase_admin
-from firebase_admin import credentials, auth
-# from auth import auth
+from firebase_admin import credentials, auth, exceptions
 from forms import LoginForm
+from flask_login import login_required, current_user
 
 redis_host = os.environ.get('REDISHOST', 'localhost')
 redis_port = int(os.environ.get('REDISPORT', 6379))
@@ -32,11 +30,9 @@ firebase_admin.initialize_app(cred, {
 
 @app.route('/sessionLogin', methods=['GET', 'POST'])
 def session_login():
-    print('here')
-    # Get the ID token sent by the client
     id_token = request.args.get('idToken')
     # Set session expiration to 5 days.
-    expires_in = datetime.timedelta(days=5)
+    expires_in = datetime.timedelta(days=14)
     try:
         # Create the session cookie. This will also verify the ID token in the process.
         # The session cookie will have the same claims as the ID token.
@@ -51,24 +47,40 @@ def session_login():
         return flask.abort(401, 'Failed to create a session cookie')
 
 
-@app.route('/')
-def index():
+@app.route('/sessionLogout', methods=['GET','POST'])
+def session_logout():
+    print("Logging out")
+    session_cookie = flask.request.cookies.get('session')
+    try:
+        decoded_claims = auth.verify_session_cookie(session_cookie)
+        auth.revoke_refresh_tokens(decoded_claims['sub'])
+        response = flask.make_response(flask.redirect('/login'))
+        response.set_cookie('session', expires=0)
+        return response
+    except auth.InvalidSessionCookieError:
+        return flask.redirect('/login')
+
+
+def verify_token():
     session_cookie = flask.request.cookies.get('session')
     print(session_cookie)
     if not session_cookie:
-        # Session cookie is unavailable. Force user to login.
-        return flask.redirect('/login')
+        print("No Cookie")
 
-    # Verify the session cookie. In this case an additional check is added to detect
-    # if the user's Firebase session was revoked, user deleted/disabled, etc.
-    try:
-        decoded_claims = auth.verify_session_cookie(session_cookie, check_revoked=True)
-        print(decoded_claims)
-        return render_template("index.html")
-    except auth.InvalidSessionCookieError:
-        # Session cookie is invalid, expired or revoked. Force user to login.
-        return flask.redirect('/login')
+    else:
+        try:
+            decoded_claims = auth.verify_session_cookie(session_cookie, check_revoked=True)
+            print(decoded_claims)
+            return decoded_claims['uid']
 
+        except auth.InvalidSessionCookieError:
+            print("Verification Error")
+
+
+@app.route('/')
+def index():
+    user = verify_token()
+    return render_template("index.html", user=user)
 
 
 @app.route('/gregister')
@@ -93,6 +105,7 @@ def news_feed():
 
 
 @app.route('/chat_index', methods=['GET', 'POST'])
+@login_required
 def chat_index():
     uid = uuid.uuid4()
     session['uid'] = uid
