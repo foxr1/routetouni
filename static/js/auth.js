@@ -1,11 +1,23 @@
 function login(email, password) {
-    firebase.auth().signInWithEmailAndPassword(email, password)
-        .then(function() {
-            window.open("/", "_self");
-        }).catch(function(error) {
-            console.log(error);
-    });
-}
+firebase.auth().signInWithEmailAndPassword(email, password)
+// As httpOnly cookies are to be used, do not persist any state client side.
+firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
+
+
+firebase.auth().signInWithEmailAndPassword(email, password).then(user => {
+
+  return firebase.auth().currentUser.getIdToken(true).then(idToken => {
+
+    fetch('/sessionLogin?idToken=' + idToken).then(()=> {
+        return firebase.auth().signOut();
+
+      }).then(() => {
+          window.location.assign('/');
+    })
+
+  })
+
+})}
 
 function signUp(firstname, lastname, course, role, email, password) {
     firebase.auth().createUserWithEmailAndPassword(email, password)

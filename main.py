@@ -1,14 +1,15 @@
 import os
 import uuid
 import datetime
+
+import flask
 import redis
+from firebase_admin import exceptions
 from flask import Flask, render_template, session, redirect, url_for, request, send_from_directory, Blueprint
 from flask_socketio import emit, join_room, leave_room, SocketIO
-
-# Connect to redis on Docker
-# r = redis.Redis(host='localhost', port=6379, charset="utf-8", decode_responses=True)
-
-# Connect to redis on GCP
+import firebase_admin
+from firebase_admin import credentials, auth
+# from auth import auth
 from forms import LoginForm
 
 redis_host = os.environ.get('REDISHOST', 'localhost')
@@ -23,10 +24,51 @@ socketio = SocketIO(app, async_mode=async_mode, logger=True, engineio_logger=Tru
 
 main = Blueprint('main', __name__)
 
+cred = credentials.Certificate("serviceAccountKey.json")
+firebase_admin.initialize_app(cred, {
+    'databaseURL': 'https://route2uni-default-rtdb.firebaseio.com/'
+})
+
+
+@app.route('/sessionLogin', methods=['GET', 'POST'])
+def session_login():
+    print('here')
+    # Get the ID token sent by the client
+    id_token = request.args.get('idToken')
+    # Set session expiration to 5 days.
+    expires_in = datetime.timedelta(days=5)
+    try:
+        # Create the session cookie. This will also verify the ID token in the process.
+        # The session cookie will have the same claims as the ID token.
+        session_cookie = auth.create_session_cookie(id_token, expires_in=expires_in)
+        response = flask.jsonify({'status': 'success'})
+        # Set cookie policy for session cookie.
+        expires = datetime.datetime.now() + expires_in
+        response.set_cookie(
+            'session', session_cookie, expires=expires, httponly=True, secure=True)
+        return response
+    except exceptions.FirebaseError:
+        return flask.abort(401, 'Failed to create a session cookie')
+
 
 @app.route('/')
 def index():
-    return render_template("index.html")
+    session_cookie = flask.request.cookies.get('session')
+    print(session_cookie)
+    if not session_cookie:
+        # Session cookie is unavailable. Force user to login.
+        return flask.redirect('/login')
+
+    # Verify the session cookie. In this case an additional check is added to detect
+    # if the user's Firebase session was revoked, user deleted/disabled, etc.
+    try:
+        decoded_claims = auth.verify_session_cookie(session_cookie, check_revoked=True)
+        print(decoded_claims)
+        return render_template("index.html")
+    except auth.InvalidSessionCookieError:
+        # Session cookie is invalid, expired or revoked. Force user to login.
+        return flask.redirect('/login')
+
 
 
 @app.route('/gregister')
