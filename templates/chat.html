@@ -32,7 +32,7 @@
 				}
 	           $(document).ready(function(){
 					var local_user = $('#my-data').data();
-	               socket = io.connect('wss://' + location.host  + '/chat', {secure:true});
+	               socket = io.connect('ws://' + location.host  + '/chat', {secure:true});
 	               socket.on('connect', function() {
 	                   socket.emit('joined', {'name':local_user.name});
 	               });
