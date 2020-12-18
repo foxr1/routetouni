@@ -152,12 +152,16 @@
 
         firebase.auth().getRedirectResult().then(function(result) {
             var user = result.user;
+            console.log(result.credential.accessToken)
+            console.log(firebase.auth().currentUser.uid)
+            fetch('/sessionLogin?idToken=' + firebase.auth().currentUser.uid).then(()=> {
+                return firebase.auth().signOut();
+            }).then(() => {
+              window.location.assign('/');
+            })
+
 
             if (result.additionalUserInfo.isNewUser) {
-
-                sessionStorage.setItem('name', user.displayName);
-                sessionStorage.setItem('email', user.email);
-                sessionStorage.setItem('uid', user.uid);
                 window.open('/gregister', "_self");
             } else {
                 window.open('/', "_self");
