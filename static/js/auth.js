@@ -1,8 +1,7 @@
 function login(email, password) {
-firebase.auth().signInWithEmailAndPassword(email, password)
+
 // As httpOnly cookies are to be used, do not persist any state client side.
 firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
-
 
 firebase.auth().signInWithEmailAndPassword(email, password).then(user => {
   return firebase.auth().currentUser.getIdToken(true).then(idToken => {

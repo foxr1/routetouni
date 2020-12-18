@@ -30,6 +30,7 @@ class User:
 
     def login_user(self):
         self.id_token = request.args.get('idToken')
+        print(self.id_token)
         # Set session expiration to 5 days.
         expires_in = datetime.timedelta(days=14)
         try:
@@ -57,5 +58,6 @@ class User:
                 self.email = decoded_claims['email']
                 return self.uid
 
-            except auth.InvalidSessionCookieError:
+            except auth.InvalidSessionCookieError as e:
+                print(e)
                 print("Verification Error")
