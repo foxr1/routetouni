@@ -28,8 +28,7 @@
 					var today = new Date();
 	                   var date = (today.toLocaleString('default', { month: 'short' }))+' '+today.getDate();
 	                   var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-	                   var dateTime = time+ ' | ' +date;
-	                   return dateTime
+                    return time + ' | ' + date
 				}
 	           $(document).ready(function(){
 					var local_user = $('#my-data').data();
