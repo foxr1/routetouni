@@ -2,14 +2,13 @@ import re
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 import io
-import pprint
 
 
 def main():
     news_url = "https://www.ncl.ac.uk/press/latest/"
     news_file = "news_data.txt"
     news_dict = scrape_data(news_url, news_file)
-    print(news_dict)
+    print("news dictionary successfully created")
     return news_dict
 
 
@@ -75,8 +74,7 @@ def organise(text_as_list, url_list):
         list3.append(list2)
 
     news_list = list3
-    print(news_list,"\n")
-    news_dict=create_dictionary(news_list)
+    news_dict = create_dictionary(news_list)
     return news_dict
 
 
@@ -88,6 +86,5 @@ def create_dictionary(news_list):
         dictionary.update(title)
     return dictionary
 
-
 #if __name__ == "__main__":
-#    main()
+ #   main()

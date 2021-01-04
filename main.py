@@ -2,6 +2,7 @@ import os
 import uuid
 import datetime
 import redis
+from news_and_revision import web_scraper
 from flask import Flask, render_template, session, redirect, url_for, request, send_from_directory, Blueprint
 from flask_socketio import emit, join_room, leave_room, SocketIO
 
@@ -47,7 +48,8 @@ def favicon():
 
 @app.route('/news_feed')
 def news_feed():
-    return render_template("news_feed.html")
+    news_dict = web_scraper.main()
+    return render_template("news_feed.html", data=news_dict)
 
 
 @app.route('/chat_index', methods=['GET', 'POST'])
