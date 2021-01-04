@@ -8,8 +8,9 @@ import pprint
 def main():
     news_url = "https://www.ncl.ac.uk/press/latest/"
     news_file = "news_data.txt"
-    news_list = scrape_data(news_url, news_file)
-    print(news_list)
+    news_dict = scrape_data(news_url, news_file)
+    print(news_dict)
+    return news_dict
 
 
 def read_news(news_file, url_list):
@@ -75,7 +76,8 @@ def organise(text_as_list, url_list):
 
     news_list = list3
     print(news_list,"\n")
-    create_dictionary(news_list)
+    news_dict=create_dictionary(news_list)
+    return news_dict
 
 
 def create_dictionary(news_list):
@@ -84,8 +86,8 @@ def create_dictionary(news_list):
         a_list = news_list[i]
         title = {a_list[0]: {"Description": a_list[1], "Date": a_list[2], "URL": a_list[3]}}
         dictionary.update(title)
-    print(dictionary)
+    return dictionary
 
 
-if __name__ == "__main__":
-    main()
+#if __name__ == "__main__":
+#    main()

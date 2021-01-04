@@ -4,6 +4,7 @@ import datetime
 import redis
 from flask import Flask, render_template, session, redirect, url_for, request, send_from_directory, Blueprint
 from flask_socketio import emit, join_room, leave_room, SocketIO
+from news_and_revision import web_scraper
 
 # Connect to redis on Docker
 # r = redis.Redis(host='localhost', port=6379, charset="utf-8", decode_responses=True)
@@ -47,6 +48,7 @@ def favicon():
 
 @app.route('/news_feed')
 def news_feed():
+    dictionary = web_scraper.main()
     return render_template("news_feed.html")
 
 
@@ -138,3 +140,6 @@ def exit_room(message):
 
 if __name__ == '__main__':
     socketio.run(app, debug=True)
+
+
+# http://127.0.0.1:5000/
