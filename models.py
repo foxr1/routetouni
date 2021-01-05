@@ -5,18 +5,6 @@ import firebase_admin
 from firebase_admin import credentials, auth, exceptions
 
 
-def logout_user():
-    session_cookie = flask.request.cookies.get('session')
-    try:
-        decoded_claims = auth.verify_session_cookie(session_cookie)
-        auth.revoke_refresh_tokens(decoded_claims['sub'])
-        response = flask.make_response(flask.redirect('/login'))
-        response.set_cookie('session', expires=0)
-        return response
-    except auth.InvalidSessionCookieError:
-        print("Error Logout")
-
-
 class User:
 
     def __init__(self):
@@ -30,7 +18,7 @@ class User:
 
     def login_user(self):
         self.id_token = request.args.get('idToken')
-        print(self.id_token)
+
         # Set session expiration to 5 days.
         expires_in = datetime.timedelta(days=14)
         try:
@@ -61,3 +49,17 @@ class User:
             except auth.InvalidSessionCookieError as e:
                 print(e)
                 print("Verification Error")
+
+    def logout_user(self):
+        session_cookie = flask.request.cookies.get('session')
+        try:
+            decoded_claims = auth.verify_session_cookie(session_cookie)
+            auth.revoke_refresh_tokens(decoded_claims['sub'])
+            response = flask.make_response(flask.redirect('/login'))
+            response.set_cookie('session', expires=0)
+            self.id_token = ""
+            self.email = None
+            self.uid = None
+            return response
+        except auth.InvalidSessionCookieError:
+            print("Error Logout")

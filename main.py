@@ -2,7 +2,8 @@ import os
 import redis
 from flask import Flask, render_template, session, redirect, url_for, request, send_from_directory, Blueprint
 from flask_socketio import emit, join_room, leave_room, SocketIO
-from models import User, logout_user
+from models import User
+
 
 redis_host = os.environ.get('REDISHOST', 'localhost')
 redis_port = int(os.environ.get('REDISPORT', 6379))
@@ -21,13 +22,14 @@ test_user = User()
 
 @app.route('/sessionLogin', methods=['GET', 'POST'])
 def session_login():
+    print('logging in ')
     response = test_user.login_user()
     return response
 
 
 @app.route('/sessionLogout', methods=['GET', 'POST'])
 def session_logout():
-    response = logout_user()
+    response = test_user.logout_user()
     print(response)
 
 
@@ -35,7 +37,7 @@ def session_logout():
 def index():
     user = test_user.verify_user()
     if test_user.email:
-        print(test_user.email,test_user.uid)
+        print(test_user.email, test_user.uid)
     return render_template("index.html", user=user)
 
 
@@ -122,4 +124,7 @@ def exit_room(message):
 
 
 if __name__ == '__main__':
-    socketio.run(app, debug=True)
+    socketio.run(app, port=5000,
+                 cors_allowed_origins=["https://extreme-lattice-298010.nw.r.appspot.com:5000", "http://extreme-lattice"
+                                                                                          "-298010.nw.r.appspot.com:5000"],
+                 debug=True)
