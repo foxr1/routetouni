@@ -13,7 +13,10 @@ async_mode = None
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
 
-socketio = SocketIO(app, async_mode=async_mode, logger=True, engineio_logger=True)
+socketio = SocketIO(app, async_mode=async_mode, cors_allowed_origins=["https://extreme-lattice-298010.nw.r.appspot.com",
+                                                                      "http://extreme-lattice-298010.nw.r.appspot.com",
+                                                                      "http://localhost:5000"],
+                    logger=True, engineio_logger=True)
 
 main = Blueprint('main', __name__)
 
@@ -124,7 +127,5 @@ def exit_room(message):
 
 
 if __name__ == '__main__':
-    socketio.run(app, port=5000,
-                 cors_allowed_origins=["https://extreme-lattice-298010.nw.r.appspot.com:5000", "http://extreme-lattice"
-                                                                                          "-298010.nw.r.appspot.com:5000"],
+    socketio.run(app,
                  debug=True)
