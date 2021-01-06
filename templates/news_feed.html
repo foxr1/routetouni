@@ -6,15 +6,18 @@
     <meta property="og:title" content="RouteToUni"/>
     <meta name="google-signin-client_id" content="1081173404847-ddjfjkqhfj79u9qiv7lrsajibo3vtgqc.apps.googleusercontent.com"/>
     <script src="static/js/node_modules/animejs/lib/anime.min.js"></script>
-    <link rel="stylesheet" href="../static/css/styles.css">
-    <link rel="stylesheet" type="text/css" media="only screen and (max-device-width: 480px)" href="static/css/mobile-stylesheet.css" />
-    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+    <link rel="stylesheet" href="../static/css/news-stylesheet.css">
     <title>RouteToUni</title>
 </head>
 <body>
     {%for item in data %}
-    <tr>{{data}}</tr>
+    <article>
+    <h3>{{item}}</h3>
+        <p>{{ thing }}</p>
+        <p>{{ Date }}</p>
+        <p>{{ URL }}</p>
+    </article>
+        <p></p>
     {% endfor %}
 </body>
 <script>

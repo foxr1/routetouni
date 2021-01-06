@@ -1,0 +1,37 @@
+@font-face {
+    font-family: 'GilroyBold';
+    src: url('../fonts/gilroy/gilroy-bold/Gilroy-Bold.eot');
+    src: url('../fonts/gilroy/gilroy-bold/Gilroy-Bold.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/gilroy/gilroy-bold/Gilroy-Bold.woff2') format('woff2'),
+    url('../fonts/gilroy/gilroy-bold/Gilroy-Bold.woff') format('woff'),
+    url('../fonts/gilroy/gilroy-bold/Gilroy-Bold.ttf') format('truetype'),
+    url('../fonts/gilroy/gilroy-bold/Gilroy-Bold.svg#Gilroy-Bold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'GilroyMedium';
+    src: url('../fonts/gilroy/gilroy-medium/Gilroy-Medium.eot');
+    src: url('../fonts/gilroy/gilroy-medium/Gilroy-Medium.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/gilroy/gilroy-medium/Gilroy-Medium.woff2') format('woff2'),
+    url('../fonts/gilroy/gilroy-medium/Gilroy-Medium.woff') format('woff'),
+    url('../fonts/gilroy/gilroy-medium/Gilroy-Medium.ttf') format('truetype'),
+    url('../fonts/gilroy/gilroy-medium/Gilroy-Medium.svg#Gilroy-Medium') format('svg');
+    font-weight: 500;
+    font-style: normal;
+}
+
+html, body {
+    background-color: #d91a35;
+    position: fixed;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+}
