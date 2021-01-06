@@ -1,11 +1,10 @@
 import os
-
+from datetime import date
 import flask
 import redis
 from flask import Flask, render_template, session, redirect, url_for, request, send_from_directory, Blueprint
 from flask_socketio import emit, join_room, leave_room, SocketIO
 from models import User
-
 
 redis_host = os.environ.get('REDISHOST', 'localhost')
 redis_port = int(os.environ.get('REDISPORT', 6379))
@@ -42,7 +41,7 @@ def session_logout():
 def index():
     session_cookie = flask.request.cookies.get('session')
     if session_cookie:
-        user = test_user.verify_user(session_cookie)
+        user = test_user.verify_user()
     else:
         user = None
     return render_template("index.html", user=user)
@@ -77,6 +76,25 @@ def get_messages(room, start, end):
     return all_msg
 
 
+def add_room(room_id):
+    user_id = test_user.uid
+    today = date.today().strftime("%d/%m/%Y")
+
+    r.hset(user_id, mapping={room_id: today})
+    r.hset(room_id, mapping={user_id: today})
+
+
+def get_rooms():
+    user_id = test_user.uid
+    user_rooms = r.hgetall(user_id)
+    return user_rooms
+
+
+def del_room(room_id):
+    user_id = test_user.uid
+    r.hdel(user_id, room_id)
+
+
 @app.route('/change', methods=['GET', 'POST'])
 def change():
     name = session.get('name', '')
@@ -88,11 +106,13 @@ def change():
 
 @app.route('/chat')
 def chat():
-    name = test_user.uid
-    room = 5
+    test_user.verify_user()
 
-    if name == '' or room == '':
+    if not test_user.verify_user():
         return redirect(url_for('.index'))
+    else:
+        name = test_user.name
+        room = 5
     return render_template('chat.html', name=name, room=room, prev_msg=get_messages(room, 0, 20))
 
 

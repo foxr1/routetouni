@@ -15,6 +15,8 @@ class User:
         self.id_token = ""
         self.email = None
         self.uid = None
+        self.name = None
+        self.peer_mentor = None
 
     def login_user(self):
         self.id_token = request.args.get('idToken')
@@ -35,10 +37,11 @@ class User:
         except exceptions.FirebaseError:
             return flask.abort(401, 'Failed to create a session cookie')
 
-    def verify_user(self, session_cookie):
-
+    def verify_user(self):
+        session_cookie = flask.request.cookies.get('session')
         if not session_cookie:
             print("No Cookie")
+            return False
         else:
             try:
                 decoded_claims = auth.verify_session_cookie(session_cookie, check_revoked=True)
