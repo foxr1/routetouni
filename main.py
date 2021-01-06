@@ -1,16 +1,9 @@
 import os
-import uuid
-import datetime
 import redis
-from news_and_revision import web_scraper
 from flask import Flask, render_template, session, redirect, url_for, request, send_from_directory, Blueprint
 from flask_socketio import emit, join_room, leave_room, SocketIO
+from models import User
 
-# Connect to redis on Docker
-# r = redis.Redis(host='localhost', port=6379, charset="utf-8", decode_responses=True)
-
-# Connect to redis on GCP
-from forms import LoginForm
 
 redis_host = os.environ.get('REDISHOST', 'localhost')
 redis_port = int(os.environ.get('REDISPORT', 6379))
@@ -20,14 +13,35 @@ async_mode = None
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
 
-socketio = SocketIO(app, async_mode=async_mode, logger=True, engineio_logger=True)
+socketio = SocketIO(app, async_mode=async_mode, cors_allowed_origins=["https://extreme-lattice-298010.nw.r.appspot.com",
+                                                                      "http://extreme-lattice-298010.nw.r.appspot.com",
+                                                                      "http://localhost:5000"],
+                    logger=True, engineio_logger=True)
 
 main = Blueprint('main', __name__)
+
+test_user = User()
+
+
+@app.route('/sessionLogin', methods=['GET', 'POST'])
+def session_login():
+    print('logging in ')
+    response = test_user.login_user()
+    return response
+
+
+@app.route('/sessionLogout', methods=['GET', 'POST'])
+def session_logout():
+    response = test_user.logout_user()
+    print(response)
 
 
 @app.route('/')
 def index():
-    return render_template("index.html")
+    user = test_user.verify_user()
+    if test_user.email:
+        print(test_user.email, test_user.uid)
+    return render_template("index.html", user=user)
 
 
 @app.route('/gregister')
@@ -48,29 +62,7 @@ def favicon():
 
 @app.route('/news_feed')
 def news_feed():
-    news_dict = web_scraper.main()
-    return render_template("news_feed.html", data=news_dict)
-
-
-@app.route('/chat_index', methods=['GET', 'POST'])
-def chat_index():
-    uid = uuid.uuid4()
-    session['uid'] = uid
-    """Login form to enter a room."""
-    form = LoginForm()
-
-    if form.validate_on_submit():
-        name = form.name.data
-        room = form.room.data
-
-        session['name'] = name
-        session['room'] = room
-
-        return redirect(url_for('.chat'))
-    elif request.method == 'GET':
-        form.name.data = session.get('name', '')
-        form.room.data = session.get('room', '')
-    return render_template('chat_index.html', form=form)
+    return render_template("news_feed.html")
 
 
 def get_messages(room, start, end):
@@ -79,10 +71,6 @@ def get_messages(room, start, end):
         msg = conv_msg.split('&&')
         all_msg.append({'name': msg[1], 'msg': msg[0], 'time': msg[-1]})
     return all_msg
-
-
-def get_chats():
-    print('c')
 
 
 @app.route('/change', methods=['GET', 'POST'])
@@ -96,8 +84,8 @@ def change():
 
 @app.route('/chat')
 def chat():
-    name = session.get('name', '')
-    room = session.get('room', '')
+    name = test_user.uid
+    room = 5
 
     if name == '' or room == '':
         return redirect(url_for('.index'))
@@ -107,17 +95,17 @@ def chat():
 # When Client Enters
 @socketio.on('joined', namespace='/chat')
 def joined(message):
-    room = session.get('room')
+    room = 5
 
     join_room(room)
-    emit('status', {'msg': session.get('name') + ' has entered the room', "id": 'chat-' + str(room)},
+    emit('status', {'msg': test_user.uid + ' has entered the room', "id": 'chat-' + str(room)},
          room=room, prev_msg=get_messages(room, 0, 20))
 
 
 @socketio.on('text', namespace='/chat')
 def text(message):
-    room = session.get('room')
-    name = session.get('name', '')
+    room = 5
+    name = test_user.uid
 
     time = ''.join(message['time'])
 
@@ -129,9 +117,9 @@ def text(message):
 
 @socketio.on('exit_room', namespace='/chat')
 def exit_room(message):
-    room = session.get('room')
-    name = session.get('name', '')
-    now = datetime.datetime.now().replace(microsecond=0).time()
+    room = 5
+    name = test_user.uid
+
     leave_msg = name + ' has left the room.'
 
     leave_room(room)
@@ -139,4 +127,5 @@ def exit_room(message):
 
 
 if __name__ == '__main__':
-    socketio.run(app, debug=True)
+    socketio.run(app,
+                 debug=True)
