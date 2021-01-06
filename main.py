@@ -1,4 +1,6 @@
 import os
+
+import flask
 import redis
 from flask import Flask, render_template, session, redirect, url_for, request, send_from_directory, Blueprint
 from flask_socketio import emit, join_room, leave_room, SocketIO
@@ -38,9 +40,11 @@ def session_logout():
 
 @app.route('/')
 def index():
-    user = test_user.verify_user()
-    if test_user.email:
-        print(test_user.email, test_user.uid)
+    session_cookie = flask.request.cookies.get('session')
+    if session_cookie:
+        user = test_user.verify_user(session_cookie)
+    else:
+        user = None
     return render_template("index.html", user=user)
 
 

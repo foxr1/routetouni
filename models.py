@@ -28,14 +28,15 @@ class User:
             response = flask.jsonify({'status': 'success'})
             # Set cookie policy for session cookie.
             expires = datetime.datetime.now() + expires_in
+
             response.set_cookie(
                 'session', session_cookie, expires=expires, httponly=True, secure=True)
             return response
         except exceptions.FirebaseError:
             return flask.abort(401, 'Failed to create a session cookie')
 
-    def verify_user(self):
-        session_cookie = flask.request.cookies.get('session')
+    def verify_user(self, session_cookie):
+
         if not session_cookie:
             print("No Cookie")
         else:
@@ -44,11 +45,12 @@ class User:
                 print(decoded_claims)
                 self.uid = decoded_claims['uid']
                 self.email = decoded_claims['email']
-                return self.uid
+                return True
 
-            except auth.InvalidSessionCookieError as e:
+            except Exception as e:
                 print(e)
                 print("Verification Error")
+                return False
 
     def logout_user(self):
         session_cookie = flask.request.cookies.get('session')
