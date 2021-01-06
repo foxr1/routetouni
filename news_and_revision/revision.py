@@ -3,7 +3,7 @@ import io
 
 def main():
     data_file = "revision_data.txt"
-    parse_file(data_file)
+    revision_list = parse_file(data_file)
 
 
 def parse_file(data_file):
@@ -29,11 +29,14 @@ def parse_file(data_file):
             library_marker = i
         if text_as_list[i] == "USEFUL UNIVERSITY LINKS\n":
             library_software_marker = i
-    print(notetaking_marker, notetaking_software_marker, referencing_marker, referencing_software_marker,
-          revision_marker, revision_software_marker, library_marker, library_software_marker)
-    notetaking = [text_as_list[notetaking_marker+1:notetaking_software_marker-1], text_as_list[notetaking_software_marker+1:referencing_marker-1]]
-    referencing = [text_as_list[referencing_marker+1:referencing_software_marker-1], text_as_list[referencing_software_marker+1:revision_marker-1]]
-    revision = [text_as_list[revision_marker+1:revision_software_marker-1], text_as_list[revision_software_marker+1:library_marker-1]]
-    library = [text_as_list[library_marker+1:library_software_marker-1], text_as_list[library_software_marker+1:]]
+
+    notetaking = [text_as_list[notetaking_marker + 1:notetaking_software_marker - 1],
+                  text_as_list[notetaking_software_marker + 1:referencing_marker - 1]]
+    referencing = [text_as_list[referencing_marker + 1:referencing_software_marker - 1],
+                   text_as_list[referencing_software_marker + 1:revision_marker - 1]]
+    revision = [text_as_list[revision_marker + 1:revision_software_marker - 1],
+                text_as_list[revision_software_marker + 1:library_marker - 1]]
+    library = [text_as_list[library_marker + 1:library_software_marker - 1], text_as_list[library_software_marker + 1:]]
     revision_list = [notetaking, referencing, revision, library]
-    return revision_list
+    print(revision_list)
+
