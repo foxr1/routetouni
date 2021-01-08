@@ -11,6 +11,16 @@
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
     <title>RouteToUni</title>
+
+    <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+    <df-messenger id="chatbot"
+            intent="WELCOME"
+            chat-title="Route2Uni Helpbot"
+            chat-icon="../static/images/bubbles/help.png"
+            agent-id="605e3a24-4b9c-400a-ac8d-5a8a6062f37f"
+            language-code="en"
+    ></df-messenger>
+
 </head>
 <body>
     <div id="homeLayout" onclick="newFireWorkStar(event.pageX - container.offsetLeft, event.pageY - container.offsetTop);">
@@ -26,9 +36,9 @@
         <span id="bubble1" onclick="bubbleClick('bubble1', '#chatImg', 'chat')" onmouseover="bubbleHover('#bubble1')" onmouseout="bubbleLeave('#bubble1')">
             <img id="chatImg" src="../static/images/bubbles/chat.png" alt="Chat"/>
             <span class="bubble1Text">Chat</span></span>
-        <span id="bubble2" onclick="bubbleClick('bubble2', '#helpImg')" onmouseover="bubbleHover('#bubble2')" onmouseout="bubbleLeave('#bubble2')">
-            <img id="helpImg" src="../static/images/bubbles/help.png" alt="Help"/>
-            <span class="bubble2Text">Help Bot</span></span></span>
+        <span id="bubble2" onclick="bubbleClick('bubble2', '#newsImg')" onmouseover="bubbleHover('#bubble2')" onmouseout="bubbleLeave('#bubble2')">
+            <img id="newsImg" src="../static/images/bubbles/news.png" alt="News"/>
+            <span class="bubble2Text">News</span></span></span>
         <span id="bubble3" onclick="bubbleClick('bubble3', '#drinksImg')" onmouseover="bubbleHover('#bubble3')" onmouseout="bubbleLeave('#bubble3')">
             <img id="drinksImg" src="../static/images/bubbles/drinks.png" alt="Drinks"/>
             <span class="bubble3Text">Pubs & Clubs</span></span></span>
