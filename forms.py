@@ -9,18 +9,18 @@ r = redis.StrictRedis(host=redis_host, port=redis_port, charset="utf-8", decode_
 
 user = {"Name": "Pradeep", "Company": "SCTL", "Address": "Mumbai", "Location": "RCP"}
 
+#
+# r.hset("ROOM_ID", mapping={"USERI5": "DATE_JOINED", "USERI6": "DATE_JOINED"})
+# print(r.hset("userhash:1001", mapping={"USERI5": "DATE_JOINED"}))
 
-r.hset("ROOM_ID", mapping={"USERI5": "DATE_JOINED", "USERI6": "DATE_JOINED"})
-print(r.hset("userhash:1001", mapping={"USERI5": "DATE_JOINED"}))
-# #
-# print(r.hgetall("userhash:1001"))
+print(r.hgetall("Room 5"))
 # #
 # print(r.hexists("userhash:1001", "name"))
 # print(r.hget("userhash:1001", "USERID"))
 
 #
-# for item in r.hgetall("userhash:1001"):
-#     r.hdel("userhash:1001", item)
+# for item in r.hgetall("Room 5"):
+#     print(r.hdel("Room 5", item))
 # print(r.hgetall("userhash:1001"))
 # p = r.hgetall("userhash:1001")
 # print(type(p))

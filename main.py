@@ -1,14 +1,10 @@
 import os
 from datetime import date
 import flask
-import redis
-from flask import Flask, render_template, session, redirect, url_for, request, send_from_directory, Blueprint
+from flask import Flask, render_template, session, redirect, url_for, send_from_directory, Blueprint
 from flask_socketio import emit, join_room, leave_room, SocketIO
 from models import User
-
-redis_host = os.environ.get('REDISHOST', 'localhost')
-redis_port = int(os.environ.get('REDISPORT', 6379))
-r = redis.StrictRedis(host=redis_host, port=redis_port, charset="utf-8", decode_responses=True)
+from socket_manage import MessageManage
 
 async_mode = None
 app = Flask(__name__)
@@ -22,11 +18,11 @@ socketio = SocketIO(app, async_mode=async_mode, cors_allowed_origins=["https://e
 main = Blueprint('main', __name__)
 
 test_user = User()
+socket_man = MessageManage()
 
 
 @app.route('/sessionLogin', methods=['GET', 'POST'])
 def session_login():
-    print('logging in ')
     response = test_user.login_user()
     return response
 
@@ -68,42 +64,6 @@ def news_feed():
     return render_template("news_feed.html")
 
 
-def get_messages(room, start, end):
-    all_msg = []
-    for conv_msg in r.lrange(room, start, end):
-        msg = conv_msg.split('&&')
-        all_msg.append({'name': msg[1], 'msg': msg[0], 'time': msg[-1]})
-    return all_msg
-
-
-def add_room(room_id):
-    user_id = test_user.uid
-    today = date.today().strftime("%d/%m/%Y")
-
-    r.hset(user_id, mapping={room_id: today})
-    r.hset(room_id, mapping={user_id: today})
-
-
-def get_rooms():
-    user_id = test_user.uid
-    user_rooms = r.hgetall(user_id)
-    return user_rooms
-
-
-def del_room(room_id):
-    user_id = test_user.uid
-    r.hdel(user_id, room_id)
-
-
-@app.route('/change', methods=['GET', 'POST'])
-def change():
-    name = session.get('name', '')
-    room = session.get('room', '')
-    new_room = request.form.get('room_ch')
-    session['room'] = new_room
-    return render_template('chat.html', name=name, room=room, prev_msg=get_messages(room, 0, 20))
-
-
 @app.route('/chat')
 def chat():
     test_user.verify_user()
@@ -111,37 +71,35 @@ def chat():
     if not test_user.verify_user():
         return redirect(url_for('.index'))
     else:
-        name = test_user.name
-        room = 5
-    return render_template('chat.html', name=name, room=room, prev_msg=get_messages(room, 0, 20))
+        name = test_user.uid
+        room = 'room5'
+    return render_template('chat.html', name=name, room=room, prev_msg=socket_man.conv_dict(name))
 
 
 # When Client Enters
 @socketio.on('joined', namespace='/chat')
 def joined(message):
-    room = 5
+    room = 'room5'
+    name = test_user.uid
 
     join_room(room)
-    emit('status', {'msg': test_user.uid + ' has entered the room', "id": 'chat-' + str(room)},
-         room=room, prev_msg=get_messages(room, 0, 20))
+    emit('status', {'msg': test_user.uid + ' has entered the room', "id": str(room)},
+         room=room, prev_msg=socket_man.conv_dict(name))
 
 
 @socketio.on('text', namespace='/chat')
 def text(message):
-    room = 5
+    room = 'room5'
     name = test_user.uid
 
-    time = ''.join(message['time'])
+    socket_man.add_message(room, message, name)
 
-    if r.rpush(room, '%s&&%s&&%s' % (message['msg'], name, time)) > 50:
-        r.lpop(room)
-
-    emit('internal_msg', {'msg': message['msg'], 'id': '#chat-' + str(room), 'name': name}, room=room, name=name)
+    emit('internal_msg', {'msg': message['msg'], 'id': str(room), 'name': name}, room=room, name=name)
 
 
 @socketio.on('exit_room', namespace='/chat')
 def exit_room(message):
-    room = 5
+    room = 'room5'
     name = test_user.uid
 
     leave_msg = name + ' has left the room.'
