@@ -59,7 +59,7 @@ tl
     easing: 'spring',
 }, 1100);
 
-function bubbleClick(bubble, img) {
+function bubbleClick(bubble, img, nextPage) {
     let bubbleEl = document.getElementById(bubble)
     let bubbleStyles = window.getComputedStyle(document.querySelector('#' + bubble));
     bubbleEl.style.zIndex = '2'; // Move circle to front
@@ -91,7 +91,12 @@ function bubbleClick(bubble, img) {
 
         ],
         duration: 100,
-        easing: 'easeInOutQuad'
+        easing: 'easeInOutQuad',
+        update: function(anim) {
+            if (anim.progress === 100) {
+                window.location.assign('/' + nextPage);
+            }
+        }
     });
 
     let back = anime({
@@ -170,7 +175,7 @@ function backPress() {
     }
 }
 
-function pageTransition(page1, page2) {
+function loginPageTransition(page1, page2) {
     let page1Transition = anime({
         targets: page1,
         left: '-100%', duration: 750,
@@ -182,6 +187,23 @@ function pageTransition(page1, page2) {
     function openNextPage() {
         window.open(page2, "_self");
     }
+}
+
+function onPageLoaded() {
+    var redBox = document.createElement('span');
+    redBox.id = "redBox"
+    redBox.style.width = '100%';
+    redBox.style.height = '100%';
+    redBox.style.position = 'fixed';
+    redBox.style.backgroundColor = '#d91a35';
+    document.body.insertBefore(redBox, document.body.firstChild);
+
+    let removeBox = anime({
+        targets: '#redBox',
+        borderRadius: '50%',
+        scale: '0',
+        easing: 'easeInOutQuad'
+    });
 }
 
 function openSignUp() {
