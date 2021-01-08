@@ -23,15 +23,17 @@
 	       height: 25rem;
 	}
 	</style>
+    {% block javascript %}
 	<script charset="utf-8" type="text/javascript">
-        var url = window.location.href
-        console.log(url)
+        var curr_room = ""
+
 				function get_time(){
 					var today = new Date();
 	                   var date = (today.toLocaleString('default', { month: 'short' }))+' '+today.getDate();
 	                   var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
                     return time + ' | ' + date
 				}
+
 	           $(document).ready(function(){
 					var local_user = $('#my-data').data();
 
@@ -42,17 +44,21 @@
 	               });
 
 	               socket.on('status', function(data) {
-	                   var chat_id = data.id
-	                   $('#'+chat_id).val($('#'+chat_id).val()  + data.msg );
-	                   $('#'+chat_id).scrollTop($('#'+chat_id)[0].scrollHeight);
+	                   var chat_id = '#'+data.id
+                       var objDiv = document.getElementById('message-area');
+                        objDiv.scrollTop = objDiv.scrollHeight;
+
+	                   console.log(chat_id)
+
 	               });
 
 	               socket.on('internal_msg', function(data) {
 
-                    var scroll = $('#message-area');
+                    var scroll = $('#'+data.id+'chat');
+                    var scroll_loc = document.getElementById('message-area');
 	               	if (data.name === local_user.name){
 
-	                   $(data.id).append('<div class="row justify-content-end">\n' +
+	                   $(scroll).append('<div class="row justify-content-end">\n' +
 	                       '                        <div class="col-md-10">\n' +
 	                       '                            <div class="media w-50 mb-5" style="width: 60%;">\n' +
 	                       '                                <div class="media-body ml-3">\n' +
@@ -64,12 +70,11 @@
 	                       '                            <\/div>\n' +
 	                       '                        <\/div>\n' +
 	                       '                    <\/div>')
-	                   // $('#chat').val($('#chat').val() + data.msg + '\n');
-                        scroll.scrollTop(scroll.prop("scrollHeight"));
 
+                        scroll_loc.scrollTop = scroll_loc.scrollHeight;
 						}else {
 
-						$(data.id).append('\t\t<div class="media w-50 mb-3">\n' +
+						$(scroll).append('\t\t<div class="media w-50 mb-3">\n' +
 							   '\t\t\t<img alt="user" class="rounded-circle" src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg" width="50">\n' +
 							   '\t\t\t<div class="media-body ml-3">\n' +
 							   '\t\t\t\t<div class="bg-light rounded py-2 px-3 mb-2">\n' +
@@ -78,9 +83,8 @@
 							   '\t\t\t\t<p class="small text-muted">'+get_time()+'</p>\n' +
 							   '\t\t\t</div>\n' +
 							   '\t\t</div>')
-	                   // $('#chat').val($('#chat').val() + data.msg + '\n');
-	                   {#$(data.id).scrollTop($(data.id)[0].scrollHeight);#}
-                        scroll.scrollTop(scroll.prop("scrollHeight"));
+
+                        scroll_loc.scrollTop = scroll_loc.scrollHeight;
 					}
 	               	});
 
@@ -88,15 +92,22 @@
 	               $('#text').keypress(function(e) {
 	                   var code = e.keyCode || e.which;
 	                   if (code === 13) {
-	                       send_message()
+
+	                       send_message(curr_room)
 	                   }
 	               });
 	           });
-	           function send_message(){
-	               text = $('#text').val();
-	               $('#text').val('');
-	               socket.emit('text', {msg: text, time:get_time()});
 
+                $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                  var currId = $(e.target).attr("id");
+                    curr_room = currId
+                  console.log(currId)
+                })
+	           function send_message(but_id){
+                 console.log(but_id)
+	               text = $('#text'+but_id).val();
+	               $('#text'+but_id).val('');
+	               socket.emit('text', {msg: text, time:get_time()});
 	           }
 
 	           function leave_room() {
@@ -106,6 +117,7 @@
 	               });
 	           }
 	</script>
+    {% endblock %}
 </head>
 <body>
 
@@ -156,7 +168,7 @@
 		<div aria-labelledby="home-tab" class="tab-pane" id="tabChat-{{ room_id }}" role="tabpanel">
 				<div class="col-md-8">
                 <div class="message-area" id="message-area">
-					<div id="chat-{{ room_id }}">
+					<div id="{{ room_id }}chat">
 						{{ext_user('hi how are you today?','1:38:29 | Dec 14')}}
 							{% for item in msg_dict %}
 								{% if name == item['name']%}
@@ -170,9 +182,9 @@
 
                 <div class="col-xs-1 justify-content-center">
 						<div class="input-group" style="width: 70%">
-                            <label for="text"></label><input class="shadow-sm form-control form-control-lg" id="text" placeholder="Enter message...." type="text">
+                            <label for="text"></label><input class="shadow-sm form-control form-control-lg" id="text{{ room_id }}" placeholder="Enter message...." type="text">
 							<div class="input-group-append">
-								<button class="btn btn-primary" onclick="send_message()" type="button"><i class="fa fa-send-o"></i></button>
+								<button class="btn btn-primary" id="{{ room_id }}" onclick="send_message(this.id)" type="button"><i class="fa fa-send-o"></i></button>
 							</div>
 						</div>
 					</div>
@@ -182,36 +194,37 @@
 
 		<div class="container">
 			<div class="row">
+
 				<div class="col-md-4">
 					<div class="bg-white">
 						<div class="bg-gray px-4 py-2 bg-light">
 							<p class="h5 mb-0 py-1">Recent</p>
 						</div>
+
 						<div class="messages-box">
 							<div class="list-group rounded-0 active" id="myTab" role="tablist">
-                                {{ conv(name,'14/232/3333',room) }}
+                          {% for key, value in prev_msg.items() %}
+                              {{ conv(key,'14/22/2000',key) }}
+                                {% endfor %}
+
 
 							</div>
 						</div>
 					</div>
 				</div>
-
                 <div class="tab-content col-md-8">
-						{{tab_cont(prev_msg, room)}}
-
+                       {% for key, value in prev_msg.items() %}
+                           {{tab_cont(prev_msg[key], key)}}
+                    {% endfor %}
 
 
 
 			<div aria-labelledby="profile-tab" class="tab-pane" id="id" role="tabpanel">
 				dddd
 			</div>
-			<div aria-labelledby="messages-tab" class="tab-pane" id="messages" role="tabpanel">
-				...
-			</div>
-			<div aria-labelledby="settings-tab" class="tab-pane" id="settings" role="tabpanel">
-				...
-			</div>
-		</div>
+
+		        </div>
+
 				<form action="/change" method="post">
                     <div class="input-group" style="width: 70%; margin: 2%">
                         <label for="room_ch"></label><input class="shadow-sm form-control form-control-lg" name="room_ch" id="room_ch" placeholder="add room..." type="text">
@@ -229,14 +242,10 @@
 
 
 
-		<script>
-		$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-		  var currId = $(e.target).attr("id");
-		})
 
-		</script>
-		<script src="static/secondstat/bootstrap/js/bootstrap.min.js">
-		</script>
+    <script src="static/secondstat/bootstrap/js/bootstrap.min.js">
+
+    </script>
 
 </body>
 </html>

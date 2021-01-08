@@ -17,15 +17,12 @@
     <div id="loginDialog" class="loginDialog">
         <div class="loginDialogContent">
 
-
             <h3>Login</h3>
             <label for="loginEmail"></label><input type="email" name="email" id="loginEmail" placeholder="Email" style="font-family: Nunito"><br><br>
 
             <label for="loginPassword"></label><input type="password" name="password" id="loginPassword" placeholder="Password" style="font-family: Nunito"><br><br>
 
             <button onclick="login(document.getElementById('loginEmail').value, document.getElementById('loginPassword').value)" id="loginBtn" style="font-family: Nunito">Login</button>
-
-
 
             <br><br><button onclick="handleAuthClick()" id="googleSignIn" style="font-family: Nunito">Sign in with Google</button>
 
@@ -153,9 +150,9 @@
 
         firebase.auth().signInWithPopup(provider).then(function(result) {
             var user = result.user;
-            onSignIn(user)
-
-            }).catch(function(error) {
+            var isNewUser = result.additionalUserInfo.isNewUser;
+            onSignIn(user, isNewUser);
+        }).catch(function(error) {
             // Handle Errors here.
             var errorCode = error.code;
             var errorMessage = error.message;
@@ -167,58 +164,66 @@
             });
         }
 
-        function onSignIn(googleUser) {
-  console.log('Google Auth Response', googleUser);
-  // We need to register an Observer on Firebase Auth to make sure auth is initialized.
-  var unsubscribe = firebase.auth().onAuthStateChanged((firebaseUser) => {
-    unsubscribe();
-    // Check if we are already signed-in Firebase with the correct user.
-    if (!isUserEqual(googleUser, firebaseUser)) {
-      // Build Firebase credential with the Google ID token.
-      var credential = firebase.auth.GoogleAuthProvider.credential(
-          googleUser.getAuthResponse().id_token);
+        function onSignIn(googleUser, isNewUser) {
+            console.log('Google Auth Response', googleUser);
+            // We need to register an Observer on Firebase Auth to make sure auth is initialized.
+            var unsubscribe = firebase.auth().onAuthStateChanged((firebaseUser) => {
+                unsubscribe();
+                // Check if we are already signed-in Firebase with the correct user.
+                if (!isUserEqual(googleUser, firebaseUser)) {
+                    // Build Firebase credential with the Google ID token.
+                    var credential = firebase.auth.GoogleAuthProvider.credential(googleUser.getAuthResponse().id_token);
 
-      // Sign in with credential from the Google user.
-      firebase.auth().signInWithCredential(credential).catch((error) => {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // The email of the user's account used.
-        var email = error.email;
-        // The firebase.auth.AuthCredential type that was used.
-        var credential = error.credential;
-        // ...
-      });
-      addCookieRedirect()
+                    // Sign in with credential from the Google user.
+                    firebase.auth().signInWithCredential(credential).catch((error) => {
+                        // Handle Errors here.
+                        var errorCode = error.code;
+                        var errorMessage = error.message;
+                        // The email of the user's account used.
+                        var email = error.email;
+                        // The firebase.auth.AuthCredential type that was used.
+                        var credential = error.credential;
+                        // ...
+                    });
+                    addCookieRedirect();
 
-    } else {
-        console.log('User already signed-in Firebase.');
-        addCookieRedirect()
+                } else {
+                    console.log('User already signed-in Firebase.');
 
-    }
-  });
-}
+                    if (isNewUser) {
+                        sessionStorage.setItem("name", googleUser.displayName);
+                        sessionStorage.setItem('email', googleUser.email);
+                        sessionStorage.setItem('uid', googleUser.uid);
 
-function addCookieRedirect(){
-    firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
-    firebase.auth().currentUser.getIdToken(true).then(idToken => {
-    fetch('/sessionLogin?idToken=' + idToken).then(()=> {
-        window.location.assign('/');
-        return firebase.auth().signOut();})
-})}
+                        window.location.assign('/gregister');
+                    } else {
+                        addCookieRedirect();
+                    }
+                }
+            });
+        }
 
-function isUserEqual(googleUser, firebaseUser) {
-  if (firebaseUser) {
-    var providerData = firebaseUser.providerData;
-    for (var i = 0; i < providerData.length; i++) {
-      if (providerData[i].providerId === firebase.auth.GoogleAuthProvider.PROVIDER_ID
-         ) {
-        return true;
-      }
-    }
-  }
-  return false;
-}
+        function addCookieRedirect(){
+            firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
+            firebase.auth().currentUser.getIdToken(true).then(idToken => {
+            fetch('/sessionLogin?idToken=' + idToken).then(()=> {
+                window.location.assign('/');
+                return firebase.auth().signOut();})
+            });
+        }
+
+        function isUserEqual(googleUser, firebaseUser) {
+            if (firebaseUser) {
+                var providerData = firebaseUser.providerData;
+                for (var i = 0; i < providerData.length; i++) {
+                    if (providerData[i].providerId === firebase.auth.GoogleAuthProvider.PROVIDER_ID &&
+                            providerData[i].uid === googleUser.providerData[i].uid) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
     </script>
 </body>
 </html>

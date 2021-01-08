@@ -68,10 +68,18 @@
                 if (error) {
                     console.log(error);
                 } else {
-                    window.open("/", "_self");
+                    addCookieRedirect();
                 }
             });
         }
+
+        function addCookieRedirect() {
+            firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
+            firebase.auth().currentUser.getIdToken(true).then(idToken => {
+            fetch('/sessionLogin?idToken=' + idToken).then(()=> {
+                window.location.assign('/');
+                return firebase.auth().signOut();})
+        })}
     </script>
 
     <!-- Initialize Firebase -->

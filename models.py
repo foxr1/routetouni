@@ -15,6 +15,8 @@ class User:
         self.id_token = ""
         self.email = None
         self.uid = None
+        self.name = None
+        self.peer_mentor = None
 
     def login_user(self):
         self.id_token = request.args.get('idToken')
@@ -28,6 +30,7 @@ class User:
             response = flask.jsonify({'status': 'success'})
             # Set cookie policy for session cookie.
             expires = datetime.datetime.now() + expires_in
+
             response.set_cookie(
                 'session', session_cookie, expires=expires, httponly=True, secure=True)
             return response
@@ -38,17 +41,19 @@ class User:
         session_cookie = flask.request.cookies.get('session')
         if not session_cookie:
             print("No Cookie")
+            return False
         else:
             try:
                 decoded_claims = auth.verify_session_cookie(session_cookie, check_revoked=True)
                 print(decoded_claims)
                 self.uid = decoded_claims['uid']
                 self.email = decoded_claims['email']
-                return self.uid
+                return True
 
-            except auth.InvalidSessionCookieError as e:
+            except Exception as e:
                 print(e)
                 print("Verification Error")
+                return False
 
     def logout_user(self):
         session_cookie = flask.request.cookies.get('session')

@@ -342,7 +342,7 @@ body {
 }
 
 /*Register Page*/
-.signUpDialog, .loginDialog, .gSignUpDialog {
+.signUpDialog, .loginDialog  {
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
     padding-top: 10%; /* Location of the box */
@@ -357,6 +357,22 @@ body {
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0, 0, 0, 0); /* Black w/ opacity */
     transform: translateX(-1500px);
+}
+
+.gSignUpDialog {
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 10%; /* Location of the box */
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    max-height: 100%;
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0, 0, 0, 0); /* Black w/ opacity */
 }
 
 .signUpDialogContent, .loginDialogContent, .gSignUpDialogContent {
@@ -445,7 +461,7 @@ p {
     width: 45%;
 }
 
-#courses, #roles {
+#courses, #roles, #peerMentors {
     width: 100%;
 }
 
