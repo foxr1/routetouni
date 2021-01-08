@@ -35,7 +35,7 @@ html, body {
 #universityHeading {
     position: absolute;
     text-align: center;
-    top: 9%;
+    top: 22%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
@@ -83,8 +83,8 @@ html, body {
     border-radius: 50%;
     display: inline-block;
     position: absolute;
-    top: 20%;
-    left: 38%;
+    top: 36%;
+    left: 5%;
     box-shadow: 0 0 5px #8a1425;
     z-index: 0;
 }
@@ -102,8 +102,8 @@ html, body {
     border-radius: 50%;
     display: inline-block;
     position: absolute;
-    left: 38%;
-    top: 36%;
+    left: 5%;
+    top: 52%;
     box-shadow: 0 0 5px #8a1425;
     z-index: 0;
 }
@@ -121,8 +121,8 @@ html, body {
     border-radius: 50%;
     display: inline-block;
     position: absolute;
-    top: 52%;
-    left: 38%;
+    top: 68%;
+    left: 5%;
     box-shadow: 0 0 5px #8a1425;
     z-index: 0;
 }
@@ -141,8 +141,8 @@ html, body {
     border-radius: 50%;
     display: inline-block;
     position: absolute;
-    top: 68%;
-    left: 38%;
+    top: 84%;
+    left: 5%;
     box-shadow: 0 0 5px #8a1425;
     z-index: 0;
 }
@@ -160,8 +160,8 @@ html, body {
     border-radius: 50%;
     display: inline-block;
     position: absolute;
-    top: 132%;
-    left: 38%;
+    top: 148%;
+    left: 5%;
     box-shadow: 0 0 5px #8a1425;
     z-index: 0;
 }
@@ -179,8 +179,8 @@ html, body {
     border-radius: 50%;
     display: inline-block;
     position: absolute;
-    top: 84%;
-    left: 38%;
+    top: 100%;
+    left: 5%;
     box-shadow: 0 0 5px #8a1425;
     z-index: 0;
 }
@@ -198,8 +198,8 @@ html, body {
     border-radius: 50%;
     display: inline-block;
     position: absolute;
-    left: 38%;
-    top: 100%;
+    left: 5%;
+    top: 116%;
     box-shadow: 0 0 5px #8a1425;
     z-index: 0;
 }
@@ -217,8 +217,8 @@ html, body {
     border-radius: 50%;
     display: inline-block;
     position: absolute;
-    top: 116%;
-    left: 38%;
+    top: 132%;
+    left: 5%;
     box-shadow: 0 0 5px #8a1425;
     z-index: 0;
 }
@@ -227,4 +227,54 @@ html, body {
     height: 7vh;
     margin-top: 17%;
     z-index: 1;
+}
+
+.bubble1Text, .bubble2Text, .bubble3Text, .bubble4Text, .bubble5Text, .bubble6Text, .bubble7Text, .bubble8Text {
+    font-family: 'GilroyMedium', 'sans-serif';
+    visibility: visible !important;
+    font-weight: lighter;
+    width: 65vw;
+    color: #fff;
+    text-align: left !important;
+    padding: 0 0 !important;
+    font-size: 200%;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    bottom: 30%;
+    left: 40vw;
+    margin-left: -60px;
+
+    opacity: 100 !important;
+    /*transition: opacity 1s;*/
+}
+
+.signUpDialogContent, .loginDialogContent, .gSignUpDialogContent {
+    background-color: #142e51;
+    padding: 20px;
+    border: 1px solid #081730;
+    border-radius: 5px;
+    box-shadow: 0 0 30px 1px #2b2c51;
+    margin-left: 5% !important;
+    margin-right: 5% !important;
+    margin-top: 50% !important;
+    width: auto;
+}
+
+#signUpEmail, #loginEmail, #loginPassword {
+    position: relative;
+    width: 98%;
+    max-width: 100% !important;
+    height: auto;
+    font-size: 2vh;
+}
+
+#signUpBtn, #loginBtn, #gSignUp, #googleSignIn, h3, #registerLink, #firstName, #lastName, #signUpPassword, #signUpPasswordRepeat, #gPassword, #gPasswordRepeat, .select2-selection__rendered, .select2-results__options {
+    font-size: 2vh;
+}
+
+#firstName, #lastName, #signUpPassword, #signUpPasswordRepeat, #gPassword, #gPasswordRepeat {
+    height: auto;
+    width: 48%;
 }

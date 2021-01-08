@@ -76,6 +76,11 @@ def chat():
     return render_template('chat.html', name=name, room=room, prev_msg=socket_man.conv_dict(name))
 
 
+@app.route('/map')
+def map():
+    return render_template("campus_map.html")
+
+
 # When Client Enters
 @socketio.on('joined', namespace='/chat')
 def joined(message):
