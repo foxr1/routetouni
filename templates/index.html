@@ -84,6 +84,8 @@
         var loggedIn = false;
 
         firebase.auth().onAuthStateChanged(function(user) {
+        var user = JSON.parse('{{ user | tojson | safe}}');
+
             if (user) {
                 loginBtn.textContent = "Logout";
                 loggedIn = true;
@@ -91,6 +93,7 @@
                 loggedIn = false;
             }
         });
+
 
         function checkLogin() {
             if (loggedIn) {

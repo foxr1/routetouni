@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="46a7629e-7ad0-4f8a-afb2-ab32d36595e0" name="Default Changelist" comment="Updated mobile-stylesheet for home page and login page to work better&#10;Fixed glitchy fireworks with mobile&#10;Added animation function for page transitions">
-      <change afterPath="$PROJECT_DIR$/static/images/bubbles/news.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
-    </list>
+    <list default="true" id="46a7629e-7ad0-4f8a-afb2-ab32d36595e0" name="Default Changelist" comment="Updated home page with news icon and chat bot" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -186,7 +181,7 @@
       <workItem from="1610013870899" duration="2365000" />
       <workItem from="1610016276077" duration="1399000" />
       <workItem from="1610099933811" duration="3773000" />
-      <workItem from="1610106737327" duration="307000" />
+      <workItem from="1610106737327" duration="638000" />
     </task>
     <task id="LOCAL-00001" summary="combined login with chat">
       <created>1608115716378</created>
@@ -251,7 +246,14 @@
       <option name="project" value="LOCAL" />
       <updated>1610105827046</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Updated home page with news icon and chat bot">
+      <created>1610107062474</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1610107062474</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -291,7 +293,8 @@
     <MESSAGE value="google auth fixed, but department cant be selected now." />
     <MESSAGE value="Google sign up with new account now works, and adds to realtime database" />
     <MESSAGE value="Updated mobile-stylesheet for home page and login page to work better&#10;Fixed glitchy fireworks with mobile&#10;Added animation function for page transitions" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated mobile-stylesheet for home page and login page to work better&#10;Fixed glitchy fireworks with mobile&#10;Added animation function for page transitions" />
+    <MESSAGE value="Updated home page with news icon and chat bot" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated home page with news icon and chat bot" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/routetouni$chat.coverage" NAME="chat Coverage Results" MODIFIED="1607020740322" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
