@@ -1,7 +1,7 @@
 import os
 from datetime import date
 import flask
-from flask import Flask, render_template, session, redirect, url_for, send_from_directory, Blueprint
+from flask import Flask, render_template, session, redirect, url_for, send_from_directory, Blueprint, request
 from flask_socketio import emit, join_room, leave_room, SocketIO
 from models import User
 from socket_manage import MessageManage
@@ -78,28 +78,32 @@ def chat():
     else:
         name = test_user.uid
         room = 'room5'
-    return render_template('chat.html', name=name, room=room, prev_msg=socket_man.conv_dict(name))
+    return render_template('chat.html', name=name, prev_msg=socket_man.conv_dict(name))
 
 
 # When Client Enters
 @socketio.on('joined', namespace='/chat')
 def joined(message):
-    room = 'room5'
     name = test_user.uid
 
-    join_room(room)
-    emit('status', {'msg': test_user.uid + ' has entered the room', "id": str(room)},
-         room=room, prev_msg=socket_man.conv_dict(name))
+    user_conv = socket_man.conv_dict(name)
+    print(user_conv)
+    for room in user_conv:
+        join_room(room)
+        emit('status', {'name': test_user.name, 'uid': test_user.uid, "id": str(room)},
+             room=room, prev_msg=user_conv)
 
 
 @socketio.on('text', namespace='/chat')
 def text(message):
-    room = 'room5'
+    room = message['id']
     name = test_user.uid
-
-    socket_man.add_message(room, message, name)
-
-    emit('internal_msg', {'msg': message['msg'], 'id': str(room), 'name': name}, room=room, name=name)
+    print(request.sid)
+    if socket_man.check_user_in(name, room):
+        socket_man.add_message(room, message, name)
+        emit('internal_msg', {'msg': message['msg'], 'id': str(room), 'name': name}, room=room, name=name)
+    else:
+        print("Error User not in room")
 
 
 @socketio.on('exit_room', namespace='/chat')

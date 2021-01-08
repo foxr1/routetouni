@@ -15,7 +15,9 @@ user = {"Name": "Pradeep", "Company": "SCTL", "Address": "Mumbai", "Location": "
 
 print(r.hgetall("Room 5"))
 # #
-# print(r.hexists("userhash:1001", "name"))
+print(r.hexists("3boNDH3ypRaBX9pc27ZYz049qNP2", "room5"))
+
+
 # print(r.hget("userhash:1001", "USERID"))
 
 #

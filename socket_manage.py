@@ -12,8 +12,8 @@ class MessageManage:
         self.r = redis.StrictRedis(host=self.redis_host, port=self.redis_port, charset="utf-8", decode_responses=True)
 
     def conv_dict(self, user_id):
-        # r.hset(test_user.uid, mapping={"room5": "14/11/2000", "Room-15": "15/11/2000"})
-        # r.rpush("room5", '%s&&%s&&%s' % ("What it is",test_user.uid, "12:30"))
+        # self.r.hset(user_id, mapping={"room5": "14/11/2000", "Room-15": "15/11/2000"})
+        # self.r.rpush("room5", '%s&&%s&&%s' % ("What it is",user_id, "12:30"))
 
         all_dict = {}
         for room in self.get_rooms(user_id):
@@ -44,7 +44,9 @@ class MessageManage:
         return response
 
     def add_message(self, room_id, message, user_name):
-
         time = ''.join(message['time'])
         if self.r.rpush(room_id, '%s&&%s&&%s' % (message['msg'], user_name, time)) > 50:
             self.r.lpop(room_id)
+
+    def check_user_in(self, user_id, room_id):
+        return self.r.hexists(user_id, room_id)

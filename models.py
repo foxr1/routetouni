@@ -17,6 +17,7 @@ class User:
         self.uid = None
         self.name = None
         self.peer_mentor = None
+        self.picture = None
 
     def login_user(self):
         self.id_token = request.args.get('idToken')
@@ -48,6 +49,8 @@ class User:
                 print(decoded_claims)
                 self.uid = decoded_claims['uid']
                 self.email = decoded_claims['email']
+                self.name = decoded_claims['name']
+                self.picture = decoded_claims['picture']
                 return True
 
             except Exception as e:

@@ -14,7 +14,7 @@
 	</script>
 	<style>
 
-	#message-area {
+	.message-area {
 	       height: 25rem;
 	   overflow-y: scroll;
 	   overflow-x: hidden;
@@ -27,12 +27,21 @@
 	<script charset="utf-8" type="text/javascript">
         var curr_room = ""
 
+
 				function get_time(){
 					var today = new Date();
 	                   var date = (today.toLocaleString('default', { month: 'short' }))+' '+today.getDate();
 	                   var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
                     return time + ' | ' + date
 				}
+
+				//Send message on enter press
+				    $(document).on("keypress", "input", function(e){
+                    if(e.which === 13){
+                        var inputVal = $(this).val();
+                        send_message(curr_room)
+                    }
+                    });
 
 	           $(document).ready(function(){
 					var local_user = $('#my-data').data();
@@ -44,21 +53,21 @@
 	               });
 
 	               socket.on('status', function(data) {
-	                   var chat_id = '#'+data.id
-                       var objDiv = document.getElementById('message-area');
-                        objDiv.scrollTop = objDiv.scrollHeight;
 
-	                   console.log(chat_id)
-
+                       var chat_loc = $('#'+data.id+'chat');
+                        $(chat_loc).append('<div class="alert alert-secondary d-inline-block" role="alert"><h6 class="alert-heading"><strong>'+data.name+'</strong> has Joined the chat</h6><span>'+ get_time()+'</span></div>')
 	               });
 
 	               socket.on('internal_msg', function(data) {
 
-                    var scroll = $('#'+data.id+'chat');
-                    var scroll_loc = document.getElementById('message-area');
+                    var msg_loc = $('#'+data.id+'chat');
+                    var scroll_loc = document.getElementById(data.id+'message-area');
+
+                    document.getElementById(data.id+'last').innerHTML = data.msg
+
 	               	if (data.name === local_user.name){
 
-	                   $(scroll).append('<div class="row justify-content-end">\n' +
+	                   $(msg_loc).append('<div class="row justify-content-end">\n' +
 	                       '                        <div class="col-md-10">\n' +
 	                       '                            <div class="media w-50 mb-5" style="width: 60%;">\n' +
 	                       '                                <div class="media-body ml-3">\n' +
@@ -74,7 +83,7 @@
                         scroll_loc.scrollTop = scroll_loc.scrollHeight;
 						}else {
 
-						$(scroll).append('\t\t<div class="media w-50 mb-3">\n' +
+						$(msg_loc).append('\t\t<div class="media w-50 mb-3">\n' +
 							   '\t\t\t<img alt="user" class="rounded-circle" src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg" width="50">\n' +
 							   '\t\t\t<div class="media-body ml-3">\n' +
 							   '\t\t\t\t<div class="bg-light rounded py-2 px-3 mb-2">\n' +
@@ -88,26 +97,23 @@
 					}
 	               	});
 
-	               //If enter is pressed send message
-	               $('#text').keypress(function(e) {
-	                   var code = e.keyCode || e.which;
-	                   if (code === 13) {
+                   $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 
-	                       send_message(curr_room)
-	                   }
-	               });
+                       //Check currently joined chat
+                       var currId = $(e.target).attr("id");
+                        curr_room = currId
+
+                        //Scroll to bottom when tab clicked
+                       var scroll_loc = document.getElementById(currId+'message-area');
+                       scroll_loc.scrollTop = scroll_loc.scrollHeight;
+                })
 	           });
 
-                $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-                  var currId = $(e.target).attr("id");
-                    curr_room = currId
-                  console.log(currId)
-                })
 	           function send_message(but_id){
                  console.log(but_id)
 	               text = $('#text'+but_id).val();
 	               $('#text'+but_id).val('');
-	               socket.emit('text', {msg: text, time:get_time()});
+	               socket.emit('text', {msg: text, time:get_time(), id:but_id});
 	           }
 
 	           function leave_room() {
@@ -151,15 +157,17 @@
            </div>
 {% endmacro %}
 
-{% macro conv(name,time,room) %}
+{% macro conv(name,time,room,last_msg) %}
+
 		<a class="list-group-item list-group-item-action rounded-0" id="{{room}}" data-toggle="tab" href="#tabChat-{{room}}" role="tab">
+
 		<div class="media">
 			<img alt="user" class="rounded-circle" src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg" width="50">
 			<div class="media-body ml-4">
 				<div class="d-flex align-items-center justify-content-between mb-1">
 					<h6 class="mb-0">{{name}}</h6><small class="small font-weight-bold">{{time}}</small>
 				</div>
-				<p class="font-italic mb-0 text-small">this is in the macro</p>
+				<p class="font-italic mb-0 text-small" id="{{ room }}last">{{ last_msg }}</p>
 			</div>
 		</div></a>
 {% endmacro %}
@@ -167,7 +175,7 @@
 {% macro tab_cont(msg_dict,room_id) %}
 		<div aria-labelledby="home-tab" class="tab-pane" id="tabChat-{{ room_id }}" role="tabpanel">
 				<div class="col-md-8">
-                <div class="message-area" id="message-area">
+                <div class="message-area" id="{{ room_id }}message-area">
 					<div id="{{ room_id }}chat">
 						{{ext_user('hi how are you today?','1:38:29 | Dec 14')}}
 							{% for item in msg_dict %}
@@ -204,7 +212,8 @@
 						<div class="messages-box">
 							<div class="list-group rounded-0 active" id="myTab" role="tablist">
                           {% for key, value in prev_msg.items() %}
-                              {{ conv(key,'14/22/2000',key) }}
+                              {% set last_msg = value|last %}
+                              {{ conv(key,last_msg['time'],key,last_msg['msg']) }}
                                 {% endfor %}
 
 
@@ -216,13 +225,6 @@
                        {% for key, value in prev_msg.items() %}
                            {{tab_cont(prev_msg[key], key)}}
                     {% endfor %}
-
-
-
-			<div aria-labelledby="profile-tab" class="tab-pane" id="id" role="tabpanel">
-				dddd
-			</div>
-
 		        </div>
 
 				<form action="/change" method="post">
