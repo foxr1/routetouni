@@ -28,12 +28,14 @@ class User:
             # Create the session cookie. This will also verify the ID token in the process.
             # The session cookie will have the same claims as the ID token.
             session_cookie = auth.create_session_cookie(self.id_token, expires_in=expires_in)
+
             response = flask.jsonify({'status': 'success'})
             # Set cookie policy for session cookie.
             expires = datetime.datetime.now() + expires_in
 
             response.set_cookie(
                 'session', session_cookie, expires=expires, httponly=True, secure=True)
+
             return response
         except exceptions.FirebaseError:
             return flask.abort(401, 'Failed to create a session cookie')
@@ -60,6 +62,7 @@ class User:
 
     def logout_user(self):
         session_cookie = flask.request.cookies.get('session')
+        print("logging out")
         try:
             decoded_claims = auth.verify_session_cookie(session_cookie)
             auth.revoke_refresh_tokens(decoded_claims['sub'])

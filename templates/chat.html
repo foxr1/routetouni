@@ -22,6 +22,25 @@
 	.messages-box {
 	       height: 25rem;
 	}
+    .container{
+
+  justify-content: space-between;
+  align-content: space-between;
+
+    }
+    .flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+    .center-item {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
 	</style>
     {% block javascript %}
 	<script charset="utf-8" type="text/javascript">
@@ -49,7 +68,7 @@
 
 	               socket = io.connect('ws://' + location.host  +'/chat', {secure:true});
 	               socket.on('connect', function() {
-	                   socket.emit('joined', {'name':local_user.name});
+	                   socket.emit('joined', {'name':local_user.name, 'time':get_time()});
 	               });
 
 	               socket.on('status', function(data) {
@@ -64,6 +83,7 @@
                     var scroll_loc = document.getElementById(data.id+'message-area');
 
                     document.getElementById(data.id+'last').innerHTML = data.msg
+                       document.getElementById(data.id+'time').innerHTML = get_time()
 
 	               	if (data.name === local_user.name){
 
@@ -126,7 +146,7 @@
     {% endblock %}
 </head>
 <body>
-
+<div class="container flex">
 <meta id="my-data" data-name="{{name}}">
 
 
@@ -165,7 +185,7 @@
 			<img alt="user" class="rounded-circle" src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg" width="50">
 			<div class="media-body ml-4">
 				<div class="d-flex align-items-center justify-content-between mb-1">
-					<h6 class="mb-0">{{name}}</h6><small class="small font-weight-bold">{{time}}</small>
+					<h6 class="mb-0">{{name}}</h6><small id="{{ room }}time" class="small font-weight-bold">{{time}}</small>
 				</div>
 				<p class="font-italic mb-0 text-small" id="{{ room }}last">{{ last_msg }}</p>
 			</div>
@@ -173,6 +193,7 @@
 {% endmacro %}
 
 {% macro tab_cont(msg_dict,room_id) %}
+
 		<div aria-labelledby="home-tab" class="tab-pane" id="tabChat-{{ room_id }}" role="tabpanel">
 				<div class="col-md-8">
                 <div class="message-area" id="{{ room_id }}message-area">
@@ -188,16 +209,27 @@
 					</div>
                 </div>
 
-                <div class="col-xs-1 justify-content-center">
-						<div class="input-group" style="width: 70%">
-                            <label for="text"></label><input class="shadow-sm form-control form-control-lg" id="text{{ room_id }}" placeholder="Enter message...." type="text">
+                <small class="form-text text-white">You found the secret sauce</small>
+            <div class="row">
+                <div class="col-auto">
+						<div class="input-group">
+                            <label for="text"></label><label for="text{{ room_id }}"></label><input class="shadow-sm form-control form-control-lg" id="text{{ room_id }}" placeholder="Enter message...." type="text">
+
 							<div class="input-group-append">
 								<button class="btn btn-primary" id="{{ room_id }}" onclick="send_message(this.id)" type="button"><i class="fa fa-send-o"></i></button>
 							</div>
+
 						</div>
 					</div>
+
+                <form action="/exit_chat" method="post">
+				         <div class="col-auto"><button class="btn btn-outline-danger btn-lg" value="{{ room_id }}" name="exit_butt" type="submit"><i class="fa fa-times"></i> Exit</button></div>
+                </form>
+            </div>
+
                 </div>
 			</div>
+
 {% endmacro %}
 
 		<div class="container">
@@ -205,38 +237,41 @@
 
 				<div class="col-md-4">
 					<div class="bg-white">
+
 						<div class="bg-gray px-4 py-2 bg-light">
 							<p class="h5 mb-0 py-1">Recent</p>
 						</div>
 
 						<div class="messages-box">
 							<div class="list-group rounded-0 active" id="myTab" role="tablist">
+
+                            {% if prev_msg|length > 0 %}
                           {% for key, value in prev_msg.items() %}
                               {% set last_msg = value|last %}
                               {{ conv(key,last_msg['time'],key,last_msg['msg']) }}
                                 {% endfor %}
+                            {% else %}
+
+                             <div class="center-item ">
+                           <form action="/random_chat" method="post">
+                                <button class="btn btn-outline-info btn-lg" type="submit"><i class="fa fa-users"></i> Random Chat</button>
+                                </form>
+                                </div>
+                            {% endif %}
 
 
 							</div>
 						</div>
 					</div>
 				</div>
+
                 <div class="tab-content col-md-8">
                        {% for key, value in prev_msg.items() %}
                            {{tab_cont(prev_msg[key], key)}}
                     {% endfor %}
 		        </div>
 
-				<form action="/change" method="post">
-                    <div class="input-group" style="width: 70%; margin: 2%">
-                        <label for="room_ch"></label><input class="shadow-sm form-control form-control-lg" name="room_ch" id="room_ch" placeholder="add room..." type="text">
-							<div class="input-group-append">
-								<button class="btn btn-primary" type="submit"><i class="fa fa-send-o"></i></button>
-							</div>
-						</div>
-									  </form>
 
-				 <a href="#" onclick="leave_room();">Leave this room</a>
 				</div>
 			</div>
 
@@ -248,6 +283,6 @@
     <script src="static/secondstat/bootstrap/js/bootstrap.min.js">
 
     </script>
-
+</div>
 </body>
 </html>
