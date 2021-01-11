@@ -6,7 +6,7 @@ import io
 
 def main():
     news_url = "https://www.ncl.ac.uk/press/latest/"
-    news_file = "news_data.txt"
+    news_file = "news_and_revision/news_data.txt"
     news_dict = scrape_data(news_url, news_file)
     print("news dictionary successfully created")
     return news_dict

@@ -98,14 +98,15 @@ html, body {
 .flip-card-front {
     border-radius: 15px;
     background-color: #103f67;
-    color: black;
+    color: white;
 }
 
 /* Style the back side */
 .flip-card-back {
     border-radius: 15px;
-    background-color: dodgerblue;
-    color: white;
+    background-color: white;
+    color: black;
+
     transform: rotateY(180deg);
 }
 
