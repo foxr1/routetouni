@@ -3,7 +3,7 @@ import flask
 from flask import request
 import firebase_admin
 from firebase_admin import credentials, auth, exceptions
-
+from firebase_admin import db
 
 class User:
 
@@ -18,6 +18,8 @@ class User:
         self.name = None
         self.peer_mentor = None
         self.picture = None
+        self.role = None
+        self.school = None
 
     def login_user(self):
         self.id_token = request.args.get('idToken')
@@ -60,6 +62,11 @@ class User:
                 print(e)
                 print("Verification Error")
                 return None
+
+    def get_meta(self):
+        result = db.reference('users/' + self.uid).get()
+        self.role = result['role']
+        self.school = result['course']
 
     def logout_user(self):
         session_cookie = flask.request.cookies.get('session_token')
