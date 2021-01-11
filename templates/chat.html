@@ -45,7 +45,7 @@
     {% block javascript %}
 	<script charset="utf-8" type="text/javascript">
         var curr_room = ""
-
+        var local_user = null
 
 				function get_time(){
 					var today = new Date();
@@ -63,16 +63,15 @@
                     });
 
 	           $(document).ready(function(){
-					var local_user = $('#my-data').data();
 
-
-	               socket = io.connect('ws://' + location.host  +'/chat', {secure:true});
+	               socket = io.connect('wss://' + location.host  +'/chat', {secure:true});
 	               socket.on('connect', function() {
-	                   socket.emit('joined', {'name':local_user.name, 'time':get_time()});
+	                   socket.emit('joined', {'name':local_user, 'time':get_time()});
 	               });
 
 	               socket.on('status', function(data) {
-
+	                   if (local_user === null){
+                        local_user = data.name}
                        var chat_loc = $('#'+data.id+'chat');
                         $(chat_loc).append('<div class="alert alert-secondary d-inline-block" role="alert"><h6 class="alert-heading"><strong>'+data.name+'</strong> has Joined the chat</h6><span>'+ get_time()+'</span></div>')
 	               });
@@ -85,7 +84,9 @@
                     document.getElementById(data.id+'last').innerHTML = data.msg
                        document.getElementById(data.id+'time').innerHTML = get_time()
 
-	               	if (data.name === local_user.name){
+                       console.log(data.name,local_user)
+	               	if (data.name === local_user){
+
 
 	                   $(msg_loc).append('<div class="row justify-content-end">\n' +
 	                       '                        <div class="col-md-10">\n' +
@@ -104,7 +105,7 @@
 						}else {
 
 						$(msg_loc).append('\t\t<div class="media w-50 mb-3">\n' +
-							   '\t\t\t<img alt="user" class="rounded-circle" src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg" width="50">\n' +
+							   '\t\t\t<img alt="user" class="rounded-circle" src="'+data.user_image+' "width="50">\n' +
 							   '\t\t\t<div class="media-body ml-3">\n' +
 							   '\t\t\t\t<div class="bg-light rounded py-2 px-3 mb-2">\n' +
 							   '\t\t\t\t\t<p class="text-small mb-0 text-muted">'+data.msg+'</p>\n' +
@@ -130,16 +131,26 @@
 	           });
 
 	           function send_message(but_id){
-                 console.log(but_id)
 	               text = $('#text'+but_id).val();
 	               $('#text'+but_id).val('');
-	               socket.emit('text', {msg: text, time:get_time(), id:but_id});
+	               socket.emit('text', {msg: text, time:get_time(), name:local_user, id:but_id});
 	           }
 
-	           function leave_room() {
-	               socket.emit('exit_room', {}, function() {
-	                   socket.disconnect();
-	                   window.location.href = "{{ url_for('index') }}";
+	           function leave_room(room_id) {
+	               socket.emit('exit_room', {msg: "Room exit request", time:get_time(), name:local_user, id:room_id}, function() {
+	                   {#socket.disconnect();#}
+	                   {#window.location.href = "{{ url_for('index') }}";#}
+                       console.log("exiting room", room_id)
+                       window.location.assign('/chat');
+	               });
+	           }
+
+                function join_random() {
+	               socket.emit('join_random', {msg: "Join random request", time:get_time(), name:local_user}, function() {
+	                   {#socket.disconnect();#}
+	                   {#window.location.href = "{{ url_for('index') }}";#}
+                       console.log("Join random")
+                       window.location.assign('/chat');
 	               });
 	           }
 	</script>
@@ -147,12 +158,10 @@
 </head>
 <body>
 <div class="container flex">
-<meta id="my-data" data-name="{{name}}">
 
-
-{% macro ext_user(msg,time) %}
+{% macro ext_user(msg,time,user_image) %}
 		<div class="media w-50 mb-3">
-			<img alt="user" class="rounded-circle" src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg" width="50">
+			<img alt="user" class="rounded-circle" src="{{ user_image}}" width="50">
 			<div class="media-body ml-3">
 				<div class="bg-light rounded py-2 px-3 mb-2">
 					<p class="text-small mb-0 text-muted">{{msg}}</p>
@@ -177,6 +186,10 @@
            </div>
 {% endmacro %}
 
+{% macro server_msg(msg,time) %}
+<div class="alert alert-info text-center" role="alert"><h6 class="alert-heading"><strong>{{msg}}</strong> </h6><span>{{ time }}</span></div>
+{% endmacro %}
+
 {% macro conv(name,time,room,last_msg) %}
 
 		<a class="list-group-item list-group-item-action rounded-0" id="{{room}}" data-toggle="tab" href="#tabChat-{{room}}" role="tab">
@@ -198,12 +211,13 @@
 				<div class="col-md-8">
                 <div class="message-area" id="{{ room_id }}message-area">
 					<div id="{{ room_id }}chat">
-						{{ext_user('hi how are you today?','1:38:29 | Dec 14')}}
 							{% for item in msg_dict %}
 								{% if name == item['name']%}
 									{{int_user(item['msg'],item['time'])}}
+                                {% elif 'server' == item['name']%}
+                                    {{server_msg(item['msg'],item['time'])}}
 								{% else %}
-									{{ext_user(item['msg'],item['time'])}}
+									{{ext_user(item['msg'],item['time'],item['user_image'])}}
 								{% endif %}
 						{% endfor %}
 					</div>
@@ -222,9 +236,7 @@
 						</div>
 					</div>
 
-                <form action="/exit_chat" method="post">
-				         <div class="col-auto"><button class="btn btn-outline-danger btn-lg" value="{{ room_id }}" name="exit_butt" type="submit"><i class="fa fa-times"></i> Exit</button></div>
-                </form>
+                <div class="col-auto"><button class="btn btn-outline-danger btn-lg" value="{{ room_id }}" name="exit_butt" onclick="leave_room(this.value)"><i class="fa fa-times"></i> Exit</button></div>
             </div>
 
                 </div>
@@ -253,9 +265,7 @@
                             {% else %}
 
                              <div class="center-item ">
-                           <form action="/random_chat" method="post">
-                                <button class="btn btn-outline-info btn-lg" type="submit"><i class="fa fa-users"></i> Random Chat</button>
-                                </form>
+                                <button class="btn btn-outline-info btn-lg"  onclick="join_random()"><i class="fa fa-users"></i> Random Chat</button>
                                 </div>
                             {% endif %}
 
