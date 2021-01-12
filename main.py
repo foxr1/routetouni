@@ -1,7 +1,8 @@
 import os
 from datetime import date
 import flask
-from flask import Flask, render_template, session, redirect, url_for, send_from_directory, Blueprint, request
+from flask import Flask, render_template, session, redirect, url_for, send_from_directory, Blueprint, request, \
+    make_response, jsonify
 from flask_socketio import emit, join_room, leave_room, SocketIO
 from models import User
 from socket_manage import MessageManage
@@ -75,6 +76,19 @@ def news_feed():
 @app.route('/map')
 def camp_map():
     return render_template("campus_map.html")
+
+
+@app.route("/chat/get_users", methods=['GET', 'POST'])
+def create_entry():
+    if request.method == 'GET':
+        message = {'1dE06UcNkjTxMK6wlPIyd5y3h4E3': {'firstname': 'philip', 'lastname': 'solo',
+                                                    'email': 'philipsolo4@gmail.com'},
+                   '3AixDYlmwbSJ0b1XpyCCoqmAhL52': {'firstname': 'John', 'lastname': 'appleseed',
+                                                    'email': 'johnappleseed@gmail.com'}}
+        return jsonify(message)  # serialize and use JSON headers    # POST request
+    if request.method == 'POST':
+        print(request.get_json())  # parse as JSON
+        return 'Sucesss', 200
 
 
 @app.route('/chat')

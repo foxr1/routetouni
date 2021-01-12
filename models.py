@@ -5,6 +5,7 @@ import firebase_admin
 from firebase_admin import credentials, auth, exceptions
 from firebase_admin import db
 
+
 class User:
 
     def __init__(self):
@@ -100,4 +101,3 @@ class User:
             self.name = None
             self.picture = None
             print("Error Logout", e)
-

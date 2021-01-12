@@ -6,7 +6,6 @@ import os
 class MessageManage:
 
     def __init__(self):
-
         self.redis_host = os.environ.get('REDISHOST', 'localhost')
         self.redis_port = int(os.environ.get('REDISPORT', 6379))
         self.r = redis.StrictRedis(host=self.redis_host, port=self.redis_port, charset="utf-8", decode_responses=True)
