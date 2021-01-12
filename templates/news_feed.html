@@ -46,20 +46,8 @@
             <span class="navBubble8Text">Revision</span></span>
         </span>
     </div>
-    <div id="flip-card-1">
-        <div class="flip-card-inner">
-            <div class="flip-card-front">
-                {% for key, value in news_data.items() %}
-                <h1>{{ key }}</h1>
-            </div>
-            <div class="flip-card-back">
-                <p>{{ news_data[key]['Description'] }}</p>
-                <p>{{ news_data[key]['Date'] }}</p>
-                <p>{{ news_data[key]['URL'] }}</p>
-            </div>
-        </div>
-    </div>
-    <div id="flip-card-2">
+    {% for key, value in news_data.items() %}
+   <div id="{{ news_data[key]['ID']}}">
         <div class="flip-card-inner">
             <div class="flip-card-front">
                 <h1>{{ key }}</h1>
@@ -67,59 +55,12 @@
             <div class="flip-card-back">
                 <p>{{ news_data[key]['Description'] }}</p>
                 <p>{{ news_data[key]['Date'] }}</p>
-                <p>{{ news_data[key]['URL'] }}</p>
-            </div>
-        </div>
-    </div>
-    <div id="flip-card-3">
-        <div class="flip-card-inner">
-            <div class="flip-card-front">
-                <h1>{{ key }}</h1>
-            </div>
-            <div class="flip-card-back">
-                <p>{{ news_data[key]['Description'] }}</p>
-                <p>{{ news_data[key]['Date'] }}</p>
-                <p>{{ news_data[key]['URL'] }}</p>
-            </div>
-        </div>
-    </div>
-    <div id="flip-card-4">
-        <div class="flip-card-inner">
-            <div class="flip-card-front">
-                <h1>{{ key }}</h1>
-            </div>
-            <div class="flip-card-back">
-                <p>{{ news_data[key]['Description'] }}</p>
-                <p>{{ news_data[key]['Date'] }}</p>
-                <p>{{ news_data[key]['URL'] }}</p>
-            </div>
-        </div>
-    </div>
-    <div id="flip-card-5">
-        <div class="flip-card-inner">
-            <div class="flip-card-front">
-                <h1>{{ key }}</h1>
-            </div>
-            <div class="flip-card-back">
-                <p>{{ news_data[key]['Description'] }}</p>
-                <p>{{ news_data[key]['Date'] }}</p>
-                <p>{{ news_data[key]['URL'] }}</p>
-            </div>
-        </div>
+                <a href="{{ news_data[key]['URL'] }}">Click here for Link to article</a>
 
-    </div>
-    <div id="flip-card-6">
-        <div class="flip-card-inner">
-            <div class="flip-card-front">
-                <h1>{{ key }}</h1>
-            </div>
-            <div class="flip-card-back">
-                <p>{{ news_data[key]['Description'] }}</p>
-                <p>{{ news_data[key]['Date'] }}</p>
-                <p>{{ news_data[key]['URL'] }}{% endfor %}</p>
             </div>
         </div>
     </div>
+    {% endfor %}
 </body>
 <script>
 </script>
