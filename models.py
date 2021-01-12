@@ -3,7 +3,7 @@ import flask
 from flask import request
 import firebase_admin
 from firebase_admin import credentials, auth, exceptions
-
+from firebase_admin import db
 
 class User:
 
@@ -18,6 +18,8 @@ class User:
         self.name = None
         self.peer_mentor = None
         self.picture = None
+        self.role = None
+        self.school = None
 
     def login_user(self):
         self.id_token = request.args.get('idToken')
@@ -34,17 +36,18 @@ class User:
             expires = datetime.datetime.now() + expires_in
 
             response.set_cookie(
-                'session', session_cookie, expires=expires, httponly=True, secure=True)
+                'session_token', session_cookie, expires=expires, httponly=True, secure=True)
 
             return response
         except exceptions.FirebaseError:
             return flask.abort(401, 'Failed to create a session cookie')
 
     def verify_user(self):
-        session_cookie = flask.request.cookies.get('session')
+        session_cookie = flask.request.cookies.get('session_token')
+
         if not session_cookie:
             print("No Cookie")
-            return False
+            return None
         else:
             try:
                 decoded_claims = auth.verify_session_cookie(session_cookie, check_revoked=True)
@@ -53,17 +56,33 @@ class User:
                 self.email = decoded_claims['email']
                 self.name = decoded_claims['name']
                 self.picture = decoded_claims['picture']
-                return True
+                return self.name
 
             except Exception as e:
                 print(e)
                 print("Verification Error")
-                return False
+                return None
+
+    def get_meta(self):
+        result = db.reference('users/' + self.uid).get()
+        self.role = result['role']
+        self.school = result['course']
 
     def logout_user(self):
-        session_cookie = flask.request.cookies.get('session')
+        session_cookie = flask.request.cookies.get('session_token')
         print("logging out")
+        if not session_cookie:
+            print("No Cookie")
+            self.id_token = ""
+            self.email = None
+            self.uid = None
+            self.name = None
+            self.picture = None
+            print("Logout withought session cookie")
+            return None
+
         try:
+
             decoded_claims = auth.verify_session_cookie(session_cookie)
             auth.revoke_refresh_tokens(decoded_claims['sub'])
             response = flask.make_response(flask.redirect('/login'))
@@ -71,6 +90,14 @@ class User:
             self.id_token = ""
             self.email = None
             self.uid = None
-            return response
-        except auth.InvalidSessionCookieError:
-            print("Error Logout")
+            self.name = None
+            self.picture = None
+            print("Logout successfully")
+        except auth.InvalidSessionCookieError as e:
+            self.id_token = ""
+            self.email = None
+            self.uid = None
+            self.name = None
+            self.picture = None
+            print("Error Logout", e)
+

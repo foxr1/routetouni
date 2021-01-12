@@ -9,7 +9,7 @@ r = redis.StrictRedis(host=redis_host, port=redis_port, charset="utf-8", decode_
 user = {"Name": "Pradeep", "Company": "SCTL", "Address": "Mumbai", "Location": "RCP"}
 
 # print(r.rpushx("random","random_1"))
-# print(r.zadd("Random_chats",mapping={"Random_1": 1}))
+print(r.zadd("random_rooms",mapping={"Random_0": 1}))
 #
 # print(r.xadd("Random1", {"name":"kk"},id='*',maxlen=500,approximate=True))
 
@@ -23,8 +23,8 @@ user = {"Name": "Pradeep", "Company": "SCTL", "Address": "Mumbai", "Location": "
 
 # print(r.xtrim("peter",6,approximate=True))
 
-print(r.xinfo_groups("Random_1"))
-print(r.xinfo_stream("Random_1"))
+print(r.xinfo_groups("Random_0"))
+print(r.xinfo_stream("Random_0"))
 #     r.delete("Random1")
 
 # if r.xlen("Random1") > 3:
@@ -38,14 +38,17 @@ print(r.xinfo_stream("Random_1"))
 
 # print(r.xlen("john"))
 # r.hset("ROOM_ID", mapping={"USERI5": "DATE_JOINED", "USERI6": "DATE_JOINED"})
-# print(r.zadd("random_rooms", mapping={"Random_1": 2}))
+# print(r.zadd("random_rooms", mapping={"Random_1": 0}))
 # print(r.zadd("random_rooms", mapping={"Random_2": 3}))
 # print(r.zincrby("random_rooms",3,"Random_1"))
 
 #
 # print(r.zscore("random_rooms","Random_3"))
-print(r.zrangebyscore("random_rooms", 0, 10))
+# last = (r.zrangebylex("random_rooms",min='-',max='+')[-1])
 
+# print(r.zpopmin("random_rooms", 1))
+for elem in r.zscan_iter("random_rooms"):
+    print(elem)
 # print(r.zrange("random_rooms",0,5))
 
 # print()
