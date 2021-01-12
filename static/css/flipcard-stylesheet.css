@@ -78,6 +78,8 @@ p {
 }
 
 .flip-card-front {
+    padding: 5px 10px 5px 10px;
+    font-family: 'GilroyBold', 'sans-serif';
     border-radius: 15px;
     background-color: #103f67;
     color: white;
@@ -85,6 +87,8 @@ p {
 
 /* Style the back side */
 .flip-card-back {
+    padding: 5px 10px 5px 10px;
+    font-family: 'GilroyMedium', 'sans-serif';
     border-radius: 15px;
     background-color: white;
     color: black;
