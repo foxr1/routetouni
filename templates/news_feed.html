@@ -12,86 +12,78 @@
     <div id="flip-card-1">
         <div class="flip-card-inner">
             <div class="flip-card-front">
-                <p>Something</p>
+                {% for key, value in news_data.items() %}
+                <h1>{{ key }}</h1>
             </div>
             <div class="flip-card-back">
-                <h1>John Doe</h1>
-                <p>Not working</p>
-                <p>We love that guy</p>
+                <p>{{ news_data[key]['Description'] }}</p>
+                <p>{{ news_data[key]['Date'] }}</p>
+                <p>{{ news_data[key]['URL'] }}</p>
             </div>
         </div>
     </div>
     <div id="flip-card-2">
         <div class="flip-card-inner">
             <div class="flip-card-front">
-                <p>Something</p>
+                <h1>{{ key }}</h1>
             </div>
             <div class="flip-card-back">
-                <h1>John Doe</h1>
-                <p>Not working</p>
-                <p>We love that guy</p>
+                <p>{{ news_data[key]['Description'] }}</p>
+                <p>{{ news_data[key]['Date'] }}</p>
+                <p>{{ news_data[key]['URL'] }}</p>
             </div>
         </div>
     </div>
     <div id="flip-card-3">
         <div class="flip-card-inner">
             <div class="flip-card-front">
-                <p>Something</p>
+                <h1>{{ key }}</h1>
             </div>
             <div class="flip-card-back">
-                <h1>John Doe</h1>
-                <p>Not working</p>
-                <p>We love that guy</p>
+                <p>{{ news_data[key]['Description'] }}</p>
+                <p>{{ news_data[key]['Date'] }}</p>
+                <p>{{ news_data[key]['URL'] }}</p>
             </div>
         </div>
     </div>
     <div id="flip-card-4">
         <div class="flip-card-inner">
             <div class="flip-card-front">
-                <p>Something</p>
+                <h1>{{ key }}</h1>
             </div>
             <div class="flip-card-back">
-                <h1>John Doe</h1>
-                <p>Not working</p>
-                <p>We love that guy</p>
+                <p>{{ news_data[key]['Description'] }}</p>
+                <p>{{ news_data[key]['Date'] }}</p>
+                <p>{{ news_data[key]['URL'] }}</p>
             </div>
         </div>
     </div>
     <div id="flip-card-5">
         <div class="flip-card-inner">
             <div class="flip-card-front">
-                <p>Something</p>
+                <h1>{{ key }}</h1>
             </div>
             <div class="flip-card-back">
-                <h1>John Doe</h1>
-                <p>Not working</p>
-                <p>We love that guy</p>
+                <p>{{ news_data[key]['Description'] }}</p>
+                <p>{{ news_data[key]['Date'] }}</p>
+                <p>{{ news_data[key]['URL'] }}</p>
             </div>
         </div>
+
     </div>
     <div id="flip-card-6">
         <div class="flip-card-inner">
             <div class="flip-card-front">
-                <p>Something</p>
+                <h1>{{ key }}</h1>
             </div>
             <div class="flip-card-back">
-                <h1>John Doe</h1>
-                <p>Not working</p>
-                <p>We love that guy</p>
+                <p>{{ news_data[key]['Description'] }}</p>
+                <p>{{ news_data[key]['Date'] }}</p>
+                <p>{{ news_data[key]['URL'] }}{% endfor %}</p>
             </div>
         </div>
     </div>
 </body>
 <script>
-    var news_data={{ news_data }}, title=[],description=[],data=[],url=[];
-    function testing() {
-        for(i, i<news_data.length; i++;){
-            news_data[i]
-
-        }
-    }
-
-
-
 </script>
 </html>
