@@ -78,6 +78,11 @@ def campus_map():
     return render_template("campus_map.html")
 
 
+@app.route('/accommodation', methods=['GET', 'POST'])
+def accommodation():
+    return render_template("accommodation.html")
+
+
 @app.route("/chat/get_users", methods=['GET', 'POST'])
 def create_entry():
     if request.method == 'GET':

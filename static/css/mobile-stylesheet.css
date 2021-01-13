@@ -270,11 +270,31 @@ html, body {
     font-size: 2vh;
 }
 
-#signUpBtn, #loginBtn, #gSignUp, #googleSignIn, h3, #registerLink, #firstName, #lastName, #signUpPassword, #signUpPasswordRepeat, #gPassword, #gPasswordRepeat, .select2-selection__rendered, .select2-results__options {
-    font-size: 2vh;
+#signUpBtn, #loginBtn, #gSignUp, #googleSignIn, h3, #registerLink, #firstName, #lastName, #signUpPassword, #signUpPasswordRepeat, #gPassword, #gPasswordRepeat, .select2-selection__rendered, .select2-results__options, #signUpEmail, #loginEmail, #loginPassword {
+    font-size: 5vw;
 }
 
 #firstName, #lastName, #signUpPassword, #signUpPasswordRepeat, #gPassword, #gPasswordRepeat {
     height: auto;
     width: 48%;
+}
+
+.select2-results__options {
+    position: fixed;
+    top:0px;
+    left:0px;
+    width:100% !important;
+    height:100% !important;
+    max-height: none !important;
+    background: white;
+}
+
+.select2-selection__rendered {
+    line-height: 50px !important;
+}
+.select2-container .select2-selection--single {
+    height: 50px !important;
+}
+.select2-selection__arrow {
+    height: 50px !important;
 }
