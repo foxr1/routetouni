@@ -1,6 +1,8 @@
 var bTop, bBottom, bLeft, bRight = '0%'; // Position of bubble before being clicked.
 var bImg; // Last bubble's image.
 var bSize; // Size of bubble before click (mobile/desktop).
+var tempBubble;
+var tempBubbleHtml;
 
 let tl = anime.timeline({
     easing: 'easeOutExpo',
@@ -62,48 +64,61 @@ tl
 function bubbleClick(bubble, img, nextPage) {
     let bubbleEl = document.getElementById(bubble)
     let bubbleStyles = window.getComputedStyle(document.querySelector('#' + bubble));
-    bubbleEl.style.zIndex = '2'; // Move circle to front
-    bTop = bubbleStyles.top;
-    bBottom = bubbleStyles.bottom;
-    bLeft = bubbleStyles.left;
-    bRight = bubbleStyles.right;
-    bImg = img;
-    bSize = bubbleStyles.height;
+    if (bubbleStyles.borderRadius === '50%') {
+        bubbleEl.style.zIndex = '2'; // Move circle to front
+        bTop = bubbleStyles.top;
+        bBottom = bubbleStyles.bottom;
+        bLeft = bubbleStyles.left;
+        bRight = bubbleStyles.right;
+        bImg = img;
+        bSize = bubbleStyles.height;
 
-    let fadeImg = anime({
-        targets: img,
-        opacity: ['100%', '0%'],
-        easing: 'easeInOutQuad'
-    })
+        let fadeImg = anime({
+            targets: img,
+            opacity: ['100%', '0%'],
+            easing: 'easeInOutQuad'
+        })
 
-    let expandBubble = anime({
-        targets: '#' + bubble,
-        keyframes: [
-            {scale: 30, duration: 1000},
-            {borderRadius: '0%'},
-            {height: '100%'},
-            {width: '100%'},
-            {top: '0%'},
-            {bottom: '0%'},
-            {left: '0%'},
-            {right: '0%'},
-            {scale: 1}
-
-        ],
-        duration: 100,
-        easing: 'easeInOutQuad',
-        update: function(anim) {
-            if (anim.progress === 100) {
-                window.location.assign('/' + nextPage);
-            }
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            tempBubbleHtml = document.getElementById(bubble).innerHTML;
+            tempBubble = document.getElementById(bubble);
+            document.getElementById(bubble).innerHTML = this.responseText;
         }
-    });
+        };
+        xhttp.open("GET", '/' + nextPage, true);
+        xhttp.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+        let expandBubble = anime({
+            targets: '#' + bubble,
+            keyframes: [
+                {scale: 30, duration: 1000},
+                {borderRadius: '0%'},
+                {height: '100%'},
+                {width: '100%'},
+                {top: '0%'},
+                {bottom: '0%'},
+                {left: '0%'},
+                {right: '0%'},
+                {scale: 1}
 
-    let back = anime({
-       targets: "#back",
-       left: '15px',
-       easing: 'easeInOutQuad'
-    });
+            ],
+            duration: 100,
+            easing: 'easeInOutQuad',
+            update: function(anim) {
+                if (anim.progress === 100) {
+                    xhttp.send();
+                    // window.location.assign();
+                }
+            }
+        });
+
+        let back = anime({
+           targets: "#back",
+           left: '15px',
+           easing: 'easeInOutQuad'
+        });
+    }
 }
 
 function bubbleHover(bubble) {
@@ -146,24 +161,27 @@ function backPress() {
         easing: 'easeInOutQuad'
     });
 
-    let revealImg = anime({
-        targets: bImg,
-        opacity: ['0%', '100%'],
-        easing: 'easeInOutQuad'
-    });
-
     for (let i = 0; i < 8; i++) {
         if (bubbles[i].style.zIndex === '2') {
             bubbles[i].style.top = bTop;
             bubbles[i].style.bottom = bBottom;
             bubbles[i].style.left = bLeft;
             bubbles[i].style.right = bRight;
+
+            document.getElementById(bubbles[i].id).innerHTML = tempBubbleHtml;
+            bubbles[i] = tempBubble;
+            let revealImg = anime({
+                targets: bImg,
+                opacity: ['0%', '100%'], duration: 1750,
+                easing: 'easeInOutQuad'
+            });
+
             let decreaseBubble = anime({
                 targets: bubblesIds[i],
                 borderRadius: '50%',
                 height: bSize,
                 width: bSize,
-                scale: [30, 1],
+                scale: [20, 1],
                 easing: 'easeInOutQuad'
             });
 
@@ -192,18 +210,16 @@ function loginPageTransition(page1, page2) {
 function onPageLoaded() {
     var redBox = document.createElement('span');
     redBox.id = "redBox"
-    redBox.style.width = '100%';
-    redBox.style.height = '100%';
-    redBox.style.position = 'fixed';
+    redBox.style.borderRadius = '50%';
+    redBox.style.width = '2000px';
+    redBox.style.height = '2000px';
+    redBox.style.position = 'absolute';
+    redBox.style.left = '50%';
+    redBox.style.top = '-90%';
+    redBox.style.transform = 'translateX(-50%)';
+    redBox.style.margin = '0 auto';
     redBox.style.backgroundColor = '#d91a35';
     document.body.insertBefore(redBox, document.body.firstChild);
-
-    let removeBox = anime({
-        targets: '#redBox',
-        borderRadius: '50%',
-        scale: '0',
-        easing: 'easeInOutQuad'
-    });
 }
 
 function openSignUp() {
