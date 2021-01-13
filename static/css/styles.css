@@ -1,3 +1,4 @@
+/* Font imports for 'Gilroy' */
 @font-face {
     font-family: 'GilroyBold';
     src: url('../fonts/gilroy/gilroy-bold/Gilroy-Bold.eot');
@@ -36,6 +37,7 @@ html, body {
     right:0;
 }
 
+/* Background gradient animation */
 body {
 	background: linear-gradient(-45deg, #003a65, #103f67, #113448, #0d0c4e);
 	background-size: 400% 400%;
@@ -137,10 +139,10 @@ body {
 }
 
 #back {
-    height: 80px;
-    width: 80px;
+    height: 4%;
+    width: 4%;
     fill: white;
-    top: 2%;
+    top: 1%;
     left: -100px;
     position: absolute;
     cursor: pointer;
@@ -160,6 +162,7 @@ body {
     cursor: pointer;
 }
 
+/* Properties for home page bubbles */
 #bubble1 {
     height: 14vh;
     width: 14vh;
@@ -173,9 +176,9 @@ body {
     z-index: 0;
 }
 
-#chatImg {
+#chatImg, #newsImg, #drinksImg, #locationImg, #healthImg, #contactsImg, #revisionImg, #accommodationImg {
     height: 9vh;
-    margin-top: 21%;
+    margin-top: 17%;
     z-index: 1;
 }
 
@@ -220,11 +223,6 @@ body {
     z-index: 0;
 }
 
-#newsImg {
-    height: 13.5vh;
-    z-index: 1;
-}
-
 #helpImg {
     height: 9.5vh;
     margin-top: 15%;
@@ -244,13 +242,6 @@ body {
     z-index: 0;
 }
 
-#drinksImg {
-    height: 9.5vh;
-    margin-top: 15%;
-    margin-left: 10%;
-    z-index: 1;
-}
-
 #bubble4 {
     height: 14vh;
     width: 14vh;
@@ -262,12 +253,6 @@ body {
     right: 22%;
     box-shadow: 0 0 5px #8a1425;
     z-index: 0;
-}
-
-#locationImg {
-    height: 10vh;
-    margin-top: 15%;
-    z-index: 1;
 }
 
 #bubble5 {
@@ -283,12 +268,6 @@ body {
     z-index: 0;
 }
 
-#accommodationImg {
-    height: 9vh;
-    margin-top: 15%;
-    z-index: 1;
-}
-
 #bubble6 {
     height: 14vh;
     width: 14vh;
@@ -300,12 +279,6 @@ body {
     right: 30%;
     box-shadow: 0 0 5px #8a1425;
     z-index: 0;
-}
-
-#healthImg {
-    height: 9vh;
-    margin-top: 15%;
-    z-index: 1;
 }
 
 #bubble7 {
@@ -321,12 +294,6 @@ body {
     z-index: 0;
 }
 
-#contactsImg {
-    height: 6.5vh;
-    margin-top: 23%;
-    z-index: 1;
-}
-
 #bubble8 {
     height: 14vh;
     width: 14vh;
@@ -338,12 +305,6 @@ body {
     left: 30%;
     box-shadow: 0 0 5px #8a1425;
     z-index: 0;
-}
-
-#revisionImg {
-    height: 9vh;
-    margin-top: 17%;
-    z-index: 1;
 }
 
 /*Register Page*/
@@ -545,4 +506,88 @@ df-messenger{
 button#widgetIcon .df-chat-icon {
     width: 30px !important;
     left: 13px !important;
+}
+
+/* P */
+.topnav {
+    overflow: hidden;
+    background-color: #003a65;
+    font-family: 'GilroyMedium', 'sans-serif';
+    transform: translateY(-85%);
+    transition: transform 1s;
+    position: fixed;
+    width: 100%;
+    text-align: center;
+    z-index: 5;
+}
+
+.topnav:hover {
+    transform: translateY(0%);
+    transition: transform 1s;
+}
+
+.topnav a {
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 10px;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.topnav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.topnav a.active {
+    background-color: #7790e5;
+    color: white;
+}
+
+/* Navigation bar buttons */
+#navBubble1, #navBubble2, #navBubble3, #navBubble4, #navBubble5, #navBubble6, #navBubble7, #navBubble8 {
+    height: 5vh;
+    width: 5vh;
+    background-color: #d91a35;
+    border-radius: 50%;
+    display: inline-block;
+    margin-top: 3%;
+    margin-bottom: 3%;
+    box-shadow: 0 0 5px #8a1425;
+    z-index: 0;
+}
+
+#navChatImg, #navNewsImg, #navDrinksImg, #navLocationImg, #navAccommodationImg, #navHealthImg, #navContactsImg, #navRevisionImg {
+    height: 3.5vh;
+    z-index: 1;
+    margin-top: 15%;
+}
+
+.navBubble1Text, .navBubble2Text, .navBubble3Text, .navBubble4Text, .navBubble5Text, .navBubble6Text, .navBubble7Text, .navBubble8Text {
+    font-family: 'GilroyMedium', 'sans-serif';
+    font-weight: lighter;
+    visibility: hidden;
+    width: 120px;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    font-size: 1vw;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    bottom: 88%;
+    left: 50%;
+    margin-left: -60px;
+
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+#navBubble1:hover .navBubble1Text, #navBubble2:hover .navBubble2Text,
+#navBubble3:hover .navBubble3Text ,#navBubble4:hover .navBubble4Text,
+#navBubble5:hover .navBubble5Text, #navBubble6:hover .navBubble6Text,
+#navBubble7:hover .navBubble7Text, #navBubble8:hover .navBubble8Text {
+    visibility: visible;
+    opacity: 1;
 }

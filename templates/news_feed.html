@@ -5,24 +5,50 @@
     <meta charset="UTF-8">
     <meta property="og:title" content="RouteToUni"/>
     <meta name="google-signin-client_id" content="1081173404847-ddjfjkqhfj79u9qiv7lrsajibo3vtgqc.apps.googleusercontent.com"/>
+    <script src="static/js/node_modules/animejs/lib/anime.min.js"></script>
+    <script src="static/js/animations.js"></script>
+    <link rel="stylesheet" href="static/css/styles.css">
     <link rel="stylesheet" href="../static/css/flipcard-stylesheet.css">
+    <link rel="stylesheet" type="text/css" media="only screen and (max-device-width: 480px)" href="static/css/mobile-flipcard-stylesheet.css" />
     <title>RouteToUni</title>
 </head>
 <body>
-    <div id="flip-card-1">
-        <div class="flip-card-inner">
-            <div class="flip-card-front">
-                {% for key, value in news_data.items() %}
-                <h1>{{ key }}</h1>
-            </div>
-            <div class="flip-card-back">
-                <p>{{ news_data[key]['Description'] }}</p>
-                <p>{{ news_data[key]['Date'] }}</p>
-                <p>{{ news_data[key]['URL'] }}</p>
-            </div>
-        </div>
+    <div class="topnav">
+        <span id="navBubble1" onclick="window.location.assign('/chat');" onmouseover="bubbleHover('#navBubble1')" onmouseout="bubbleLeave('#navBubble1')">
+            <img id="navChatImg" src="../static/images/bubbles/chat.png" alt="Chat"/>
+            <span class="navBubble1Text">Chat</span></span>
+        </span>
+        <span id="navBubble2" onclick="window.location.assign('/news');" onmouseover="bubbleHover('#navBubble2')" onmouseout="bubbleLeave('#navBubble2')">
+            <img id="navNewsImg" src="../static/images/bubbles/news.png" alt="News"/>
+            <span class="navBubble2Text">News</span></span>
+        </span>
+        <span id="navBubble3" onclick="window.location.assign('/');" onmouseover="bubbleHover('#navBubble3')" onmouseout="bubbleLeave('#navBubble3')">
+            <img id="navDrinksImg" src="../static/images/bubbles/drinks.png" alt="Drinks"/>
+            <span class="navBubble3Text">Pubs & Clubs</span></span>
+        </span>
+        <span id="navBubble4" onclick="window.location.assign('/map');" onmouseover="bubbleHover('#navBubble4')" onmouseout="bubbleLeave('#navBubble4')">
+            <img id="navLocationImg" src="../static/images/bubbles/location.png" alt="Location"/>
+            <span class="navBubble4Text">Campus Map</span></span>
+        </span>
+        <span id="navBubble5" onclick="window.location.assign('/accommodation');" onmouseover="bubbleHover('#navBubble5')" onmouseout="bubbleLeave('#navBubble5')">
+            <img id="navAccommodationImg" src="../static/images/bubbles/home.png" alt="Accommodation"/>
+            <span class="navBubble5Text">Accommodation</span></span>
+        </span>
+        <span id="navBubble6" onclick="window.location.assign('/');" onmouseover="bubbleHover('#navBubble6')" onmouseout="bubbleLeave('#navBubble6')">
+            <img id="navHealthImg" src="../static/images/bubbles/health.png" alt="Health"/>
+            <span class="navBubble6Text">Health</span></span>
+        </span>
+        <span id="navBubble7" onclick="window.location.assign('/');" onmouseover="bubbleHover('#navBubble7')" onmouseout="bubbleLeave('#navBubble7')">
+            <img id="navContactsImg" src="../static/images/bubbles/people.png" alt="Contacts"/>
+            <span class="navBubble7Text">Societies</span></span>
+        </span>
+        <span id="navBubble8" onclick="window.location.assign('/');" onmouseover="bubbleHover('#navBubble8')" onmouseout="bubbleLeave('#navBubble8')">
+            <img id="navRevisionImg" src="../static/images/bubbles/revision.png" alt="Revision"/>
+            <span class="navBubble8Text">Revision</span></span>
+        </span>
     </div>
-    <div id="flip-card-2">
+    {% for key, value in news_data.items() %}
+   <div id="{{ news_data[key]['ID']}}">
         <div class="flip-card-inner">
             <div class="flip-card-front">
                 <h1>{{ key }}</h1>
@@ -30,59 +56,12 @@
             <div class="flip-card-back">
                 <p>{{ news_data[key]['Description'] }}</p>
                 <p>{{ news_data[key]['Date'] }}</p>
-                <p>{{ news_data[key]['URL'] }}</p>
-            </div>
-        </div>
-    </div>
-    <div id="flip-card-3">
-        <div class="flip-card-inner">
-            <div class="flip-card-front">
-                <h1>{{ key }}</h1>
-            </div>
-            <div class="flip-card-back">
-                <p>{{ news_data[key]['Description'] }}</p>
-                <p>{{ news_data[key]['Date'] }}</p>
-                <p>{{ news_data[key]['URL'] }}</p>
-            </div>
-        </div>
-    </div>
-    <div id="flip-card-4">
-        <div class="flip-card-inner">
-            <div class="flip-card-front">
-                <h1>{{ key }}</h1>
-            </div>
-            <div class="flip-card-back">
-                <p>{{ news_data[key]['Description'] }}</p>
-                <p>{{ news_data[key]['Date'] }}</p>
-                <p>{{ news_data[key]['URL'] }}</p>
-            </div>
-        </div>
-    </div>
-    <div id="flip-card-5">
-        <div class="flip-card-inner">
-            <div class="flip-card-front">
-                <h1>{{ key }}</h1>
-            </div>
-            <div class="flip-card-back">
-                <p>{{ news_data[key]['Description'] }}</p>
-                <p>{{ news_data[key]['Date'] }}</p>
-                <p>{{ news_data[key]['URL'] }}</p>
-            </div>
-        </div>
+                <a href="{{ news_data[key]['URL'] }}">Click here for Link to article</a>
 
-    </div>
-    <div id="flip-card-6">
-        <div class="flip-card-inner">
-            <div class="flip-card-front">
-                <h1>{{ key }}</h1>
-            </div>
-            <div class="flip-card-back">
-                <p>{{ news_data[key]['Description'] }}</p>
-                <p>{{ news_data[key]['Date'] }}</p>
-                <p>{{ news_data[key]['URL'] }}{% endfor %}</p>
             </div>
         </div>
     </div>
+    {% endfor %}
 </body>
 <script>
 </script>

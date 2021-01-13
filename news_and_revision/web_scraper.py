@@ -90,8 +90,9 @@ def organise(text_as_list, url_list):
 def create_dictionary(news_list):
     dictionary = {}
     for i in range(len(news_list)):
+        flip_card_id="flip-card-"+str(i+1)
         a_list = news_list[i]
-        title = {a_list[0]: {"Description": a_list[1], "Date": a_list[2], "URL": a_list[3]}}
+        title = {a_list[0]: {"Description": a_list[1], "Date": a_list[2], "URL": a_list[3], "ID": flip_card_id}}
         dictionary.update(title)
     return dictionary
 

@@ -66,16 +66,21 @@ def favicon():
                                'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 
-@app.route('/news_feed')
+@app.route('/news', methods=['GET', 'POST'])
 def news_feed():
     news_data = web_scraper.main()
     revision_data = revision.main()
     return render_template("news_feed.html", news_data=news_data, revision_data=revision_data)
 
 
-@app.route('/map')
-def camp_map():
+@app.route('/map', methods=['GET', 'POST'])
+def campus_map():
     return render_template("campus_map.html")
+
+
+@app.route('/accommodation', methods=['GET', 'POST'])
+def accommodation():
+    return render_template("accommodation.html")
 
 
 @app.route("/chat/get_users", methods=['GET', 'POST'])
