@@ -92,7 +92,7 @@ def accommodation():
 
 @app.route('/pubs', methods=['GET', 'POST'])
 def pubs():
-    return render_template("pubs_and_clubs.html")
+    return render_template("pubs.html")
 
 
 @app.route("/chat/get_users", methods=['GET', 'POST'])

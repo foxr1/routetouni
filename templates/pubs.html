@@ -5,20 +5,58 @@
     <meta charset="UTF-8">
     <meta property="og:title" content="RouteToUni"/>
     <meta name="google-signin-client_id" content="1081173404847-ddjfjkqhfj79u9qiv7lrsajibo3vtgqc.apps.googleusercontent.com"/>
+    <script src="static/js/node_modules/animejs/lib/anime.min.js"></script>
+    <script src="static/js/animations.js"></script>
+    <link rel="stylesheet" href="static/css/styles.css">
     <link rel="stylesheet" href="../static/css/flipcard-stylesheet.css">
-    <title>Pubs & Clubs</title>
+    <link rel="stylesheet" type="text/css" media="only screen and (max-device-width: 480px)" href="static/css/mobile-flipcard-stylesheet.css" />
+    <title>RouteToUni</title>
 </head>
 <body>
+<div class="topnav">
+        <span id="navBubble1" onclick="window.location.assign('/chat');" onmouseover="bubbleHover('#navBubble1')" onmouseout="bubbleLeave('#navBubble1')">
+            <img id="navChatImg" src="../static/images/bubbles/chat.png" alt="Chat"/>
+            <span class="navBubble1Text">Chat</span></span>
+    </span>
+    <span id="navBubble2" onclick="window.location.assign('/news');" onmouseover="bubbleHover('#navBubble2')" onmouseout="bubbleLeave('#navBubble2')">
+            <img id="navNewsImg" src="../static/images/bubbles/news.png" alt="News"/>
+            <span class="navBubble2Text">News</span></span>
+    </span>
+    <span id="navBubble3" onclick="window.location.assign('/pubs');" onmouseover="bubbleHover('#navBubble3')" onmouseout="bubbleLeave('#navBubble3')">
+            <img id="navDrinksImg" src="../static/images/bubbles/drinks.png" alt="Drinks"/>
+            <span class="navBubble3Text">Pubs & Clubs</span></span>
+    </span>
+    <span id="navBubble4" onclick="window.location.assign('/map');" onmouseover="bubbleHover('#navBubble4')" onmouseout="bubbleLeave('#navBubble4')">
+            <img id="navLocationImg" src="../static/images/bubbles/location.png" alt="Location"/>
+            <span class="navBubble4Text">Campus Map</span></span>
+    </span>
+    <span id="navBubble5" onclick="window.location.assign('/accommodation');" onmouseover="bubbleHover('#navBubble5')" onmouseout="bubbleLeave('#navBubble5')">
+            <img id="navAccommodationImg" src="../static/images/bubbles/home.png" alt="Accommodation"/>
+            <span class="navBubble5Text">Accommodation</span></span>
+    </span>
+    <span id="navBubble6" onclick="window.location.assign('/health');" onmouseover="bubbleHover('#navBubble6')" onmouseout="bubbleLeave('#navBubble6')">
+            <img id="navHealthImg" src="../static/images/bubbles/health.png" alt="Health"/>
+            <span class="navBubble6Text">Health</span></span>
+    </span>
+    <span id="navBubble7" onclick="window.location.assign('/societies');" onmouseover="bubbleHover('#navBubble7')" onmouseout="bubbleLeave('#navBubble7')">
+            <img id="navContactsImg" src="../static/images/bubbles/people.png" alt="Contacts"/>
+            <span class="navBubble7Text">Societies</span></span>
+    </span>
+    <span id="navBubble8" onclick="window.location.assign('/revision');" onmouseover="bubbleHover('#navBubble8')" onmouseout="bubbleLeave('#navBubble8')">
+            <img id="navRevisionImg" src="../static/images/bubbles/revision.png" alt="Revision"/>
+            <span class="navBubble8Text">Revision</span></span>
+    </span>
+</div>
 <div id="flip-card-1">
     <div class="flip-card-inner">
         <div class="flip-card-front">
              <img id="clubs" src="static/images/pubs_and_clubs/best_clubs.png">
-            <p id="title-front">Best Clubs in Newcastle</p>
+            <h2 id="title-front">Best Clubs in Newcastle</h2>
 
         </div>
         <div class="flip-card-back">
 
-            <h3 id="title-back">There are lots of clubs in Newcastle. Here are some of the best to go to:</h3>
+            <h1 id="title-back">There are lots of clubs in Newcastle. Here are some of the best to go to:</h1>
              <ul id="info">
                 <li>Soho</li>
                 <li>Digital</li>
@@ -37,10 +75,10 @@
     <div class="flip-card-inner">
         <div class="flip-card-front">
             <img id="pubs" src="static/images/pubs_and_clubs/best_pubs.png">
-            <p id="title-front">Best Pubs in Newcastle</p>
+            <h2 id="title-front">Best Pubs in Newcastle</h2>
         </div>
         <div class="flip-card-back">
-            <h3 id="title-back">You can enjoy drinks with friends at these pubs:</h3>
+            <h1 id="title-back">You can enjoy drinks with friends at these pubs:</h1>
         <ul id="info">
                 <li>Dog and Parrot</li>
             <li>The Central Bar</li>
@@ -58,11 +96,11 @@
     <div class="flip-card-inner">
         <div class="flip-card-front">
             <img id="bars" src="static/images/pubs_and_clubs/best_bars.png">
-            <p id="title-front">Best Bars in Newcastle</p>
+            <h2 id="title-front">Best Bars in Newcastle</h2>
         </div>
         <div class="flip-card-back">
 
-            <h3 id="title-back">You can sit and enjoy cocktails with friends at these bars:</h3>
+            <h1 id="title-back">You can sit and enjoy cocktails with friends at these bars:</h1>
             <ul id="info">
                 <li>The Botanist</li>
                 <li>The Alchemist</li>
@@ -78,10 +116,10 @@
     <div class="flip-card-inner">
         <div class="flip-card-front">
             <img id="drinks" src="static/images/pubs_and_clubs/best_drinks.png">
-            <p id="title-front">Best Drinks to Order</p>
+            <h2 id="title-front">Best Drinks to Order</h2>
         </div>
         <div class="flip-card-back">
-            <h3 id="title-back">Here are some good drink choices to try next time you're out:</h3>
+            <h1 id="title-back">Here are some good drink choices to try next time you're out:</h1>
               <ul id="info">
                 <li>Cocktails - Mojito, Daiquiri, Martini</li>
                 <li>Spirits - Vodka + Lemonade/Red Bull</li>
@@ -95,11 +133,10 @@
     <div class="flip-card-inner">
         <div class="flip-card-front">
             <img id="tips" src="static/images/pubs_and_clubs/top_tips.png">
-            <p id="title-front">Top Tips for Clubbing</p>
+            <h2 id="title-front">Top Tips for Clubbing</h2>
         </div>
         <div class="flip-card-back">
-            <h3 id="title-back">Here's some advice to ensure you have a good night out:</h3>
-            <div class="ScrollStyle">
+            <h1 id="title-back">Here's some advice to ensure you have a good night out:</h1>
                  <ul id="info">
                 <li>Pre-drink at home to save some money. Drinks can be expensive in clubs!</li>
                 <li>Know your limits. Don’t buy more drinks if you feel you don’t need it. You can always ask for water instead. </li>
@@ -114,7 +151,7 @@
     <div class="flip-card-inner">
         <div class="flip-card-front">
             <img id="safe" src="static/images/pubs_and_clubs/staying_safe.png">
-            <p id="title-front">Staying Safe</p>
+            <h2 id="title-front">Staying Safe</h2>
         </div>
         <div class="flip-card-back">
             <h1 id="title-back">Staying Safe</h1>
