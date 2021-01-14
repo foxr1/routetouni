@@ -65,6 +65,9 @@ def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'),
                                'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
+@app.route('/health', methods=['GET', 'POST'])
+def health():
+    return render_template("health.html")
 
 @app.route('/news', methods=['GET', 'POST'])
 def news_feed():

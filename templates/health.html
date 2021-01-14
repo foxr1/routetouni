@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+    <meta charset="UTF-8">
+    <meta property="og:title" content="RouteToUni"/>
+    <meta name="google-signin-client_id" content="1081173404847-ddjfjkqhfj79u9qiv7lrsajibo3vtgqc.apps.googleusercontent.com"/>
+    <script src="static/js/node_modules/animejs/lib/anime.min.js"></script>
+    <script src="static/js/animations.js"></script>
+    <link rel="stylesheet" href="static/css/styles.css">
+    <link rel="stylesheet" href="../static/css/flipcard-stylesheet.css">
+    <link rel="stylesheet" type="text/css" media="only screen and (max-device-width: 480px)" href="static/css/mobile-flipcard-stylesheet.css" />
+    <title>RouteToUni</title>
+</head>
+<body>
+<div class="topnav">
+        <span id="navBubble1" onclick="window.location.assign('/chat');" onmouseover="bubbleHover('#navBubble1')" onmouseout="bubbleLeave('#navBubble1')">
+            <img id="navChatImg" src="../static/images/bubbles/chat.png" alt="Chat"/>
+            <span class="navBubble1Text">Chat</span></span>
+    </span>
+    <span id="navBubble2" onclick="window.location.assign('/news');" onmouseover="bubbleHover('#navBubble2')" onmouseout="bubbleLeave('#navBubble2')">
+            <img id="navNewsImg" src="../static/images/bubbles/news.png" alt="News"/>
+            <span class="navBubble2Text">News</span></span>
+    </span>
+    <span id="navBubble3" onclick="window.location.assign('/');" onmouseover="bubbleHover('#navBubble3')" onmouseout="bubbleLeave('#navBubble3')">
+            <img id="navDrinksImg" src="../static/images/bubbles/drinks.png" alt="Drinks"/>
+            <span class="navBubble3Text">Pubs & Clubs</span></span>
+    </span>
+    <span id="navBubble4" onclick="window.location.assign('/map');" onmouseover="bubbleHover('#navBubble4')" onmouseout="bubbleLeave('#navBubble4')">
+            <img id="navLocationImg" src="../static/images/bubbles/location.png" alt="Location"/>
+            <span class="navBubble4Text">Campus Map</span></span>
+    </span>
+    <span id="navBubble5" onclick="window.location.assign('/accommodation');" onmouseover="bubbleHover('#navBubble5')" onmouseout="bubbleLeave('#navBubble5')">
+            <img id="navAccommodationImg" src="../static/images/bubbles/home.png" alt="Accommodation"/>
+            <span class="navBubble5Text">Accommodation</span></span>
+    </span>
+    <span id="navBubble6" onclick="window.location.assign('/');" onmouseover="bubbleHover('#navBubble6')" onmouseout="bubbleLeave('#navBubble6')">
+            <img id="navHealthImg" src="../static/images/bubbles/health.png" alt="Health"/>
+            <span class="navBubble6Text">Health</span></span>
+    </span>
+    <span id="navBubble7" onclick="window.location.assign('/');" onmouseover="bubbleHover('#navBubble7')" onmouseout="bubbleLeave('#navBubble7')">
+            <img id="navContactsImg" src="../static/images/bubbles/people.png" alt="Contacts"/>
+            <span class="navBubble7Text">Societies</span></span>
+    </span>
+    <span id="navBubble8" onclick="window.location.assign('/');" onmouseover="bubbleHover('#navBubble8')" onmouseout="bubbleLeave('#navBubble8')">
+            <img id="navRevisionImg" src="../static/images/bubbles/revision.png" alt="Revision"/>
+            <span class="navBubble8Text">Revision</span></span>
+    </span>
+</div>
+<div id="flip-card-1">
+    <div class="flip-card-inner">
+        <div class="flip-card-front">
+            <img id="m_health" src="../static/images/health/m_health.png">
+            <h2 id="title-front">Mental Health</h2>
+        </div>
+        <div class="flip-card-back">
+            <h1 id="title-back">How can I look after my sexual health while at uni?</h1>
+            <p id="info">
+            </p>
+        </div>
+    </div>
+</div>
+<div id="flip-card-2">
+    <div class="flip-card-inner">
+        <div class="flip-card-front">
+            <img id="doctor" src="../static/images/health/doctor.png">
+            <h2 id="title-front">Register With a GP and Dentist</h2>
+        </div>
+        <div class="flip-card-back">
+            <h1 id="title-back">How can I find a doctor or dentist in Newcastle?</h1>
+            <p id="info"> It is essential you look after your health while at uni
+                and make sure you have regular check ups with your dentist and
+                visit your GP when needed.<br/>
+                You can register with a GP here: <a href="https://www.studentgpreg.org.uk/" target="_blank">https://www.studentgpreg.org.uk/</a>
+            You can find local Dentist surgeries here: <a href="https://www.nhs.uk/Service-Search/find-a-dentist" target="_blank">https://www.nhs.uk/Service-Search/find-a-dentist</a>
+            </p>
+        </div>
+    </div>
+</div>
+<div id="flip-card-3">
+    <div class="flip-card-inner">
+        <div class="flip-card-front">
+            <img id="s_health" src="../static/images/health/s_health.png">
+            <h2 id="title-front">Sexual Health</h2>
+        </div>
+        <div class="flip-card-back">
+            <h1 id="title-back">How can I look after my sexual health while at uni?</h1>
+            <p id="info">Newcastle Sexual Health Service provides a wide range
+                of free and confidential sexual health services including:</p>
+                <ul>
+            <li id="list">contraception</li>
+            <li id="list">testing for sexually transmitted infections (STIs or STDs)</li>
+            <li id="list">information on abortion services</li>
+            <li id="list">walk-in clinics</li>
+            <li id="list">booked appointments</li>
+                </ul>
+            <p id="info">There are free condoms, lubricant, home chlamydia testing kits
+                and emergency sanitary products available in the <a href="https://www.nusu.co.uk/support/sac/health/" target="_blank>">Student Advice Centre.</a>
+            </p>
+        </div>
+    </div>
+</div>
+<div id="flip-card-4">
+    <div class="flip-card-inner">
+        <div class="flip-card-front">
+            <img id="vaccinations">
+            <h2 id="title-front">Vaccinations</h2>
+        </div>
+        <div class="flip-card-back">
+
+            <h1 id="title-back"></h1>
+
+
+                <p id="info">
+                    </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="flip-card-5">
+    <div class="flip-card-inner">
+        <div class="flip-card-front">
+            <img id="pec" src="../static/images/health/pec.png">
+            <h2 id="title-front">PEC Forms</h2>
+        </div>
+        <div class="flip-card-back">
+            <h1 id="title-back"></h1>
+            <p id="info"></p>
+        </div>
+    </div>
+</div>
+<div id="flip-card-6">
+    <div class="flip-card-inner">
+        <div class="flip-card-front">
+            <img id="coronavirus" src="../static/images/health/rona.png">
+            <h2 id="title-front">Coronavirus</h2>
+        </div>
+        <div class="flip-card-back">
+            <h1 id="title-back">What is the latest guidance on Coronavirus?</h1>
+            <p id="info">For the latest advice on the Coronavirus pandemic, please
+            see the government website or visit the Universities FAQ page.
+            To report symptoms or access support from the uni regarding coronavirus
+            please contact student support</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
