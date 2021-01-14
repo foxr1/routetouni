@@ -135,8 +135,9 @@ p {
     transform: rotateY(180deg);
 }
 
-#studentaccom, #rented, #home, #search, #checklist, #time
-#doctor, #m_health, #pec1, #pec2, #coronavirus, #s_health{
+#studentaccom, #rented, #home, #search, #checklist, #time,
+#doctor, #m_health, #pec1, #pec2, #coronavirus, #s_health,
+#clubs, #pubs, #bars, #tips, #safe, #drinks{
     display: block;
     margin-left: auto;
     margin-right: auto;
