@@ -140,7 +140,7 @@ p {
     margin-left: auto;
     margin-right: auto;
     width: 50%;
-    margin-top: 20%;
+    margin-top: 10%;
 }
 
 #title-front{
@@ -149,11 +149,11 @@ p {
 }
 #title-back{
     font-family: 'GilroyMedium', 'sans-serif';
-    font-size: 2vw;
+    font-size: 3vh;
 }
 
 #info {
-    font-size: 1.2vw;
+    font-size: 1.9vh;
 }
 
 .container {
@@ -163,7 +163,7 @@ p {
     padding-left: 35px;
     margin-bottom: 12px;
     cursor: pointer;
-    font-size: 1.2vw;
+    font-size: 1.9vh;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
