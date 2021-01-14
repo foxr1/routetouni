@@ -1,5 +1,5 @@
 NOTETAKING
-Experiment with different techniques during the first few weeks to find out what works best for you. Use your first semester to try out different notetaking strategies.
+Experiment with different techniques during the first few weeks to find out what works best for you.
 Keep your notes organised – if you can’t find them, there’s no point taking them!
 At the end of each week, look over your notes and make concise revision notes.
 Read around topics – consult recommended texts for more detailed information. Don’t expect to get all of the required information during the lecture.
@@ -11,11 +11,13 @@ Write notes on any PowerPoint handouts next to the appropriate slide.
 Do not try to write everything that the lecturer is saying – note key points and items which are not on any lecture handouts. Use bullet points to note things down quickly.
 Sometimes it is more productive to just listen during the lecture and then make notes later using Recap.
 Type up your notes later to consolidate your learning.
+
 USEFUL NOTETAKING SOFTWARE
 Notion – helps to organise notes on PC/laptops.
 OneNote – allows your notes to be organised and kept in one place. You can then use your stored notes to create flashcards for revision. You can also add any lecture PowePoint slides and add your own notes during the lecture.
 Notability – allows simple notetaking and PDF annotation.
 Google Drive – to create folders of notes.
+
 REFERENCING
 Find your references during your planning rather than as you are doing the assignment.
 Reference as you work – it will save you a lot of time!
@@ -24,6 +26,7 @@ Look at referencing style guides - check that your references are correct for yo
 Attend library organised session at the beginning of the year on how to reference – these are very useful!
 Help with referencing is available from the library – use the resources available on the library website.
 Help with referencing is also available from ASK.
+
 REFERENCING SOFTWARE
 Cite Them Right – a resource to help you reference correctly and avoid plagiarism.
 EndNote – a software tool for publishing and managing bibliographies, citations and references on Windows and Mackintosh desktop.
@@ -31,6 +34,7 @@ Cite This For Me – allows you to create citations, reference list and bibliogr
 EasyBib - automatically cites books, journal articles and websites using various referencing styles.
 Mendeley – a reference management tool and academic social network.
 Zotero – helps you to collect, organise, cite and share research.
+
 EXAMS AND REVISION
 Revise throughout the term so that you are not overwhelmed during the exam period. Make sure you keep your notes and revision material up to date. Allocate time after lectures to make revision notes.
 Make a revision timetable – make sure all your modules are covered and leave yourself plenty of time to re-read any necessary texts.
@@ -54,17 +58,20 @@ Take regular breaks whilst you are revising. Use the Pomodoro technique.
 Schedule regular breaks in your revision timetable – see your friends, watch a film, etc.
 Be kind to yourself – eat well, take regular exercise and have enough sleep.
 Give yourself small rewards for achievable goals.
+
 USEFUL REVISION SOFTWARE
 Flashcard software – Anki, BrainScape and Quizlet are a great resource for creating flashcards. Create your own or share flashcards with your fellow students.
 Kahoot - create quizzes to test yourself and your course mates.
 Peerwise - create and review multiple choice questions.
 YouTube – a useful tool to search for educational videos.
 Recap - to go over any lecture materials you may have missed or are unsure about.
+
 UNIVERSITY LIBRARY
 The University Library Service provides access to a wide range of resources, services and study spaces as well as professional expertise to help students to be successful in their studies and research.
 Library Staff are available at Library Help desks to help students to find the information they need. Alternatively, students can also use the online Library Help service, 24 hours a day, 7 days a week, to access support, no matter where they are.
 The libraries have a range of study and research spaces including group and individual study rooms, allowing students to study collaboratively or silently, depending on their preference or task.
 The Philip Robinson Library also houses the Special Collections which are made up of rare and historic books, manuscripts, maps and illustrations.
+
 USEFUL UNIVERSITY LINKS
 ASK - ASK has advice on developing your academic skills and information about where you can go for support.
 Language Resource Centre - The Centre supports independent language learning and tandem learning. It offers free language learning facilities to all members of the University.
