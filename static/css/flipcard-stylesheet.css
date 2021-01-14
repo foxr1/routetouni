@@ -136,7 +136,7 @@ p {
 }
 
 #studentaccom, #rented, #home, #search, #checklist, #time,
-#m_health, #doctor, #s_health, #doctor, #coronavirus, #vaccinations, #pec {
+#m_health, #doctor, #s_health, #doctor, #coronavirus, #pec1, #pec2 {
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -155,6 +155,11 @@ p {
 
 #info {
     font-size: 1.2vw;
+}
+
+#video {
+    height: 70%;
+    width: 100%;
 }
 
 .container {
