@@ -96,6 +96,18 @@ def create_entry():
         return 'Sucesss', 200
 
 
+@app.route('/create_chat', methods=['GET', 'POST'])
+def create_chat():
+    user_id = session["user_uid"]
+    user_name = session["user_name"]
+    user_add = []
+    if request.method == 'POST':
+        for user in request.form:
+            user_add.append(user)
+        socket_man.create_room(user_id, user_name, user_add)
+    return chat()
+
+
 @app.route('/chat')
 def chat():
     user = test_user.verify_user()
