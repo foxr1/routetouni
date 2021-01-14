@@ -86,6 +86,11 @@ def accommodation():
     return render_template("accommodation.html")
 
 
+@app.route('/pubs', methods=['GET', 'POST'])
+def pubs():
+    return render_template("pubs_and_clubs.html")
+
+
 @app.route("/chat/get_users", methods=['GET', 'POST'])
 def create_entry():
     if request.method == 'GET':
