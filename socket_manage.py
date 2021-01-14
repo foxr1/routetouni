@@ -19,11 +19,15 @@ class MessageManage:
 
     # Add room messages from users rooms into dict
     def conv_dict(self, user_id):
-        all_dict = {}
+        all_dict = {'random_chat': {}, 'rooms': {}}
         for room in self.get_rooms(user_id):
             msg_list = self.get_messages(room)
             if msg_list:
-                all_dict[room] = msg_list
+                if 'Random' in room:
+                    all_dict['random_chat'][room] = msg_list
+                    print(all_dict)
+                else:
+                    all_dict['rooms'][room] = msg_list
         print(all_dict)
         return all_dict
 
@@ -36,15 +40,16 @@ class MessageManage:
         return all_msg
 
     # Create a new room or join existing
-    def add_room(self, user_id, room_id, user_name=None):
+    def add_room(self, user_id, room_id, user_name=None, room_name=None):
         print('adding', room_id, user_id)
         today = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         try:
             if self.r.xgroup_create(room_id, user_id, id="$", mkstream=True):
                 if user_name and self.r.xinfo_stream(room_id)['groups'] == 1:
                     self.add_message(room_id,
-                                     {"name": 'server', "msg": "Chat Started by " + user_name, "time": today},
-                                     user_id)
+                                     {"name": 'server', "msg": "Chat Started by " + user_name, "time": today,
+                                      "room_name": room_name},
+                                     user_id, room_name)
 
         except redis.exceptions.ResponseError as e:
             print("User probably in group", e)
@@ -65,13 +70,13 @@ class MessageManage:
             print(self.r.delete(room_id))
             self.r.zpopmin("random_rooms", 1)
 
-    def add_message(self, room_id, message, user_id):
+    def add_message(self, room_id, message, user_id, room_name=None):
         print("adding" + room_id)
         if 'user_image' not in message:
             message['user_image'] = None
         return self.r.xadd(room_id,
                            {"name": message["name"], "msg": message['msg'], "time": message['time'], 'uid': user_id,
-                            'user_image': str(message['user_image'])},
+                            'user_image': str(message['user_image']), 'room_name': str(room_name)},
                            id='*',
                            maxlen=1000,
                            approximate=True)
@@ -100,7 +105,8 @@ class MessageManage:
         else:
             return self.add_room(user_id, random_rooms[0])
 
-    def create_room(self, user_id, user_name, users):
+    def create_room(self, user_id, user_name, users, room_name):
+
         user_rooms = list(self.get_rooms(user_id))
         user_rooms.sort()
         # Create list for personal rooms
@@ -111,7 +117,7 @@ class MessageManage:
         else:
             new_room = user_id + '_0'
 
-        self.add_room(user_id, new_room, user_name)
+        self.add_room(user_id, new_room, user_name, room_name)
         for user in users:
             self.add_room(user, new_room)
 
