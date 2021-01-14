@@ -78,6 +78,11 @@ def campus_map():
     return render_template("campus_map.html")
 
 
+@app.route('/accommodation', methods=['GET', 'POST'])
+def accommodation():
+    return render_template("accommodation.html")
+
+
 @app.route("/chat/get_users", methods=['GET', 'POST'])
 def create_entry():
     if request.method == 'GET':
@@ -88,13 +93,31 @@ def create_entry():
         return jsonify(message)  # serialize and use JSON headers    # POST request
     if request.method == 'POST':
         print(request.get_json())  # parse as JSON
-        return 'Sucesss', 200
+        return 'Success', 200
+
+
+@app.route('/create_chat', methods=['GET', 'POST'])
+def create_chat():
+
+    user_id = session["user_uid"]
+    user_name = session["user_name"]
+    user_add = []
+    room_name = None
+
+    if request.method == 'POST':
+        for user in request.form:
+            if user == 'chat_name':
+                room_name = request.form[user]
+            else:
+                user_add.append(user)
+        socket_man.create_room(user_id, user_name, user_add, room_name)
+    return chat()
 
 
 @app.route('/chat')
 def chat():
     user = test_user.verify_user()
-    print(user)
+
     if not user:
         return render_template("index.html", user=user)
     else:
@@ -117,11 +140,12 @@ def joined(message):
     else:
         return chat()
 
-    for room in user_conv:
-        join_room(room)
+    for category in user_conv:
+        for room in user_conv[category]:
+            join_room(room)
 
-        emit('status', {'name': user_name, 'uid': test_user.uid, "id": str(room), 'user_image': user_image},
-             room=room, prev_msg=user_conv)
+            emit('status', {'name': user_name, 'uid': test_user.uid, "id": str(room), 'user_image': user_image},
+                 room=room, prev_msg=user_conv)
 
 
 @socketio.on('text', namespace='/chat')
@@ -132,6 +156,7 @@ def text(message):
     user_image = session["user_image"]
 
     message['user_image'] = user_image
+
     if socket_man.check_user_in(user_id, room):
         socket_man.add_message(room, message, user_id)
         emit('internal_msg',
@@ -145,7 +170,6 @@ def text(message):
 def join_random(message):
     user_id = session["user_uid"]
     user_name = session["user_name"]
-
     socket_man.join_random(user_id, user_name)
 
 
