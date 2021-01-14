@@ -64,7 +64,7 @@ tl
 function bubbleClick(bubble, img, nextPage) {
     let bubbleEl = document.getElementById(bubble)
     let bubbleStyles = window.getComputedStyle(document.querySelector('#' + bubble));
-    if (bubbleStyles.borderRadius === '50%') {
+    if (bubbleStyles.borderRadius === '50%' && bubbleStyles.transform <= "matrix(1.5, 0, 0, 1.5, 0, 0)") {
         bubbleEl.style.zIndex = '2'; // Move circle to front
         bTop = bubbleStyles.top;
         bBottom = bubbleStyles.bottom;
@@ -81,7 +81,7 @@ function bubbleClick(bubble, img, nextPage) {
 
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
+        if (this.readyState === 4 && this.status === 200) {
             tempBubbleHtml = document.getElementById(bubble).innerHTML;
             tempBubble = document.getElementById(bubble);
             document.getElementById(bubble).innerHTML = this.responseText;

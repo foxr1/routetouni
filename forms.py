@@ -8,8 +8,16 @@ r = redis.StrictRedis(host=redis_host, port=redis_port, charset="utf-8", decode_
 
 user = {"Name": "Pradeep", "Company": "SCTL", "Address": "Mumbai", "Location": "RCP"}
 
+
+
+print(r.xinfo_groups("3boNDH3ypRaBX9pc27ZYz049qNP2_0"))
+print(r.xinfo_stream("3boNDH3ypRaBX9pc27ZYz049qNP2_0"))
+print(r.hgetall('1dE06UcNkjTxMK6wlPIyd5y3h4E3'))
+# print(r.xgroup_create("Random_0", '1235512333', id="$",mkstream=True))
+
+
 # print(r.rpushx("random","random_1"))
-print(r.zadd("random_rooms",mapping={"Random_0": 1}))
+# print(r.zadd("random_rooms",mapping={"Random_0": 1}))
 #
 # print(r.xadd("Random1", {"name":"kk"},id='*',maxlen=500,approximate=True))
 
@@ -23,8 +31,7 @@ print(r.zadd("random_rooms",mapping={"Random_0": 1}))
 
 # print(r.xtrim("peter",6,approximate=True))
 
-print(r.xinfo_groups("Random_0"))
-print(r.xinfo_stream("Random_0"))
+
 #     r.delete("Random1")
 
 # if r.xlen("Random1") > 3:
@@ -47,8 +54,8 @@ print(r.xinfo_stream("Random_0"))
 # last = (r.zrangebylex("random_rooms",min='-',max='+')[-1])
 
 # print(r.zpopmin("random_rooms", 1))
-for elem in r.zscan_iter("random_rooms"):
-    print(elem)
+# for elem in r.zscan_iter("random_rooms"):
+#     print(elem)
 # print(r.zrange("random_rooms",0,5))
 
 # print()

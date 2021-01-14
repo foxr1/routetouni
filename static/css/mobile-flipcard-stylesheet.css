@@ -1,0 +1,86 @@
+html, body {
+    background-color: #003a65;
+    position: fixed;
+    overflow-x: hidden;
+    overflow-y: visible;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    left:0;
+    right:0;
+}
+
+p, .container {
+    font-size: 5vw !important;
+}
+
+#info {
+    font-size: 4vw !important;
+}
+
+.ScrollStyle {
+    max-height: none !important;
+}
+
+h1 {
+    font-size: 6vw !important;
+}
+
+#flip-card-1 {
+    background-color: #d91a35;
+    left: 8%;
+    width: 83%;
+    height: 88%;
+    position: absolute;
+    perspective: 1000px; /* Remove this if you don't want the 3D effect */
+}
+
+#flip-card-2 {
+    background-color: #d91a35;
+    top: 105%;
+    left: 8%;
+    width: 83%;
+    height: 88%;
+    position: absolute;
+    perspective: 1000px; /* Remove this if you don't want the 3D effect */
+}
+
+#flip-card-3 {
+    background-color: #d91a35;
+    top: 210%;
+    left: 8%;
+    width: 83%;
+    height: 88%;
+    position: absolute;
+    perspective: 1000px; /* Remove this if you don't want the 3D effect */
+}
+
+#flip-card-4 {
+    background-color: #d91a35;
+    top: 315%;
+    left: 8%;
+    width: 83%;
+    height: 88%;
+    position: absolute;
+    perspective: 1000px; /* Remove this if you don't want the 3D effect */
+}
+
+#flip-card-5 {
+    background-color: #d91a35;
+    top: 420%;
+    left: 8%;
+    width: 83%;
+    height: 88%;
+    position: absolute;
+    perspective: 1000px; /* Remove this if you don't want the 3D effect */
+}
+
+#flip-card-6 {
+    background-color: #d91a35;
+    top: 525%;
+    left: 8%;
+    width: 83%;
+    height: 88%;
+    position: absolute;
+    perspective: 1000px; /* Remove this if you don't want the 3D effect */
+}
