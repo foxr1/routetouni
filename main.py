@@ -6,7 +6,7 @@ from flask import Flask, render_template, session, redirect, url_for, send_from_
 from flask_socketio import emit, join_room, leave_room, SocketIO
 from models import User
 from socket_manage import MessageManage
-from news_and_revision import web_scraper, revision
+from news_and_revision import web_scraper
 
 async_mode = None
 app = Flask(__name__)
@@ -72,8 +72,12 @@ def health():
 @app.route('/news', methods=['GET', 'POST'])
 def news_feed():
     news_data = web_scraper.main()
-    revision_data = revision.main()
-    return render_template("news_feed.html", news_data=news_data, revision_data=revision_data)
+    return render_template("news_feed.html", news_data=news_data)
+
+
+@app.route('/revision', methods=['GET', 'POST'])
+def revision_feed():
+    return render_template("revision.html")
 
 
 @app.route('/map', methods=['GET', 'POST'])
