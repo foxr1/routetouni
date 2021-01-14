@@ -135,13 +135,13 @@ p {
     transform: rotateY(180deg);
 }
 
-#studentaccom, #rented, #home, #search, #checklist, #time,
-#m_health, #doctor, #s_health, #doctor, #coronavirus, #pec1, #pec2 {
+#studentaccom, #rented, #home, #search, #checklist, #time
+#doctor, #m_health, #pec1, #pec2, #coronavirus, #s_health{
     display: block;
     margin-left: auto;
     margin-right: auto;
     width: 50%;
-    margin-top: 20%;
+    margin-top: 10%;
 }
 
 #title-front{
@@ -150,13 +150,12 @@ p {
 }
 #title-back{
     font-family: 'GilroyMedium', 'sans-serif';
-    font-size: 2vw;
+    font-size: 3vh;
 }
 
 #info {
-    font-size: 1.2vw;
+    font-size: 1.9vh;
 }
-
 #video {
     height: 70%;
     width: 100%;
@@ -169,7 +168,7 @@ p {
     padding-left: 35px;
     margin-bottom: 12px;
     cursor: pointer;
-    font-size: 1.2vw;
+    font-size: 1.9vh;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
