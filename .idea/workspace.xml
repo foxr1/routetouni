@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="46a7629e-7ad0-4f8a-afb2-ab32d36595e0" name="Default Changelist" comment="added chat creation (TODO retrieve user data from database for vericiation and users in list, also pretty chat naming)">
+    <list default="true" id="46a7629e-7ad0-4f8a-afb2-ab32d36595e0" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/static/images/societies/budget.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/societies/giag.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/societies/media.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/societies/media_r.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/societies/media_rb.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/societies/societies.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/societies/sports.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/societies/volunteer.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/css/flipcard-stylesheet.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/flipcard-stylesheet.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/societies.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/societies.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,6 +78,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\katie\OneDrive - Newcastle University\Year 2\Semester 1\Group project\routetouni_new\static\images\societies" />
       <recent name="C:\Users\phili\PycharmProjects\routetouni" />
     </key>
   </component>
@@ -212,6 +223,7 @@
       <workItem from="1610532178594" duration="8882000" />
       <workItem from="1610554479696" duration="6797000" />
       <workItem from="1610618588869" duration="5822000" />
+      <workItem from="1610704082443" duration="1445000" />
     </task>
     <task id="LOCAL-00001" summary="combined login with chat">
       <created>1608115716378</created>
@@ -332,7 +344,28 @@
       <option name="project" value="LOCAL" />
       <updated>1610625786545</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Images for pubs added to flipcard-stylesheet.css">
+      <created>1610629310962</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1610629310962</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Navigation bar updated. &#10;Headings and images fixed for accommodation page.">
+      <created>1610630280269</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1610630280269</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Navigate to societies page from home page.&#10;Societies page created">
+      <created>1610631216371</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1610631216371</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -380,7 +413,10 @@
     <MESSAGE value="started adding chat creation by peer mentor" />
     <MESSAGE value="added chat creation (TODO retrieve user data from database for vericiation and users in list, also pretty chat naming)" />
     <MESSAGE value="Navigate to pubs &amp; clubs page" />
-    <option name="LAST_COMMIT_MESSAGE" value="Navigate to pubs &amp; clubs page" />
+    <MESSAGE value="Images for pubs added to flipcard-stylesheet.css" />
+    <MESSAGE value="Navigation bar updated. &#10;Headings and images fixed for accommodation page." />
+    <MESSAGE value="Navigate to societies page from home page.&#10;Societies page created" />
+    <option name="LAST_COMMIT_MESSAGE" value="Navigate to societies page from home page.&#10;Societies page created" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -404,7 +440,7 @@
     <SUITE FILE_PATH="coverage/routetouni$app__1_.coverage" NAME="app (1) Coverage Results" MODIFIED="1607089309508" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/flaskr" />
     <SUITE FILE_PATH="coverage/routetouni$app__2_.coverage" NAME="app (2) Coverage Results" MODIFIED="1607089944711" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/routetouni$main.coverage" NAME="main Coverage Results" MODIFIED="1607986752399" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/routetouni_new$Flask__main_py_.coverage" NAME="Flask (main.py) Coverage Results" MODIFIED="1610625716816" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/routetouni_new$Flask__main_py_.coverage" NAME="Flask (main.py) Coverage Results" MODIFIED="1610705220856" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/routetouni$app.coverage" NAME="main Coverage Results" MODIFIED="1607120043868" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/routetouni$chat.coverage" NAME="chat Coverage Results" MODIFIED="1607020740322" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/routetouni$apple.coverage" NAME="apple Coverage Results" MODIFIED="1608117671406" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$APPLICATION_CONFIG_DIR$/scratches" />

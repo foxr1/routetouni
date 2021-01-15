@@ -99,6 +99,10 @@ def pubs():
 def societies():
     return render_template("societies.html")
 
+@app.route('/revision', methods=['GET', 'POST'])
+def revision():
+    return render_template("revision.html")
+
 @app.route("/chat/get_users", methods=['GET', 'POST'])
 def create_entry():
     if request.method == 'GET':
