@@ -11,4 +11,4 @@ firebase_admin.initialize_app(cred, {
 })
 
 ref = db.reference('users/3AixDYlmwbSJ0b1XpyCCoqmAhL52').get()
-print(ref['school'])
+print(ref)

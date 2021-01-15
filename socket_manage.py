@@ -41,7 +41,7 @@ class MessageManage:
 
     # Create a new room or join existing
     def add_room(self, user_id, room_id, user_name=None, room_name=None):
-        print('adding', room_id, user_id)
+
         today = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         try:
             if self.r.xgroup_create(room_id, user_id, id="$", mkstream=True):
@@ -71,7 +71,6 @@ class MessageManage:
             self.r.zpopmin("random_rooms", 1)
 
     def add_message(self, room_id, message, user_id, room_name=None):
-        print("adding" + room_id)
         if 'user_image' not in message:
             message['user_image'] = None
         return self.r.xadd(room_id,

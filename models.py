@@ -6,6 +6,10 @@ from firebase_admin import credentials, auth, exceptions
 from firebase_admin import db
 
 
+def get_all_users():
+    return db.reference('users').get()
+
+
 class User:
 
     def __init__(self):
@@ -13,6 +17,16 @@ class User:
         firebase_admin.initialize_app(cred, {
             'databaseURL': 'https://route2uni-default-rtdb.firebaseio.com/'
         })
+        self.id_token = ""
+        self.email = None
+        self.uid = None
+        self.name = None
+        self.peer_mentor = None
+        self.picture = None
+        self.role = None
+        self.school = None
+
+    def clear_data(self):
         self.id_token = ""
         self.email = None
         self.uid = None
@@ -37,7 +51,7 @@ class User:
             expires = datetime.datetime.now() + expires_in
 
             response.set_cookie(
-                'session_token', session_cookie, expires=expires, httponly=True, secure=True)
+                'session_token', session_cookie, expires=expires, httponly=True, secure=True, samesite='Lax')
 
             return response
         except exceptions.FirebaseError:
@@ -74,30 +88,16 @@ class User:
         print("logging out")
         if not session_cookie:
             print("No Cookie")
-            self.id_token = ""
-            self.email = None
-            self.uid = None
-            self.name = None
-            self.picture = None
-            print("Logout withought session cookie")
+            self.clear_data()
             return None
 
         try:
-
             decoded_claims = auth.verify_session_cookie(session_cookie)
             auth.revoke_refresh_tokens(decoded_claims['sub'])
             response = flask.make_response(flask.redirect('/login'))
             response.set_cookie('session', expires=0)
-            self.id_token = ""
-            self.email = None
-            self.uid = None
-            self.name = None
-            self.picture = None
+            self.clear_data()
             print("Logout successfully")
         except auth.InvalidSessionCookieError as e:
-            self.id_token = ""
-            self.email = None
-            self.uid = None
-            self.name = None
-            self.picture = None
+            self.clear_data()
             print("Error Logout", e)

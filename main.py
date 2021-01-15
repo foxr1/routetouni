@@ -1,17 +1,19 @@
 import os
-from datetime import date
 import flask
 from flask import Flask, render_template, session, redirect, url_for, send_from_directory, Blueprint, request, \
     make_response, jsonify
 from flask_socketio import emit, join_room, leave_room, SocketIO
-from models import User
+from models import User, get_all_users
 from socket_manage import MessageManage
 from news_and_revision import web_scraper
 
 async_mode = None
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
-
+app.config.update(
+    SESSION_COOKIE_SECURE=True,
+    SESSION_COOKIE_HTTPONLY=True,
+    SESSION_COOKIE_SAMESITE='Lax', )
 socketio = SocketIO(app, async_mode=async_mode, cors_allowed_origins=["https://extreme-lattice-298010.nw.r.appspot.com",
                                                                       "http://extreme-lattice-298010.nw.r.appspot.com",
                                                                       "http://localhost:5000"],
@@ -21,6 +23,7 @@ main = Blueprint('main', __name__)
 
 test_user = User()
 socket_man = MessageManage()
+socket_man.flush_db()
 
 
 @app.route('/sessionLogin', methods=['GET', 'POST'])
@@ -39,7 +42,6 @@ def session_logout():
 def index():
     if test_user.name:
         user = test_user.name
-        print(user)
     else:
         session_cookie = flask.request.cookies.get('session_token')
         if session_cookie:
@@ -65,9 +67,11 @@ def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'),
                                'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
+
 @app.route('/health', methods=['GET', 'POST'])
 def health():
     return render_template("health.html")
+
 
 @app.route('/news', methods=['GET', 'POST'])
 def news_feed():
@@ -99,18 +103,17 @@ def pubs():
 def societies():
     return render_template("societies.html")
 
+
 @app.route('/revision', methods=['GET', 'POST'])
 def revision():
     return render_template("revision.html")
 
+
 @app.route("/chat/get_users", methods=['GET', 'POST'])
 def create_entry():
     if request.method == 'GET':
-        message = {'1dE06UcNkjTxMK6wlPIyd5y3h4E3': {'firstname': 'philip', 'lastname': 'solo',
-                                                    'email': 'philipsolo4@gmail.com'},
-                   '3AixDYlmwbSJ0b1XpyCCoqmAhL52': {'firstname': 'John', 'lastname': 'appleseed',
-                                                    'email': 'johnappleseed@gmail.com'}}
-        return jsonify(message)  # serialize and use JSON headers    # POST request
+        ref = get_all_users()
+        return jsonify(ref)  # serialize and use JSON headers    # POST request
     if request.method == 'POST':
         print(request.get_json())  # parse as JSON
         return 'Success', 200
@@ -118,7 +121,6 @@ def create_entry():
 
 @app.route('/create_chat', methods=['GET', 'POST'])
 def create_chat():
-
     user_id = session["user_uid"]
     user_name = session["user_name"]
     user_add = []
@@ -164,7 +166,8 @@ def joined(message):
         for room in user_conv[category]:
             join_room(room)
 
-            emit('status', {'name': user_name, 'uid': test_user.uid, "id": str(room), 'user_image': user_image},
+            emit('status', {'msg': "Has Joined the Chat", 'name': user_name, 'uid': test_user.uid, "id": str(room),
+                            'user_image': user_image},
                  room=room, prev_msg=user_conv)
 
 
@@ -202,7 +205,7 @@ def exit_room(message):
     print("exiting chat")
     leave_room(message['id'])
 
-    emit('status', {'msg': "Has Left the room", 'name': test_user.name}, room=message['id'])
+    emit('status', {'msg': "Has left the Chat", 'name': test_user.name}, room=message['id'])
 
 
 if __name__ == '__main__':

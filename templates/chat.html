@@ -45,6 +45,31 @@
 	</style>
     {% block javascript %}
 	<script charset="utf-8" type="text/javascript">
+
+    function search_table() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("my_input");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("user_table");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    console.log(td)
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+
+
         var curr_room = ""
         var local_user = null
 
@@ -68,8 +93,8 @@
       for (let value in text) {
           tbody += `<tr>
     <td class="text-center"><input type="checkbox" name="${value}" id="${value}"/></td>
-    <td>${text[value]['firstname']}</td>
-    <td>${text[value]['lastname']}</td>
+    <td>${text[value]['name']}</td>
+    <td>${text[value]['course']}</td>
 </tr>`;
       }
        tbody += "";
@@ -279,6 +304,10 @@
 							<div class="list-group rounded-0 active" id="myTab" role="tablist">
 
 
+                              {% for key, value in prev_msg['rooms'].items() %}
+                              {% set last_msg = value|last %}
+                              {{ conv(last_msg['room_name'],last_msg['time'],key,last_msg['msg']) }}
+                                {% endfor %}
 
                             {% if prev_msg['random_chat']|length > 0 %}
                           {% for key, value in prev_msg['random_chat'].items() %}
@@ -291,13 +320,9 @@
 <div class="col text-center">
                                 <button class="btn btn-outline-info btn-lg"  onclick="join_random()"><i class="fa fa-users"></i> Random Chat</button>
 </div>
-    </div>
+    </div></div>
                             {% endif %}
 
-                                {% for key, value in prev_msg['rooms'].items() %}
-                              {% set last_msg = value|last %}
-                              {{ conv(last_msg['room_name'],last_msg['time'],key,last_msg['msg']) }}
-                                {% endfor %}
 
 
 
@@ -314,10 +339,11 @@
 
                                  <div class="row text-left no-gutters mt-1">
                                <div class="col" style="margin: 1%;">
-                                   <input type="search" class="form-control-sm" autofocus placeholder="Search User" style="border-top-style: none;border-right-style: none;border-bottom-style: solid;border-bottom-color: var(--blue);border-left-style: none;" />
+                                   <input type="search" class="form-control-sm" id="my_input" onkeyup="search_table()" autofocus placeholder="Search User" style="border-top-style: none;border-right-style: none;border-bottom-style: solid;border-bottom-color: var(--blue);border-left-style: none;" />
                                </div>
                            </div>
                                   <div class="row no-gutters mt-1">
+                                      <div class="message-area">
                             <table class="table table-striped table-bordered table-hover" id="user_table">
                                 <caption class="text-center">
                                     <input type="search" class="form-control-lg" name="chat_name" autofocus placeholder="Chat name..." style="border-top-style: none;border-right-style: none;border-bottom-style: solid;border-bottom-color: var(--blue);border-left-style: none;" required minlength="5" maxlength="15" />
@@ -335,11 +361,10 @@
                                 <tbody id="tbody_users">
                                 </tbody>
                             </table>
+                                          </div>
                                   </div>
                                  </form>
                         </div>
-
-
                     </div>
                 </div>
             </div>
@@ -356,12 +381,12 @@
 				</div>
 
                 <div class="tab-content col-md-8">
-                    {% for key, value in prev_msg['random_chat'].items() %}
-                           {{tab_cont(prev_msg['random_chat'][key], key)}}
-                    {% endfor %}
-
                     {% for key, value in prev_msg['rooms'].items() %}
                            {{tab_cont(prev_msg['rooms'][key], key)}}
+                    {% endfor %}
+
+                    {% for key, value in prev_msg['random_chat'].items() %}
+                           {{tab_cont(prev_msg['random_chat'][key], key)}}
                     {% endfor %}
 		        </div>
 				</div>
@@ -372,6 +397,6 @@
 
     </script>
 </div>
-</div>
+
 </body>
 </html>
