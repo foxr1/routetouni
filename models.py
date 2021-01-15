@@ -5,6 +5,11 @@ import firebase_admin
 from firebase_admin import credentials, auth, exceptions
 from firebase_admin import db
 
+cred = credentials.Certificate("serviceAccountKey.json")
+firebase_admin.initialize_app(cred, {
+    'databaseURL': 'https://route2uni-default-rtdb.firebaseio.com/'
+})
+
 
 def get_all_users():
     return db.reference('users').get()
@@ -13,10 +18,6 @@ def get_all_users():
 class User:
 
     def __init__(self):
-        cred = credentials.Certificate("serviceAccountKey.json")
-        firebase_admin.initialize_app(cred, {
-            'databaseURL': 'https://route2uni-default-rtdb.firebaseio.com/'
-        })
         self.id_token = ""
         self.email = None
         self.uid = None
@@ -27,14 +28,7 @@ class User:
         self.school = None
 
     def clear_data(self):
-        self.id_token = ""
-        self.email = None
-        self.uid = None
-        self.name = None
-        self.peer_mentor = None
-        self.picture = None
-        self.role = None
-        self.school = None
+        self.__init__()
 
     def login_user(self):
         self.id_token = request.args.get('idToken')
@@ -52,30 +46,24 @@ class User:
 
             response.set_cookie(
                 'session_token', session_cookie, expires=expires, httponly=True, secure=True, samesite='Lax')
-
             return response
         except exceptions.FirebaseError:
             return flask.abort(401, 'Failed to create a session cookie')
 
     def verify_user(self):
         session_cookie = flask.request.cookies.get('session_token')
-
         if not session_cookie:
-            print("No Cookie")
             return None
         else:
             try:
                 decoded_claims = auth.verify_session_cookie(session_cookie, check_revoked=True)
-                print(decoded_claims)
                 self.uid = decoded_claims['uid']
                 self.email = decoded_claims['email']
                 self.name = decoded_claims['name']
                 self.picture = decoded_claims['picture']
                 return self.name
-
             except Exception as e:
-                print(e)
-                print("Verification Error")
+                print("Verification Error", e)
                 return None
 
     def get_meta(self):
@@ -87,7 +75,6 @@ class User:
         session_cookie = flask.request.cookies.get('session_token')
         print("logging out")
         if not session_cookie:
-            print("No Cookie")
             self.clear_data()
             return None
 
@@ -98,6 +85,8 @@ class User:
             response.set_cookie('session', expires=0)
             self.clear_data()
             print("Logout successfully")
+            return response
         except auth.InvalidSessionCookieError as e:
             self.clear_data()
             print("Error Logout", e)
+            return None
