@@ -227,7 +227,7 @@ html, body {
     font-size: 2vh;
 }
 
-#signUpBtn, #loginBtn, #gSignUp, #googleSignIn, h3, #registerLink, #firstName, #lastName, #signUpPassword, #signUpPasswordRepeat, #gPassword, #gPasswordRepeat, .select2-selection__rendered, .select2-results__options, #signUpEmail, #loginEmail, #loginPassword {
+#signUpBtn, #loginBtn, #gSignUp, #googleSignIn, h3, #registerLink, #firstName, #lastName, #signUpPassword, #signUpPasswordRepeat, #gPassword, #gPasswordRepeat, .select2-selection__rendered, .select2-results__options, #signUpEmail, #loginEmail, #loginPassword, .sth-select {
     font-size: 5vw;
 }
 
@@ -254,4 +254,9 @@ html, body {
 }
 .select2-selection__arrow {
     height: 50px !important;
+}
+
+.sth-select-popup, .sth-select-item, .sth-select-filter {
+    /*font-size: 3em;*/
+    /*height: auto !important;*/
 }

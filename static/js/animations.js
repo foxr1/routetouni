@@ -13,46 +13,55 @@ tl
 .add({
     targets: '#universityHeading',
     scale: [0,1.5],
+    borderRadius: '50%',
     easing: 'spring',
 }, 100)
 .add({
     targets: '#bubble1',
     scale: [0,1],
+    borderRadius: '50%',
     easing: 'spring',
 }, 300)
 .add({
     targets: '#bubble2',
     scale: [0,1],
+    borderRadius: '50%',
     easing: 'spring',
 }, 400)
 .add({
     targets: '#bubble3',
     scale: [0,1],
+    borderRadius: '50%',
     easing: 'spring',
 }, 500)
 .add({
     targets: '#bubble4',
     scale: [0,1],
+    borderRadius: '50%',
     easing: 'spring',
 }, 600)
 .add({
     targets: '#bubble6',
     scale: [0,1],
+    borderRadius: '50%',
     easing: 'spring',
 }, 700)
 .add({
     targets: '#bubble7',
     scale: [0,1],
+    borderRadius: '50%',
     easing: 'spring',
 }, 800)
 .add({
     targets: '#bubble8',
     scale: [0,1],
+    borderRadius: '50%',
     easing: 'spring',
 }, 900)
 .add({
     targets: '#bubble5',
     scale: [0,1],
+    borderRadius: '50%',
     easing: 'spring',
 }, 1000)
 .add({
@@ -64,7 +73,7 @@ tl
 function bubbleClick(bubble, img, nextPage) {
     let bubbleEl = document.getElementById(bubble)
     let bubbleStyles = window.getComputedStyle(document.querySelector('#' + bubble));
-    if (bubbleStyles.borderRadius === '50%' && bubbleStyles.transform <= "matrix(1.5, 0, 0, 1.5, 0, 0)") {
+    if (bubbleStyles.zIndex === '0') {
         bubbleEl.style.zIndex = '2'; // Move circle to front
         bTop = bubbleStyles.top;
         bBottom = bubbleStyles.bottom;
@@ -93,13 +102,13 @@ function bubbleClick(bubble, img, nextPage) {
             targets: '#' + bubble,
             keyframes: [
                 {scale: 30, duration: 1000},
-                {borderRadius: '0%'},
                 {height: '100%'},
                 {width: '100%'},
                 {top: '0%'},
                 {bottom: '0%'},
                 {left: '0%'},
                 {right: '0%'},
+                {borderRadius: '0%'},
                 {scale: 1}
 
             ],
@@ -111,12 +120,6 @@ function bubbleClick(bubble, img, nextPage) {
                     // window.location.assign();
                 }
             }
-        });
-
-        let back = anime({
-           targets: "#back",
-           left: '15px',
-           easing: 'easeInOutQuad'
         });
     }
 }
@@ -155,41 +158,39 @@ function backPress() {
     let bubbles = [bubble1, bubble2, bubble3, bubble4, bubble5, bubble6, bubble7, bubble8];
     let bubblesIds = ["#bubble1", "#bubble2", "#bubble3", "#bubble4", "#bubble5", "#bubble6", "#bubble7", "#bubble8"];
 
-    let hideBack = anime({
-        targets: "#back",
-        left: '-100px',
-        easing: 'easeInOutQuad'
-    });
+    if (tempBubble != null) {
+        for (let i = 0; i < 8; i++) {
+            if (bubbles[i].style.zIndex === '2') {
+                bubbles[i].style.top = bTop;
+                bubbles[i].style.bottom = bBottom;
+                bubbles[i].style.left = bLeft;
+                bubbles[i].style.right = bRight;
 
-    for (let i = 0; i < 8; i++) {
-        if (bubbles[i].style.zIndex === '2') {
-            bubbles[i].style.top = bTop;
-            bubbles[i].style.bottom = bBottom;
-            bubbles[i].style.left = bLeft;
-            bubbles[i].style.right = bRight;
+                document.getElementById(bubbles[i].id).innerHTML = tempBubbleHtml;
+                bubbles[i] = tempBubble;
+                let revealImg = anime({
+                    targets: bImg,
+                    opacity: ['0%', '100%'], duration: 1750,
+                    easing: 'easeInOutQuad'
+                });
 
-            document.getElementById(bubbles[i].id).innerHTML = tempBubbleHtml;
-            bubbles[i] = tempBubble;
-            let revealImg = anime({
-                targets: bImg,
-                opacity: ['0%', '100%'], duration: 1750,
-                easing: 'easeInOutQuad'
-            });
+                let decreaseBubble = anime({
+                    targets: bubblesIds[i],
+                    borderRadius: '50%',
+                    height: bSize,
+                    width: bSize,
+                    scale: [20, 1],
+                    easing: 'easeInOutQuad'
+                });
 
-            let decreaseBubble = anime({
-                targets: bubblesIds[i],
-                borderRadius: '50%',
-                height: bSize,
-                width: bSize,
-                scale: [20, 1],
-                easing: 'easeInOutQuad'
-            });
-
-            setTimeout(function() {
-                bubbles[i].style.zIndex = '0';
-            }, 1000);
-            break;
+                setTimeout(function() {
+                    bubbles[i].style.zIndex = '0';
+                }, 1000);
+                break;
+            }
         }
+    } else {
+        window.open("/", "_self");
     }
 }
 
