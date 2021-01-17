@@ -23,7 +23,7 @@ main = Blueprint('main', __name__)
 
 test_user = User()
 socket_man = MessageManage()
-socket_man.flush_db()
+
 
 
 @app.route('/sessionLogin', methods=['GET', 'POST'])
