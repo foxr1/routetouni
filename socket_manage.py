@@ -25,7 +25,7 @@ class MessageManage:
             if msg_list:
                 if 'Random' in room:
                     all_dict['random_chat'][room] = msg_list
-                    print(all_dict)
+
                 else:
                     all_dict['rooms'][room] = msg_list
         print(all_dict)
@@ -61,7 +61,6 @@ class MessageManage:
 
     # TODO reduce z-item by one when user deletes
     def del_room(self, user_id, room_id):
-
         self.r.hdel(user_id, room_id)
         self.r.xgroup_destroy(room_id, user_id)
 
