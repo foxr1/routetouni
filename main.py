@@ -1,3 +1,4 @@
+import json
 import os
 import flask
 from flask import Flask, render_template, session, redirect, url_for, send_from_directory, Blueprint, request, \
@@ -23,7 +24,6 @@ main = Blueprint('main', __name__)
 
 test_user = User()
 socket_man = MessageManage()
-socket_man.flush_db()
 
 
 @app.route('/sessionLogin', methods=['GET', 'POST'])
@@ -113,27 +113,27 @@ def revision():
 def create_entry():
     if request.method == 'GET':
         ref = get_all_users()
-        return jsonify(ref)  # serialize and use JSON headers    # POST request
+        return jsonify(ref)
     if request.method == 'POST':
-        print(request.get_json())  # parse as JSON
         return 'Success', 200
 
 
-@app.route('/create_chat', methods=['GET', 'POST'])
+@app.route('/create_chat/create_chat', methods=['GET', 'POST'])
 def create_chat():
     user_id = session["user_uid"]
     user_name = session["user_name"]
     user_add = []
     room_name = None
-
     if request.method == 'POST':
-        for user in request.form:
-            if user == 'chat_name':
-                room_name = request.form[user]
+        form_json = request.get_json()
+        for item in form_json:
+            if item['name'] == 'chat_name':
+                room_name = item['value']
             else:
-                user_add.append(user)
+                user_add.append(item['name'])
         socket_man.create_room(user_id, user_name, user_add, room_name)
-    return chat()
+        return json.dumps({'status': 'OK'})
+    return json.dumps({'status': 'ERROR'})
 
 
 @app.route('/chat')
@@ -166,14 +166,14 @@ def joined(message):
         for room in user_conv[category]:
             join_room(room)
 
-            emit('status', {'msg': "Has Joined the Chat", 'name': user_name, 'uid': test_user.uid, "id": str(room),
-                            'user_image': user_image},
+            emit('status', {'msg': "Has Joined the Chat", 'name': user_name, 'uid': test_user.uid, "room_id": str(room),
+                            'color': 'secondary', 'user_image': user_image},
                  room=room, prev_msg=user_conv)
 
 
 @socketio.on('text', namespace='/chat')
 def text(message):
-    room = message['id']
+    room = message['room_id']
     user_id = session["user_uid"]
     user_name = session["user_name"]
     user_image = session["user_image"]
@@ -183,7 +183,7 @@ def text(message):
     if socket_man.check_user_in(user_id, room):
         socket_man.add_message(room, message, user_id)
         emit('internal_msg',
-             {'msg': message['msg'], 'id': str(room), 'uid': user_id, 'name': user_name, 'user_image': user_image},
+             {'msg': message['msg'], 'room_id': str(room), 'uid': user_id, 'name': user_name, 'user_image': user_image},
              room=room, )
     else:
         print("Error User not in room")
@@ -200,12 +200,11 @@ def join_random(message):
 def exit_room(message):
     user_id = session["user_uid"]
 
-    socket_man.del_room(user_id, message['id'])
+    socket_man.del_room(user_id, message['room_id'])
 
-    print("exiting chat")
-    leave_room(message['id'])
+    leave_room(message['room_id'])
 
-    emit('status', {'msg': "Has left the Chat", 'name': test_user.name}, room=message['id'])
+    emit('status', {'msg': "Has left the Chat", 'name': test_user.name, 'color': 'danger'}, room=message['room_id'])
 
 
 if __name__ == '__main__':
