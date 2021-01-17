@@ -13,120 +13,123 @@
     <title>RouteToUni</title>
 </head>
 <body>
-<div class="topnav">
+    <div class="topnav">
+        <img src="static/images/back.svg" id="back" onclick="backPress()" alt="Back button"/>
+        <img src="static/images/back.svg" id="navArrow" alt="Show navigation bar"/>
         <span id="navBubble1" onclick="window.location.assign('/chat');" onmouseover="bubbleHover('#navBubble1')" onmouseout="bubbleLeave('#navBubble1')">
             <img id="navChatImg" src="../static/images/bubbles/chat.png" alt="Chat"/>
             <span class="navBubble1Text">Chat</span></span>
-    </span>
-    <span id="navBubble2" onclick="window.location.assign('/news');" onmouseover="bubbleHover('#navBubble2')" onmouseout="bubbleLeave('#navBubble2')">
+        </span>
+        <span id="navBubble2" onclick="window.location.assign('/news');" onmouseover="bubbleHover('#navBubble2')" onmouseout="bubbleLeave('#navBubble2')">
             <img id="navNewsImg" src="../static/images/bubbles/news.png" alt="News"/>
             <span class="navBubble2Text">News</span></span>
-    </span>
-    <span id="navBubble3" onclick="window.location.assign('/pubs');" onmouseover="bubbleHover('#navBubble3')" onmouseout="bubbleLeave('#navBubble3')">
+        </span>
+        <span id="navBubble3" onclick="window.location.assign('/pubs');" onmouseover="bubbleHover('#navBubble3')" onmouseout="bubbleLeave('#navBubble3')">
             <img id="navDrinksImg" src="../static/images/bubbles/drinks.png" alt="Drinks"/>
             <span class="navBubble3Text">Pubs & Clubs</span></span>
-    </span>
-    <span id="navBubble4" onclick="window.location.assign('/map');" onmouseover="bubbleHover('#navBubble4')" onmouseout="bubbleLeave('#navBubble4')">
+        </span>
+        <span id="navBubble4" onclick="window.location.assign('/map');" onmouseover="bubbleHover('#navBubble4')" onmouseout="bubbleLeave('#navBubble4')">
             <img id="navLocationImg" src="../static/images/bubbles/location.png" alt="Location"/>
             <span class="navBubble4Text">Campus Map</span></span>
-    </span>
-    <span id="navBubble5" onclick="window.location.assign('/accommodation');" onmouseover="bubbleHover('#navBubble5')" onmouseout="bubbleLeave('#navBubble5')">
+        </span>
+        <span id="navBubble5" onclick="window.location.assign('/accommodation');" onmouseover="bubbleHover('#navBubble5')" onmouseout="bubbleLeave('#navBubble5')">
             <img id="navAccommodationImg" src="../static/images/bubbles/home.png" alt="Accommodation"/>
             <span class="navBubble5Text">Accommodation</span></span>
-    </span>
-    <span id="navBubble6" onclick="window.location.assign('/health');" onmouseover="bubbleHover('#navBubble6')" onmouseout="bubbleLeave('#navBubble6')">
+        </span>
+        <span id="navBubble6" onclick="window.location.assign('/health');" onmouseover="bubbleHover('#navBubble6')" onmouseout="bubbleLeave('#navBubble6')">
             <img id="navHealthImg" src="../static/images/bubbles/health.png" alt="Health"/>
             <span class="navBubble6Text">Health</span></span>
-    </span>
-    <span id="navBubble7" onclick="window.location.assign('/societies');" onmouseover="bubbleHover('#navBubble7')" onmouseout="bubbleLeave('#navBubble7')">
+        </span>
+        <span id="navBubble7" onclick="window.location.assign('/societies');" onmouseover="bubbleHover('#navBubble7')" onmouseout="bubbleLeave('#navBubble7')">
             <img id="navContactsImg" src="../static/images/bubbles/people.png" alt="Contacts"/>
             <span class="navBubble7Text">Societies</span></span>
-    </span>
-    <span id="navBubble8" onclick="window.location.assign('/revision');" onmouseover="bubbleHover('#navBubble8')" onmouseout="bubbleLeave('#navBubble8')">
+        </span>
+        <span id="navBubble8" onclick="window.location.assign('/revision');" onmouseover="bubbleHover('#navBubble8')" onmouseout="bubbleLeave('#navBubble8')">
             <img id="navRevisionImg" src="../static/images/bubbles/revision.png" alt="Revision"/>
             <span class="navBubble8Text">Revision</span></span>
-    </span>
-</div>
-<div id="flip-card-1">
-    <div class="flip-card-inner">
-        <div class="flip-card-front">
-            <img id="societies" src="../static/images/societies/societies.png">
-            <h2 id="title-front">Societies</h2>
-        </div>
-        <div class="flip-card-back">
-            <h1 id="title-back">Why Join a Society?</h1>
-            <p>
-            </p>
-        </div>
+        </span>
     </div>
-</div>
-<div id="flip-card-2">
-    <div class="flip-card-inner">
-        <div class="flip-card-front">
-            <img id="volunteer" src="../static/images/societies/volunteer.png">
-            <h2 id="title-front">Volunteering</h2>
-        </div>
-        <div class="flip-card-back">
-            <h1 id="title-back">Why Volunteer?</h1>
-            <p id="info">
-            </p>
+    <div id="flip-card-1">
+        <div class="flip-card-inner">
+            <div class="flip-card-front">
+                <img id="societies" src="../static/images/societies/societies.png">
+                <h2 id="title-front">Societies</h2>
 
-        </div>
-    </div>
-</div>
-<div id="flip-card-3">
-    <div class="flip-card-inner">
-        <div class="flip-card-front">
-            <img id="sports_clubs" src="../static/images/societies/sports.png">
-            <h2 id="title-front">Sports Clubs</h2>
-        </div>
-        <div class="flip-card-back">
-            <h1 id="title-back">Why Join a Sports Club?</h1>
-            <p id="info">
-        </div>
-    </div>
-</div>
-<div id="flip-card-4">
-    <div class="flip-card-inner">
-        <div class="flip-card-front">
-            <img id="s_media" src="../static/images/societies/media_rb.png">
-            <h2 id="title-front">Student Media</h2>
-        </div>
-        <div class="flip-card-back">
-            <h1 id="title-back">What is Student Media?</h1>
-                <p id="info">
+            </div>
+            <div class="flip-card-back">
+                <h1 id="title-back">Why Join a Society?</h1>
+                <p>
                 </p>
             </div>
         </div>
     </div>
-</div>
-<div id="flip-card-5">
-    <div class="flip-card-inner">
-        <div class="flip-card-front">
-            <img id="GIAG" src="../static/images/societies/giag.png">
-            <h2 id="title-front">Give It a Go</h2>
-        </div>
-        <div class="flip-card-back">
-            <h1 id="title-back">Why Give It a Go?</h1>
-            <p id="info"></p>
-        </div>
-    </div>
-</div>
-<div id="flip-card-6">
-    <div class="flip-card-inner">
-        <div class="flip-card-front">
-            <img id="bursaries" src="../static/images/societies/budget.png">
-            <h2 id="title-front">Bursaries</h2>
-        </div>
-        <div class="flip-card-back">
-            <h1 id="title-back"></h1>
-        </div>
-        <div class="flip-card-back">
-            <iframe width="100%" height="90%" src="https://www.youtube.com/embed/jI5KtAjG6xw" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            <p id="info">Find out more about Participation Bursaries <a href="https://www.nusu.co.uk/getinvolved/bursaries/" target="_blank">here.</a> </p>
-        </div>
+    <div id="flip-card-2">
+        <div class="flip-card-inner">
+            <div class="flip-card-front">
+                <img id="volunteer" src="../static/images/societies/volunteer.png">
+                <h2 id="title-front">Volunteering</h2>
+            </div>
+            <div class="flip-card-back">
+                <h1 id="title-back">Why Volunteer?</h1>
+                <p id="info">
+                </p>
+
+            </div>
         </div>
     </div>
-</div>
+    <div id="flip-card-3">
+        <div class="flip-card-inner">
+            <div class="flip-card-front">
+                <img id="sports_clubs" src="../static/images/societies/sports.png">
+                <h2 id="title-front">Sports Clubs</h2>
+            </div>
+            <div class="flip-card-back">
+                <h1 id="title-back">Why Join a Sports Club?</h1>
+                <p id="info">
+            </div>
+        </div>
+    </div>
+    <div id="flip-card-4">
+        <div class="flip-card-inner">
+            <div class="flip-card-front">
+                <img id="s_media" src="../static/images/societies/media_white.png.png">
+                <h2 id="title-front">Student Media</h2>
+            </div>
+            <div class="flip-card-back">
+                <h1 id="title-back">What is Student Media?</h1>
+                    <p id="info">
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="flip-card-5">
+        <div class="flip-card-inner">
+            <div class="flip-card-front">
+                <img id="GIAG" src="../static/images/societies/giag.png">
+                <h2 id="title-front">Give It a Go</h2>
+            </div>
+            <div class="flip-card-back">
+                <h1 id="title-back">Why Give It a Go?</h1>
+                <p id="info"></p>
+            </div>
+        </div>
+    </div>
+    <div id="flip-card-6">
+        <div class="flip-card-inner">
+            <div class="flip-card-front">
+                <img id="bursaries" src="../static/images/societies/budget.png">
+                <h2 id="title-front">Bursaries</h2>
+            </div>
+            <div class="flip-card-back">
+                <h1 id="title-back"></h1>
+            </div>
+            <div class="flip-card-back">
+                <iframe width="100%" height="90%" src="https://www.youtube.com/embed/jI5KtAjG6xw" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <p id="info">Find out more about Participation Bursaries <a href="https://www.nusu.co.uk/getinvolved/bursaries/" target="_blank">here.</a> </p>
+            </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

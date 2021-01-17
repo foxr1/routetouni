@@ -139,14 +139,33 @@ body {
 }
 
 #back {
-    height: 4%;
-    width: 4%;
+    height: 40%;
     fill: white;
-    top: 1%;
-    left: -100px;
+    top: 32%;
+    left: 2%;
+    text-align: left;
     position: absolute;
     cursor: pointer;
     z-index: 3;
+}
+
+#navArrow {
+    height: 17%;
+    fill: white;
+    top: 84%;
+    left: 50%;
+    text-align: left;
+    position: absolute;
+    cursor: pointer;
+    z-index: 3;
+    opacity: 100;
+    transform: rotate(270deg);
+    transition: 1s;
+}
+
+.topnav:hover #navArrow {
+    transform: rotate(90deg);
+    transition: 1s;
 }
 
 #login {
@@ -550,6 +569,7 @@ button#widgetIcon .df-chat-icon {
     width: 5vh;
     background-color: #d91a35;
     border-radius: 50%;
+    -moz-border-radius: 50%;
     display: inline-block;
     margin-top: 3%;
     margin-bottom: 3%;
@@ -590,4 +610,30 @@ button#widgetIcon .df-chat-icon {
 #navBubble7:hover .navBubble7Text, #navBubble8:hover .navBubble8Text {
     visibility: visible;
     opacity: 1;
+}
+
+.sth-select {
+    background: white;
+    padding: 5px 10px;
+    font-family: 'Nunito', 'sans-serif';
+}
+
+.sth-select-popup {
+    z-index: 4;
+    font-family: 'Nunito', 'sans-serif';
+}
+
+.sth-select-title {
+    /*font-size: 3em !important;*/
+}
+
+.sth-overlay {
+  box-sizing: border-box;
+  background-color: rgba(0, 0, 0, .6);
+  display: none;
+  bottom: 0;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  width: 100%;
 }
