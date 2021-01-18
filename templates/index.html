@@ -98,18 +98,13 @@
         if (user) {
             loginBtn.textContent = "Account";
             loggedIn = true;
+            showAccount();
         } else {
             loginBtn.textContent = "Login";
             loggedIn = false;
+            loginPageTransition('#homeLayout', 'login');
         }
 
-        function checkLogin() {
-            if (loggedIn) {
-                showAccount();
-            } else {
-                loginPageTransition('#homeLayout', 'login');
-            }
-        }
 
         function showAccount() {
             // Get the modal

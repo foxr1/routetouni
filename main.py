@@ -41,15 +41,15 @@ def session_logout():
 
 @app.route('/')
 def index():
+    print(test_user.name, test_user.email)
     if test_user.name:
-        user = test_user.name
+        user = {"name": test_user.name, "email": test_user.email}
     else:
         session_cookie = flask.request.cookies.get('session_token')
         if session_cookie:
             user = test_user.verify_user()
         else:
             user = None
-
     return render_template("index.html", user=user)
 
 
@@ -146,7 +146,7 @@ def chat():
     else:
         if test_user.name:
             session['user_uid'] = test_user.uid
-            session['user_name'] = user
+            session['user_name'] = test_user.name
             session['user_image'] = test_user.picture
 
     return render_template('chat.html', prev_msg=socket_man.conv_dict(test_user.uid))

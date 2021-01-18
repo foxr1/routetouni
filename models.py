@@ -32,7 +32,6 @@ class User:
 
     def login_user(self):
         self.id_token = request.args.get('idToken')
-
         # Set session expiration to 5 days.
         expires_in = datetime.timedelta(days=14)
         try:
@@ -58,16 +57,23 @@ class User:
             try:
                 decoded_claims = auth.verify_session_cookie(session_cookie, check_revoked=True)
                 self.uid = decoded_claims['uid']
-                self.email = decoded_claims['email']
-                self.name = decoded_claims['name']
-                self.picture = decoded_claims['picture']
+
+                if 'name' not in decoded_claims:
+                    self.get_meta(True)
+                else:
+                    self.email = decoded_claims['email']
+                    self.name = decoded_claims['name']
+                    self.picture = decoded_claims['picture']
                 return {"name": self.name, "email": self.email}
             except Exception as e:
                 print("Verification Error", e)
                 return None
 
-    def get_meta(self):
+    def get_meta(self, personal_login=False):
         result = db.reference('users/' + self.uid).get()
+        if personal_login:
+            self.name = result['name']
+            self.email = result['email']
         self.role = result['role']
         self.school = result['course']
 
