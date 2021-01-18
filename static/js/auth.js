@@ -34,8 +34,12 @@ function signUp(firstname, lastname, course, role, email, password) {
         })
         .catch((error) => {
             var errorCode = error.code;
-            var errorMessage = error.message;
-            console.log(error);
+            console.log(errorCode);
+            if (error.code === "auth/email-already-in-use") {
+                document.getElementById("emailError").textContent = "Email address already in use";
+                showError("emailError");
+                emailInUse(true);
+            }
         });}
 
 function logout() {

@@ -260,3 +260,17 @@ html, body {
     /*font-size: 3em;*/
     /*height: auto !important;*/
 }
+
+.signUpError {
+    font-size: 5vw;
+}
+
+.signUpDialog {
+    padding-top: 0 !important;
+    top: -10% !important;
+}
+
+#back {
+    top: 30% !important;
+    left: -7% !important;
+}

@@ -330,7 +330,7 @@ body {
 .signUpDialog, .loginDialog  {
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
-    padding-top: 10%; /* Location of the box */
+    padding-top: 5%; /* Location of the box */
     left: 0;
     top: 0;
     right: 0;
@@ -388,6 +388,7 @@ body {
     position: relative;
     width: 95%;
     max-width: 294px;
+    z-index: 1;
 }
 
 input{
@@ -416,6 +417,7 @@ input:focus {
     width: 100%;
     padding: 5px;
     text-align: center;
+    z-index: 1;
 }
 
 #googleSignIn {
@@ -444,6 +446,7 @@ p {
 
 #firstName, #lastName, #signUpPassword, #signUpPasswordRepeat, #gPassword, #gPasswordRepeat {
     width: 45%;
+    z-index: 1;
 }
 
 #courses, #roles, #peerMentors {
@@ -692,4 +695,13 @@ b {
     border-radius: 2px;
     padding: 5px;
     background-color: darkred;
+}
+
+.signUpError {
+    opacity: 0%;
+    margin-top: -35px;
+    color: #ff4444;
+    text-align: center;
+    z-index: 0;
+    display: none;
 }

@@ -110,13 +110,17 @@ function bubbleClick(bubble, img, nextPage) {
                 {right: '0%'},
                 {borderRadius: '0%'},
                 {scale: 1}
-
             ],
             duration: 100,
             easing: 'easeInOutQuad',
             update: function(anim) {
                 if (anim.progress === 100) {
-                    xhttp.send();
+                    if (nextPage === "chat") {
+                        window.location.assign("/chat")
+                    } else {
+                        xhttp.send();
+                    }
+
                     // window.location.assign();
                 }
             }
