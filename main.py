@@ -15,6 +15,7 @@ app.config.update(
     SESSION_COOKIE_SECURE=True,
     SESSION_COOKIE_HTTPONLY=True,
     SESSION_COOKIE_SAMESITE='Lax', )
+
 socketio = SocketIO(app, async_mode=async_mode, cors_allowed_origins=["https://extreme-lattice-298010.nw.r.appspot.com",
                                                                       "http://extreme-lattice-298010.nw.r.appspot.com",
                                                                       "http://localhost:5000"],
@@ -132,6 +133,7 @@ def create_chat():
             else:
                 user_add.append(item['name'])
         socket_man.create_room(user_id, user_name, user_add, room_name)
+
         return json.dumps({'status': 'OK'})
     return json.dumps({'status': 'ERROR'})
 
@@ -139,7 +141,6 @@ def create_chat():
 @app.route('/chat')
 def chat():
     user = test_user.verify_user()
-
     if not user:
         return render_template("index.html", user=user)
     else:
@@ -157,6 +158,7 @@ def joined(message):
     user_uid = session["user_uid"]
     user_name = session["user_name"]
     user_image = session["user_image"]
+
     if user_name:
         user_conv = socket_man.conv_dict(user_uid)
     else:
