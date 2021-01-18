@@ -63,7 +63,8 @@
                 email: sessionStorage.getItem('email'),
                 course: document.getElementById('courses').options[document.getElementById('courses').selectedIndex].text,
                 role: document.getElementById('roles').options[document.getElementById('roles').selectedIndex].text,
-                uid: sessionStorage.getItem('uid')
+                uid: sessionStorage.getItem('uid'),
+                mentor_verified: false
             }, (error) => {
                 if (error) {
                     console.log(error);

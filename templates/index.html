@@ -23,6 +23,17 @@
 
 </head>
 <body>
+    <div id="accountBox" class="box">
+        <div id="box" class="box-content">
+            <span class="close">&times;</span>
+            <h3>Account</h3>
+            <b>Name:</b><p id="name"></p>
+            <b>Email:</b><p id="email"></p>
+            <b>Course:</b><p id="course"></p>
+            <button id="logoutBtn" onclick="logout()">LOGOUT</button>
+        </div>
+    </div>
+
     <div id="homeLayout" onclick="newFireWorkStar(event.pageX - container.offsetLeft, event.pageY - container.offsetTop);">
         <span id="login" onmouseover="bubbleHover('#login')" onmouseout="bubbleLeave('#login')" onclick="checkLogin()">Login</span>
 
@@ -85,17 +96,70 @@
         var user = JSON.parse('{{ user | tojson | safe}}');
 
         if (user) {
-            loginBtn.textContent = "Logout";
+            loginBtn.textContent = "Account";
             loggedIn = true;
         } else {
+            loginBtn.textContent = "Login";
             loggedIn = false;
         }
 
         function checkLogin() {
             if (loggedIn) {
-                logout();
+                showAccount();
             } else {
                 loginPageTransition('#homeLayout', 'login');
+            }
+        }
+
+        function showAccount() {
+            // Get the modal
+            var accountBox = document.getElementById("accountBox");
+            var span = document.getElementsByClassName("close")[0];
+            var name = document.getElementById("name");
+            var emailText = document.getElementById("email")
+            var schoolText = document.getElementById("course")
+
+            accountBox.style.display = "block";
+            name.textContent = user.name;
+            emailText.textContent = user.email;
+            {#schoolText.textContent = user.school;#}
+
+            let fadeBackground = anime({
+                targets: '#accountBox',
+                opacity: ['0%', '100%'], duration: 1000,
+                easing: 'easeInOutQuad'
+            })
+
+            let showAccount = anime({
+                targets: '#box',
+                translateY: [-250, 0],
+                easing: 'easeInOutQuad'
+            })
+
+            // Hide account box
+            span.onclick = function() {
+              accountBox.style.display = "none";
+            }
+
+            window.onclick = function(event) {
+                if (event.target === accountBox) {
+                    let fadeBackground = anime({
+                        targets: '#accountBox',
+                        opacity: ['100%', '0%'], duration: 1000,
+                        easing: 'easeInOutQuad'
+                    })
+
+                    let showAccount = anime({
+                        targets: '#box',
+                        translateY: [0, -250],
+                        easing: 'easeInOutQuad',
+                        update: function(anim) {
+                            if (anim.progress === 100) {
+                                accountBox.style.display = "none";
+                            }
+                        }
+                    })
+              }
             }
         }
     </script>

@@ -61,7 +61,7 @@ class User:
                 self.email = decoded_claims['email']
                 self.name = decoded_claims['name']
                 self.picture = decoded_claims['picture']
-                return self.name
+                return {"name": self.name, "email": self.email}
             except Exception as e:
                 print("Verification Error", e)
                 return None
