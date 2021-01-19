@@ -170,7 +170,7 @@ def joined(message):
             join_room(room)
 
             emit('status', {'msg': "Has Joined the Chat", 'name': user_name, 'uid': test_user.uid, "room_id": str(room),
-                            'color': 'secondary', 'user_image': user_image},
+                            'color': 'success', 'user_image': user_image},
                  room=room, prev_msg=user_conv,user_name=user_name)
 
 
@@ -205,7 +205,8 @@ def exit_room(message):
     user_name = session["user_name"]
     socket_man.del_room(user_id, message['room_id'])
     leave_room(message['room_id'])
-    emit('status', {'msg': "Has left the Chat", 'name': test_user.name, 'color': 'danger'}, room=message['room_id'], user_name=user_name)
+    emit('status', {'msg': "Has left the Chat", 'name': test_user.name, 'color': 'danger'}, room=message['room_id'],
+         user_name=user_name)
 
 
 if __name__ == '__main__':
