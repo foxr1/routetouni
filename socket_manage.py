@@ -27,8 +27,6 @@ class MessageManage:
                     all_dict['random_chat'][room_id] = {'msgs': msg_list, 'room_name': room_name}
                 else:
                     all_dict['rooms'][room_id] = {'msgs': msg_list, 'room_name': room_name}
-
-        print(all_dict)
         return all_dict
 
     # Get all messages from a room

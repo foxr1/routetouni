@@ -12,12 +12,12 @@
 <style>
 
 .message-area {
-       height: 25rem;
-   overflow-y: scroll;
-   overflow-x: hidden;
+    height: 25rem;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 .messages-box {
-       height: 25rem;
+    height: 25rem;
     overflow: auto;
 }
 .container{
@@ -133,8 +133,10 @@ transform: translate(-50%, -50%);
                if (local_user === null){
                 local_user = data.name
                }
+               var scroll_loc = document.getElementById(data.room_id+'message-area');
                var chat_loc = $('#'+data.room_id+'chat');
                $(chat_loc).append('<div class="alert alert-'+data.color +' d-inline-block" role="alert"><h6 class="alert-heading"><strong>'+data.name+'</strong> '+data.msg+'</h6><span>'+ get_time()+'</span></div>')
+               scroll_loc.scrollTop = scroll_loc.scrollHeight;
            });
 
            socket.on('internal_msg', function(data) {
@@ -148,6 +150,7 @@ transform: translate(-50%, -50%);
 
                // Check if message is from user and append it
                if (data.name === local_user){
+                console.log(data.name, local_user)
                $(msg_loc).append('<div class="row justify-content-end">\n' +
                    '                        <div class="col-md-10">\n' +
                    '                            <div class="media w-50 mb-5" style="width: 60%;">\n' +
@@ -265,7 +268,7 @@ transform: translate(-50%, -50%);
                 <div class="message-area" id="{{ room_id }}message-area">
 					<div id="{{ room_id }}chat">
                         {% for item in msg_dict %}
-                            {% if name == item['name']%}
+                            {% if user_name == item['name']%}
                                 {{int_user(item['msg'],item['time'])}}
                             {% elif 'server' == item['name']%}
                                 {{server_msg(item['msg'],item['time'])}}
@@ -278,14 +281,13 @@ transform: translate(-50%, -50%);
 
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <button class="btn btn-outline-danger btn-lg border rounded-pill" value="{{ room_id }}" name="exit_butt" onclick="leave_room(this.value)" type="button"><i class="fa fa-close"></i> Exit</button>
+                        <button class="btn btn-outline-danger btn-lg border rounded-pill mr-2" value="{{ room_id }}" name="exit_butt" onclick="leave_room(this.value)" type="button"><i class="fa fa-close"></i> Exit</button>
                     </div>
                     <input  type="text" id="text{{ room_id }}" placeholder="Enter message" class="form-control-lg  border rounded-pill" />
 
-                    <div class="input-group-append"><button class="btn btn-outline-primary btn-lg border rounded-pill" id="{{ room_id }}" onclick="send_message(this.id)" type="button" ><i class="fa fa-send-o"></i></button>
+                    <div class="input-group-append"><button class="btn btn-outline-primary btn-lg border rounded-pill mr-2" id="{{ room_id }}" onclick="send_message(this.id)" type="button" ><i class="fa fa-send-o"></i></button>
                     </div>
                 </div>
-
             </div>
         </div>
 {% endmacro %}

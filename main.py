@@ -136,7 +136,6 @@ def create_chat():
                 user_add.append(item['name'])
 
         socket_man.create_room(user_id, user_name, user_add, room_name)
-
         return json.dumps({'status': 'OK'})
     return json.dumps({'status': 'ERROR'})
 
@@ -151,8 +150,7 @@ def chat():
             session['user_uid'] = test_user.uid
             session['user_name'] = test_user.name
             session['user_image'] = test_user.picture
-
-    return render_template('chat.html', prev_msg=socket_man.conv_dict(test_user.uid))
+    return render_template('chat.html', prev_msg=socket_man.conv_dict(test_user.uid), user_name=test_user.name)
 
 
 # When Client Enters
@@ -173,7 +171,7 @@ def joined(message):
 
             emit('status', {'msg': "Has Joined the Chat", 'name': user_name, 'uid': test_user.uid, "room_id": str(room),
                             'color': 'secondary', 'user_image': user_image},
-                 room=room, prev_msg=user_conv)
+                 room=room, prev_msg=user_conv,user_name=user_name)
 
 
 @socketio.on('text', namespace='/chat')
@@ -189,7 +187,7 @@ def text(message):
         socket_man.add_message(room, message, user_id)
         emit('internal_msg',
              {'msg': message['msg'], 'room_id': str(room), 'uid': user_id, 'name': user_name, 'user_image': user_image},
-             room=room, )
+             room=room, user_name=user_name)
     else:
         print("Error User not in room")
 
@@ -204,9 +202,10 @@ def join_random(message):
 @socketio.on('exit_room', namespace='/chat')
 def exit_room(message):
     user_id = session["user_uid"]
+    user_name = session["user_name"]
     socket_man.del_room(user_id, message['room_id'])
     leave_room(message['room_id'])
-    emit('status', {'msg': "Has left the Chat", 'name': test_user.name, 'color': 'danger'}, room=message['room_id'])
+    emit('status', {'msg': "Has left the Chat", 'name': test_user.name, 'color': 'danger'}, room=message['room_id'], user_name=user_name)
 
 
 if __name__ == '__main__':
