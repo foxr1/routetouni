@@ -1,8 +1,7 @@
 import json
 import os
 import flask
-from flask import Flask, render_template, session, redirect, url_for, send_from_directory, Blueprint, request, \
-    make_response, jsonify
+from flask import Flask, render_template, session,send_from_directory, Blueprint, request, jsonify
 from flask_socketio import emit, join_room, leave_room, SocketIO
 from models import User, get_all_users
 from socket_manage import MessageManage
@@ -41,13 +40,14 @@ def session_logout():
 
 @app.route('/')
 def index():
-    print(test_user.name, test_user.email)
-    if test_user.name:
-        user = {"name": test_user.name, "email": test_user.email}
+    if "name" in session:
+        user = {"name": session["name"], "email": session["email"]}
     else:
         session_cookie = flask.request.cookies.get('session_token')
         if session_cookie:
             user = test_user.verify_user()
+            session["user_name"] = test_user.name
+            session['user_email'] = test_user.email
         else:
             user = None
     return render_template("index.html", user=user)
@@ -114,12 +114,14 @@ def revision():
 def create_entry():
     if request.method == 'GET':
         ref = get_all_users()
+        ref.pop(session["user_uid"])
+
         return jsonify(ref)
     if request.method == 'POST':
         return 'Success', 200
 
 
-@app.route('/create_chat/create_chat', methods=['GET', 'POST'])
+@app.route('/chat/create_chat', methods=['GET', 'POST'])
 def create_chat():
     user_id = session["user_uid"]
     user_name = session["user_name"]
@@ -132,6 +134,7 @@ def create_chat():
                 room_name = item['value']
             else:
                 user_add.append(item['name'])
+
         socket_man.create_room(user_id, user_name, user_add, room_name)
 
         return json.dumps({'status': 'OK'})
@@ -201,11 +204,8 @@ def join_random(message):
 @socketio.on('exit_room', namespace='/chat')
 def exit_room(message):
     user_id = session["user_uid"]
-
     socket_man.del_room(user_id, message['room_id'])
-
     leave_room(message['room_id'])
-
     emit('status', {'msg': "Has left the Chat", 'name': test_user.name, 'color': 'danger'}, room=message['room_id'])
 
 

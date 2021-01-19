@@ -20,14 +20,14 @@ class MessageManage:
     # Add room messages from users rooms into dict
     def conv_dict(self, user_id):
         all_dict = {'random_chat': {}, 'rooms': {}}
-        for room in self.get_rooms(user_id):
-            msg_list = self.get_messages(room)
+        for room_id, room_name in self.get_rooms(user_id).items():
+            msg_list = self.get_messages(room_id)
             if msg_list:
-                if 'Random' in room:
-                    all_dict['random_chat'][room] = msg_list
-
+                if 'Random' in room_id:
+                    all_dict['random_chat'][room_id] = {'msgs': msg_list, 'room_name': room_name}
                 else:
-                    all_dict['rooms'][room] = msg_list
+                    all_dict['rooms'][room_id] = {'msgs': msg_list, 'room_name': room_name}
+
         print(all_dict)
         return all_dict
 
@@ -40,8 +40,8 @@ class MessageManage:
         return all_msg
 
     # Create a new room or join existing
-    def add_room(self, user_id, room_id, user_name=None, room_name=None):
-
+    def add_room(self, user_id, room_id, room_name=None, user_name=None):
+        print(user_id,room_name)
         today = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         try:
             if self.r.xgroup_create(room_id, user_id, id="$", mkstream=True):
@@ -50,13 +50,13 @@ class MessageManage:
                                      {"name": 'server', "msg": "Chat Started by " + user_name, "time": today,
                                       "room_name": room_name},
                                      user_id, room_name)
-
         except redis.exceptions.ResponseError as e:
             print("User probably in group", e)
-        self.r.hset(user_id, mapping={room_id: today})
+        self.r.hset(user_id, mapping={room_id: room_name})
 
     def get_rooms(self, user_id):
         user_rooms = self.r.hgetall(user_id)
+        print(user_rooms)
         return user_rooms
 
     # TODO reduce z-item by one when user deletes
@@ -98,13 +98,13 @@ class MessageManage:
                 final_room = last_list[0] + '_' + room_num
 
             self.r.zadd("random_rooms", mapping={final_room: 1})
-            return self.add_room(user_id, final_room, user_name)
+            return self.add_room(user_id,final_room,final_room, user_name)
+
         # Join first available room
         else:
-            return self.add_room(user_id, random_rooms[0])
+            return self.add_room(user_id, random_rooms[0],random_rooms[0])
 
     def create_room(self, user_id, user_name, users, room_name):
-
         user_rooms = list(self.get_rooms(user_id))
         user_rooms.sort()
         # Create list for personal rooms
@@ -115,9 +115,9 @@ class MessageManage:
         else:
             new_room = user_id + '_0'
 
-        self.add_room(user_id, new_room, user_name, room_name)
+        self.add_room(user_id, new_room, room_name, user_name)
         for user in users:
-            self.add_room(user, new_room)
+            self.add_room(user, new_room, room_name)
 
     def flush_db(self):
         self.r.flushdb()

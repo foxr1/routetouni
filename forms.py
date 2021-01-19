@@ -8,11 +8,12 @@ r = redis.StrictRedis(host=redis_host, port=redis_port, charset="utf-8", decode_
 
 user = {"Name": "Pradeep", "Company": "SCTL", "Address": "Mumbai", "Location": "RCP"}
 
-
-
-print(r.xinfo_groups("3boNDH3ypRaBX9pc27ZYz049qNP2_0"))
-print(r.xinfo_stream("3boNDH3ypRaBX9pc27ZYz049qNP2_0"))
-print(r.hgetall('1dE06UcNkjTxMK6wlPIyd5y3h4E3'))
+s = (r.hgetall('3boNDH3ypRaBX9pc27ZYz049qNP2'))
+for key,value in s.items():
+    print(key,value)
+# print(r.xinfo_groups("3boNDH3ypRaBX9pc27ZYz049qNP2_0"))
+# print(r.xinfo_stream("3boNDH3ypRaBX9pc27ZYz049qNP2_0"))
+# print(r.hgetall('1dE06UcNkjTxMK6wlPIyd5y3h4E3'))
 # print(r.xgroup_create("Random_0", '1235512333', id="$",mkstream=True))
 
 

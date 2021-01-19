@@ -42,7 +42,6 @@ transform: translate(-50%, -50%);
 }
 
 </style>
-
     {% block javascript %}
         <script charset="utf-8" type="text/javascript">
     var curr_room = ""
@@ -55,7 +54,7 @@ transform: translate(-50%, -50%);
         $.ajax({
             type: "POST",
             contentType: "application/json; charset=utf-8",
-            url: "/create_chat/create_chat",
+            url: "/chat/create_chat",
             data: JSON.stringify(js),
             success: function (data) {
                 if (data.status === 'OK'){
@@ -70,6 +69,7 @@ transform: translate(-50%, -50%);
     }
 
     function add_users(){
+        document.getElementById("tbody_users").innerHTML = '<span role="status" class="spinner-border"></span>'
     fetch('/chat/get_users')
       .then(function (response) {
           return response.json();
@@ -276,21 +276,21 @@ transform: translate(-50%, -50%);
 					</div>
                 </div>
 
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <button class="btn btn-outline-danger btn-lg border rounded-pill" value="{{ room_id }}" name="exit_butt" onclick="leave_room(this.value)" type="button"><i class="fa fa-close"></i> Exit</button>
-                        </div>
-                        <input  type="text" id="text{{ room_id }}" placeholder="Enter message" class="form-control-lg  border rounded-pill" />
-                        <div class="input-group-append"><button class="btn btn-outline-primary btn-lg border rounded-pill" id="{{ room_id }}" onclick="send_message(this.id)" type="button" ><i class="fa fa-send-o"></i></button>
-                        </div>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <button class="btn btn-outline-danger btn-lg border rounded-pill" value="{{ room_id }}" name="exit_butt" onclick="leave_room(this.value)" type="button"><i class="fa fa-close"></i> Exit</button>
                     </div>
+                    <input  type="text" id="text{{ room_id }}" placeholder="Enter message" class="form-control-lg  border rounded-pill" />
+
+                    <div class="input-group-append"><button class="btn btn-outline-primary btn-lg border rounded-pill" id="{{ room_id }}" onclick="send_message(this.id)" type="button" ><i class="fa fa-send-o"></i></button>
+                    </div>
+                </div>
 
             </div>
         </div>
 {% endmacro %}
 
 <div class="container">
-
 <div class="row rounded-lg overflow-hidden shadow">
     <div class="col-md-4">
         <div class="bg-white">
@@ -301,13 +301,13 @@ transform: translate(-50%, -50%);
                 <div class="list-group rounded-0 active" id="myTab" role="tablist">
 
                   {% for key, value in prev_msg['rooms'].items() %}
-                      {% set last_msg = value|last %}
-                      {{ conv(last_msg['room_name'],last_msg['time'],key,last_msg['msg']) }}
+                      {% set last_msg = value['msgs']|last %}
+                      {{ conv(value['room_name'],last_msg['time'],key,last_msg['msg']) }}
                   {% endfor %}
 
                     {% if prev_msg['random_chat']|length > 0 %}
                     {% for key, value in prev_msg['random_chat'].items() %}
-                        {% set last_msg = value|last %}
+                        {% set last_msg = value['msgs']|last %}
                         {{ conv('Random Chat',last_msg['time'],key,last_msg['msg']) }}
                     {% endfor %}
                     {% endif %}
@@ -339,11 +339,11 @@ transform: translate(-50%, -50%);
 
         <div class="tab-content col-md-8">
             {% for key, value in prev_msg['rooms'].items() %}
-                   {{tab_cont(prev_msg['rooms'][key], key)}}
+                   {{tab_cont(prev_msg['rooms'][key]['msgs'], key)}}
             {% endfor %}
 
             {% for key, value in prev_msg['random_chat'].items() %}
-                   {{tab_cont(prev_msg['random_chat'][key], key)}}
+                   {{tab_cont(prev_msg['random_chat'][key]['msgs'], key)}}
             {% endfor %}
         </div>
 </div>
@@ -380,8 +380,9 @@ transform: translate(-50%, -50%);
                                   <th>School</th>
                               </tr>
                               </thead>
-                              <tbody id="tbody_users">
+                              <tbody id="tbody_users" class="text-center">
                               {#Inserted by javascript call once button clicked#}
+
                               </tbody>
                           </table>
 
