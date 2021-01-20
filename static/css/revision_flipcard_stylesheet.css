@@ -24,7 +24,9 @@ p {
     width: 42.5%;
     height: 42.5%;
     position: absolute;
-    perspective: 1000px; /* Remove this if you don't want the 3D effect */
+    perspective: 1000px;
+
+    /* Remove this if you don't want the 3D effect */
 }
 
 #flip-card-2 {
@@ -74,14 +76,6 @@ p {
     transform: rotateY(180deg);
 }
 
-.flip-card-back-2{
-    padding: 5px 10px 5px 10px;
-    font-family: 'GilroyMedium', 'sans-serif';
-    border-radius: 15px;
-    background-color: lightblue;
-    color: black;
-}
-
 /* This container is needed to position the front and back side */
 .flip-card-inner {
     position: absolute;
@@ -90,16 +84,15 @@ p {
     text-align: center;
     transition: transform 0.8s;
     transform-style: preserve-3d;
-}
 
+}
 /* Position the front and back side */
-.flip-card-front, .flip-card-back {
+.flip-card-front, .flip-card-back{
     position: absolute;
     width: 100%;
     height: 100%;
     backface-visibility: hidden;
 }
-
 /* Do an horizontal flip when you move the mouse over the flip box container */
 #flip-card-1:hover .flip-card-inner {
     transform: rotateY(180deg);
@@ -112,4 +105,33 @@ p {
 }
 #flip-card-4:hover .flip-card-inner {
     transform: rotateY(180deg);
+}
+
+.ScrollStyle {
+    max-height: 100%;
+    max-width: 100%;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    scroll-snap-align: start;
+
+}
+
+.ScrollStyle::-webkit-scrollbar {
+  display: none;
+}
+section {
+  height: 80vh;
+  scroll-snap-align: start;
+    scroll-snap-type: y mandatory;
+  text-align: left;
+  position: relative;
+}
+.page-2{
+    background-color: lightblue;
+    background-clip: border-box;
+    height: 42.5vh;
+}
+#title-front{
+    position: center;
+    bottom: 10%;
 }
