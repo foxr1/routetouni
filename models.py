@@ -1,6 +1,6 @@
 import datetime
 import flask
-from flask import request
+from flask import request, session
 import firebase_admin
 from firebase_admin import credentials, auth, exceptions
 from firebase_admin import db
@@ -16,7 +16,6 @@ def get_all_users():
 
 
 class User:
-
     def __init__(self):
         self.id_token = ""
         self.email = None
@@ -83,7 +82,6 @@ class User:
         if not session_cookie:
             self.clear_data()
             return None
-
         try:
             decoded_claims = auth.verify_session_cookie(session_cookie)
             auth.revoke_refresh_tokens(decoded_claims['sub'])

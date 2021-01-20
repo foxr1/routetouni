@@ -9,132 +9,162 @@
 	<link href="../static/bootstrap/fonts/font-awesome.min.css" rel="stylesheet">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js" type="text/javascript"></script>
-<style>
+    <style>
 
-.message-area {
-       height: 25rem;
-   overflow-y: scroll;
-   overflow-x: hidden;
-}
-.messages-box {
-       height: 25rem;
-    overflow: auto;
-}
-.container{
-justify-content: space-between;
-align-content: space-between;
-}
-.flex {
-display: flex;
-flex-wrap: wrap;
-}
-.center-item {
-margin: 0;
-position: absolute;
-top: 50%;
-left: 50%;
--ms-transform: translate(-50%, -50%);
-transform: translate(-50%, -50%);
-}
+    html {
+        height: 100%;
+    }
 
-.btn:focus {
-    outline: none;
-}
+    html, body {
+        background: #003a65; !important;
+        position: fixed;
+        overflow-x: hidden;
+        overflow-y: hidden;
+        width: 100%;
+        height: 100%;
+        margin: auto;
+        top:0;
+        bottom:0;
+        left:0;
+        right:0;
+    }
 
-</style>
+
+    .message-area {
+        height: 37rem;
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
+
+    .messages-box {
+        height: 37rem;
+        overflow-y: scroll;
+    }
+
+
+
+
+    .container {
+        justify-content: space-between;
+        align-content: space-between;
+    }
+
+    .flex {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .center-item {
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+    }
+
+    .btn:focus {
+        outline: none;
+    }
+    .form-control:focus {
+        border-color: none;
+        box-shadow: none;
+    }
+    </style>
     {% block javascript %}
         <script charset="utf-8" type="text/javascript">
-    var curr_room = ""
-    var local_user = null
+            var curr_room = ""
+            var local_user = null
 
-
-    function get_form() {
-        var js = $("form").serializeArray()
-
-        $.ajax({
-            type: "POST",
-            contentType: "application/json; charset=utf-8",
-            url: "/chat/create_chat",
-            data: JSON.stringify(js),
-            success: function (data) {
-                if (data.status === 'OK'){
-                    window.location.assign('/chat');
-                }
-                else
-                    window.alert("Error creating chat");
-                    window.location.assign('/chat');
-            },
-            dataType: "json"
-            })
-    }
-
-    function add_users(){
-        document.getElementById("tbody_users").innerHTML = '<span role="status" class="spinner-border"></span>'
-    fetch('/chat/get_users')
-      .then(function (response) {
-          return response.json();
-      }).then(function (text) {
-          var tbody = "";
-          for (let value in text) {
-              tbody += `<tr>
-                        <td class="text-center"><input type="checkbox" name="${value}" id="${value}"/></td>
-                        <td>${text[value]['name']}</td>
-                        <td>${text[value]['course']}</td>
-                        </tr>`;
-          }
-          tbody += "";
-          document.getElementById("tbody_users").innerHTML = tbody;
-      });
-    }
-
-    function search_table() {
-        var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("user_search_input");
-        filter = input.value.toUpperCase();
-        table = document.getElementById("user_table");
-        tr = table.getElementsByTagName("tr");
-        for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[1];
-              if (td) {
-                txtValue = td.textContent || td.innerText;
-              if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                tr[i].style.display = "";
-              }
-              else {
-                tr[i].style.display = "none";
-              }
+            function get_form() {
+                var js = $("form").serializeArray()
+                $.ajax({
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    url: "/chat/create_chat",
+                    data: JSON.stringify(js),
+                    success: function (data) {
+                        if (data.status === 'OK'){
+                            window.location.assign('/chat');
+                        }
+                        else
+                            window.alert("Error creating chat");
+                            window.location.assign('/chat');
+                            },
+                    dataType: "json"
+                })
             }
-        }
-        }
 
-    function get_time(){
-        var today = new Date();
-           var date = (today.toLocaleString('default', { month: 'short' }))+' '+today.getDate();
-           var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-        return time + ' | ' + date
-    }
+            function add_users(){
+                document.getElementById("tbody_users").innerHTML = '<span role="status" class="spinner-border"></span>'
+                fetch('/chat/get_users')
+                    .then(function (response) {
+                        return response.json();
+                    }).then(function (text) {
+                        var tbody = "";
+                            for (let value in text) {
+                                tbody +=
+                                    `<tr>
+                                     <td class="text-center"><input type="checkbox" name="${value}" id="${value}"/></td>
+                                    <td>${text[value]['name']}</td>
+                                    <td>${text[value]['course']}</td>
+                                    </tr>`;
+                            }
+                            tbody += "";
+                            document.getElementById("tbody_users").innerHTML = tbody;
+                    });
+            }
+
+            function search_table() {
+                var input, filter, table, tr, td, i, txtValue;
+                input = document.getElementById("user_search_input");
+                filter = input.value.toUpperCase();
+                table = document.getElementById("user_table");
+                tr = table.getElementsByTagName("tr");
+                for (i = 0; i < tr.length; i++) {
+                    td = tr[i].getElementsByTagName("td")[1];
+                      if (td) {
+                        txtValue = td.textContent || td.innerText;
+                      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                      }
+                      else {
+                        tr[i].style.display = "none";
+                      }
+                    }
+                }
+            }
+
+            function get_time(){
+                var today = new Date();
+                var date = (today.toLocaleString('default', { month: 'short' }))+' '+today.getDate();
+                var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+                return time + ' | ' + date
+            }
 
 
-    //Send message on enter press
-    $(document).on("keypress", "input", function(e){
-    if(e.which === 13){
-        var inputVal = $(this).val();
-        send_message(curr_room)
-    }
-    });
+            //Send message on enter press
+            $(document).on("keypress", "input", function(e){
+            if(e.which === 13){
+                var inputVal = $(this).val();
+                send_message(curr_room)
+            }
+            });
 
-        $(document).ready(function(){
-           socket = io.connect('ws://' + location.host  +'/chat', {secure:true});
-           socket.on('connect', function() {
-               socket.emit('joined', {'name':local_user, 'time':get_time()});
-           });
+            $(document).ready(function(){
+                socket = io.connect('ws://' + location.host  +'/chat', {secure:true});
+                socket.on('connect', function() {
+                socket.emit('joined', {'name':local_user, 'time':get_time()});
+                });
 
            socket.on('status', function(data) {
                if (local_user === null){
                 local_user = data.name
                }
+               var scroll_loc = document.getElementById(data.room_id+'message-area');
                var chat_loc = $('#'+data.room_id+'chat');
-               $(chat_loc).append('<div class="alert alert-'+data.color +' d-inline-block" role="alert"><h6 class="alert-heading"><strong>'+data.name+'</strong> '+data.msg+'</h6><span>'+ get_time()+'</span></div>')
+               $(chat_loc).append('<div class="alert alert-'+data.color +' mx-auto text-center" role="alert" style="width: 50%"><h6 class="alert-heading"><strong>'+data.name+'</strong> '+data.msg+'</h6><span>'+ get_time()+'</span></div>')
+               scroll_loc.scrollTop = scroll_loc.scrollHeight;
            });
 
            socket.on('internal_msg', function(data) {
@@ -148,9 +178,10 @@ transform: translate(-50%, -50%);
 
                // Check if message is from user and append it
                if (data.name === local_user){
-               $(msg_loc).append('<div class="row justify-content-end">\n' +
+                console.log(data.name, local_user)
+               $(msg_loc).append('<div class="row justify-content-end text-break">\n' +
                    '                        <div class="col-md-10">\n' +
-                   '                            <div class="media w-50 mb-5" style="width: 60%;">\n' +
+                   '                            <div class="media w-50 mb-2 ml-auto mr-4">\n' +
                    '                                <div class="media-body ml-3">\n' +
                    '                                   <div class="bg-primary rounded py-2 px-3 mb-2">\n' +
                    '                                    <p class="text-small mb-0 text-white">'+data.msg+'<\/p>\n' +
@@ -163,8 +194,8 @@ transform: translate(-50%, -50%);
                 scroll_loc.scrollTop = scroll_loc.scrollHeight;
                 }
                 else {
-                $(msg_loc).append('\t\t<div class="media w-50 mb-3">\n' +
-                       '\t\t\t<img alt="user" class="rounded-circle" src="'+data.user_image+' "width="50">\n' +
+                $(msg_loc).append('\t\t<div class="media w-50 mb-2 text-break">\n' +
+                       '\t\t\t<img alt='+data.name+' class="rounded-circle" src="'+data.user_image+' "width="50">\n' +
                        '\t\t\t<div class="media-body ml-3">\n' +
                        '\t\t\t\t<div class="bg-light rounded py-2 px-3 mb-2">\n' +
                        '\t\t\t\t\t<p class="text-small mb-0 text-muted">'+data.msg+'</p>\n' +
@@ -173,8 +204,8 @@ transform: translate(-50%, -50%);
                        '\t\t\t</div>\n' +
                        '\t\t</div>')
                 scroll_loc.scrollTop = scroll_loc.scrollHeight;
-            }
-            });
+                }
+           });
 
            // Upade message id to the current tab to send to the correct room
            $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
@@ -185,8 +216,8 @@ transform: translate(-50%, -50%);
                 //Scroll to bottom when tab clicked
                var scroll_loc = document.getElementById(currId+'message-area');
                scroll_loc.scrollTop = scroll_loc.scrollHeight;
-        })
-       });
+           })
+            });
 
        function send_message(but_id){
            text = $('#text'+but_id).val();
@@ -212,7 +243,7 @@ transform: translate(-50%, -50%);
 
 {#Display message as external user#}
 {% macro ext_user(msg,time,user_image) %}
-		<div class="media w-50 mb-3">
+		<div class="media w-50 mb-2 text-break" style="margin-left:5%">
             <img alt="user" class="rounded-circle" src="{{ user_image}}" width="50">
             <div class="media-body ml-3">
                 <div class="bg-light rounded py-2 px-3 mb-2">
@@ -225,27 +256,24 @@ transform: translate(-50%, -50%);
 
 {#Display message as internal user#}
 {% macro int_user(msg,time) %}
-		<div class="row justify-content-end">
-             <div class="col-md-10">
-                 <div class="media w-50 mb-5" style="width: 60%;">
-                      <div class="media-body ml-3">
-                         <div class="bg-primary rounded py-2 px-3 mb-2">
-                             <p class="text-small mb-0 text-white">{{msg}}
-                         </div>
-                          <p class="small text-muted">{{time}}</p>
-                      </div>
+
+         <div class="media w-50 mb-2 ml-auto mr-4 text-break" >
+              <div class="media-body ml-3">
+                 <div class="bg-primary rounded py-2 px-3 mb-2">
+                     <p class="text-small mb-0 text-white">{{msg}}
                  </div>
+                  <p class="small text-muted">{{time}}</p>
               </div>
-           </div>
+         </div>
 {% endmacro %}
 
 {% macro server_msg(msg,time) %}
-<div class="alert alert-info text-center mt-2" role="alert"><h6 class="alert-heading"><strong>{{msg}}</strong> </h6><span>{{ time }}</span></div>
+<div class="alert alert-secondary text-center mt-2  mb-2" style="width: 60%; margin:auto; display: table" role="alert"><h6 class="alert-heading"><strong>{{msg}}</strong> </h6><span>{{ time }}</span></div>
 {% endmacro %}
 
 {#Recent tab item showing name, recent message etc#}
 {% macro conv(name,time,room,last_msg) %}
-		<a class="list-group-item list-group-item-action rounded-0" id="{{room}}" data-toggle="tab" href="#tabChat-{{room}}" role="tab">
+		<a class="list-group-item list-group-item-action rounded-0 text-break" id="{{room}}" data-toggle="tab" href="#tabChat-{{room}}" role="tab">
 		<div class="media">
 			<img alt="user" class="rounded-circle" src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg" width="50">
 			<div class="media-body ml-4">
@@ -260,12 +288,12 @@ transform: translate(-50%, -50%);
 {#Content within tab iterates over messages and adds depending on user#}
 {% macro tab_cont(msg_dict,room_id) %}
 		<div aria-labelledby="home-tab" class="tab-pane" id="tabChat-{{ room_id }}" role="tabpanel">
-            <div class="col-md-8">
+            <div class="bg-white">
 
                 <div class="message-area" id="{{ room_id }}message-area">
 					<div id="{{ room_id }}chat">
                         {% for item in msg_dict %}
-                            {% if name == item['name']%}
+                            {% if user_name == item['name']%}
                                 {{int_user(item['msg'],item['time'])}}
                             {% elif 'server' == item['name']%}
                                 {{server_msg(item['msg'],item['time'])}}
@@ -276,76 +304,86 @@ transform: translate(-50%, -50%);
 					</div>
                 </div>
 
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <button class="btn btn-outline-danger btn-lg border rounded-pill" value="{{ room_id }}" name="exit_butt" onclick="leave_room(this.value)" type="button"><i class="fa fa-close"></i> Exit</button>
-                    </div>
-                    <input  type="text" id="text{{ room_id }}" placeholder="Enter message" class="form-control-lg  border rounded-pill" />
-
-                    <div class="input-group-append"><button class="btn btn-outline-primary btn-lg border rounded-pill" id="{{ room_id }}" onclick="send_message(this.id)" type="button" ><i class="fa fa-send-o"></i></button>
-                    </div>
-                </div>
-
             </div>
+
+       <div class="input-group">
+	<div class="input-group-prepend">
+		<button value="{{ room_id }}" name="exit_butt" onclick="leave_room(this.value)" type="button" class="btn btn-danger btn-lg rounded-0"><i class="fa fa-close"></i>&nbsp;Exit</button>
+	</div>
+
+	<input type="text" id="text{{ room_id }}" placeholder="Enter message" class="form-control rounded-0 border-0 py-4 bg-light text-break">
+
+	<div class="input-group-append">
+		<button type="button"  id="{{ room_id }}" onclick="send_message(this.id)" class="btn btn-primary btn-lg rounded-0"><i class="fa fa-paper-plane"></i></button>
+	</div>
+</div>
         </div>
 {% endmacro %}
 
+<div class="jumbotron vertical-center" style="background:#003a65;">
 <div class="container">
-<div class="row rounded-lg overflow-hidden shadow">
-    <div class="col-md-4">
-        <div class="bg-white">
-            <div class="bg-gray px-4 py-2 bg-light">
-                <p class="h5 mb-0 py-1">Recent</p>
-            </div>
-            <div class="messages-box">
-                <div class="list-group rounded-0 active" id="myTab" role="tablist">
+    <div class="row rounded-lg overflow-hidden shadow">
 
-                  {% for key, value in prev_msg['rooms'].items() %}
-                      {% set last_msg = value['msgs']|last %}
-                      {{ conv(value['room_name'],last_msg['time'],key,last_msg['msg']) }}
-                  {% endfor %}
+        <div class="col-4 px-0">
+            <div class="bg-white">
+                <div class="bg-gray px-4 py-2 bg-light">
+                    <p class="h5 mb-0 py-1">Conversations</p>
+                </div>
 
-                    {% if prev_msg['random_chat']|length > 0 %}
-                    {% for key, value in prev_msg['random_chat'].items() %}
-                        {% set last_msg = value['msgs']|last %}
-                        {{ conv('Random Chat',last_msg['time'],key,last_msg['msg']) }}
-                    {% endfor %}
-                    {% endif %}
+                <div class="messages-box">
+                    <div class="list-group rounded-0 active" id="myTab" role="tablist">
 
-                    <a class="list-group-item list-group-item-action  text-white rounded-0">
-                        <div class="media">
-                            <div class="media-body ml-4">
-                                <div class="d-flex align-items-center justify-content-between mb-1"></div>
-                                {% if prev_msg['random_chat']|length == 0 %}
+                      {% for key, value in prev_msg['rooms'].items() %}
+                          {% set last_msg = value['msgs']|last %}
+                          {{ conv(value['room_name'],last_msg['time'],key,last_msg['msg']) }}
+                      {% endfor %}
+
+                        {% if prev_msg['random_chat']|length > 0 %}
+                        {% for key, value in prev_msg['random_chat'].items() %}
+                            {% set last_msg = value['msgs']|last %}
+                            {{ conv('Random Chat',last_msg['time'],key,last_msg['msg']) }}
+                        {% endfor %}
+                        {% endif %}
+
+                        <a class="list-group-item list-group-item-action  text-white rounded-0">
+                            <div class="media">
+                                <div class="media-body ml-4">
+                                    <div class="d-flex align-items-center justify-content-between mb-1"></div>
+
+                                    {% if prev_msg['random_chat']|length == 0 %}
+                                        <div class="row no-gutters mt-1">
+                                            <div class="col text-center">
+                                                <button class="btn btn-outline-info btn-lg"  onclick="join_random()"><i class="fa fa-users"></i> Random Chat</button>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+
                                     <div class="row no-gutters mt-1">
                                         <div class="col text-center">
-                                            <button class="btn btn-outline-info btn-lg"  onclick="join_random()"><i class="fa fa-users"></i> Random Chat</button>
+                                            <button class="btn btn-outline-primary btn-lg" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-users"></i> New Chat</button>
                                         </div>
                                     </div>
-                                {% endif %}
 
-                                <div class="row no-gutters mt-1">
-                                    <div class="col text-center">
-                                        <button class="btn btn-outline-primary btn-lg" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-users"></i> New Chat</button>
-                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </a>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-        <div class="tab-content col-md-8">
+    <div class="col-8 px-0 bg-white">
+        <div class="tab-content">
             {% for key, value in prev_msg['rooms'].items() %}
-                   {{tab_cont(prev_msg['rooms'][key]['msgs'], key)}}
+                {{tab_cont(prev_msg['rooms'][key]['msgs'], key)}}
             {% endfor %}
 
             {% for key, value in prev_msg['random_chat'].items() %}
-                   {{tab_cont(prev_msg['random_chat'][key]['msgs'], key)}}
+                {{tab_cont(prev_msg['random_chat'][key]['msgs'], key)}}
             {% endfor %}
-        </div>
+            </div>
+    </div>
+</div>
 </div>
 </div>
 
