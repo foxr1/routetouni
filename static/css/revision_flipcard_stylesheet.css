@@ -128,10 +128,15 @@ section {
 }
 .page-2{
     background-color: lightblue;
-    background-clip: border-box;
+    border-radius: 15px;
+    border-right-width: 10px;
+    background-clip: padding-box;
     height: 42.5vh;
 }
 #title-front{
     position: center;
     bottom: 10%;
+}
+h4{
+    text-align: center;
 }

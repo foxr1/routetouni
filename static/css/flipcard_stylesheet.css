@@ -157,6 +157,7 @@ p {
 
 #info {
     font-size: 1.7vh;
+    font-family: 'GilroyMedium', 'sans-serif';
 }
 #video {
     height: 70%;
@@ -232,12 +233,22 @@ p {
     transform: rotate(45deg);
 }
 
-.ScrollStyle
-{
-    max-height: 30vh;
+.ScrollStyle {
+    max-height: 85%;
+    max-width: 100%;
     overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    scroll-snap-align: start;
+
+}
+.ScrollStyle::-webkit-scrollbar {
+  display: none;
 }
 
 li {
     font-size: 1.7vh;
+}
+.bold{
+    color: black !important;
+    text-align: justify;
 }
