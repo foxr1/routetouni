@@ -1,7 +1,7 @@
 import json
 import os
 import flask
-from flask import Flask, render_template, session,send_from_directory, Blueprint, request, jsonify
+from flask import Flask, render_template, session, send_from_directory, Blueprint, request, jsonify
 from flask_socketio import emit, join_room, leave_room, SocketIO
 from models import User, get_all_users, get_mentors, get_verified
 from socket_manage import MessageManage
@@ -19,7 +19,7 @@ socketio = SocketIO(app, async_mode=async_mode, cors_allowed_origins=["https://e
                                                                       "http://extreme-lattice-298010.nw.r.appspot.com",
                                                                       "http://localhost:5000",
                                                                       "https://routetouni.me"],
-                    logger=True, engineio_logger=True)
+logger=True, engineio_logger=True)
 
 main = Blueprint('main', __name__)
 
@@ -42,11 +42,12 @@ def session_logout():
 @app.route('/')
 def index():
     if "name" in session:
-        user = {"name": session["name"], "email": session["email"], "picture": session["picture"], "uid": session["uid"]}
+        user = {"name": session["name"], "email": session["email"], "picture": session["picture"],
+                "uid": session["uid"]}
     else:
         session_cookie = flask.request.cookies.get('session_token')
         if session_cookie:
-            user = test_user.verify_user()
+            user = test_user.verify_user
             session["user_name"] = test_user.name
             session['user_email'] = test_user.email
             session['user_picture'] = test_user.picture
@@ -55,12 +56,11 @@ def index():
             user = None
     return render_template("index.html", user=user)
 
+
 @app.route('/admin', methods=['GET', 'POST'])
 def admin():
-
-    return render_template("admin.html", unverified_mentors = get_mentors(),
-                           verified_mentors = get_verified())
-
+    return render_template("admin.html", unverified_mentors=get_mentors(),
+                           verified_mentors=get_verified())
 
 
 @app.route('/gregister')
@@ -152,7 +152,7 @@ def create_chat():
 
 @app.route('/chat')
 def chat():
-    user = test_user.verify_user()
+    user = test_user.verify_user
     if not user:
         return render_template("index.html", user=user)
     else:
@@ -181,7 +181,7 @@ def joined(message):
 
             emit('status', {'msg': "Has Joined the Chat", 'name': user_name, 'uid': test_user.uid, "room_id": str(room),
                             'color': 'success', 'user_image': user_image},
-                 room=room, prev_msg=user_conv,user_name=user_name)
+                 room=room, prev_msg=user_conv, user_name=user_name)
 
 
 @socketio.on('text', namespace='/chat')

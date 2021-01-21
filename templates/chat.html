@@ -31,14 +31,14 @@
 
 
     .message-area {
-        height: 37rem;
+        height: 75vh;
         overflow-y: scroll;
         overflow-x: hidden;
     }
 
     .messages-box {
-        height: 37rem;
-        overflow-y: scroll;
+        {#height: 37rem;#}
+        overflow-y: auto;
     }
 
 
@@ -194,7 +194,7 @@
                 scroll_loc.scrollTop = scroll_loc.scrollHeight;
                 }
                 else {
-                $(msg_loc).append('\t\t<div class="media w-50 mb-2 text-break">\n' +
+                $(msg_loc).append('\t\t<div class="media w-50 mb-2 text-break" style="margin-left:5%">\n' +
                        '\t\t\t<img alt='+data.name+' class="rounded-circle" src="'+data.user_image+' "width="50">\n' +
                        '\t\t\t<div class="media-body ml-3">\n' +
                        '\t\t\t\t<div class="bg-light rounded py-2 px-3 mb-2">\n' +
@@ -244,7 +244,7 @@
 {#Display message as external user#}
 {% macro ext_user(msg,time,user_image) %}
 		<div class="media w-50 mb-2 text-break" style="margin-left:5%">
-            <img alt="user" class="rounded-circle" src="{{ user_image}}" width="50">
+            <img alt="user" class="rounded-circle" src="{{user_image}}" width="50">
             <div class="media-body ml-3">
                 <div class="bg-light rounded py-2 px-3 mb-2">
 					<p class="text-small mb-0 text-muted">{{msg}}</p>
@@ -256,7 +256,6 @@
 
 {#Display message as internal user#}
 {% macro int_user(msg,time) %}
-
          <div class="media w-50 mb-2 ml-auto mr-4 text-break" >
               <div class="media-body ml-3">
                  <div class="bg-primary rounded py-2 px-3 mb-2">
@@ -275,12 +274,12 @@
 {% macro conv(name,time,room,last_msg) %}
 		<a class="list-group-item list-group-item-action rounded-0 text-break" id="{{room}}" data-toggle="tab" href="#tabChat-{{room}}" role="tab">
 		<div class="media">
-			<img alt="user" class="rounded-circle" src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg" width="50">
+			<img alt="user" class="rounded-circle d-none d-lg-block" src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg" width="50">
 			<div class="media-body ml-4">
 				<div class="d-flex align-items-center justify-content-between mb-1">
-					<h6 class="mb-0">{{name}}</h6><small id="{{ room }}time" class="small font-weight-bold">{{time}}</small>
+					<h6 class="mb-0">{{name}} </h6><small id="{{ room }}time" class="small font-weight-bold d-none d-lg-block">{{time}}</small>
 				</div>
-				<p class="font-italic mb-0 text-small" id="{{ room }}last">{{ last_msg }}</p>
+				<p class="font-italic mb-0 text-small d-none d-lg-block" id="{{ room }}last">{{ last_msg }}</p>
 			</div>
 		</div></a>
 {% endmacro %}
@@ -289,7 +288,6 @@
 {% macro tab_cont(msg_dict,room_id) %}
 		<div aria-labelledby="home-tab" class="tab-pane" id="tabChat-{{ room_id }}" role="tabpanel">
             <div class="bg-white">
-
                 <div class="message-area" id="{{ room_id }}message-area">
 					<div id="{{ room_id }}chat">
                         {% for item in msg_dict %}
@@ -303,12 +301,11 @@
 						{% endfor %}
 					</div>
                 </div>
-
             </div>
 
        <div class="input-group">
 	<div class="input-group-prepend">
-		<button value="{{ room_id }}" name="exit_butt" onclick="leave_room(this.value)" type="button" class="btn btn-danger btn-lg rounded-0"><i class="fa fa-close"></i>&nbsp;Exit</button>
+		<button value="{{ room_id }}" name="exit_butt" onclick="leave_room(this.value)" type="button" class="btn btn-danger btn-lg rounded-0 d-none d-lg-block"><i class="fa fa-close"></i>&nbsp;Exit</button>
 	</div>
 
 	<input type="text" id="text{{ room_id }}" placeholder="Enter message" class="form-control rounded-0 border-0 py-4 bg-light text-break">
@@ -316,7 +313,7 @@
 	<div class="input-group-append">
 		<button type="button"  id="{{ room_id }}" onclick="send_message(this.id)" class="btn btn-primary btn-lg rounded-0"><i class="fa fa-paper-plane"></i></button>
 	</div>
-</div>
+       </div>
         </div>
 {% endmacro %}
 
@@ -324,55 +321,63 @@
 <div class="container">
     <div class="row rounded-lg overflow-hidden shadow">
 
-        <div class="col-4 px-0">
-            <div class="bg-white">
-                <div class="bg-gray px-4 py-2 bg-light">
-                    <p class="h5 mb-0 py-1">Conversations</p>
-                </div>
+        <div class="col-md-4 px-0 bg-light">
+<nav class="navbar navbar-light navbar-expand-md absolute">
 
-                <div class="messages-box">
-                    <div class="list-group rounded-0 active" id="myTab" role="tablist">
+        <button data-toggle="collapse" data-target="#navcol-1" class="navbar-toggler"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navcol-1">
+            <ul class="nav navbar-nav" style="width: 100%;">
 
-                      {% for key, value in prev_msg['rooms'].items() %}
-                          {% set last_msg = value['msgs']|last %}
-                          {{ conv(value['room_name'],last_msg['time'],key,last_msg['msg']) }}
-                      {% endfor %}
+                <li class="nav-item" style="width: 100%;">
+                        <div class="bg-gray px-4 py-2 bg-light">
+                            <p class="h5 mb-0 py-1">Chats</p>
+                        </div>
 
-                        {% if prev_msg['random_chat']|length > 0 %}
-                        {% for key, value in prev_msg['random_chat'].items() %}
-                            {% set last_msg = value['msgs']|last %}
-                            {{ conv('Random Chat',last_msg['time'],key,last_msg['msg']) }}
-                        {% endfor %}
-                        {% endif %}
+                        <div class="messages-box">
+                            <div class="list-group rounded-0 active " id="myTab" role="tablist">
+                              {% for key, value in prev_msg['rooms'].items() %}
+                                  {% set last_msg = value['msgs']|last %}
+                                  {{ conv(value['room_name'],last_msg['time'],key,last_msg['msg']) }}
+                              {% endfor %}
 
-                        <a class="list-group-item list-group-item-action  text-white rounded-0">
-                            <div class="media">
-                                <div class="media-body ml-4">
-                                    <div class="d-flex align-items-center justify-content-between mb-1"></div>
+                                {% if prev_msg['random_chat']|length > 0 %}
+                                {% for key, value in prev_msg['random_chat'].items() %}
+                                    {% set last_msg = value['msgs']|last %}
+                                    {{ conv('Random Chat',last_msg['time'],key,last_msg['msg']) }}
+                                {% endfor %}
+                                {% endif %}
+                                <a class="list-group-item list-group-item-action  text-white rounded-0">
+                                    <div class="media">
+                                        <div class="media-body ml-4">
+                                            <div class="d-flex align-items-center justify-content-between mb-1"></div>
 
-                                    {% if prev_msg['random_chat']|length == 0 %}
-                                        <div class="row no-gutters mt-1">
-                                            <div class="col text-center">
-                                                <button class="btn btn-outline-info btn-lg"  onclick="join_random()"><i class="fa fa-users"></i> Random Chat</button>
+                                            {% if prev_msg['random_chat']|length == 0 %}
+                                                <div class="row no-gutters mt-1">
+                                                    <div class="col text-center">
+                                                        <button class="btn btn-outline-info btn-lg"  onclick="join_random()"><i class="fa fa-users"></i> Random Chat</button>
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+
+                                            <div class="row no-gutters mt-1">
+                                                <div class="col text-center">
+                                                    <button class="btn btn-outline-primary btn-lg" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-users"></i> New</button>
+                                                </div>
                                             </div>
-                                        </div>
-                                    {% endif %}
 
-                                    <div class="row no-gutters mt-1">
-                                        <div class="col text-center">
-                                            <button class="btn btn-outline-primary btn-lg" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-users"></i> New Chat</button>
                                         </div>
                                     </div>
-
-                                </div>
+                                </a>
                             </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
+                        </div>
+
+                </li>
+            </ul>
+        </div>
+</nav>
         </div>
 
-    <div class="col-8 px-0 bg-white">
+    <div class="col px-0 bg-white">
         <div class="tab-content">
             {% for key, value in prev_msg['rooms'].items() %}
                 {{tab_cont(prev_msg['rooms'][key]['msgs'], key)}}
@@ -431,8 +436,8 @@
                   </div>
               </div>
               <div class="modal-footer">
-                  <button class="btn btn-outline-danger btn-lg" type="button" data-dismiss="modal"><i class="fa fa-close"></i> Cancel</button>
-                  <button class="btn btn-outline-primary btn-lg" onclick="get_form()" type="button"><i class="fa fa-comments"></i> Create</button>
+                  <button class="btn btn-outline-danger btn-lg" type="button" data-dismiss="modal"><i class="fa fa-close"></i> Cancel</button>
+                  <button class="btn btn-outline-primary btn-lg" onclick="get_form()" type="button"><i class="fa fa-comments"></i> Create</button>
               </div>
           </div>
       </form>
