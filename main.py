@@ -1,7 +1,7 @@
 import json
 import os
 import flask
-from flask import Flask, render_template, session,send_from_directory, Blueprint, request, jsonify
+from flask import Flask, render_template, session, send_from_directory, Blueprint, request, jsonify
 from flask_socketio import emit, join_room, leave_room, SocketIO
 from models import User, get_all_users, get_mentors, get_verified
 from socket_manage import MessageManage
@@ -42,7 +42,8 @@ def session_logout():
 @app.route('/')
 def index():
     if "name" in session:
-        user = {"name": session["name"], "email": session["email"], "picture": session["picture"], "uid": session["uid"]}
+        user = {"name": session["name"], "email": session["email"], "picture": session["picture"],
+                "uid": session["uid"]}
     else:
         session_cookie = flask.request.cookies.get('session_token')
         if session_cookie:
@@ -55,12 +56,11 @@ def index():
             user = None
     return render_template("index.html", user=user)
 
+
 @app.route('/admin', methods=['GET', 'POST'])
 def admin():
-
-    return render_template("admin.html", unverified_mentors = get_mentors(),
-                           verified_mentors = get_verified())
-
+    return render_template("admin.html", unverified_mentors=get_mentors(),
+                           verified_mentors=get_verified())
 
 
 @app.route('/gregister')
@@ -181,7 +181,7 @@ def joined(message):
 
             emit('status', {'msg': "Has Joined the Chat", 'name': user_name, 'uid': test_user.uid, "room_id": str(room),
                             'color': 'success', 'user_image': user_image},
-                 room=room, prev_msg=user_conv,user_name=user_name)
+                 room=room, prev_msg=user_conv, user_name=user_name)
 
 
 @socketio.on('text', namespace='/chat')
