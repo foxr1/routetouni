@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Sign Up - RouteToUni</title>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
-	</script>
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="../static/css/bootstrap-fullscreen-select.css"/>
+    <script src="static/js/bootstrap-fullscreen-select.js"></script>
     <script src="static/js/node_modules/animejs/lib/anime.min.js"></script>
     <link rel="stylesheet" href="../static/css/styles.css">
+    <link rel="stylesheet" type="text/css" media="only screen and (max-device-width: 480px)" href="../static/css/mobile_stylesheet.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
 </head>
 <body>
@@ -16,7 +16,7 @@
         <div class="gSignUpDialogContent">
             <h3>Sign Up</h3>
 
-            <select name="courses" id="courses">
+            <select class="form-control mobileSelect" data-title="Select your school" name="courses" id="courses">
                 <option value="blank">Select your school</option>
                 <option value="architecture">School of Architecture, Planning and Landscape</option>
                 <option value="artsAndCulture">School of Arts and Cultures</option>
@@ -40,7 +40,7 @@
                 <option value="environmental">School of Natural and Environmental Sciences</option>
             </select><br><br>
 
-            <select name="roles" id="roles">
+            <select class="form-control mobileSelect" data-title="Select your role" name="roles" id="roles">
                 <option value="blank">Select your role</option>
                 <option value="student">Student</option>
                 <option value="mentor">Peer Mentor</option>
@@ -51,10 +51,9 @@
     </div>
 
     <script>
-        // Change the select box to 'select2' library.
-        $(document).ready(function() {
-            $('#courses').select2();
-            $('#roles').select2();
+        $('.mobileSelect').mobileSelect({
+            animation: 'opacity',
+            theme: 'mac'
         });
 
         function createAccount() {

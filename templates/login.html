@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <title>Login - RouteToUni</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="../static/css/sth_select.css"/>
-    <script src="static/js/sth-select.js"></script>
+    <link rel="stylesheet" href="../static/css/bootstrap-fullscreen-select.css"/>
+    <script src="static/js/bootstrap-fullscreen-select.js"></script>
     <script src="static/js/node_modules/animejs/lib/anime.min.js"></script>
     <link rel="stylesheet" href="../static/css/styles.css">
     <link rel="stylesheet" type="text/css" media="only screen and (max-device-width: 480px)" href="../static/css/mobile_stylesheet.css" />
@@ -41,14 +41,7 @@
             <label for="signUpPassword"></label><input type="password" name="password" id="signUpPassword" placeholder="Password" style="font-family: Nunito"><label for="signUpPassword"></label><input type="password" name="passwordRepeat" id="signUpPasswordRepeat" placeholder="Repeat Password" style="font-family: Nunito"><br><br>
             <p class="signUpError" id="passwordError">e</p>
 
-            <select
-                sth-select
-                sth-select-placeholder="Select your school"
-                sth-select-title="Select your school"
-                sth-select-filter="true"
-                sth-select-autosize="false"
-                sth-select-filter-placeholder="Search for your school"
-                name="courses" id="courses">
+            <select class="form-control mobileSelect" data-title="Select your school" name="courses" id="courses">
                 <option value="blank">Select your school</option>
                 <option value="architecture">School of Architecture, Planning and Landscape</option>
                 <option value="artsAndCulture">School of Arts and Cultures</option>
@@ -72,13 +65,7 @@
                 <option value="environmental">School of Natural and Environmental Sciences</option>
             </select><br><br>
 
-            <select
-                sth-select
-                sth-select-placeholder="Select your role"
-                sth-select-title="Select your role"
-                sth-select-autosize="false"
-                sth-select-filter="false"
-                name="roles" id="roles">
+            <select class="form-control mobileSelect" data-title="Select your role" name="roles" id="roles">
                 <option value="blank">Select your role</option>
                 <option value="student">Student</option>
                 <option value="mentor">Peer Mentor</option>
@@ -93,6 +80,11 @@
     </div>
 
     <script>
+        $('.mobileSelect').mobileSelect({
+            animation: 'opacity',
+            theme: 'mac'
+        });
+
         // Animate sign up box to slide from right hand side.
         let page2Transition = anime({
             targets: '#loginDialog',
