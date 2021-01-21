@@ -168,7 +168,7 @@ body {
     transition: 1s;
 }
 
-#login, #adminBtn {
+#login {
     font-family: 'GilroyBold', 'sans-serif';
     color: white;
     border-radius: 25px;
@@ -182,7 +182,17 @@ body {
 }
 
 #adminBtn {
-    top: 15% !important;
+    font-family: 'GilroyBold', 'sans-serif';
+    color: white;
+    border-radius: 25px;
+    background: #8a1425;
+    padding: 15px;
+    top: 15%;
+    right: 3%;
+    position: absolute;
+    z-index: 0;
+    cursor: pointer;
+    display: none;
 }
 
 /* Properties for home page bubbles */

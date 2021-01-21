@@ -93,7 +93,6 @@ p {
     border-radius: 15px;
     background-color: white;
     color: black;
-
     transform: rotateY(180deg);
 }
 
@@ -242,10 +241,11 @@ p {
   display: none;
 }
 
-.bold{
+.bold {
     color: black !important;
     text-align: justify;
 }
-li{
+
+li {
     text-align: left;
 }

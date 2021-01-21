@@ -140,3 +140,7 @@ section {
 h4{
     text-align: center;
 }
+
+#notetaking_pic, #library_pic, #revision_pic, #references_pic {
+    height: 32vh;
+}
