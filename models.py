@@ -66,6 +66,7 @@ class User:
         except exceptions.FirebaseError:
             return flask.abort(401, 'Failed to create a session cookie')
 
+    @property
     def verify_user(self):
         session_cookie = flask.request.cookies.get('session_token')
         if not session_cookie:

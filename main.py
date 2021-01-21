@@ -19,7 +19,7 @@ socketio = SocketIO(app, async_mode=async_mode, cors_allowed_origins=["https://e
                                                                       "http://extreme-lattice-298010.nw.r.appspot.com",
                                                                       "http://localhost:5000",
                                                                       "https://routetouni.me"],
-                    logger=True, engineio_logger=True)
+logger=True, engineio_logger=True)
 
 main = Blueprint('main', __name__)
 
@@ -47,7 +47,7 @@ def index():
     else:
         session_cookie = flask.request.cookies.get('session_token')
         if session_cookie:
-            user = test_user.verify_user()
+            user = test_user.verify_user
             session["user_name"] = test_user.name
             session['user_email'] = test_user.email
             session['user_picture'] = test_user.picture
@@ -152,7 +152,7 @@ def create_chat():
 
 @app.route('/chat')
 def chat():
-    user = test_user.verify_user()
+    user = test_user.verify_user
     if not user:
         return render_template("index.html", user=user)
     else:
