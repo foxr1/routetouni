@@ -30,33 +30,6 @@
         }
 
 
-        function toggleVerified() {
-            if (document.getElementById("verifypm_table").style.display == "table") {
-                document.getElementById("verifypm_table").style.display = "none";
-                document.getElementById("verify_text").style.display = "none";
-            } else {
-                document.getElementById("displaypm_table").style.display = "none";
-                document.getElementById("view_all_text").style.display = "none";
-                document.getElementById("verifypm_table").style.display = "table";
-                document.getElementById("verify_text").style.display = "block";
-                document.getElementById("verify_text").style.textAlign = "center";
-            }
-        }
-
-        function toggleViewAll() {
-            if (document.getElementById("displaypm_table").style.display == "table") {
-                document.getElementById("displaypm_table").style.display = "none";
-                document.getElementById("view_all_text").style.display = "none";
-
-            } else {
-                document.getElementById("verifypm_table").style.display = "none";
-                document.getElementById("verify_text").style.display = "none";
-                document.getElementById("displaypm_table").style.display = "table";
-                document.getElementById("view_all_text").style.display = "block";
-                document.getElementById("school_input").style.display = "block";
-            }
-        }
-
         //allows the user to display all peer mentors for a specific school.
         function searchbycourse() {
             // Declare variables
@@ -79,6 +52,7 @@
                 }
             }
         }
+
     </script>
 </head>
 
@@ -86,22 +60,28 @@
 <div style="background: #fffefe;" class="jumbotron vertical-center border rounded mt-5 pt-2 mb-5 pb-2 ml-5 pl-5 mr-5 pr-5">
     <!-- Start: header -->
     <div class="row">
-        <div class="col-2 align-items-center"><img src="static/images/back.png" width="30%"></div>
-
-        <h1 class="display-4 text-center d-lg-flex align-items-center align-items-lg-center">Admin Page</h1>
-        <hr>
+        <div class="col-2 align-items-center"><img width="30%"></div>
+        <div class="col-8 d-flex justify-content-center">
+            <h1 class="display-4">Admin Page</h1>
+        </div>
     </div>
 
-    <div class="row mt-3 pt-3">
-        <!-- Start: buttons -->
-        <div class="col-6 text-left"><button onclick="toggleVerified()" class="btn btn-info btn-block text-center d-lg-flex justify-content-lg-center" type="button">Verify New Mentors</button></div>
-        <div class="col-6"><button onclick="toggleViewAll()" class="btn btn-info btn-block" type="button">View Current Peer Mentors</button></div>
 
+    <div class="row mt-3 pt-3 justify-content-center">
 
+        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+            <li class="nav-item"><a class="nav-link" id="pills-verify-tab"data-toggle="pill" href="#tab1" role="tab" aria-controls="pills-verify" aria-selected="true">Verify New Peer Mentors</a></li>
+            <li class="nav-item"><a class="nav-link" id="pills-viewall-tab" data-toggle="pill" href="#tab2" role="tab" aria-controls="pills-viewall" aria-selected="true">View All Peer Mentors</a></li>
 
-        <p style="display: none" id="verify_text" class="justify-content-center"><strong>Verify New Peer Mentors</strong></p>
-        <div class="table-responsive text-left">
-            <table style="display: none" id="verifypm_table" class="table table-sm" id="user_table">
+        </ul>
+    </div>
+        <div id="pills-tabContent" class="tab-content">
+        <div class="tab-pane fade" id="tab1" role="tabpanel" aria-labelledby="pills-verify-tab">
+            <div class=" row justify-content-center"><h3 class="display-4" style="font-size: 25px;" id="view_all_text">Verify Peer Mentors</h3></div>
+
+            <div class="table-responsive text-left mt-2 pt-2">
+            <table id="verifypm_table  mt-3 pt-3" class="table table-sm" id="user_table">
+            <caption>Verify Peer Mentors Table</caption>
                 <thead>
                 <tr class="text-left justify-content-between">
                     <th>User ID</th>
@@ -123,22 +103,27 @@
                     </tr>
                 {%  endfor %}
 
+
                 </tbody>
             </table>
+            </div>
         </div>
         <!-- End: verify_new -->
         <!-- Start: all_mentors -->
 
-
-        <div class="row text-center"><p style="display: none" id="view_all_text" class="justify-content-center"><strong>Current Peer Mentors</strong></p>
+            <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="pills-viewall-tab">
+        <div class="row justify-content-center"><h3 class="display-4" style="font-size: 25px;" id="view_all_text">Current Peer Mentors</h3>
         </div>
 
 
-        <div class="row">
-            <div class="col"><input class="d-sm-flex justify-content-sm-center" style="display: none" type="text" id="school_input" onkeyup="searchbycourse()" placeholder="Search by school.."></div></div>
 
-        <div class="table-responsive text-left">
-            <table style="display: none" id="displaypm_table" class="table table-sm">
+            <div class="row justify-content-start">
+                <p class="mt-2 pt-2 mr-2 pr-2">Search: </p>
+                <input class="" type="text" id="school_input" onkeyup="searchbycourse()" placeholder="Search by school.."></div>
+
+                <div class="table-responsive text-left mt-2 pt-2">
+            <table id="displaypm_table" class="table table-sm">
+                <caption>List of all Current Peer Mentors</caption>
                 <thead>
                 <tr class="text-left justify-content-between">
                     <th>User ID</th>
@@ -161,10 +146,11 @@
                 </tbody>
             </table>
         </div>
+        </div>
 
         <!-- End: all_mentors -->
+
     </div>
-</div>
 <div></div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="static/bootstrap/bootstrap/js/bootstrap.min.js"></script>

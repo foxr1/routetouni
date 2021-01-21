@@ -31,7 +31,7 @@
 
 
     .message-area {
-        height: 75vh;
+        height: 70vh;
         overflow-y: scroll;
         overflow-x: hidden;
     }
@@ -40,6 +40,7 @@
         {#height: 37rem;#}
         overflow-y: auto;
     }
+
 
 
 
@@ -152,7 +153,7 @@
             });
 
             $(document).ready(function(){
-                socket = io.connect('ws://' + location.host  +'/chat', {secure:true});
+                socket = io.connect('wss://' + location.host  +'/chat', {secure:true});
                 socket.on('connect', function() {
                 socket.emit('joined', {'name':local_user, 'time':get_time()});
                 });
@@ -209,6 +210,10 @@
 
            // Upade message id to the current tab to send to the correct room
            $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+
+               //Collapse main navbar on small screens when differant chat is pressed
+               $('#navcol-1').collapse('hide')
+
                //Check currently joined chat
                var currId = $(e.target).attr("id");
                 curr_room = currId
@@ -325,7 +330,7 @@
 <nav class="navbar navbar-light navbar-expand-md absolute">
 
         <button data-toggle="collapse" data-target="#navcol-1" class="navbar-toggler"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-        <div class="collapse navbar-collapse" id="navcol-1">
+        <div class="collapse navbar-collapse show" id="navcol-1">
             <ul class="nav navbar-nav" style="width: 100%;">
 
                 <li class="nav-item" style="width: 100%;">
