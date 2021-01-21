@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html style="background: #003a65;">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Admin Page</title>
+    <link href="../static/bootstrap/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-database.js"></script>
+    <script src="static/js/init.js"></script>
+    <script src="static/js/auth.js"></script>
+    <script charset="utf-8" type="text/javascript">
+
+        //If the user is verified as a peer mentor, verification is set to true in firebase database
+        function yes_pm(uid) {
+            firebase.database().ref('users/' + uid).update({
+                mentor_verified: true
+            });
+        }
+
+        //If the user is rejected as being a peer mentor, their role is changed to student in the firebase database
+        function not_pm(uid) {
+            firebase.database().ref('users/' + uid).update({
+                role: 'Student'
+            });
+        }
+
+
+        function toggleVerified() {
+            if (document.getElementById("verifypm_table").style.display == "table") {
+                document.getElementById("verifypm_table").style.display = "none";
+                document.getElementById("verify_text").style.display = "none";
+            } else {
+                document.getElementById("displaypm_table").style.display = "none";
+                document.getElementById("view_all_text").style.display = "none";
+                document.getElementById("verifypm_table").style.display = "table";
+                document.getElementById("verify_text").style.display = "block";
+                document.getElementById("verify_text").style.textAlign = "center";
+            }
+        }
+
+        function toggleViewAll() {
+            if (document.getElementById("displaypm_table").style.display == "table") {
+                document.getElementById("displaypm_table").style.display = "none";
+                document.getElementById("view_all_text").style.display = "none";
+
+            } else {
+                document.getElementById("verifypm_table").style.display = "none";
+                document.getElementById("verify_text").style.display = "none";
+                document.getElementById("displaypm_table").style.display = "table";
+                document.getElementById("view_all_text").style.display = "block";
+                document.getElementById("school_input").style.display = "block";
+            }
+        }
+
+        //allows the user to display all peer mentors for a specific school.
+        function searchbycourse() {
+            // Declare variables
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("school_input");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("displaypm_table");
+            tr = table.getElementsByTagName("tr");
+
+            // Loop through all table rows, and hide those who don't match the search query
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[2];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body style="background: rgb(0,58,101);">
+<div style="background: #fffefe;" class="jumbotron vertical-center border rounded mt-5 pt-2 mb-5 pb-2 ml-5 pl-5 mr-5 pr-5">
+    <!-- Start: header -->
+    <div class="row">
+        <div class="col-2 align-items-center"><img src="static/images/back.png" width="30%"></div>
+
+        <h1 class="display-4 text-center d-lg-flex align-items-center align-items-lg-center">Admin Page</h1>
+        <hr>
+    </div>
+
+    <div class="row mt-3 pt-3">
+        <!-- Start: buttons -->
+        <div class="col-6 text-left"><button onclick="toggleVerified()" class="btn btn-info btn-block text-center d-lg-flex justify-content-lg-center" type="button">Verify New Mentors</button></div>
+        <div class="col-6"><button onclick="toggleViewAll()" class="btn btn-info btn-block" type="button">View Current Peer Mentors</button></div>
+
+
+
+        <p style="display: none" id="verify_text" class="justify-content-center"><strong>Verify New Peer Mentors</strong></p>
+        <div class="table-responsive text-left">
+            <table style="display: none" id="verifypm_table" class="table table-sm" id="user_table">
+                <thead>
+                <tr class="text-left justify-content-between">
+                    <th>User ID</th>
+                    <th>Name</th>
+                    <th>School</th>
+                    <th>Accept</th>
+                    <th>Reject</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                {%  for value in unverified_mentors%}
+                    <tr>
+                        <td>{{value['uid']}}</td>
+                        <td>{{value['name']}}</td>
+                        <td>{{value['course']}}</td>
+                        <td><button class="btn btn-success btn-block" name="{{value['uid']}}" id="accept"  onload="" onclick="yes_pm(this.name)" type="button">&#10004;</button></td>
+                        <td><button class="btn btn-danger btn-block" name="{{value['uid']}}" id="reject" onclick="not_pm(this.name)" type="button">&#10006;</button></td>
+                    </tr>
+                {%  endfor %}
+
+                </tbody>
+            </table>
+        </div>
+        <!-- End: verify_new -->
+        <!-- Start: all_mentors -->
+
+
+        <div class="row text-center"><p style="display: none" id="view_all_text" class="justify-content-center"><strong>Current Peer Mentors</strong></p>
+        </div>
+
+
+        <div class="row">
+            <div class="col"><input class="d-sm-flex justify-content-sm-center" style="display: none" type="text" id="school_input" onkeyup="searchbycourse()" placeholder="Search by school.."></div></div>
+
+        <div class="table-responsive text-left">
+            <table style="display: none" id="displaypm_table" class="table table-sm">
+                <thead>
+                <tr class="text-left justify-content-between">
+                    <th>User ID</th>
+                    <th>Name</th>
+                    <th>School</th>
+                    <th>Email</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                {%  for value in verified_mentors %}
+                    <tr>
+                        <td>{{value['uid']}}</td>
+                        <td>{{value['name']}}</td>
+                        <td>{{value['course']}}</td>
+                        <td>{{value['email']}}</td>
+                    </tr>
+                {%  endfor %}
+
+                </tbody>
+            </table>
+        </div>
+
+        <!-- End: all_mentors -->
+    </div>
+</div>
+<div></div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="static/bootstrap/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>
