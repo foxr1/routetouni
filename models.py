@@ -15,6 +15,24 @@ def get_all_users():
     return db.reference('users').get()
 
 
+def get_mentors():
+    unverified_ment = []
+    ref = db.reference('users').order_by_child('role').equal_to('Peer Mentor').get()
+    for key, value in ref.items():
+        if not value['mentor_verified']:
+            unverified_ment.append(value)
+    return unverified_ment
+
+
+def get_verified():
+    verified_ment = []
+    ref = db.reference('users').order_by_child('role').equal_to('Peer Mentor').get()
+    for key, value in ref.items():
+        if value['mentor_verified']:
+            verified_ment.append(value)
+    return verified_ment
+
+
 class User:
     def __init__(self):
         self.id_token = ""
