@@ -30,6 +30,7 @@ def get_verified():
     for key, value in ref.items():
         if value['mentor_verified']:
             verified_ment.append(value)
+
     return verified_ment
 
 
