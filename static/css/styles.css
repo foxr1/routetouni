@@ -745,3 +745,16 @@ b {
     padding: 5px;
     background-color: #47a424;
 }
+
+.mobileSelect-container {
+    font-family: Nunito;
+}
+
+button.btn-mobileSelect-gen:not([class*=col-]):not([class*=form-control]):not(.input-group-btn):not(.btn-block) {
+    width: 100% !important;
+    font-family: Nunito;
+}
+
+.mobileSelect-container.mac .list-container .mobileSelect-control {
+    color: black;
+}

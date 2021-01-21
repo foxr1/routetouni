@@ -13,13 +13,13 @@ app.config['SECRET_KEY'] = 'secret!'
 app.config.update(
     SESSION_COOKIE_SECURE=True,
     SESSION_COOKIE_HTTPONLY=True,
-    SESSION_COOKIE_SAMESITE='Lax', )
+    SESSION_COOKIE_SAMESITE='Lax')
 
 socketio = SocketIO(app, async_mode=async_mode, cors_allowed_origins=["https://extreme-lattice-298010.nw.r.appspot.com",
                                                                       "http://extreme-lattice-298010.nw.r.appspot.com",
                                                                       "http://localhost:5000",
                                                                       "https://routetouni.me"],
-logger=True, engineio_logger=True)
+                    logger=True, engineio_logger=True)
 
 main = Blueprint('main', __name__)
 
@@ -41,26 +41,27 @@ def session_logout():
 
 @app.route('/')
 def index():
-    if "name" in session:
-        user = {"name": session["name"], "email": session["email"], "picture": session["picture"],
-                "uid": session["uid"]}
-    else:
+    if "name" not in session:
         session_cookie = flask.request.cookies.get('session_token')
         if session_cookie:
             user = test_user.verify_user
-            session["user_name"] = test_user.name
-            session['user_email'] = test_user.email
-            session['user_picture'] = test_user.picture
-            session['user_uid'] = test_user.uid
         else:
             user = None
+    else:
+        user = session['user_dict']
     return render_template("index.html", user=user)
 
 
 @app.route('/admin', methods=['GET', 'POST'])
 def admin():
-    return render_template("admin.html", unverified_mentors=get_mentors(),
-                           verified_mentors=get_verified())
+    session_cookie = flask.request.cookies.get('session_token')
+    if session_cookie:
+        user = test_user.verify_user
+        if user.get('role') == 'admin':
+            return render_template("admin.html", unverified_mentors=get_mentors(),
+                                   verified_mentors=get_verified())
+        else:
+            return render_template("index.html", user=user)
 
 
 @app.route('/gregister')
@@ -120,12 +121,20 @@ def revision():
     return render_template("revision.html")
 
 
+@app.route('/chat')
+def chat():
+    user = test_user.verify_user
+    if not user:
+        return render_template("index.html", user=user)
+    else:
+        return render_template('chat.html', prev_msg=socket_man.conv_dict(user.get('uid')), user_name=user.get('name'))
+
+
 @app.route("/chat/get_users", methods=['GET', 'POST'])
 def create_entry():
     if request.method == 'GET':
         ref = get_all_users()
-        ref.pop(session["user_uid"])
-
+        ref.pop(session['user_dict'].get('uid'))
         return jsonify(ref)
     if request.method == 'POST':
         return 'Success', 200
@@ -133,45 +142,30 @@ def create_entry():
 
 @app.route('/chat/create_chat', methods=['GET', 'POST'])
 def create_chat():
-    user_id = session["user_uid"]
-    user_name = session["user_name"]
+    user_dict = session['user_dict']
+
     user_add = []
     room_name = None
     if request.method == 'POST':
         form_json = request.get_json()
         for item in form_json:
-            if item['name'] == 'chat_name':
+            if item.get('name') == 'chat_name':
                 room_name = item['value']
             else:
                 user_add.append(item['name'])
 
-        socket_man.create_room(user_id, user_name, user_add, room_name)
+        socket_man.create_room(user_dict.get('uid'), user_dict.get('name'), user_add, room_name)
         return json.dumps({'status': 'OK'})
     return json.dumps({'status': 'ERROR'})
-
-
-@app.route('/chat')
-def chat():
-    user = test_user.verify_user
-    if not user:
-        return render_template("index.html", user=user)
-    else:
-        if test_user.name:
-            session['user_uid'] = test_user.uid
-            session['user_name'] = test_user.name
-            session['user_image'] = test_user.picture
-    return render_template('chat.html', prev_msg=socket_man.conv_dict(test_user.uid), user_name=test_user.name)
 
 
 # When Client Enters
 @socketio.on('joined', namespace='/chat')
 def joined(message):
-    user_uid = session["user_uid"]
-    user_name = session["user_name"]
-    user_image = session["user_image"]
+    user_dict = session['user_dict']
 
-    if user_name:
-        user_conv = socket_man.conv_dict(user_uid)
+    if user_dict.get('name'):
+        user_conv = socket_man.conv_dict(user_dict.get('uid'))
     else:
         return chat()
 
@@ -179,46 +173,45 @@ def joined(message):
         for room in user_conv[category]:
             join_room(room)
 
-            emit('status', {'msg': "Has Joined the Chat", 'name': user_name, 'uid': test_user.uid, "room_id": str(room),
-                            'color': 'success', 'user_image': user_image},
-                 room=room, prev_msg=user_conv, user_name=user_name)
+            emit('status', {'msg': "Has Joined the Chat", 'name': user_dict.get('name'), 'uid': user_dict['uid'],
+                            "room_id": str(room), 'color': 'success', 'user_image': user_dict.get('picture')},
+                 room=room, prev_msg=user_conv, user_name=user_dict.get('name'))
 
 
 @socketio.on('text', namespace='/chat')
 def text(message):
+    user_dict = session['user_dict']
+
+    # Room Message arrived from
     room = message['room_id']
-    user_id = session["user_uid"]
-    user_name = session["user_name"]
-    user_image = session["user_image"]
 
-    message['user_image'] = user_image
+    # Add the user picture to the redis store
+    message['picture'] = user_dict.get('picture')
 
-    if socket_man.check_user_in(user_id, room):
-        socket_man.add_message(room, message, user_id)
+    if socket_man.check_user_in( user_dict.get('uid'), room):
+        socket_man.add_message(room, message,  user_dict.get('uid'))
         emit('internal_msg',
-             {'msg': message['msg'], 'room_id': str(room), 'uid': user_id, 'name': user_name, 'user_image': user_image},
-             room=room, user_name=user_name)
+             {'msg': message['msg'], 'room_id': str(room), 'uid':  user_dict.get('uid'), 'name': user_dict.get('name'),
+              'user_image': user_dict.get('picture')},
+             room=room, user_name=user_dict.get('name'))
     else:
         print("Error User not in room")
 
 
 @socketio.on('join_random', namespace='/chat')
 def join_random(message):
-    user_id = session["user_uid"]
-    user_name = session["user_name"]
-    socket_man.join_random(user_id, user_name)
+    user_dict = session['user_dict']
+    socket_man.join_random(user_dict.get('uid'), user_dict.get('uid'))
 
 
 @socketio.on('exit_room', namespace='/chat')
 def exit_room(message):
-    user_id = session["user_uid"]
-    user_name = session["user_name"]
-    socket_man.del_room(user_id, message['room_id'])
+    user_dict = session['user_dict']
+    socket_man.del_room(user_dict.get('uid'), message['room_id'])
     leave_room(message['room_id'])
-    emit('status', {'msg': "Has left the Chat", 'name': test_user.name, 'color': 'danger'}, room=message['room_id'],
-         user_name=user_name)
+    emit('status', {'msg': "Has left the Chat", 'name': user_dict.get('name'), 'color': 'danger'}, room=message['room_id'],
+         user_name=user_dict.get('name'))
 
 
 if __name__ == '__main__':
-    socketio.run(app,
-                 debug=True)
+    socketio.run(app, debug=True)
