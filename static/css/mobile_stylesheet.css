@@ -274,3 +274,11 @@ html, body {
     top: 30% !important;
     left: -7% !important;
 }
+
+.box {
+    top: -10%;
+}
+
+.box-content {
+    width: 80%;
+}

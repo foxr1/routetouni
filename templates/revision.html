@@ -9,6 +9,7 @@
     <script src="static/js/animations.js"></script>
     <link rel="stylesheet" href="static/css/styles.css">
     <link rel="stylesheet" href="../static/css/revision_flipcard_stylesheet.css">
+    <link rel="stylesheet" type="text/css" media="only screen and (max-device-width: 480px)" href="../static/css/mobile_flipcard_stylesheet.css" />
     <title>RouteToUni</title>
 </head>
 <body>
@@ -48,7 +49,8 @@
             <span class="navBubble8Text">Revision</span></span>
         </span>
     </div>
-    <div id="flip-card-1">
+    <div class="card_container">
+        <div class="card_child" id="flip-card-1">
         <div class="flip-card-inner">
             <div class="flip-card-front">
                 <img id="notetaking_pic" src="../static/images/revision/notetaking.png">
@@ -82,116 +84,114 @@
             </div>
         </div>
     </div>
-    <div id="flip-card-2">
-        <div class="flip-card-inner">
-            <div class="flip-card-front">
-                <img id="references_pic" src="../static/images/revision/references.png">
-                <h2 id="title-front">Referencing</h2>
-                <p></p>
+        <div class="card_child" id="flip-card-2">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <img id="references_pic" src="../static/images/revision/references.png">
+                    <h2 id="title-front">Referencing</h2>
+                    <p></p>
+                </div>
+                <div class="flip-card-back">
+                    <div class="ScrollStyle">
+                        <section class="page-1">
+                            <ul>
+                                <li>Find your references during your planning rather than as you are doing the assignment.</li>
+                                <li>Reference as you work – it will save you a lot of time!</li>
+                                <li>Colour-code information according to the source – this is an easy way to keep track of where the information comes from. Create a research log.</li>
+                                <li>Look at referencing style guides - check that your references are correct for your specified style of referencing.</li>
+                                <li>Attend library organised session at the beginning of the year on how to reference – these are very useful!</li>
+                                <li>Help with referencing is available from the library – use the resources available on the library website.</li>
+                                <li>Help with referencing is also available from ASK.</li>
+                            </ul>
+                        </section>
+                        <section class="page-2">
+                            <h4>Referencing Software</h4>
+                            <ul>
+                                <li>Cite Them Right – a resource to help you reference correctly and avoid plagiarism.</li>
+                                <li>EndNote – a software tool for publishing and managing bibliographies, citations and references on Windows and Mackintosh desktop.</li>
+                                <li>Cite This For Me – allows you to create citations, reference list and bibliographies using various referencing styles.</li>
+                                <li>EasyBib - automatically cites books, journal articles and websites using various referencing styles.</li>
+                                <li>Mendeley – a reference management tool and academic social network.</li>
+                                <li>Zotero – helps you to collect, organise, cite and share research.</li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
             </div>
-            <div class="flip-card-back">
-                <div class="ScrollStyle">
-                    <section class="page-1">
-                        <ul>
-                            <li>Find your references during your planning rather than as you are doing the assignment.</li>
-                            <li>Reference as you work – it will save you a lot of time!</li>
-                            <li>Colour-code information according to the source – this is an easy way to keep track of where the information comes from. Create a research log.</li>
-                            <li>Look at referencing style guides - check that your references are correct for your specified style of referencing.</li>
-                            <li>Attend library organised session at the beginning of the year on how to reference – these are very useful!</li>
-                            <li>Help with referencing is available from the library – use the resources available on the library website.</li>
-                            <li>Help with referencing is also available from ASK.</li>
-                        </ul>
-                    </section>
-                    <section class="page-2">
-                        <h4>Referencing Software</h4>
-                        <ul>
-                            <li>Cite Them Right – a resource to help you reference correctly and avoid plagiarism.</li>
-                            <li>EndNote – a software tool for publishing and managing bibliographies, citations and references on Windows and Mackintosh desktop.</li>
-                            <li>Cite This For Me – allows you to create citations, reference list and bibliographies using various referencing styles.</li>
-                            <li>EasyBib - automatically cites books, journal articles and websites using various referencing styles.</li>
-                            <li>Mendeley – a reference management tool and academic social network.</li>
-                            <li>Zotero – helps you to collect, organise, cite and share research.</li>
-                        </ul>
-                    </section>
+        </div>
+        <div class="card_child" id="flip-card-3">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <img id="revision_pic" src="../static/images/revision/revision.png">
+                    <h2 id="title-front">Exams and Revision</h2>
+                    <p></p>
+                </div>
+                <div class="flip-card-back">
+                    <div class="ScrollStyle">
+                        <section class="page-1">
+                            <ul>
+                                <li>Revise throughout the term so that you are not overwhelmed during the exam period. Make sure you keep your notes and revision material up to date. Allocate time after lectures to make revision notes.</li>
+                                <li>Make a revision timetable – make sure all your modules are covered and leave yourself plenty of time to re-read any necessary texts.</li>
+                                <li>Read module handbooks so the learning objectives are familiar.</li>
+                                <li>Base your revision materials around the learning objectives of each lecture.</li>
+                                <li>Use Mind Maps to help you visually organise topics.</li>
+                                <li>Prioritise topics that you are going to revise – study those that you do not understand first. If you are still struggling, you can then ask for further help and clarification from your lecturers.</li>
+                                <li>Start any coursework promptly so that it maximises your time for revision as you get closer to the exams.</li>
+                                <li>Use past exam papers if they are available and practise answering the questions.</li>
+                                <li>Swap notes with other students on your course – there may be something that you have missed.</li>
+                                <li>Focus on yourself and do not worry about what your friends have done or what they are doing during an exam.</li>
+                                <li>Convert your notes into ‘Question & Answer’ revision cards or short summaries of each topic.</li>
+                                <li>Figure out where you study best – i.e. the library, your bedroom, a home office, etc. Find the most comfortable and productive environment, somewhere where you will be able to concentrate and are not easily distracted or can procrastinate.</li>
+                                <li>Set the mood to study – have a clean study space which includes all the things that you will need.</li>
+                                <li>Schedule regular breaks in your revision timetable – see your friends, watch a film, etc.</li>
+                                <li>Be kind to yourself – eat well, take regular exercise and have enough sleep.</li>
+                                <li>Give yourself small rewards for achievable goals.</li>
+                            </ul>
+                        </section>
+                        <section class="page-2">
+                            <h4>Useful Revision Software</h4>
+                            <ul>
+                                <li>Flashcard software – Anki, BrainScape and Quizlet are a great resource for creating flashcards. Create your own or share flashcards with your fellow students.</li>
+                                <li>Kahoot - create quizzes to test yourself and your course mates.</li>
+                                <li>Peerwise - create and review multiple choice questions.</li>
+                                <li>YouTube – a useful tool to search for educational videos.</li>
+                                <li>Recap - to go over any lecture materials you may have missed or are unsure about.</li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card_child" id="flip-card-4">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <img id="library_pic" src="../static/images/revision/library.png">
+                    <h2 id="title-front">University Library</h2>
+                    <p></p>
+                </div>
+                <div class="flip-card-back">
+                    <div class="ScrollStyle">
+                        <section class="page-1">
+                            <ul>
+                                <li>The University Library Service provides access to a wide range of resources, services and study spaces as well as professional expertise to help students to be successful in their studies and research.</li>
+                                <li>Library Staff are available at Library Help desks to help students to find the information they need. Alternatively, students can also use the online Library Help service, 24 hours a day, 7 days a week, to access support, no matter where they are.</li>
+                                <li>The libraries have a range of study and research spaces including group and individual study rooms, allowing students to study collaboratively or silently, depending on their preference or task.</li>
+                                <li>The Philip Robinson Library also houses the Special Collections which are made up of rare and historic books, manuscripts, maps and illustrations.</li>
+                            </ul>
+                        </section>
+                        <section class="page-2">
+                            <h4>Useful University Links</h4>
+                            <ul>
+                                <li>ASK - ASK has advice on developing your academic skills and information about where you can go for support.</li>
+                                <li>Language Resource Centre - The Centre supports independent language learning and tandem learning. It offers free language learning facilities to all members of the University.</li>
+                                <li>Writing Development Centre - The Writing Development Centre offers advice and guidance on writing for assessment and other study skills. Their team of learning developers work with students across all subjects.</li>
+                                <li>Subject Guides - The Library Subject Guides draw together the best resources and tailored help for your subject area. Resource guides highlight the range of resources available to help students access specialist information types, such as newspapers, company information, market research and systematic reviews.</li>
+                            </ul>
+                        </section>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div id="flip-card-3">
-        <div class="flip-card-inner">
-            <div class="flip-card-front">
-                <img id="revision_pic" src="../static/images/revision/revision.png">
-                <h2 id="title-front">Exams and Revision</h2>
-                <p></p>
-            </div>
-            <div class="flip-card-back">
-                <div class="ScrollStyle">
-                    <section class="page-1">
-                        <ul>
-                            <li>Revise throughout the term so that you are not overwhelmed during the exam period. Make sure you keep your notes and revision material up to date. Allocate time after lectures to make revision notes.</li>
-                            <li>Make a revision timetable – make sure all your modules are covered and leave yourself plenty of time to re-read any necessary texts.</li>
-                            <li>Read module handbooks so the learning objectives are familiar.</li>
-                            <li>Base your revision materials around the learning objectives of each lecture.</li>
-                            <li>Use Mind Maps to help you visually organise topics.</li>
-                            <li>Prioritise topics that you are going to revise – study those that you do not understand first. If you are still struggling, you can then ask for further help and clarification from your lecturers.</li>
-                            <li>Start any coursework promptly so that it maximises your time for revision as you get closer to the exams.</li>
-                            <li>Use past exam papers if they are available and practise answering the questions.</li>
-                            <li>Swap notes with other students on your course – there may be something that you have missed.</li>
-                            <li>Focus on yourself and do not worry about what your friends have done or what they are doing during an exam.</li>
-                            <li>Convert your notes into ‘Question & Answer’ revision cards or short summaries of each topic.</li>
-                            <li>Figure out where you study best – i.e. the library, your bedroom, a home office, etc. Find the most comfortable and productive environment, somewhere where you will be able to concentrate and are not easily distracted or can procrastinate.</li>
-                            <li>Set the mood to study – have a clean study space which includes all the things that you will need.</li>
-                            <li>Schedule regular breaks in your revision timetable – see your friends, watch a film, etc.</li>
-                            <li>Be kind to yourself – eat well, take regular exercise and have enough sleep.</li>
-                            <li>Give yourself small rewards for achievable goals.</li>
-                        </ul>
-                    </section>
-                    <section class="page-2">
-                        <h4>Useful Revision Software</h4>
-                        <ul>
-                            <li>Flashcard software – Anki, BrainScape and Quizlet are a great resource for creating flashcards. Create your own or share flashcards with your fellow students.</li>
-                            <li>Kahoot - create quizzes to test yourself and your course mates.</li>
-                            <li>Peerwise - create and review multiple choice questions.</li>
-                            <li>YouTube – a useful tool to search for educational videos.</li>
-                            <li>Recap - to go over any lecture materials you may have missed or are unsure about.</li>
-                        </ul>
-                    </section>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div id="flip-card-4">
-        <div class="flip-card-inner">
-            <div class="flip-card-front">
-                <img id="library_pic" src="../static/images/revision/library.png">
-                <h2 id="title-front">University Library</h2>
-                <p></p>
-            </div>
-            <div class="flip-card-back">
-                <div class="ScrollStyle">
-                    <section class="page-1">
-                        <ul>
-                            <li>The University Library Service provides access to a wide range of resources, services and study spaces as well as professional expertise to help students to be successful in their studies and research.</li>
-                            <li>Library Staff are available at Library Help desks to help students to find the information they need. Alternatively, students can also use the online Library Help service, 24 hours a day, 7 days a week, to access support, no matter where they are.</li>
-                            <li>The libraries have a range of study and research spaces including group and individual study rooms, allowing students to study collaboratively or silently, depending on their preference or task.</li>
-                            <li>The Philip Robinson Library also houses the Special Collections which are made up of rare and historic books, manuscripts, maps and illustrations.</li>
-                        </ul>
-                    </section>
-                    <section class="page-2">
-                        <h4>Useful University Links</h4>
-                        <ul>
-                            <li>ASK - ASK has advice on developing your academic skills and information about where you can go for support.</li>
-                            <li>Language Resource Centre - The Centre supports independent language learning and tandem learning. It offers free language learning facilities to all members of the University.</li>
-                            <li>Writing Development Centre - The Writing Development Centre offers advice and guidance on writing for assessment and other study skills. Their team of learning developers work with students across all subjects.</li>
-                            <li>Subject Guides - The Library Subject Guides draw together the best resources and tailored help for your subject area. Resource guides highlight the range of resources available to help students access specialist information types, such as newspapers, company information, market research and systematic reviews.</li>
-                        </ul>
-                    </section>
-                </div>
-            </div>
-        </div>
-    </div>
-
 </body>
 </html>
-
-<!--round the edges
