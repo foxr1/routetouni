@@ -18,10 +18,6 @@ p, .container {
     font-size: 4vw !important;
 }
 
-.ScrollStyle {
-    max-height: none !important;
-}
-
 h1 {
     font-size: 6vw !important;
 }
@@ -113,9 +109,44 @@ h1 {
 
 .card_child {
     scroll-snap-align: center;
+    scroll-snap-type: x proximity;
     min-height: 85%;
     min-width: 80%;
     background-color: white;
-    margin: 30px;
+    margin: 10%;
     position: initial !important;
+}
+
+.ScrollStyle {
+    max-height: 100%;
+    max-width: 100%;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    scroll-snap-align: start;
+}
+.ScrollStyle::-webkit-scrollbar {
+  display: none;
+}
+
+section {
+  height: 110vh;
+  scroll-snap-align: start;
+    scroll-snap-type: y mandatory;
+  text-align: left;
+  position: relative;
+}
+.page-2{
+    background-color: lightblue;
+    border-radius: 15px;
+    border-right-width: 10px;
+    background-clip: padding-box;
+    height: 88vh;
+}
+.page-1{
+    height: 200vh;
+  scroll-snap-align: start;
+    scroll-snap-type: y mandatory;
+  text-align: left;
+  position: relative;
+
 }
