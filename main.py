@@ -127,6 +127,7 @@ def chat():
     if not user:
         return render_template("index.html", user=user)
     else:
+
         return render_template('chat.html', prev_msg=socket_man.conv_dict(user.get('uid')), user_name=user.get('name'))
 
 

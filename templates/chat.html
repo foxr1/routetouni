@@ -212,7 +212,9 @@
            $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 
                //Collapse main navbar on small screens when differant chat is pressed
-               $('#navcol-1').collapse('hide')
+               if ($(window).width() < 720) {
+                   $('#navcol-1').collapse('hide')
+                }
 
                //Check currently joined chat
                var currId = $(e.target).attr("id");
@@ -323,85 +325,78 @@
 {% endmacro %}
 
 <div class="jumbotron vertical-center" style="background:#003a65;">
-<div class="container">
-    <div class="row rounded-lg overflow-hidden shadow">
+    <div class="container">
+        <div class="row rounded-lg overflow-hidden shadow">
+            <div class="col-md-4 px-0 bg-light">
+                <nav class="navbar navbar-light navbar-expand-md absolute">
+                    <button data-toggle="collapse" data-target="#navcol-1" class="navbar-toggler"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                    <div class="collapse navbar-collapse show" id="navcol-1">
+                        <ul class="nav navbar-nav" style="width: 100%;">
+                            <li class="nav-item" style="width: 100%;">
+                                <div class="bg-gray px-4 py-2 bg-light">
+                                    <p class="h5 mb-0 py-1">Chats</p>
+                                </div>
+                                <div class="messages-box">
+                                    <div class="list-group rounded-0 active " id="myTab" role="tablist">
+                                      {% for key, value in prev_msg['rooms'].items() %}
+                                          {% set last_msg = value['msgs']|last %}
+                                          {{ conv(value['room_name'],last_msg['time'],key,last_msg['msg']) }}
+                                      {% endfor %}
+                                        {% if prev_msg['random_chat']|length > 0 %}
+                                            {% for key, value in prev_msg['random_chat'].items() %}
+                                                {% set last_msg = value['msgs']|last %}
+                                                {{ conv('Random Chat',last_msg['time'],key,last_msg['msg']) }}
+                                            {% endfor %}
+                                        {% endif %}
 
-        <div class="col-md-4 px-0 bg-light">
-<nav class="navbar navbar-light navbar-expand-md absolute">
+                                        <a class="list-group-item list-group-item-action  text-white rounded-0">
+                                            <div class="media">
+                                                <div class="media-body ml-4">
+                                                    <div class="d-flex align-items-center justify-content-between mb-1"></div>
 
-        <button data-toggle="collapse" data-target="#navcol-1" class="navbar-toggler"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-        <div class="collapse navbar-collapse show" id="navcol-1">
-            <ul class="nav navbar-nav" style="width: 100%;">
+                                                    {% if prev_msg['random_chat']|length == 0 %}
+                                                        <div class="row no-gutters mt-1">
+                                                            <div class="col text-center">
+                                                                <button class="btn btn-outline-info btn-lg"  onclick="join_random()"><i class="fa fa-users"></i> Random Chat</button>
+                                                            </div>
+                                                        </div>
+                                                    {% endif %}
 
-                <li class="nav-item" style="width: 100%;">
-                        <div class="bg-gray px-4 py-2 bg-light">
-                            <p class="h5 mb-0 py-1">Chats</p>
-                        </div>
-
-                        <div class="messages-box">
-                            <div class="list-group rounded-0 active " id="myTab" role="tablist">
-                              {% for key, value in prev_msg['rooms'].items() %}
-                                  {% set last_msg = value['msgs']|last %}
-                                  {{ conv(value['room_name'],last_msg['time'],key,last_msg['msg']) }}
-                              {% endfor %}
-
-                                {% if prev_msg['random_chat']|length > 0 %}
-                                {% for key, value in prev_msg['random_chat'].items() %}
-                                    {% set last_msg = value['msgs']|last %}
-                                    {{ conv('Random Chat',last_msg['time'],key,last_msg['msg']) }}
-                                {% endfor %}
-                                {% endif %}
-                                <a class="list-group-item list-group-item-action  text-white rounded-0">
-                                    <div class="media">
-                                        <div class="media-body ml-4">
-                                            <div class="d-flex align-items-center justify-content-between mb-1"></div>
-
-                                            {% if prev_msg['random_chat']|length == 0 %}
-                                                <div class="row no-gutters mt-1">
-                                                    <div class="col text-center">
-                                                        <button class="btn btn-outline-info btn-lg"  onclick="join_random()"><i class="fa fa-users"></i> Random Chat</button>
+                                                    <div class="row no-gutters mt-1">
+                                                        <div class="col text-center">
+                                                            <button class="btn btn-outline-primary btn-lg" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-users"></i> New</button>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            {% endif %}
 
-                                            <div class="row no-gutters mt-1">
-                                                <div class="col text-center">
-                                                    <button class="btn btn-outline-primary btn-lg" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-users"></i> New</button>
                                                 </div>
                                             </div>
-
-                                        </div>
+                                        </a>
                                     </div>
-                                </a>
-                            </div>
-                        </div>
-
-                </li>
-            </ul>
-        </div>
-</nav>
-        </div>
-
-    <div class="col px-0 bg-white">
-        <div class="tab-content">
-            {% for key, value in prev_msg['rooms'].items() %}
-                {{tab_cont(prev_msg['rooms'][key]['msgs'], key)}}
-            {% endfor %}
-
-            {% for key, value in prev_msg['random_chat'].items() %}
-                {{tab_cont(prev_msg['random_chat'][key]['msgs'], key)}}
-            {% endfor %}
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
             </div>
+            <div class="col px-0 bg-white">
+                <div class="tab-content">
+                    {% for key, value in prev_msg['rooms'].items() %}
+                        {{tab_cont(prev_msg['rooms'][key]['msgs'], key)}}
+                    {% endfor %}
+
+                    {% for key, value in prev_msg['random_chat'].items() %}
+                        {{tab_cont(prev_msg['random_chat'][key]['msgs'], key)}}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
     </div>
-</div>
-</div>
 </div>
 
 
 
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
-
       <form  onsubmit="get_form()" id="myform" method="post">
           <div class="modal-content">
 
@@ -412,14 +407,15 @@
                   </button>
               </div>
 
-              <div class="modal-body">
-                  <div class="row align-self-center">
-                      <div class="col text-center">
-                         <div class="row text-left no-gutters mt-1">
+              <div class="modal-body" style="max-height: 60vh; overflow-y: scroll">
+
+
+                         <div class="row text-left no-gutters mt-1" style="max-height: 60vh; overflow-y: scroll">
                             <div class="col" style="margin: 1%;">
                                 <input type="search" class="form-control-sm" id="user_search_input" onkeyup="search_table()" autofocus placeholder="Search User" style="border-top-style: none;border-right-style: none;border-bottom-style: solid;border-bottom-color: var(--blue);border-left-style: none;" />
                             </div>
                          </div>
+
                           <table class="table table-striped table-bordered table-hover" id="user_table">
                               <thead id="thead_users">
                               <tr>
@@ -434,15 +430,12 @@
                               </tbody>
                           </table>
 
-                          <div class="col text-center">
-                         <input type="text" class="form-control-lg" name="chat_name" autofocus placeholder="Chat name..." style="border-bottom-right-radius: 12px;border-bottom-left-radius: 12px;border-top-style: none;border-right-style: none;border-bottom: 2px solid var(--blue) ;border-left-style: none;" required minlength="5" maxlength="15" />
-                          </div>
-                      </div>
-                  </div>
               </div>
               <div class="modal-footer">
-                  <button class="btn btn-outline-danger btn-lg" type="button" data-dismiss="modal"><i class="fa fa-close"></i> Cancel</button>
-                  <button class="btn btn-outline-primary btn-lg" onclick="get_form()" type="button"><i class="fa fa-comments"></i> Create</button>
+                  <div class="col text-center">
+                      <input type="text" name="chat_name" autofocus="" placeholder="Chat name..." style="border-bottom-right-radius: 12px;border-bottom-left-radius: 12px;border-top-style: none;border-right-style: none;border-bottom: 2px solid var(--blue) ;border-left-style: none;" required="" minlength="5" maxlength="15" class="form-control">
+                      <button class="btn btn-outline-primary btn-lg" onclick="get_form()" type="button" style="margin-top: 2%;margin-left: 3%;"><i class="fa fa-comments"></i> Create</button>
+                  </div>
               </div>
           </div>
       </form>

@@ -88,7 +88,7 @@ class User:
                     self.picture = user_info['profilePicture']
 
                     self.user_dict = {"name": self.name, "email": self.email, "role": self.role, "school": self.school,
-                                      "picture": self.picture, "ui  d": self.uid}
+                                      "picture": self.picture, "uid": self.uid}
 
                     self.set_session()
                 return self.user_dict
