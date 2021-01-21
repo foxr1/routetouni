@@ -79,6 +79,7 @@ function bubbleClick(bubble, img, nextPage) {
     let bubbleEl = document.getElementById(bubble)
     let bubbleStyles = window.getComputedStyle(document.querySelector('#' + bubble));
     if (bubbleStyles.zIndex === '0') {
+        $("html, body").animate({ scrollTop: 0 }, "slow");
         bubbleEl.style.zIndex = '2'; // Move circle to front
         bTop = bubbleStyles.top;
         bBottom = bubbleStyles.bottom;
@@ -123,6 +124,7 @@ function bubbleClick(bubble, img, nextPage) {
                     if (nextPage === "chat") {
                         window.location.assign("/chat")
                     } else {
+
                         xhttp.send();
                     }
 
