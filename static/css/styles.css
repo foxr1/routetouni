@@ -168,7 +168,7 @@ body {
     transition: 1s;
 }
 
-#login {
+#login, #adminBtn {
     font-family: 'GilroyBold', 'sans-serif';
     color: white;
     border-radius: 25px;
@@ -179,6 +179,11 @@ body {
     position: absolute;
     z-index: 0;
     cursor: pointer;
+}
+
+#adminBtn {
+    display: none !important;
+    top: 12% !important;
 }
 
 /* Properties for home page bubbles */
@@ -635,7 +640,7 @@ button#widgetIcon .df-chat-icon {
   background-color: rgba(0, 0, 0, .6);
   display: none;
   bottom: 0;
-  height: 100%;
+  /*height: 100%;*/
   left: 0;
   position: fixed;
   width: 100%;
@@ -704,4 +709,28 @@ b {
     text-align: center;
     z-index: 0;
     display: none;
+}
+
+#accountPicture {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+#changePicture {
+    position: fixed;
+    left: 7px;
+    top: 197px;
+    color: white;
+    border: none;
+}
+
+#saveBtn {
+    width: 100%;
+    font-family: 'GilroyBold', 'sans-serif';
+    color: white;
+    border: none;
+    border-radius: 2px;
+    padding: 5px;
+    background-color: #47a424;
 }

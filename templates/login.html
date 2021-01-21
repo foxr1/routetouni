@@ -42,13 +42,13 @@
             <p class="signUpError" id="passwordError">e</p>
 
             <select
-                    sth-select
-                    sth-select-placeholder="Select your school"
-                    sth-select-title="Select your school"
-                    sth-select-filter="true"
-                    sth-select-autosize="false"
-                    sth-select-filter-placeholder="Search for your school"
-                    name="courses" id="courses">
+                sth-select
+                sth-select-placeholder="Select your school"
+                sth-select-title="Select your school"
+                sth-select-filter="true"
+                sth-select-autosize="false"
+                sth-select-filter-placeholder="Search for your school"
+                name="courses" id="courses">
                 <option value="blank">Select your school</option>
                 <option value="architecture">School of Architecture, Planning and Landscape</option>
                 <option value="artsAndCulture">School of Arts and Cultures</option>
@@ -73,10 +73,12 @@
             </select><br><br>
 
             <select
-                    sth-select
-                    sth-select-placeholder="Select your role"
-                    sth-select-title="Select your role"
-                    name="roles" id="roles">
+                sth-select
+                sth-select-placeholder="Select your role"
+                sth-select-title="Select your role"
+                sth-select-autosize="false"
+                sth-select-filter="false"
+                name="roles" id="roles">
                 <option value="blank">Select your role</option>
                 <option value="student">Student</option>
                 <option value="mentor">Peer Mentor</option>
@@ -219,7 +221,7 @@
             }
 
             if (valid) {
-                signUp(firstname.value, lastname.value, school.text, role.text, email.value, password.value);
+                signUp(firstname.value, lastname.value, school.text, role.text, email.value, password.value, "https://firebasestorage.googleapis.com/v0/b/route2uni.appspot.com/o/Default%20Users%2F151bff_user.png?alt=media&token=845a4c7b-3a3c-418d-8859-1d1cd88eedbb");
             }
         }
 
@@ -317,12 +319,15 @@
                     console.log('User already signed-in Firebase.');
 
                     if (isNewUser) {
+
                         sessionStorage.setItem("name", googleUser.displayName);
                         sessionStorage.setItem('email', googleUser.email);
                         sessionStorage.setItem('uid', googleUser.uid);
+                        sessionStorage.setItem('picture', googleUser.photoURL);
 
                         window.location.assign('/gregister');
                     } else {
+                        console.log(googleUser);
                         addCookieRedirect();
                     }
                 }

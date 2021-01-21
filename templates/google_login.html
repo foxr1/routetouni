@@ -64,6 +64,7 @@
                 course: document.getElementById('courses').options[document.getElementById('courses').selectedIndex].text,
                 role: document.getElementById('roles').options[document.getElementById('roles').selectedIndex].text,
                 uid: sessionStorage.getItem('uid'),
+                profilePicture: sessionStorage.getItem('picture'),
                 mentor_verified: false
             }, (error) => {
                 if (error) {

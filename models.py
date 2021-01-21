@@ -74,25 +74,26 @@ class User:
             try:
                 decoded_claims = auth.verify_session_cookie(session_cookie, check_revoked=True)
                 self.uid = decoded_claims['uid']
-
-                if 'name' not in decoded_claims:
-                    self.get_meta(True)
-                else:
-                    self.email = decoded_claims['email']
-                    self.name = decoded_claims['name']
-                    self.picture = decoded_claims['picture']
-                return {"name": self.name, "email": self.email}
+                self.get_meta(True)
+                # if 'name' not in decoded_claims:
+                #
+                # else:
+                #     self.email = decoded_claims['email']
+                #     self.name = decoded_claims['name']
+                # self.picture = decoded_claims['picture']
+                return {"name": self.name, "email": self.email, "role": self.role, "school": self.school, "picture": self.picture, "uid": self.uid}
             except Exception as e:
                 print("Verification Error", e)
                 return None
 
     def get_meta(self, personal_login=False):
         result = db.reference('users/' + self.uid).get()
-        if personal_login:
-            self.name = result['name']
-            self.email = result['email']
+        # if personal_login:
+        self.name = result['name']
+        self.email = result['email']
         self.role = result['role']
         self.school = result['course']
+        self.picture = result['profilePicture']
 
     def logout_user(self):
         session_cookie = flask.request.cookies.get('session_token')

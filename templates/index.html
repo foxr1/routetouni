@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta property="og:title" content="RouteToUni"/>
+    <meta property="og:description" content="A place for Newcastle University students to get to grips with University life."/>
+    <meta property="og:url" content="https://routetouni.me"/>
+    <meta property="og:image" content="static/images/ogimage.jpg"/>
     <meta name="google-signin-client_id" content="1081173404847-ddjfjkqhfj79u9qiv7lrsajibo3vtgqc.apps.googleusercontent.com"/>
     <script src="static/js/node_modules/animejs/lib/anime.min.js"></script>
     <link rel="stylesheet" href="../static/css/styles.css">
@@ -18,8 +21,8 @@
             chat-title="Route2Uni Helpbot"
             chat-icon="../static/images/bubbles/help.png"
             agent-id="605e3a24-4b9c-400a-ac8d-5a8a6062f37f"
-            language-code="en"
-    ></df-messenger>
+            language-code="en">
+    </df-messenger>
 
 </head>
 <body>
@@ -27,15 +30,23 @@
         <div id="box" class="box-content">
             <span class="close">&times;</span>
             <h3>Account</h3>
+            <b>Profile Picture:</b><p><img alt="Profile picture" id="profilePicture" width="75px" height="75px"/></p><input id="changePicture" type='file' accept="image/*"/><br>
             <b>Name:</b><p id="name"></p>
             <b>Email:</b><p id="email"></p>
             <b>Course:</b><p id="course"></p>
+            <button id="saveBtn" onclick="changePicture()">SAVE CHANGES</button><br><br>
             <button id="logoutBtn" onclick="logout()">LOGOUT</button>
         </div>
     </div>
 
     <div id="homeLayout" onclick="newFireWorkStar(event.pageX - container.offsetLeft, event.pageY - container.offsetTop);">
-        <span id="login" onmouseover="bubbleHover('#login')" onmouseout="bubbleLeave('#login')" onclick="checkLogin()">Login</span>
+        <span id="login" onmouseover="bubbleHover('#login')" onmouseout="bubbleLeave('#login')" onclick="checkLogin()">
+            <img id="accountPicture" alt="Profile picture"/>
+        </span>
+
+        <span id="adminBtn" onmouseover="bubbleHover('#admindBtn')" onmouseout="bubbleLeave('#admindBtn')" onclick="window.location.assign('/admin')">
+            Admin
+        </span>
 
         <div id="universityHeading">
             <img src="static/images/newcasltelogo.png" id="newcastleLogo" alt="Newcastle University logo"/>
@@ -48,25 +59,25 @@
             <span class="bubble1Text">Chat</span></span>
         <span id="bubble2" onclick="bubbleClick('bubble2', '#newsImg', 'news')" onmouseover="bubbleHover('#bubble2')" onmouseout="bubbleLeave('#bubble2')">
             <img id="newsImg" src="../static/images/bubbles/news.png" alt="News"/>
-            <span class="bubble2Text">News</span></span></span>
+            <span class="bubble2Text">News</span></span>
         <span id="bubble3" onclick="bubbleClick('bubble3', '#drinksImg', 'pubs')" onmouseover="bubbleHover('#bubble3')" onmouseout="bubbleLeave('#bubble3')">
             <img id="drinksImg" src="../static/images/bubbles/drinks.png" alt="Drinks"/>
-            <span class="bubble3Text">Pubs & Clubs</span></span></span>
+            <span class="bubble3Text">Pubs & Clubs</span></span>
         <span id="bubble4" onclick="bubbleClick('bubble4', '#locationImg', 'map')" onmouseover="bubbleHover('#bubble4')" onmouseout="bubbleLeave('#bubble4')">
             <img id="locationImg" src="../static/images/bubbles/location.png" alt="Location"/>
-            <span class="bubble4Text">Campus Map</span></span></span>
+            <span class="bubble4Text">Campus Map</span></span>
         <span id="bubble5" onclick="bubbleClick('bubble5', '#accommodationImg', 'accommodation')" onmouseover="bubbleHover('#bubble5')" onmouseout="bubbleLeave('#bubble5')">
             <img id="accommodationImg" src="../static/images/bubbles/home.png" alt="Accommodation"/>
-            <span class="bubble5Text">Accommodation</span></span></span>
+            <span class="bubble5Text">Accommodation</span></span>
         <span id="bubble6" onclick="bubbleClick('bubble6', '#healthImg', 'health')" onmouseover="bubbleHover('#bubble6')" onmouseout="bubbleLeave('#bubble6')">
             <img id="healthImg" src="../static/images/bubbles/health.png" alt="Health"/>
-            <span class="bubble6Text">Health</span></span></span>
+            <span class="bubble6Text">Health</span></span>
         <span id="bubble7" onclick="bubbleClick('bubble7', '#contactsImg', 'societies')" onmouseover="bubbleHover('#bubble7')" onmouseout="bubbleLeave('#bubble7')">
             <img id="contactsImg" src="../static/images/bubbles/people.png" alt="Contacts"/>
-            <span class="bubble7Text">Societies</span></span></span>
+            <span class="bubble7Text">Societies</span></span>
         <span id="bubble8" onclick="bubbleClick('bubble8', '#revisionImg', 'revision')" onmouseover="bubbleHover('#bubble8')" onmouseout="bubbleLeave('#bubble8')">
             <img id="revisionImg" src="../static/images/bubbles/revision.png" alt="Revision"/>
-            <span class="bubble8Text">Revision</span></span></span>
+            <span class="bubble8Text">Revision</span></span>
     </div>
 
     <script src="static/js/animations.js"></script>
@@ -79,28 +90,35 @@
     <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-analytics.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-storage.js"></script>
     <script src="static/js/init.js"></script>
     <script src="static/js/auth.js"></script>
     <script src="https://apis.google.com/js/platform.js?onload=onLoadCallback" async defer></script>
-    <script>
-        window.onLoadCallback = function(){
-
-        }
-    </script>
 
     <script>
         // Check if a user is logged in.
         var loginBtn = document.getElementById("login");
+        var adminBtn = document.getElementById("adminBtn");
+        var accountPicture = document.getElementById("accountPicture");
         var loggedIn = false;
 
         var user = JSON.parse('{{ user | tojson | safe}}');
 
         if (user) {
-            loginBtn.textContent = "Account";
+            loginBtn.style.padding = "6px"
+            accountPicture.src = user.picture;
+            accountPicture.style.display = "block";
             loggedIn = true;
         } else {
+            loginBtn.style.padding = "15px";
             loginBtn.textContent = "Login";
             loggedIn = false;
+        }
+
+        if (user.role === "Admin") {
+            adminBtn.style.display = "absolute";
+        } else {
+            adminBtn.style.display = "none";
         }
 
         function checkLogin() {
@@ -116,13 +134,15 @@
             var accountBox = document.getElementById("accountBox");
             var span = document.getElementsByClassName("close")[0];
             var name = document.getElementById("name");
-            var emailText = document.getElementById("email")
-            var schoolText = document.getElementById("course")
+            var emailText = document.getElementById("email");
+            var profilePicture = document.getElementById("profilePicture");
+            var schoolText = document.getElementById("course");
 
             accountBox.style.display = "block";
             name.textContent = user.name;
             emailText.textContent = user.email;
-            {#schoolText.textContent = user.school;#}
+            profilePicture.src = user.picture;
+            schoolText.textContent = user.school;
 
             let fadeBackground = anime({
                 targets: '#accountBox',
@@ -138,28 +158,75 @@
 
             // Hide account box
             span.onclick = function() {
-              accountBox.style.display = "none";
+                if (image.files[0] != null) {
+                    if (window.confirm("You have unsaved changes, are you sure you want to leave?")) {
+                        image.value = ""; // Clear selected image
+                        hideAccount();
+                    }
+                } else {
+                    hideAccount();
+                }
             }
 
             window.onclick = function(event) {
                 if (event.target === accountBox) {
-                    let fadeBackground = anime({
-                        targets: '#accountBox',
-                        opacity: ['100%', '0%'], duration: 1000,
-                        easing: 'easeInOutQuad'
-                    })
-
-                    let showAccount = anime({
-                        targets: '#box',
-                        translateY: [0, -250],
-                        easing: 'easeInOutQuad',
-                        update: function(anim) {
-                            if (anim.progress === 100) {
-                                accountBox.style.display = "none";
-                            }
+                    if (image.files[0] != null) {
+                        if (window.confirm("You have unsaved changes, are you sure you want to leave?")) {
+                            image.value = ""; // Clear selected image
+                            hideAccount();
                         }
-                    })
-              }
+                    } else {
+                        hideAccount();
+                    }
+                }
+            }
+        }
+
+        function hideAccount() {
+            let fadeBackground = anime({
+                targets: '#accountBox',
+                opacity: ['100%', '0%'], duration: 1000,
+                easing: 'easeInOutQuad'
+            })
+
+            let showAccount = anime({
+                targets: '#box',
+                translateY: [0, -250],
+                easing: 'easeInOutQuad',
+                update: function(anim) {
+                    if (anim.progress === 100) {
+                        accountBox.style.display = "none";
+                    }
+                }
+            })
+        }
+
+        var image = document.getElementById("changePicture");
+        image.onchange = function (event) {
+            var fr = new FileReader();
+            var profilePicture = document.getElementById("profilePicture");
+            fr.onload = function () {
+                profilePicture.src = fr.result;
+            }
+            fr.readAsDataURL(image.files[0])
+        }
+
+        function changePicture() {
+            if (image.files != null) {
+                var storageRef = firebase.storage().ref();
+                var imageRef = storageRef.child('Profile Pictures/' + user.uid + '.jpg');
+                imageRef.put(image.files[0]).then(function (snapshot) {
+                    snapshot.ref.getDownloadURL().then(function(downloadURL) {
+                        database.ref("users/" + user.uid).update({
+                            profilePicture: downloadURL
+                        }).then(function () {
+                            console.log("uploaded");
+                            location.reload();
+                        });
+                    });
+                })
+            } else {
+                hideAccount();
             }
         }
     </script>

@@ -68,7 +68,12 @@ tl
     targets: '#login',
     scale: [0,1],
     easing: 'spring',
-}, 1100);
+}, 1100)
+.add({
+    targets: '#adminBtn',
+    scale: [0,1],
+    easing: 'spring',
+}, 1200);
 
 function bubbleClick(bubble, img, nextPage) {
     let bubbleEl = document.getElementById(bubble)

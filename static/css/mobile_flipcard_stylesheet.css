@@ -84,3 +84,12 @@ h1 {
     position: absolute;
     perspective: 1000px; /* Remove this if you don't want the 3D effect */
 }
+
+.topnav {
+    transform: translateY(-70%);
+}
+
+#navBubble1, #navBubble2, #navBubble3, #navBubble4, #navBubble5, #navBubble6, #navBubble7, #navBubble8 {
+    margin-top: 8%;
+    margin-bottom: 8%;
+}

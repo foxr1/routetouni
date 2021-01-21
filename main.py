@@ -17,7 +17,8 @@ app.config.update(
 
 socketio = SocketIO(app, async_mode=async_mode, cors_allowed_origins=["https://extreme-lattice-298010.nw.r.appspot.com",
                                                                       "http://extreme-lattice-298010.nw.r.appspot.com",
-                                                                      "http://localhost:5000"],
+                                                                      "http://localhost:5000",
+                                                                      "https://routetouni.me"],
                     logger=True, engineio_logger=True)
 
 main = Blueprint('main', __name__)
@@ -41,13 +42,15 @@ def session_logout():
 @app.route('/')
 def index():
     if "name" in session:
-        user = {"name": session["name"], "email": session["email"]}
+        user = {"name": session["name"], "email": session["email"], "picture": session["picture"], "uid": session["uid"]}
     else:
         session_cookie = flask.request.cookies.get('session_token')
         if session_cookie:
             user = test_user.verify_user()
             session["user_name"] = test_user.name
             session['user_email'] = test_user.email
+            session['user_picture'] = test_user.picture
+            session['user_uid'] = test_user.uid
         else:
             user = None
     return render_template("index.html", user=user)
