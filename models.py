@@ -36,7 +36,7 @@ def get_verified():
 
 class User:
     def __init__(self):
-        self.id_token = ""
+        self.id_token = None
         self.email = None
         self.uid = None
         self.name = None
@@ -44,6 +44,7 @@ class User:
         self.picture = None
         self.role = None
         self.school = None
+        self.user_dict = None
 
     def clear_data(self):
         self.__init__()
@@ -76,26 +77,28 @@ class User:
             try:
                 decoded_claims = auth.verify_session_cookie(session_cookie, check_revoked=True)
                 self.uid = decoded_claims['uid']
-                self.get_meta(True)
-                # if 'name' not in decoded_claims:
-                #
-                # else:
-                #     self.email = decoded_claims['email']
-                #     self.name = decoded_claims['name']
-                # self.picture = decoded_claims['picture']
-                return {"name": self.name, "email": self.email, "role": self.role, "school": self.school, "picture": self.picture, "uid": self.uid}
+                if not self.uid:
+                    return None
+                else:
+                    user_info = db.reference('users/' + self.uid).get()
+                    self.name = user_info['name']
+                    self.email = user_info['email']
+                    self.role = user_info['role']
+                    self.school = user_info['course']
+                    self.picture = user_info['profilePicture']
+
+                    self.user_dict = {"name": self.name, "email": self.email, "role": self.role, "school": self.school,
+                                      "picture": self.picture, "ui  d": self.uid}
+
+                    self.set_session()
+                return self.user_dict
+
             except Exception as e:
                 print("Verification Error", e)
                 return None
 
-    def get_meta(self, personal_login=False):
-        result = db.reference('users/' + self.uid).get()
-        # if personal_login:
-        self.name = result['name']
-        self.email = result['email']
-        self.role = result['role']
-        self.school = result['course']
-        self.picture = result['profilePicture']
+    def set_session(self):
+        session['user_dict'] = self.user_dict
 
     def logout_user(self):
         session_cookie = flask.request.cookies.get('session_token')
