@@ -49,20 +49,22 @@
             <span class="navBubble8Text">Revision</span></span>
         </span>
     </div>
-    {% for key, value in news_data.items() %}
-   <div id="{{ news_data[key]['ID']}}">
-        <div class="flip-card-inner">
-            <div class="flip-card-front">
-                <h1>{{ key }}</h1>
-            </div>
-            <div class="flip-card-back">
-                <p>{{ news_data[key]['Description'] }}</p>
-                <p>{{ news_data[key]['Date'] }}</p>
-                <a href="{{ news_data[key]['URL'] }}">Click here for Link to article</a>
+    <div class="card_container">
+        {% for key, value in news_data.items() %}
+       <div class="card_child" id="{{ news_data[key]['ID']}}">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <h1>{{ key }}</h1>
+                </div>
+                <div class="flip-card-back">
+                    <p>{{ news_data[key]['Description'] }}</p>
+                    <p>{{ news_data[key]['Date'] }}</p>
+                    <a href="{{ news_data[key]['URL'] }}">Click here for Link to article</a>
 
+                </div>
             </div>
         </div>
+        {% endfor %}
     </div>
-    {% endfor %}
 </body>
 </html>

@@ -105,7 +105,7 @@
         var user = JSON.parse('{{ user | tojson | safe}}');
 
         if (user) {
-            loginBtn.style.padding = "6px"
+            loginBtn.style.padding = "0px"
             accountPicture.src = user.picture;
             accountPicture.style.display = "block";
             loggedIn = true;
