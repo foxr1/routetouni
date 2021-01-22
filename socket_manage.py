@@ -68,11 +68,11 @@ class MessageManage:
             self.r.zpopmin("random_rooms", 1)
 
     def add_message(self, room_id, message, user_id, room_name=None):
-        if 'user_image' not in message:
-            message['user_image'] = None
+        if 'picture' not in message:
+            message['picture'] = None
         return self.r.xadd(room_id,
                            {"name": message["name"], "msg": message['msg'], "time": message['time'], 'uid': user_id,
-                            'user_image': str(message['user_image']), 'room_name': str(room_name)},
+                            'picture': str(message['picture']), 'room_name': str(room_name)},
                            id='*',
                            maxlen=1000,
                            approximate=True)

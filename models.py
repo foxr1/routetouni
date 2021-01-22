@@ -27,7 +27,6 @@ def get_mentors():
     return {"unverified": unverified_ment, "verified": verified_ment}
 
 
-
 class User:
     def __init__(self):
         self.id_token = None

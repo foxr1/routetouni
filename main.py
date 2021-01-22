@@ -126,7 +126,6 @@ def chat():
     if not user:
         return render_template("index.html", user=user)
     else:
-
         return render_template('chat.html', prev_msg=socket_man.conv_dict(user.get('uid')), user_name=user.get('name'))
 
 
@@ -163,7 +162,7 @@ def create_chat():
 @socketio.on('joined', namespace='/chat')
 def joined(message):
     user_dict = session['user_dict']
-
+    print(user_dict)
     if user_dict.get('name'):
         user_conv = socket_man.conv_dict(user_dict.get('uid'))
     else:
@@ -174,7 +173,7 @@ def joined(message):
             join_room(room)
 
             emit('status', {'msg': "Has Joined the Chat", 'name': user_dict.get('name'), 'uid': user_dict['uid'],
-                            "room_id": str(room), 'color': 'success', 'user_image': user_dict.get('picture')},
+                            "room_id": str(room), 'color': 'success', 'picture': user_dict.get('picture')},
                  room=room, prev_msg=user_conv, user_name=user_dict.get('name'))
 
 
@@ -188,11 +187,11 @@ def text(message):
     # Add the user picture to the redis store
     message['picture'] = user_dict.get('picture')
 
-    if socket_man.check_user_in( user_dict.get('uid'), room):
+    if socket_man.check_user_in(user_dict.get('uid'), room):
         socket_man.add_message(room, message,  user_dict.get('uid'))
         emit('internal_msg',
              {'msg': message['msg'], 'room_id': str(room), 'uid':  user_dict.get('uid'), 'name': user_dict.get('name'),
-              'user_image': user_dict.get('picture')},
+              'picture': user_dict.get('picture')},
              room=room, user_name=user_dict.get('name'))
     else:
         print("Error User not in room")
