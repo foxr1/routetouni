@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport">
-	<title>Chatting place {{ room }}</title>
+	<title>Chat</title>
 	<link href="../static/bootstrap/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="../static/bootstrap/fonts/font-awesome.min.css" rel="stylesheet">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -287,6 +287,8 @@
 			<div class="media-body ml-4">
 				<div class="d-flex align-items-center justify-content-between mb-1">
 					<h6 class="mb-0">{{name}} </h6><small id="{{ room }}time" class="small font-weight-bold d-none d-lg-block">{{time}}</small>
+
+                    <button value="{{ room }}" name="exit_butt" onclick="leave_room(this.value)" type="button" class="btn btn-danger btn rounded-0 d-md-none"><i class="fa fa-close"></i>&nbsp;Exit</button>
 				</div>
 				<p class="font-italic mb-0 text-small d-none d-lg-block" id="{{ room }}last">{{ last_msg }}</p>
 			</div>

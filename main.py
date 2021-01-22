@@ -55,12 +55,12 @@ def index():
 @app.route('/admin', methods=['GET', 'POST'])
 def admin():
     session_cookie = flask.request.cookies.get('session_token')
+    user = None
     if session_cookie:
         user = test_user.verify_user
         if user.get('role') == 'admin':
             return render_template("admin.html", mentors_info=get_mentors())
-        else:
-            return render_template("index.html", user=user)
+    return render_template("index.html", user=user)
 
 
 @app.route('/gregister')

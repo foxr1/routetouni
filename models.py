@@ -65,6 +65,7 @@ class User:
     @property
     def verify_user(self):
         session_cookie = flask.request.cookies.get('session_token')
+
         if not session_cookie:
             return None
         else:
