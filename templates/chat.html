@@ -79,6 +79,8 @@
 
             function get_form() {
                 var js = $("form").serializeArray()
+
+                console.log("in here")
                 $.ajax({
                     type: "POST",
                     contentType: "application/json; charset=utf-8",
@@ -397,7 +399,7 @@
 
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
-      <form  onsubmit="get_form()" id="myform" method="post">
+      <form  onsubmit="get_form()" id="new_chat" method="post">
           <div class="modal-content">
 
               <div class="modal-header">
@@ -410,7 +412,7 @@
               <div class="modal-body" style="max-height: 60vh; overflow-y: scroll">
 
 
-                         <div class="row text-left no-gutters mt-1" style="max-height: 60vh; overflow-y: scroll">
+                         <div class="row text-left no-gutters mt-1" style="max-height: 60vh; overflow-y: auto">
                             <div class="col" style="margin: 1%;">
                                 <input type="search" class="form-control-sm" id="user_search_input" onkeyup="search_table()" autofocus placeholder="Search User" style="border-top-style: none;border-right-style: none;border-bottom-style: solid;border-bottom-color: var(--blue);border-left-style: none;" />
                             </div>
