@@ -93,7 +93,7 @@
                 </thead>
                 <tbody>
 
-                {%  for value in unverified_mentors%}
+                {%  for value in mentors_info['unverified_mentors']%}
                     <tr>
                         <td>{{value['uid']}}</td>
                         <td>{{value['name']}}</td>
@@ -116,7 +116,6 @@
         </div>
 
 
-
             <div class="row justify-content-start">
                 <p class="mt-2 pt-2 mr-2 pr-2">Search: </p>
                 <input class="" type="text" id="school_input" onkeyup="searchbycourse()" placeholder="Search by school.."></div>
@@ -134,7 +133,7 @@
                 </thead>
                 <tbody>
 
-                {%  for value in verified_mentors %}
+                {%  for value in mentors_info['verified_mentors'] %}
                     <tr>
                         <td>{{value['uid']}}</td>
                         <td>{{value['name']}}</td>

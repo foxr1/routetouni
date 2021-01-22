@@ -17,21 +17,28 @@ def get_all_users():
 
 def get_mentors():
     unverified_ment = []
-    ref = db.reference('users').order_by_child('role').equal_to('Peer Mentor').get()
-    for key, value in ref.items():
-        if not value['mentor_verified']:
-            unverified_ment.append(value)
-    return unverified_ment
-
-
-def get_verified():
     verified_ment = []
     ref = db.reference('users').order_by_child('role').equal_to('Peer Mentor').get()
+    print(ref)
     for key, value in ref.items():
-        if value['mentor_verified']:
+        print(value)
+        if not value['mentor_verified']:
+            unverified_ment.append(value)
+            print(value)
+        else:
             verified_ment.append(value)
+            print(value)
+    return {"unverified": unverified_ment, "verified": verified_ment}
 
-    return verified_ment
+
+# def get_verified():
+#     verified_ment = []
+#     ref = db.reference('users').order_by_child('role').equal_to('Peer Mentor').get()
+#     for key, value in ref.items():
+#         if value['mentor_verified']:
+#             verified_ment.append(value)
+#
+#     return verified_ment
 
 
 class User:
