@@ -17,21 +17,15 @@ def get_all_users():
 
 def get_mentors():
     unverified_ment = []
+    verified_ment = []
     ref = db.reference('users').order_by_child('role').equal_to('Peer Mentor').get()
     for key, value in ref.items():
         if not value['mentor_verified']:
             unverified_ment.append(value)
-    return unverified_ment
-
-
-def get_verified():
-    verified_ment = []
-    ref = db.reference('users').order_by_child('role').equal_to('Peer Mentor').get()
-    for key, value in ref.items():
-        if value['mentor_verified']:
+        else:
             verified_ment.append(value)
+    return {"unverified": unverified_ment, "verified": verified_ment}
 
-    return verified_ment
 
 
 class User:
@@ -71,6 +65,7 @@ class User:
     @property
     def verify_user(self):
         session_cookie = flask.request.cookies.get('session_token')
+
         if not session_cookie:
             return None
         else:

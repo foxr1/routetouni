@@ -3,7 +3,7 @@ import os
 import flask
 from flask import Flask, render_template, session, send_from_directory, Blueprint, request, jsonify
 from flask_socketio import emit, join_room, leave_room, SocketIO
-from models import User, get_all_users, get_mentors, get_verified
+from models import User, get_all_users, get_mentors
 from socket_manage import MessageManage
 from news_and_revision import web_scraper
 
@@ -55,13 +55,12 @@ def index():
 @app.route('/admin', methods=['GET', 'POST'])
 def admin():
     session_cookie = flask.request.cookies.get('session_token')
+    user = None
     if session_cookie:
         user = test_user.verify_user
         if user.get('role') == 'admin':
-            return render_template("admin.html", unverified_mentors=get_mentors(),
-                                   verified_mentors=get_verified())
-        else:
-            return render_template("index.html", user=user)
+            return render_template("admin.html", mentors_info=get_mentors())
+    return render_template("index.html", user=user)
 
 
 @app.route('/gregister')
