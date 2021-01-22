@@ -29,7 +29,6 @@
         right:0;
     }
 
-
     .message-area {
         height: 70vh;
         overflow-y: scroll;
@@ -37,13 +36,8 @@
     }
 
     .messages-box {
-        {#height: 37rem;#}
         overflow-y: auto;
     }
-
-
-
-
 
     .container {
         justify-content: space-between;
@@ -198,7 +192,7 @@
                 }
                 else {
                 $(msg_loc).append('\t\t<div class="media w-50 mb-2 text-break" style="margin-left:5%">\n' +
-                       '\t\t\t<img alt='+data.name+' class="rounded-circle" src="'+data.user_image+' "width="50">\n' +
+                       '\t\t\t<img alt='+data.name+' class="rounded-circle" src="'+data.picture+' "width="50">\n' +
                        '\t\t\t<div class="media-body ml-3">\n' +
                        '\t\t\t\t<div class="bg-light rounded py-2 px-3 mb-2">\n' +
                        '\t\t\t\t\t<p class="text-small mb-0 text-muted">'+data.msg+'</p>\n' +
@@ -280,10 +274,10 @@
 {% endmacro %}
 
 {#Recent tab item showing name, recent message etc#}
-{% macro conv(name,time,room,last_msg) %}
+{% macro conv(name,time,room,last_msg,picture="../static/images/randomchat_icon.png") %}
 		<a class="list-group-item list-group-item-action rounded-0 text-break" id="{{room}}" data-toggle="tab" href="#tabChat-{{room}}" role="tab">
 		<div class="media">
-			<img alt="user" class="rounded-circle d-none d-lg-block" src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg" width="50">
+			<img alt="user" class="rounded-circle d-none d-lg-block" src="{{picture}}" width="50">
 			<div class="media-body ml-4">
 				<div class="d-flex align-items-center justify-content-between mb-1">
 					<h6 class="mb-0">{{name}} </h6><small id="{{ room }}time" class="small font-weight-bold d-none d-lg-block">{{time}}</small>
@@ -344,7 +338,7 @@
                                     <div class="list-group rounded-0 active " id="myTab" role="tablist">
                                       {% for key, value in prev_msg['rooms'].items() %}
                                           {% set last_msg = value['msgs']|last %}
-                                          {{ conv(value['room_name'],last_msg['time'],key,last_msg['msg']) }}
+                                          {{ conv(value['room_name'],last_msg['time'],key,last_msg['msg'],last_msg['picture']) }}
                                       {% endfor %}
                                         {% if prev_msg['random_chat']|length > 0 %}
                                             {% for key, value in prev_msg['random_chat'].items() %}
