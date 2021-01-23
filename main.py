@@ -167,7 +167,6 @@ def joined(message):
         user_conv = socket_man.conv_dict(user_dict.get('uid'))
     else:
         return chat()
-
     for category in user_conv:
         for room in user_conv[category]:
             join_room(room)
@@ -208,8 +207,8 @@ def exit_room(message):
     user_dict = session['user_dict']
     socket_man.del_room(user_dict.get('uid'), message['room_id'])
     leave_room(message['room_id'])
-    emit('status', {'msg': "Has left the Chat", 'name': user_dict.get('name'), 'color': 'danger'}, room=message['room_id'],
-         user_name=user_dict.get('name'))
+    emit('status', {'msg': "Has left the Chat", 'name': user_dict.get('name'), 'color': 'danger'},
+         room=message['room_id'], user_name=user_dict.get('name'))
 
 
 if __name__ == '__main__':
