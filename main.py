@@ -199,7 +199,7 @@ def text(message):
 @socketio.on('join_random', namespace='/chat')
 def join_random(message):
     user_dict = session['user_dict']
-    socket_man.join_random(user_dict.get('uid'), user_dict.get('uid'))
+    socket_man.join_random(user_dict.get('uid'), user_dict.get('name'))
 
 
 @socketio.on('exit_room', namespace='/chat')

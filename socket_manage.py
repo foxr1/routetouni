@@ -1,5 +1,4 @@
 import datetime
-from datetime import date
 import redis
 import os
 
@@ -10,12 +9,14 @@ def incr_room(room_name):
     return room_listed[0] + '_' + room_num
 
 
+redis_host = os.environ.get('REDISHOST', 'localhost')
+redis_port = int(os.environ.get('REDISPORT', 6379))
+
+
 class MessageManage:
 
     def __init__(self):
-        self.redis_host = os.environ.get('REDISHOST', 'localhost')
-        self.redis_port = int(os.environ.get('REDISPORT', 6379))
-        self.r = redis.StrictRedis(host=self.redis_host, port=self.redis_port, charset="utf-8", decode_responses=True)
+        self.r = redis.StrictRedis(host=redis_host, port=redis_port, charset="utf-8", decode_responses=True)
 
     # Add room messages from users rooms into dict
     def conv_dict(self, user_id):
@@ -56,15 +57,18 @@ class MessageManage:
         user_rooms = self.r.hgetall(user_id)
         return user_rooms
 
-    # TODO reduce z-item by one when user deletes
     def del_room(self, user_id, room_id):
-        self.r.hdel(user_id, room_id)
-        self.r.xgroup_destroy(room_id, user_id)
+        print(self.r.hdel(user_id, room_id))
+        print(self.r.xgroup_destroy(room_id, user_id))
 
-        # Delete room If empty
-        if self.r.xinfo_stream(room_id)['groups'] == 1:
+        # Decrease number of people if random chat
+        if "Random" in room_id:
+            self.r.zincrby("random_rooms", -1, room_id)
+
+        # Delete room If last exiting
+        if self.r.xinfo_stream(room_id)['groups'] == 0:
             print(self.r.delete(room_id))
-            self.r.zpopmin("random_rooms", 1)
+            print(self.r.delete("random_rooms",room_id))
 
     def add_message(self, room_id, message, user_id, room_name=None):
         if 'picture' not in message:
@@ -81,7 +85,7 @@ class MessageManage:
 
     def join_random(self, user_id, user_name):
         random_rooms = self.r.zrangebyscore("random_rooms", 0, 10)
-
+        print(random_rooms)
         # If no random rooms exist or all rooms full (max 10 people)
         if not random_rooms:
             last_room = self.r.zrangebylex("random_rooms", min='-', max='+')
@@ -99,6 +103,7 @@ class MessageManage:
 
         # Join first available room
         else:
+            self.r.zincrby("random_rooms", 1, random_rooms[0])
             return self.add_room(user_id, random_rooms[0], random_rooms[0])
 
     def create_room(self, user_id, user_name, users, room_name):
