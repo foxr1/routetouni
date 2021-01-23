@@ -1,29 +1,47 @@
+<!--
+Name: Oliver Fox
+
+This is the index.html page which includes all the "bubbles" that links to the other pages of the website, when clicking
+on the bubbles it animates to resize to the fullscreen of the device and changes the content of the page.
+
+From this page you can find the login button which will redirect you to the login/register page to sign in/create your
+account. When logged in you'll be able to access your account details showing your name, email, school and profile
+picture. If you sign in with Google, your profile picture will be pulled from your account, if not it will default to
+a randomly selected colour. You can change your profile picture from this account screen if you want to.
+-->
 <!DOCTYPE html>
 <html lang="en">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <head>
     <meta charset="UTF-8">
+    <!-- Open Graph Meta Tags responsible for how the URL is displayed when shared on social media. -->
     <meta property="og:title" content="RouteToUni"/>
     <meta property="og:description" content="A place for Newcastle University students to get to grips with University life."/>
     <meta property="og:url" content="https://routetouni.me"/>
-    <meta property="og:image" content="static/images/ogimage.jpg"/>
+    <meta property="og:image" content="static/images/home/ogimage.jpg"/>
     <meta name="google-signin-client_id" content="1081173404847-ddjfjkqhfj79u9qiv7lrsajibo3vtgqc.apps.googleusercontent.com"/>
     <script src="static/js/node_modules/animejs/lib/anime.min.js"></script>
     <link rel="stylesheet" href="../static/css/styles.css">
     <link rel="stylesheet" type="text/css" media="only screen and (max-device-width: 480px)" href="../static/css/mobile_stylesheet.css" />
-    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+    <!-- Link all favicons for different sizes. -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='favicon/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon/favicon-16x16.png') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon/favicon.ico') }}">
+    <link rel="manifest" href="{{ url_for('static', filename='favicon/site.webmanifest') }}"> <!-- Manifest responsible for working as a web app on mobile devices. -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
     <title>RouteToUni</title>
 
+    <!-- Dialogflow AI Chat Box script and configuration. -->
     <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
     <df-messenger id="chatbot"
             intent="WELCOME"
             chat-title="Route2Uni Helpbot"
-            chat-icon="../static/images/bubbles/help.png"
+            chat-icon="../static/images/home/help.png"
             agent-id="605e3a24-4b9c-400a-ac8d-5a8a6062f37f"
             language-code="en">
     </df-messenger>
-
 </head>
 <body>
     <div id="accountBox" class="box">
@@ -40,7 +58,7 @@
     </div>
 
     <div id="homeLayout" onclick="newFireWorkStar(event.pageX - container.offsetLeft, event.pageY - container.offsetTop);">
-        <span id="login" onmouseover="bubbleHover('#login')" onmouseout="bubbleLeave('#login')" onclick="checkLogin()">
+        <span id="login" onmouseover="bubbleHover('#login')" onmouseout="bubbleLeave('#login')" onclick="checkLogin()" class="noselect">
             <img id="accountPicture" alt="Profile picture"/>
         </span>
 
@@ -48,12 +66,13 @@
             Admin
         </span>
 
-        <div id="universityHeading">
-            <img src="static/images/newcasltelogo.png" id="newcastleLogo" alt="Newcastle University logo"/>
+        <div id="universityHeading" class="noselect">
+            <img src="../static/images/home/newcasltelogo.png" id="newcastleLogo" alt="Newcastle University logo"/>
             <h1 id="newcastleText">Newcastle</h1>
             <h1 id="universityText">University</h1>
         </div>
 
+        <!-- All bubbles in ring on home page -->
         <span id="bubble1" onclick="bubbleClick('bubble1', '#chatImg', 'chat')" onmouseover="bubbleHover('#bubble1')" onmouseout="bubbleLeave('#bubble1')">
             <img id="chatImg" src="../static/images/bubbles/chat.png" alt="Chat"/>
             <span class="bubble1Text">Chat</span></span>
@@ -77,12 +96,14 @@
             <span class="bubble7Text">Societies</span></span>
         <span id="bubble8" onclick="bubbleClick('bubble8', '#revisionImg', 'revision')" onmouseover="bubbleHover('#bubble8')" onmouseout="bubbleLeave('#bubble8')">
             <img id="revisionImg" src="../static/images/bubbles/revision.png" alt="Revision"/>
-            <span class="bubble8Text">Revision</span></span>
+            <span class="bubble8Text">Revision</span></span><br><br><br><br>
     </div>
 
-    <script src="static/js/animations.js"></script>
-    <script src="static/js/fireworks.js"></script>
+    <script src="static/js/animations.js"></script> <!-- Scrips involved with animating the bubble clicks etc. -->
+    <script src="static/js/fireworks.js"></script> <!-- Script involved with showing fireworks when clicking on the background -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script id="user" type="application/json">{{ user | tojson | safe }}</script> <!-- Set user JSON object -->
+    <script type="application/javascript" src="static/js/home.js"></script> <!-- Script with all functions for the home page, showing account box, changing profile picture, etc. -->
 
     <!-- Initialize Firebase -->
     <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-app.js"></script>
@@ -92,143 +113,7 @@
     <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-storage.js"></script>
     <script src="static/js/init.js"></script>
-    <script src="static/js/auth.js"></script>
+    <script src="static/js/auth.js"></script> <!-- Scripts involved for authentication -->
     <script src="https://apis.google.com/js/platform.js?onload=onLoadCallback" async defer></script>
-
-    <script>
-        // Check if a user is logged in.
-        var loginBtn = document.getElementById("login");
-        var adminBtn = document.getElementById("adminBtn");
-        var accountPicture = document.getElementById("accountPicture");
-        var loggedIn = false;
-
-        var user = JSON.parse('{{ user | tojson | safe}}');
-
-        if (user) {
-            loginBtn.style.padding = "0px"
-            accountPicture.src = user.picture;
-            accountPicture.style.display = "block";
-            loggedIn = true;
-        } else {
-            loginBtn.style.padding = "15px";
-            loginBtn.textContent = "Login";
-            loggedIn = false;
-        }
-
-        if (user.role === "Admin") {
-            adminBtn.style.display = "block";
-        } else {
-            adminBtn.style.display = "none";
-        }
-
-        function checkLogin() {
-            if (loggedIn) {
-                showAccount();
-            } else {
-                loginPageTransition('#homeLayout', 'login');
-            }
-        }
-
-        function showAccount() {
-            // Get the modal
-            var accountBox = document.getElementById("accountBox");
-            var span = document.getElementsByClassName("close")[0];
-            var name = document.getElementById("name");
-            var emailText = document.getElementById("email");
-            var profilePicture = document.getElementById("profilePicture");
-            var schoolText = document.getElementById("course");
-
-            accountBox.style.display = "block";
-            name.textContent = user.name;
-            emailText.textContent = user.email;
-            profilePicture.src = user.picture;
-            schoolText.textContent = user.school;
-
-            let fadeBackground = anime({
-                targets: '#accountBox',
-                opacity: ['0%', '100%'], duration: 1000,
-                easing: 'easeInOutQuad'
-            })
-
-            let showAccount = anime({
-                targets: '#box',
-                translateY: [-250, 0],
-                easing: 'easeInOutQuad'
-            })
-
-            // Hide account box
-            span.onclick = function() {
-                if (image.files[0] != null) {
-                    if (window.confirm("You have unsaved changes, are you sure you want to leave?")) {
-                        image.value = ""; // Clear selected image
-                        hideAccount();
-                    }
-                } else {
-                    hideAccount();
-                }
-            }
-
-            window.onclick = function(event) {
-                if (event.target === accountBox) {
-                    if (image.files[0] != null) {
-                        if (window.confirm("You have unsaved changes, are you sure you want to leave?")) {
-                            image.value = ""; // Clear selected image
-                            hideAccount();
-                        }
-                    } else {
-                        hideAccount();
-                    }
-                }
-            }
-        }
-
-        function hideAccount() {
-            let fadeBackground = anime({
-                targets: '#accountBox',
-                opacity: ['100%', '0%'], duration: 1000,
-                easing: 'easeInOutQuad'
-            })
-
-            let showAccount = anime({
-                targets: '#box',
-                translateY: [0, -250],
-                easing: 'easeInOutQuad',
-                update: function(anim) {
-                    if (anim.progress === 100) {
-                        accountBox.style.display = "none";
-                    }
-                }
-            })
-        }
-
-        var image = document.getElementById("changePicture");
-        image.onchange = function (event) {
-            var fr = new FileReader();
-            var profilePicture = document.getElementById("profilePicture");
-            fr.onload = function () {
-                profilePicture.src = fr.result;
-            }
-            fr.readAsDataURL(image.files[0])
-        }
-
-        function changePicture() {
-            if (image.files != null) {
-                var storageRef = firebase.storage().ref();
-                var imageRef = storageRef.child('Profile Pictures/' + user.uid + '.jpg');
-                imageRef.put(image.files[0]).then(function (snapshot) {
-                    snapshot.ref.getDownloadURL().then(function(downloadURL) {
-                        database.ref("users/" + user.uid).update({
-                            profilePicture: downloadURL
-                        }).then(function () {
-                            console.log("uploaded");
-                            location.reload();
-                        });
-                    });
-                })
-            } else {
-                hideAccount();
-            }
-        }
-    </script>
 </body>
 </html>

@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="46a7629e-7ad0-4f8a-afb2-ab32d36595e0" name="Default Changelist" comment="added images for chat conversation view">
+    <list default="true" id="46a7629e-7ad0-4f8a-afb2-ab32d36595e0" name="Default Changelist" comment="Fixed admin button">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/socket_manage.py" beforeDir="false" afterPath="$PROJECT_DIR$/socket_manage.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/js/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/auth.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/js/fireworks.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/fireworks.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/css/flipcard_stylesheet.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/flipcard_stylesheet.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/css/revision_flipcard_stylesheet.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/revision_flipcard_stylesheet.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/revision.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/revision.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,6 +43,7 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RESET_MODE" value="HARD" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitSEFilterConfiguration">
     <file-type-list>
@@ -63,7 +62,6 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -72,7 +70,7 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyIntegratedToolsModulesConfigurable" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -80,7 +78,7 @@
       <recent name="C:\Users\phili\PycharmProjects\routetouni" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.forms">
+  <component name="RunManager" selected="Flask server.Flask (main.py)">
     <configuration name="auth" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="routetouni" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -172,10 +170,10 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.forms" />
         <item itemvalue="Flask server.Flask (main.py)" />
         <item itemvalue="Docker.docker-compose.yml: Compose Deployment" />
         <item itemvalue="Python.auth" />
+        <item itemvalue="Python.forms" />
         <item itemvalue="Python.models" />
       </list>
     </recent_temporary>
@@ -216,10 +214,6 @@
       <workItem from="1611137182135" duration="8270000" />
       <workItem from="1611163093350" duration="9717000" />
       <workItem from="1611224845230" duration="3799000" />
-      <workItem from="1611229899663" duration="17307000" />
-      <workItem from="1611261160370" duration="622000" />
-      <workItem from="1611308742018" duration="10501000" />
-      <workItem from="1611407493833" duration="2091000" />
     </task>
     <task id="LOCAL-00001" summary="combined login with chat">
       <created>1608115716378</created>
@@ -382,63 +376,14 @@
       <option name="project" value="LOCAL" />
       <updated>1611229270514</updated>
     </task>
-    <task id="LOCAL-00024" summary="updated the chat to most recent">
-      <created>1611230530726</created>
+    <task id="LOCAL-00024" summary="Fixed admin button">
+      <created>1611229519977</created>
       <option name="number" value="00024" />
       <option name="presentableId" value="LOCAL-00024" />
       <option name="project" value="LOCAL" />
-      <updated>1611230530726</updated>
+      <updated>1611229519977</updated>
     </task>
-    <task id="LOCAL-00025" summary="added tests folder">
-      <created>1611231189412</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1611231189412</updated>
-    </task>
-    <task id="LOCAL-00026" summary="made chat box more mobile friendly and responsive (TODO add exit button on small screens)">
-      <created>1611242129748</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1611242129748</updated>
-    </task>
-    <task id="LOCAL-00027" summary="changed session handling to pass user as dict object, added authentication check for admin">
-      <created>1611250404809</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1611250404809</updated>
-    </task>
-    <task id="LOCAL-00028" summary="some more changes for mobile friendly-ness of chat (for modal)">
-      <created>1611261118445</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1611261118445</updated>
-    </task>
-    <task id="LOCAL-00029" summary="small chat change for overflow in modal">
-      <created>1611310931587</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1611310931587</updated>
-    </task>
-    <task id="LOCAL-00030" summary="added exit button for small screens, fixed issue for admin login withought cookie">
-      <created>1611313289673</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1611313289673</updated>
-    </task>
-    <task id="LOCAL-00031" summary="added images for chat conversation view">
-      <created>1611315443146</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1611315443146</updated>
-    </task>
-    <option name="localTasksCounter" value="32" />
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -469,6 +414,11 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="combined login with chat" />
+    <MESSAGE value="started adding auth blueprints" />
+    <MESSAGE value="added method to create login token, still have to implement sign out" />
+    <MESSAGE value="session login with email/pass work via session cookie and sign out implemented" />
+    <MESSAGE value="created user object for verification" />
     <MESSAGE value="fixed issue automatic login on sign up" />
     <MESSAGE value="google auth fixed, but department cant be selected now." />
     <MESSAGE value="fixed small bug on user sign in and register with google" />
@@ -486,32 +436,36 @@
     <MESSAGE value="Added validation to signup screen&#10;Changed chat bubble to redirect" />
     <MESSAGE value="Changed chat design to fit style of website" />
     <MESSAGE value="Added profile pictures and ability to change&#10;Resized images" />
-    <MESSAGE value="updated the chat to most recent" />
-    <MESSAGE value="added tests folder" />
-    <MESSAGE value="made chat box more mobile friendly and responsive (TODO add exit button on small screens)" />
-    <MESSAGE value="changed session handling to pass user as dict object, added authentication check for admin" />
-    <MESSAGE value="some more changes for mobile friendly-ness of chat (for modal)" />
-    <MESSAGE value="small chat change for overflow in modal" />
-    <MESSAGE value="added exit button for small screens, fixed issue for admin login withought cookie" />
-    <MESSAGE value="added images for chat conversation view" />
-    <option name="LAST_COMMIT_MESSAGE" value="added images for chat conversation view" />
+    <MESSAGE value="Fixed admin button" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed admin button" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/socket_manage.py</url>
+          <line>22</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/routetouni$chat.coverage" NAME="chat Coverage Results" MODIFIED="1607020740322" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/routetouni$forms.coverage" NAME="forms Coverage Results" MODIFIED="1610361586466" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/gitstuff$Flask__main_py_.coverage" NAME="Flask (main.py) Coverage Results" MODIFIED="1611229957413" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/routetouni$auth.coverage" NAME="auth Coverage Results" MODIFIED="1610382998031" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/routetouni$apple.coverage" NAME="apple Coverage Results" MODIFIED="1608117671406" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$APPLICATION_CONFIG_DIR$/scratches" />
-    <SUITE FILE_PATH="coverage/routetouni$main.coverage" NAME="main Coverage Results" MODIFIED="1607986752399" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/routetouni$app__2_.coverage" NAME="app (2) Coverage Results" MODIFIED="1607089944711" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/routetouni$app.coverage" NAME="main Coverage Results" MODIFIED="1607120043868" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/routetouni$web_scraper.coverage" NAME="web_scraper Coverage Results" MODIFIED="1607710879768" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/WebScraper" />
-    <SUITE FILE_PATH="coverage/routetouni$bloom.coverage" NAME="bloom Coverage Results" MODIFIED="1607893957779" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$APPLICATION_CONFIG_DIR$/scratches" />
-    <SUITE FILE_PATH="coverage/routetouni$Flask__app_py_.coverage" NAME="Flask (main.py) Coverage Results" MODIFIED="1608029624681" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/routetouni$app__1_.coverage" NAME="app (1) Coverage Results" MODIFIED="1607089309508" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/flaskr" />
-    <SUITE FILE_PATH="coverage/routetouni$Flask__main_py_.coverage" NAME="Flask (main.py) Coverage Results" MODIFIED="1611415505855" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/gitstuff$Flask__main_py_.coverage" NAME="Flask (main.py) Coverage Results" MODIFIED="1611229041843" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/routetouni$test.coverage" NAME="test Coverage Results" MODIFIED="1608118330173" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/routetouni$main.coverage" NAME="main Coverage Results" MODIFIED="1607986752399" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/routetouni$Flask__main_py_.coverage" NAME="Flask (main.py) Coverage Results" MODIFIED="1610450086894" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/routetouni$__init__.coverage" NAME="__init__ Coverage Results" MODIFIED="1607078098413" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/flaskr/main" />
     <SUITE FILE_PATH="coverage/routetouni_new$Flask__main_py_.coverage" NAME="Flask (main.py) Coverage Results" MODIFIED="1610625716816" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/routetouni$app.coverage" NAME="main Coverage Results" MODIFIED="1607120043868" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/routetouni$chat.coverage" NAME="chat Coverage Results" MODIFIED="1607020740322" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/routetouni$test.coverage" NAME="test Coverage Results" MODIFIED="1608118330173" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/routetouni$forms.coverage" NAME="forms Coverage Results" MODIFIED="1611415986569" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/routetouni$auth.coverage" NAME="auth Coverage Results" MODIFIED="1610382998031" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/routetouni$app__1_.coverage" NAME="app (1) Coverage Results" MODIFIED="1607089309508" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/flaskr" />
+    <SUITE FILE_PATH="coverage/routetouni$bloom.coverage" NAME="bloom Coverage Results" MODIFIED="1607893957779" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$APPLICATION_CONFIG_DIR$/scratches" />
+    <SUITE FILE_PATH="coverage/routetouni$Flask__app_py_.coverage" NAME="Flask (main.py) Coverage Results" MODIFIED="1608029624681" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

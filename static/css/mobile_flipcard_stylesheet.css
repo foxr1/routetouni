@@ -22,10 +22,10 @@ h1 {
     font-size: 6vw !important;
 }
 
-#flip-card-1 {
+/* Change flip card positions to be in a row rather than a grid */
+#flip-card-1, #flip-card-2, #flip-card-3, #flip-card-4, #flip-card-5, #flip-card-6 {
     background-color: #d91a35;
     top: 7%;
-    /*left: 8%;*/
     bottom: 0%;
     width: 83%;
     height: 88%;
@@ -33,107 +33,50 @@ h1 {
     perspective: 1000px; /* Remove this if you don't want the 3D effect */
 }
 
-#flip-card-2 {
-    background-color: #d91a35;
-    top: 7%;
-    /*left: 110%;*/
-    bottom: 0%;
-    width: 83%;
-    height: 88%;
-    position: absolute;
-    perspective: 1000px; /* Remove this if you don't want the 3D effect */
-}
-
-#flip-card-3 {
-    background-color: #d91a35;
-    top: 7%;
-    /*left: 220%;*/
-    bottom: 0%;
-    width: 83%;
-    height: 88%;
-    position: absolute;
-    perspective: 1000px; /* Remove this if you don't want the 3D effect */
-}
-
-#flip-card-4 {
-    background-color: #d91a35;
-    top: 7%;
-    /*left: 330%;*/
-    bottom: 0%;
-    width: 83%;
-    height: 88%;
-    position: absolute;
-    perspective: 1000px; /* Remove this if you don't want the 3D effect */
-}
-
-#flip-card-5 {
-    background-color: #d91a35;
-    top: 7%;
-    /*left: 440%;*/
-    bottom: 0%;
-    width: 83%;
-    height: 88%;
-    position: absolute;
-    perspective: 1000px; /* Remove this if you don't want the 3D effect */
-}
-
-#flip-card-6 {
-    background-color: #d91a35;
-    top: 7%;
-    /*left: 550%;*/
-    bottom: 0%;
-    width: 83%;
-    height: 88%;
-    position: absolute;
-    perspective: 1000px; /* Remove this if you don't want the 3D effect */
-}
-
+/* Move navigation bar down a bit further so it is easier to click */
 .topnav {
-    transform: translateY(-70%);
-    height: 23%;
+    transform: translateY(-75%);
+    height: 20%;
 }
 
+/* Change margin and position type for all navigation bubbles */
 #navBubble1, #navBubble2, #navBubble3, #navBubble4, #navBubble5, #navBubble6, #navBubble7, #navBubble8 {
-    margin-top: 7%;
+    margin-top: 5%;
     position: absolute;
 }
 
+/* Change position of navigation bubbles to be in a 2x4 grid rather than a row of icons so their is more space for the
+back button */
 #navBubble1 {
     left: 28%;
 }
-
 #navBubble2 {
     left: 42%
 }
-
 #navBubble3 {
     right: 35%;
 }
-
 #navBubble4 {
     right: 22%;
 }
-
 #navBubble5 {
     top: 32%;
     left: 28%;
 }
-
 #navBubble6 {
     top: 32%;
     left: 42%
 }
-
 #navBubble7 {
     top: 32%;
     right: 35%;
 }
-
 #navBubble8 {
     top: 32%;
     right: 22%;
 }
 
+/* Container for all flipcards so they are positioned in a row */
 .card_container {
     scroll-snap-type: x mandatory;
     overflow-x: scroll;
@@ -144,6 +87,7 @@ h1 {
     height: 100%;
 }
 
+/* Control the snap properties of individual cards and size */
 .card_child {
     scroll-snap-align: center;
     scroll-snap-type: x proximity;
@@ -154,6 +98,7 @@ h1 {
     position: initial !important;
 }
 
+/* Class for scrolling within flipcards */
 .ScrollStyle {
     max-height: 100%;
     max-width: 100%;
@@ -161,6 +106,7 @@ h1 {
     scroll-snap-type: y mandatory;
     scroll-snap-align: start;
 }
+
 .ScrollStyle::-webkit-scrollbar {
   display: none;
 }
@@ -172,6 +118,15 @@ section {
   text-align: left;
   position: relative;
 }
+
+.page-1 {
+    height: 200vh;
+    scroll-snap-align: start;
+    scroll-snap-type: y mandatory;
+    text-align: left;
+    position: relative;
+}
+
 .page-2{
     background-color: lightblue;
     border-radius: 15px;
@@ -179,16 +134,14 @@ section {
     background-clip: padding-box;
     height: 88vh;
 }
-.page-1{
-    height: 200vh;
-  scroll-snap-align: start;
-    scroll-snap-type: y mandatory;
-  text-align: left;
-  position: relative;
-
-}
 
 #back {
     top: 30% !important;
     height: 25% !important;
+}
+
+/* Added whitespace to right of page so that you can fully center on this card when on mobile */
+#bursaries, #coronavirus, #library_pic, #checklist, #safe {
+    margin-left: 26%;
+    padding-right: 40%;
 }

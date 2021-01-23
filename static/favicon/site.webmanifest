@@ -1,0 +1,23 @@
+{
+    "name": "RouteToUni",
+    "short_name": "RouteToUni",
+    "description": "A place for Newcastle University students to get to grips with University life.",
+    "theme_color": "#d91a35",
+    "background_color": "#003a65",
+    "display": "standalone",
+    "orientation": "portrait",
+    "scope": "/",
+    "start_url": "https://routetouni.me/",
+    "icons": [
+        {
+            "src": "/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/android-chrome-512x512.png",
+            "sizes":"512x512",
+            "type":"image/png"
+        }
+    ]
+}
