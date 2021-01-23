@@ -39,7 +39,7 @@ class MessageManage:
 
     # Create a new room or join existing
     def add_room(self, user_id, room_id, room_name=None, user_name=None):
-        print(user_id,room_name)
+        print(user_id, room_name)
         today = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         try:
             if self.r.xgroup_create(room_id, user_id, id="$", mkstream=True):
@@ -54,7 +54,6 @@ class MessageManage:
 
     def get_rooms(self, user_id):
         user_rooms = self.r.hgetall(user_id)
-        print(user_rooms)
         return user_rooms
 
     # TODO reduce z-item by one when user deletes
@@ -96,11 +95,11 @@ class MessageManage:
                 final_room = last_list[0] + '_' + room_num
 
             self.r.zadd("random_rooms", mapping={final_room: 1})
-            return self.add_room(user_id,final_room,final_room, user_name)
+            return self.add_room(user_id, final_room, final_room, user_name)
 
         # Join first available room
         else:
-            return self.add_room(user_id, random_rooms[0],random_rooms[0])
+            return self.add_room(user_id, random_rooms[0], random_rooms[0])
 
     def create_room(self, user_id, user_name, users, room_name):
         user_rooms = list(self.get_rooms(user_id))
