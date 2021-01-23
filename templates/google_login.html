@@ -1,8 +1,14 @@
+<!--
+Name: Oliver Fox
+
+This page is for when the user first signs in with their Google account. From here they can choose the school they
+attend as well as their role in the website. This is either student or peer mentor. Then when they have pressed sign up
+their account will be created within the Firebase Database, and they will be redirected to the home screen.
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Sign Up - RouteToUni</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="../static/css/bootstrap-fullscreen-select.css"/>
     <script src="static/js/bootstrap-fullscreen-select.js"></script>
@@ -10,11 +16,19 @@
     <link rel="stylesheet" href="../static/css/styles.css">
     <link rel="stylesheet" type="text/css" media="only screen and (max-device-width: 480px)" href="../static/css/mobile_stylesheet.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+
+    <!-- Link all favicons for different sizes. -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='favicon/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon/favicon-16x16.png') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon/favicon.ico') }}">
+    <link rel="manifest" href="{{ url_for('static', filename='favicon/site.webmanifest') }}"> <!-- Manifest responsible for working as a web app on mobile devices. -->
+    <title>Sign Up - RouteToUni</title>
 </head>
 <body>
     <div id="gSignUpDialog" class="gSignUpDialog">
         <div class="gSignUpDialogContent">
-            <h3>Sign Up</h3>
+            <h3 class="noselect">Sign Up</h3>
 
             <select class="form-control mobileSelect" data-title="Select your school" name="courses" id="courses">
                 <option value="blank">Select your school</option>
@@ -46,16 +60,19 @@
                 <option value="mentor">Peer Mentor</option>
             </select><br><br>
 
-            <button onclick="createAccount()" id="gSignUp" style="font-family: Nunito">Sign Up</button>
+            <button onclick="createAccount()" id="gSignUp" style="font-family: Nunito" class="noselect">Sign Up</button>
         </div>
     </div>
 
     <script>
+        // This enables the Bootstrap Fullscreen Select library to have a better select menu so it is more accessible on
+        // mobile, the animate and theme are also determined here to change the look and feel.
         $('.mobileSelect').mobileSelect({
             animation: 'opacity',
             theme: 'mac'
         });
 
+        // This function is where the new user is added to the database.
         function createAccount() {
             firebase.database().ref('users/' + sessionStorage.getItem('uid')).set({
                 name: sessionStorage.getItem('name'),
@@ -74,6 +91,7 @@
             });
         }
 
+        // The users cookie is created and they are redirected to the home page.
         function addCookieRedirect() {
             firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
             firebase.auth().currentUser.getIdToken(true).then(idToken => {

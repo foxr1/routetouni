@@ -4,7 +4,6 @@ Name: Katie Fallon
 This is the societies.html page which provides users with information on societies,
 sports clubs, student media and bursaries.
 -->
-
 <!DOCTYPE html>
 <html lang="en">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,7 +16,14 @@ sports clubs, student media and bursaries.
     <link rel="stylesheet" href="static/css/styles.css">
     <link rel="stylesheet" href="../static/css/flipcard_stylesheet.css">
     <link rel="stylesheet" type="text/css" media="only screen and (max-device-width: 480px)" href="../static/css/mobile_flipcard_stylesheet.css" />
-    <title>RouteToUni</title>
+
+    <!-- Link all favicons for different sizes. -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='favicon/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon/favicon-16x16.png') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon/favicon.ico') }}">
+    <link rel="manifest" href="{{ url_for('static', filename='favicon/site.webmanifest') }}"> <!-- Manifest responsible for working as a web app on mobile devices. -->
+    <title>Societies - RouteToUni</title>
 </head>
 <body>
     <div class="topnav">

@@ -1,3 +1,5 @@
+// Used the tutorial from https://medium.com/front-end-weekly/how-to-add-some-fireworks-to-your-website-18b594b06cca
+// to create these fireworks and changed it slightly so that it works when you click on the background from the home page.
 var container = document.createElement("DIV");
 document.body.insertBefore(container, document.getElementById("homeLayout"));
 
@@ -68,6 +70,7 @@ function frame() {
 }
 
 function newFireWorkStar(x, y) {
+    // Check if user is on mobile as the fireworks do not work well on mobile browsers.
     if (!window.mobileCheck()) {
         var a = 0;
         while (a < 360) {
