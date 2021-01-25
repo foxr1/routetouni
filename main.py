@@ -26,8 +26,6 @@ main = Blueprint('main', __name__)
 test_user = User()
 socket_man = MessageManage()
 
-socket_man.flush_db()
-
 
 @app.route('/sessionLogin', methods=['GET', 'POST'])
 def session_login():
@@ -120,6 +118,11 @@ def societies():
 @app.route('/revision', methods=['GET', 'POST'])
 def revision():
     return render_template("revision.html")
+
+
+@app.route('/references', methods=['GET', 'POST'])
+def references():
+    return render_template("references.html")
 
 
 @app.route('/chat')

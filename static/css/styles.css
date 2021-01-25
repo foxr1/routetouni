@@ -50,6 +50,16 @@ h3 {
     color: white;
     text-align: center;
 }
+h4{
+    font-family: 'GilroyBold', 'sans-serif';
+    color: white;
+}
+
+h2{
+    font-family: 'GilroyBold', 'sans-serif';
+    color: white;
+}
+
 
 p {
     font-family: 'GilroyMedium', 'sans-serif';
