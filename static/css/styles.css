@@ -44,6 +44,24 @@ body {
 	animation: gradient 15s ease infinite;
 }
 
+/* Global font and colour for certain text tags */
+h3 {
+    font-family: 'GilroyBold', 'sans-serif';
+    color: white;
+    text-align: center;
+}
+
+p {
+    font-family: 'GilroyMedium', 'sans-serif';
+    font-weight: lighter;
+    color: white;
+}
+
+b {
+    font-family: 'GilroyMedium', 'sans-serif';
+    color: white;
+}
+
 @keyframes gradient {
 	0% {
 		background-position: 0% 50%;
@@ -56,6 +74,7 @@ body {
 	}
 }
 
+/* Firework animations */
 @keyframes    firework-animation {
     0% {background-color : #ff8426;}
     25% {background-color : #fffc84;}
@@ -63,6 +82,7 @@ body {
     75% {background-color : #83b6ff;}
     100% {background-color : #ff8426;}
 }
+
 @-webkit-keyframes firework-animation {
     0% {background-color : #ff8426;}
     25% {background-color : #fffc84;}
@@ -70,6 +90,7 @@ body {
     75% {background-color : #83b6ff;}
     100% {background-color : #ff8426;}
 }
+
 .fireWorkParticle {
     z-index : 0;
     position: absolute;
@@ -138,6 +159,7 @@ body {
     text-shadow: 0 0 5px #000000;
 }
 
+/* Back button displayed on navigation bar */
 #back {
     height: 40%;
     fill: white;
@@ -149,6 +171,7 @@ body {
     z-index: 3;
 }
 
+/* Arrow displayed at the bottom of the navigation bar */
 #navArrow {
     height: 17%;
     fill: white;
@@ -163,6 +186,7 @@ body {
     transition: 1s;
 }
 
+/* Flip arrow around when user hovers over navigation bar */
 .topnav:hover #navArrow {
     transform: rotate(90deg);
     transition: 1s;
@@ -211,40 +235,6 @@ body {
     z-index: 0;
 }
 
-#chatImg, #newsImg, #drinksImg, #locationImg, #healthImg, #contactsImg, #revisionImg, #accommodationImg {
-    height: 9vh;
-    margin-top: 17%;
-    z-index: 1;
-}
-
-.bubble1Text, .bubble2Text, .bubble3Text, .bubble4Text, .bubble5Text, .bubble6Text, .bubble7Text, .bubble8Text {
-    font-family: 'GilroyMedium', 'sans-serif';
-    font-weight: lighter;
-    visibility: hidden;
-    width: 120px;
-    color: #fff;
-    text-align: center;
-    padding: 5px 0;
-
-    /* Position the tooltip */
-    position: absolute;
-    z-index: 1;
-    bottom: 100%;
-    left: 50%;
-    margin-left: -60px;
-
-    opacity: 0;
-    transition: opacity 1s;
-}
-
-#bubble1:hover .bubble1Text, #bubble2:hover .bubble2Text,
-#bubble3:hover .bubble3Text ,#bubble4:hover .bubble4Text,
-#bubble5:hover .bubble5Text, #bubble6:hover .bubble6Text,
-#bubble7:hover .bubble7Text, #bubble8:hover .bubble8Text {
-    visibility: visible;
-    opacity: 1;
-}
-
 #bubble2 {
     height: 14vh;
     width: 14vh;
@@ -256,12 +246,6 @@ body {
     top: 10%;
     box-shadow: 0 0 5px #8a1425;
     z-index: 0;
-}
-
-#helpImg {
-    height: 9.5vh;
-    margin-top: 15%;
-    z-index: 1;
 }
 
 #bubble3 {
@@ -342,40 +326,79 @@ body {
     z-index: 0;
 }
 
-/*Register Page*/
+/* Positioning of the bubble icons */
+#chatImg, #newsImg, #drinksImg, #locationImg, #healthImg, #contactsImg, #revisionImg, #accommodationImg {
+    height: 9vh;
+    margin-top: 17%;
+    z-index: 1;
+}
+
+/* Positioning for the tooltip text when hovering over a bubble on the home screen */
+.bubble1Text, .bubble2Text, .bubble3Text, .bubble4Text, .bubble5Text, .bubble6Text, .bubble7Text, .bubble8Text {
+    font-family: 'GilroyMedium', 'sans-serif';
+    font-weight: lighter;
+    visibility: hidden;
+    width: 120px;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -60px;
+
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+/* When mouse is hovered over bubble, display text */
+#bubble1:hover .bubble1Text, #bubble2:hover .bubble2Text,
+#bubble3:hover .bubble3Text ,#bubble4:hover .bubble4Text,
+#bubble5:hover .bubble5Text, #bubble6:hover .bubble6Text,
+#bubble7:hover .bubble7Text, #bubble8:hover .bubble8Text {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Register Page */
 .signUpDialog, .loginDialog  {
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    padding-top: 5%; /* Location of the box */
+    position: fixed;
+    z-index: 1;
+    padding-top: 5%;
     left: 0;
     top: 0;
     right: 0;
     bottom: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
+    width: 100%;
+    height: 100%;
     max-height: 100%;
-    overflow: auto; /* Enable scroll if needed */
+    overflow: auto;
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0, 0, 0, 0); /* Black w/ opacity */
-    transform: translateX(-1500px);
+    transform: translateX(-1500px); /* Start off screen so it animates in from the left on load */
 }
 
+/* Dialog box for when the user has signed in with Google */
 .gSignUpDialog {
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    padding-top: 10%; /* Location of the box */
+    position: fixed;
+    z-index: 1;
+    padding-top: 10%;
     left: 0;
     top: 0;
     right: 0;
     bottom: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
+    width: 100%;
+    height: 100%;
     max-height: 100%;
-    overflow: auto; /* Enable scroll if needed */
+    overflow: auto;
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0, 0, 0, 0); /* Black w/ opacity */
 }
 
+/* Set styling of sign-up/login boxes */
 .signUpDialogContent, .loginDialogContent, .gSignUpDialogContent {
     background-color: #142e51;
     margin: auto;
@@ -386,25 +409,22 @@ body {
     box-shadow: 0 0 30px 1px #2b2c51;
 }
 
-.close {
-    color: #aaaaaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-}
-
 #signUpEmail, #loginEmail, #loginPassword {
     position: relative;
     width: 95%;
-    max-width: 294px;
     z-index: 1;
+}
+
+/* Set name and password boxes to be half width */
+#firstName, #lastName, #signUpPassword, #signUpPasswordRepeat {
+    width: 45%;
+    z-index: 1;
+}
+
+#registerLink {
+    cursor: pointer;
+    color: #5163ba;
+    text-align: center;
 }
 
 input{
@@ -448,43 +468,29 @@ input:focus {
     text-align: center;
 }
 
-h3 {
-    font-family: 'GilroyBold', 'sans-serif';
-    color: white;
-    text-align: center;
+/* Change font of select boxes */
+.mobileSelect-container {
+    font-family: 'Nunito', 'sans-serif';
 }
 
-p {
-    font-family: 'GilroyMedium', 'sans-serif';
-    font-weight: lighter;
-    color: white;
+/* Make select menu full width of sign up box */
+button.btn-mobileSelect-gen:not([class*=col-]):not([class*=form-control]):not(.input-group-btn):not(.btn-block) {
+    width: 100% !important;
+    font-family: 'Nunito', 'sans-serif';
 }
 
-#firstName, #lastName, #signUpPassword, #signUpPasswordRepeat, #gPassword, #gPasswordRepeat {
-    width: 45%;
-    z-index: 1;
+/* Set colour of select menu text to black */
+.mobileSelect-container.mac .list-container .mobileSelect-control {
+    color: black;
 }
 
-#courses, #roles, #peerMentors {
-    width: 100%;
-}
 
-#registerLink {
-    cursor: pointer;
-    color: #5163ba;
-    text-align: center;
-}
 
 hr {
     border: 0;
     height: 0;
     border-top: 1px solid rgba(0, 0, 0, 0.1);
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-.select2-selection__rendered, .select2-results__options {
-    font-family: Nunito, sans-serif;
-    font-size: 14px;
 }
 
 /* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
@@ -533,7 +539,7 @@ hr {
   transform: rotateY(180deg);
 }
 
-/*Format Messenger Appearance*/
+/* Format Messenger Appearance */
 df-messenger{
    --df-messenger-button-titlebar-color: #d91a35;
    --df-messenger-font-color: black;
@@ -546,12 +552,12 @@ button#widgetIcon .df-chat-icon {
     left: 13px !important;
 }
 
-/* P */
+/* Properties for the navigation bar */
 .topnav {
     overflow: hidden;
     background-color: #003a65;
     font-family: 'GilroyMedium', 'sans-serif';
-    transform: translateY(-85%);
+    transform: translateY(-85%); /* Only have part of navigation bar displayed */
     transition: transform 1s;
     position: fixed;
     width: 100%;
@@ -559,27 +565,10 @@ button#widgetIcon .df-chat-icon {
     z-index: 5;
 }
 
+/* Move navigation bar down when mouse hovers over it */
 .topnav:hover {
     transform: translateY(0%);
     transition: transform 1s;
-}
-
-.topnav a {
-    color: #f2f2f2;
-    text-align: center;
-    padding: 14px 10px;
-    text-decoration: none;
-    font-size: 14px;
-}
-
-.topnav a:hover {
-    background-color: #ddd;
-    color: black;
-}
-
-.topnav a.active {
-    background-color: #7790e5;
-    color: white;
 }
 
 /* Navigation bar buttons */
@@ -596,12 +585,14 @@ button#widgetIcon .df-chat-icon {
     z-index: 0;
 }
 
+/* Positioning of navigation icons */
 #navChatImg, #navNewsImg, #navDrinksImg, #navLocationImg, #navAccommodationImg, #navHealthImg, #navContactsImg, #navRevisionImg {
     height: 3.5vh;
     z-index: 1;
     margin-top: 15%;
 }
 
+/* Positioning of bubble text tooltips */
 .navBubble1Text, .navBubble2Text, .navBubble3Text, .navBubble4Text, .navBubble5Text, .navBubble6Text, .navBubble7Text, .navBubble8Text {
     font-family: 'GilroyMedium', 'sans-serif';
     font-weight: lighter;
@@ -623,6 +614,7 @@ button#widgetIcon .df-chat-icon {
     transition: opacity 1s;
 }
 
+/* Reveal tooltip text on mouse hover */
 #navBubble1:hover .navBubble1Text, #navBubble2:hover .navBubble2Text,
 #navBubble3:hover .navBubble3Text ,#navBubble4:hover .navBubble4Text,
 #navBubble5:hover .navBubble5Text, #navBubble6:hover .navBubble6Text,
@@ -631,49 +623,23 @@ button#widgetIcon .df-chat-icon {
     opacity: 1;
 }
 
-.sth-select {
-    background: white;
-    padding: 5px 10px;
-    font-family: 'Nunito', 'sans-serif';
-}
-
-.sth-select-popup {
-    z-index: 4;
-    font-family: 'Nunito', 'sans-serif';
-}
-
-.sth-select-title {
-    /*font-size: 3em !important;*/
-}
-
-.sth-overlay {
-  box-sizing: border-box;
-  background-color: rgba(0, 0, 0, .6);
-  display: none;
-  bottom: 0;
-  /*height: 100%;*/
-  left: 0;
-  position: fixed;
-  width: 100%;
-}
-
-/* The Box (background) */
+/* Properties for the account box background */
 .box {
     display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    padding-top: 100px; /* Location of the box */
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
     left: 0;
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
+    width: 100%;
+    height: 100%;
+    overflow: auto;
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
     opacity: 0%;
 }
 
-/* Box Content */
+/* Properties for the account box on the home page */
 .box-content {
     background-color: #0a182b;
     margin: auto;
@@ -683,7 +649,7 @@ button#widgetIcon .df-chat-icon {
     border-radius: 25px;
 }
 
-/* The Close Button */
+/* Properties for the X button in the account box on the home page */
 .close {
   color: #aaaaaa;
   float: right;
@@ -698,36 +664,14 @@ button#widgetIcon .df-chat-icon {
   cursor: pointer;
 }
 
-b {
-    font-family: 'GilroyMedium', 'sans-serif';
-    color: white;
-}
-
-#logoutBtn {
-    width: 100%;
-    font-family: 'GilroyBold', 'sans-serif';
-    color: white;
-    border: none;
-    border-radius: 2px;
-    padding: 5px;
-    background-color: darkred;
-}
-
-.signUpError {
-    opacity: 0%;
-    margin-top: -35px;
-    color: #ff4444;
-    text-align: center;
-    z-index: 0;
-    display: none;
-}
-
+/* When logged in, size of profile picture and change shape to circle */
 #accountPicture {
     width: 7vh;
     height: 7vh;
     border-radius: 50%;
 }
 
+/* Change picture button in account box */
 #changePicture {
     position: fixed;
     left: 7px;
@@ -736,6 +680,7 @@ b {
     border: none;
 }
 
+/* Save changes button in account box */
 #saveBtn {
     width: 100%;
     font-family: 'GilroyBold', 'sans-serif';
@@ -746,15 +691,42 @@ b {
     background-color: #47a424;
 }
 
-.mobileSelect-container {
-    font-family: Nunito;
+/* Logout button in account box */
+#logoutBtn {
+    width: 100%;
+    font-family: 'GilroyBold', 'sans-serif';
+    color: white;
+    border: none;
+    border-radius: 2px;
+    padding: 5px;
+    background-color: darkred;
 }
 
-button.btn-mobileSelect-gen:not([class*=col-]):not([class*=form-control]):not(.input-group-btn):not(.btn-block) {
-    width: 100% !important;
-    font-family: Nunito;
+/* Position of error messages when signing up */
+.signUpError {
+    opacity: 0%;
+    margin-top: -35px;
+    color: #ff4444;
+    text-align: center;
+    z-index: 0;
+    display: none;
 }
 
-.mobileSelect-container.mac .list-container .mobileSelect-control {
-    color: black;
+/* Move map down the page so it is not obstructed by navigation bar */
+#map {
+    height: 98%;
+    top: 2%;
+    left: 0;
+    position: absolute;
+}
+
+/* Prevents text from being able to be selected */
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
 }

@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport">
-	<title>Chatting place {{ room }}</title>
+	<title>Chat</title>
 	<link href="../static/bootstrap/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="../static/bootstrap/fonts/font-awesome.min.css" rel="stylesheet">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -29,7 +29,6 @@
         right:0;
     }
 
-
     .message-area {
         height: 70vh;
         overflow-y: scroll;
@@ -37,13 +36,8 @@
     }
 
     .messages-box {
-        {#height: 37rem;#}
         overflow-y: auto;
     }
-
-
-
-
 
     .container {
         justify-content: space-between;
@@ -79,6 +73,8 @@
 
             function get_form() {
                 var js = $("form").serializeArray()
+
+                console.log("in here")
                 $.ajax({
                     type: "POST",
                     contentType: "application/json; charset=utf-8",
@@ -143,6 +139,13 @@
                 return time + ' | ' + date
             }
 
+             //Update conversations tab with latest message, time and picture
+            function update_recent_conv(data, picture){
+                document.getElementById(data.room_id+'last').innerHTML = data.msg
+                document.getElementById(data.room_id+'time').innerHTML = get_time()
+                $("#"+data.room_id+'user_pict').attr("src",picture);
+            }
+
 
             //Send message on enter press
             $(document).on("keypress", "input", function(e){
@@ -153,94 +156,108 @@
             });
 
             $(document).ready(function(){
-                socket = io.connect('ws://' + location.host  +'/chat', {secure:true});
+
+                socket = io.connect('wss://' + location.host  +'/chat', {secure:true});
                 socket.on('connect', function() {
                 socket.emit('joined', {'name':local_user, 'time':get_time()});
                 });
 
-           socket.on('status', function(data) {
-               if (local_user === null){
-                local_user = data.name
-               }
-               var scroll_loc = document.getElementById(data.room_id+'message-area');
-               var chat_loc = $('#'+data.room_id+'chat');
-               $(chat_loc).append('<div class="alert alert-'+data.color +' mx-auto text-center" role="alert" style="width: 50%"><h6 class="alert-heading"><strong>'+data.name+'</strong> '+data.msg+'</h6><span>'+ get_time()+'</span></div>')
-               scroll_loc.scrollTop = scroll_loc.scrollHeight;
-           });
+                socket.on('connect_failed', function() {
+                    alert("There seems to be an issue with the connection");
+                })
 
-           socket.on('internal_msg', function(data) {
-               //Were last message in conversation
-               var msg_loc = $('#'+data.room_id+'chat');
-               //Location to scroll to the bottom
-               var scroll_loc = document.getElementById(data.room_id+'message-area');
-               //Update most recent conversations message and time
-               document.getElementById(data.room_id+'last').innerHTML = data.msg
-               document.getElementById(data.room_id+'time').innerHTML = get_time()
+                socket.on('status', function(data) {
+                    if (local_user === null){
+                        local_user = data.name
+                    }
+                    if (local_user != data.name){
+                        update_recent_conv(data, "../static/images/chat/server_image.png")
+                        var scroll_loc = document.getElementById(data.room_id+'message-area');
+                        var chat_loc = $('#'+data.room_id+'chat');
+                        $(chat_loc).append('<div class="alert alert-'+data.color +' mx-auto text-center" role="alert" style="width: 50%"><h6 class="alert-heading"><strong>'+data.name+'</strong> '+data.msg+'</h6><span>'+ get_time()+'</span></div>')
+                        scroll_loc.scrollTop = scroll_loc.scrollHeight;
 
-               // Check if message is from user and append it
-               if (data.name === local_user){
-                console.log(data.name, local_user)
-               $(msg_loc).append('<div class="row justify-content-end text-break">\n' +
-                   '                        <div class="col-md-10">\n' +
-                   '                            <div class="media w-50 mb-2 ml-auto mr-4">\n' +
-                   '                                <div class="media-body ml-3">\n' +
-                   '                                   <div class="bg-primary rounded py-2 px-3 mb-2">\n' +
-                   '                                    <p class="text-small mb-0 text-white">'+data.msg+'<\/p>\n' +
-                   '                             <\/div>\n' +
-                   '                             <p class="small text-muted">'+get_time()+'<\/p>\n' +
-                   '                                <\/div>\n' +
-                   '                            <\/div>\n' +
-                   '                        <\/div>\n' +
-                   '                    <\/div>')
-                scroll_loc.scrollTop = scroll_loc.scrollHeight;
-                }
-                else {
-                $(msg_loc).append('\t\t<div class="media w-50 mb-2 text-break" style="margin-left:5%">\n' +
-                       '\t\t\t<img alt='+data.name+' class="rounded-circle" src="'+data.user_image+' "width="50">\n' +
-                       '\t\t\t<div class="media-body ml-3">\n' +
-                       '\t\t\t\t<div class="bg-light rounded py-2 px-3 mb-2">\n' +
-                       '\t\t\t\t\t<p class="text-small mb-0 text-muted">'+data.msg+'</p>\n' +
-                       '\t\t\t\t</div>\n' +
-                       '\t\t\t\t<p class="small text-muted">'+get_time()+'</p>\n' +
-                       '\t\t\t</div>\n' +
-                       '\t\t</div>')
-                scroll_loc.scrollTop = scroll_loc.scrollHeight;
-                }
-           });
+                    }
+                });
 
-           // Upade message id to the current tab to send to the correct room
-           $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                socket.on('internal_msg', function(data) {
+                    //Were last message in conversation
+                    var msg_loc = $('#'+data.room_id+'chat');
+                    //Location to scroll to the bottom
+                    var scroll_loc = document.getElementById(data.room_id+'message-area');
 
-               //Collapse main navbar on small screens when differant chat is pressed
-               $('#navcol-1').collapse('hide')
+                   update_recent_conv(data, data.picture)
+                    // Check if message is from user and append it
+                    if (data.name === local_user){
+                        console.log(data.name, local_user)
+                        $(msg_loc).append('<div class="row justify-content-end text-break">\n' +
+                       '                        <div class="col-md-10">\n' +
+                       '                            <div class="media w-50 mb-2 ml-auto mr-4">\n' +
+                       '                                <div class="media-body ml-3">\n' +
+                       '                                   <div class="bg-primary rounded py-2 px-3 mb-2">\n' +
+                       '                                    <p class="text-small mb-0 text-white">'+data.msg+'<\/p>\n' +
+                       '                             <\/div>\n' +
+                       '                             <p class="small text-muted">'+get_time()+'<\/p>\n' +
+                       '                                <\/div>\n' +
+                       '                            <\/div>\n' +
+                       '                        <\/div>\n' +
+                       '                    <\/div>')
+                        scroll_loc.scrollTop = scroll_loc.scrollHeight;
+                    }
+                    else {
+                        $(msg_loc).append('\t\t<div class="media w-50 mb-2 text-break" style="margin-left:5%">\n' +
+                           '\t\t\t<img alt='+data.name+' class="rounded-circle" src="'+data.picture+' "width="50">\n' +
+                           '\t\t\t<div class="media-body ml-3">\n' +
+                           '\t\t\t\t<div class="bg-light rounded py-2 px-3 mb-2">\n' +
+                           '\t\t\t\t\t<p class="text-small mb-0 text-muted">'+data.msg+'</p>\n' +
+                           '\t\t\t\t</div>\n' +
+                           '\t\t\t\t<p class="small text-muted">'+get_time()+'</p>\n' +
+                           '\t\t\t</div>\n' +
+                           '\t\t</div>')
+                        scroll_loc.scrollTop = scroll_loc.scrollHeight;
+                    }
+                });
+                // Upade message id to the current tab to send to the correct room
+                $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                    //Collapse main navbar on small screens when differant chat is pressed
+                    if ($(window).width() < 720) {
+                        $('#navcol-1').collapse('hide')
+                    }
+                    //Check currently joined chat
+                    var currId = $(e.target).attr("id");
+                    curr_room = currId
 
-               //Check currently joined chat
-               var currId = $(e.target).attr("id");
-                curr_room = currId
-
-                //Scroll to bottom when tab clicked
-               var scroll_loc = document.getElementById(currId+'message-area');
-               scroll_loc.scrollTop = scroll_loc.scrollHeight;
-           })
+                    //Scroll to bottom when tab clicked
+                   var scroll_loc = document.getElementById(currId+'message-area');
+                   scroll_loc.scrollTop = scroll_loc.scrollHeight;
+                })
             });
 
-       function send_message(but_id){
-           text = $('#text'+but_id).val();
-           $('#text'+but_id).val('');
-           socket.emit('text', {msg: text, time:get_time(), name:local_user, room_id:but_id});
-       }
+            function send_message(but_id){
+                text = $('#text'+but_id).val();
+                $('#text'+but_id).val('');
+                socket.emit('text', {msg: text, time:get_time(), name:local_user, room_id:but_id});
+            }
 
-       function leave_room(room_id) {
-           socket.emit('exit_room', {msg: "Room exit request", time:get_time(), name:local_user, room_id:room_id}, function() {
-               console.log("exiting room", room_id)
-               window.location.assign('/chat');
-           });
-       }
-        function join_random() {
-           socket.emit('join_random', {msg: "Join random request", time:get_time(), name:local_user}, function() {
-               window.location.assign('/chat');
-           });
-       }
+            function leave_room(room_id) {
+                socket.emit('exit_room', {msg: "Room exit request", time:get_time(), name:local_user, room_id:room_id}, function() {
+                    //Clear All tabs and Conversations from fron-end
+                    document.getElementById('tabChat-'+room_id).remove();
+                    document.getElementById(room_id).remove();
+                    if (room_id.includes("Random")){
+                       $('#button_loc').append('<div class="row no-gutters mt-1">' +
+                           '<div class="col text-center">' +
+                           '<button class="btn btn-outline-info btn-lg"  onclick="join_random()"><i class="fa fa-users"></i> Random Chat</button>' +
+                           '</div></div>'
+                       )
+                   }
+               });
+           }
+           function join_random() {
+                socket.emit('join_random', {msg: "Join random request", time:get_time(), name:local_user}, function() {
+                    window.location.assign('/chat');
+                });
+            }
 	</script>
     {% endblock %}
 </head>
@@ -276,13 +293,15 @@
 {% endmacro %}
 
 {#Recent tab item showing name, recent message etc#}
-{% macro conv(name,time,room,last_msg) %}
+{% macro conv(name, time, room, last_msg, picture="../static/images/randomchat_icon.png") %}
 		<a class="list-group-item list-group-item-action rounded-0 text-break" id="{{room}}" data-toggle="tab" href="#tabChat-{{room}}" role="tab">
 		<div class="media">
-			<img alt="user" class="rounded-circle d-none d-lg-block" src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg" width="50">
+			<img alt="user" class="rounded-circle d-none d-lg-block" id="{{ room }}user_pict" src="{{picture}}" width="50">
 			<div class="media-body ml-4">
 				<div class="d-flex align-items-center justify-content-between mb-1">
 					<h6 class="mb-0">{{name}} </h6><small id="{{ room }}time" class="small font-weight-bold d-none d-lg-block">{{time}}</small>
+
+                    <button value="{{ room }}" name="exit_butt" onclick="leave_room(this.value)" type="button" class="btn btn-danger d-md-none"><i class="fa fa-close"></i>&nbsp;Exit</button>
 				</div>
 				<p class="font-italic mb-0 text-small d-none d-lg-block" id="{{ room }}last">{{ last_msg }}</p>
 			</div>
@@ -323,86 +342,94 @@
 {% endmacro %}
 
 <div class="jumbotron vertical-center" style="background:#003a65;">
-<div class="container">
-    <div class="row rounded-lg overflow-hidden shadow">
+    <div class="container">
+        <div class="row rounded-lg overflow-hidden shadow">
+            <div class="col-md-4 px-0 bg-light">
+                <nav class="navbar navbar-light navbar-expand-md absolute">
+                    <button data-toggle="collapse" data-target="#navcol-1" class="navbar-toggler"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                    <div class="collapse navbar-collapse show" id="navcol-1">
+                        <ul class="nav navbar-nav" style="width: 100%;">
+                            <li class="nav-item" style="width: 100%;">
+                                <div class="bg-gray px-4 py-2 bg-light">
+                                    <p class="h5 mb-0 py-1">Chats</p>
+                                </div>
+                                <div class="messages-box">
+                                    <div class="list-group rounded-0 active " id="myTab" role="tablist">
+                                      {% for key, value in prev_msg['rooms'].items() %}
+                                          {% set last_msg = value['msgs']|last %}
+                                          {{ conv(value['room_name'],last_msg['time'],key,last_msg['msg'],last_msg['picture']) }}
+                                      {% endfor %}
+                                        {% if prev_msg['random_chat']|length > 0 %}
+                                            {% for key, value in prev_msg['random_chat'].items() %}
+                                                {% set last_msg = value['msgs']|last %}
+                                                {{ conv('Random Chat',last_msg['time'],key,last_msg['msg']) }}
+                                            {% endfor %}
+                                        {% endif %}
 
-        <div class="col-md-4 px-0 bg-light">
-<nav class="navbar navbar-light navbar-expand-md absolute">
+                                        <a class="list-group-item list-group-item-action  text-white rounded-0">
+                                            <div class="media">
+                                                <div class="media-body ml-4" id="button_loc">
 
-        <button data-toggle="collapse" data-target="#navcol-1" class="navbar-toggler"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-        <div class="collapse navbar-collapse show" id="navcol-1">
-            <ul class="nav navbar-nav" style="width: 100%;">
-
-                <li class="nav-item" style="width: 100%;">
-                        <div class="bg-gray px-4 py-2 bg-light">
-                            <p class="h5 mb-0 py-1">Chats</p>
-                        </div>
-
-                        <div class="messages-box">
-                            <div class="list-group rounded-0 active " id="myTab" role="tablist">
-                              {% for key, value in prev_msg['rooms'].items() %}
-                                  {% set last_msg = value['msgs']|last %}
-                                  {{ conv(value['room_name'],last_msg['time'],key,last_msg['msg']) }}
-                              {% endfor %}
-
-                                {% if prev_msg['random_chat']|length > 0 %}
-                                {% for key, value in prev_msg['random_chat'].items() %}
-                                    {% set last_msg = value['msgs']|last %}
-                                    {{ conv('Random Chat',last_msg['time'],key,last_msg['msg']) }}
-                                {% endfor %}
-                                {% endif %}
-                                <a class="list-group-item list-group-item-action  text-white rounded-0">
-                                    <div class="media">
-                                        <div class="media-body ml-4">
-                                            <div class="d-flex align-items-center justify-content-between mb-1"></div>
-
-                                            {% if prev_msg['random_chat']|length == 0 %}
-                                                <div class="row no-gutters mt-1">
-                                                    <div class="col text-center">
-                                                        <button class="btn btn-outline-info btn-lg"  onclick="join_random()"><i class="fa fa-users"></i> Random Chat</button>
+                                                    <div class="row no-gutters mt-1">
+                                                        <div class="col text-center">
+                                                            <button class="btn btn-outline-primary btn-lg" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-users"></i> New</button>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            {% endif %}
 
-                                            <div class="row no-gutters mt-1">
-                                                <div class="col text-center">
-                                                    <button class="btn btn-outline-primary btn-lg" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-users"></i> New</button>
+                                                    {% if prev_msg['random_chat']|length == 0 %}
+                                                        <div class="row no-gutters mt-1">
+                                                            <div class="col text-center">
+                                                                <button class="btn btn-outline-info btn-lg"  onclick="join_random()"><i class="fa fa-users"></i> Random Chat</button>
+                                                            </div>
+                                                        </div>
+                                                    {% endif %}
                                                 </div>
                                             </div>
-
-                                        </div>
+                                        </a>
                                     </div>
-                                </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+            <div class="col px-0 bg-white">
+                <div  class="tab-content">
+
+                <div class="tab-pane fade show active" id="graduation">
+                    <div style="justify-content: center;" class="row no-gutters">
+                        <div style="" class="col-sm-9 align-self-center">
+                            <div class="jumbotron bg-white">
+                                <div class="card shadow text-center">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Conversation Area</h4>
+                                        <h6 class="text-muted card-subtitle mb-2">Select a chat to converse</h6>
+                                        <p class="card-text"></p><a class="card-link" href="/">Home</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+                    {% for key, value in prev_msg['rooms'].items() %}
+                        {{tab_cont(prev_msg['rooms'][key]['msgs'], key)}}
+                    {% endfor %}
 
-                </li>
-            </ul>
-        </div>
-</nav>
-        </div>
-
-    <div class="col px-0 bg-white">
-        <div class="tab-content">
-            {% for key, value in prev_msg['rooms'].items() %}
-                {{tab_cont(prev_msg['rooms'][key]['msgs'], key)}}
-            {% endfor %}
-
-            {% for key, value in prev_msg['random_chat'].items() %}
-                {{tab_cont(prev_msg['random_chat'][key]['msgs'], key)}}
-            {% endfor %}
+                    {% for key, value in prev_msg['random_chat'].items() %}
+                        {{tab_cont(prev_msg['random_chat'][key]['msgs'], key)}}
+                    {% endfor %}
+                </div>
             </div>
+
+        </div>
     </div>
-</div>
-</div>
 </div>
 
 
 
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
-
-      <form  onsubmit="get_form()" id="myform" method="post">
+      <form  onsubmit="get_form()" id="new_chat" method="post">
           <div class="modal-content">
 
               <div class="modal-header">
@@ -412,14 +439,15 @@
                   </button>
               </div>
 
-              <div class="modal-body">
-                  <div class="row align-self-center">
-                      <div class="col text-center">
-                         <div class="row text-left no-gutters mt-1">
+              <div class="modal-body" style="max-height: 60vh; overflow-y: scroll">
+
+
+                         <div class="row text-left no-gutters mt-1" style="max-height: 60vh; overflow-y: auto">
                             <div class="col" style="margin: 1%;">
                                 <input type="search" class="form-control-sm" id="user_search_input" onkeyup="search_table()" autofocus placeholder="Search User" style="border-top-style: none;border-right-style: none;border-bottom-style: solid;border-bottom-color: var(--blue);border-left-style: none;" />
                             </div>
                          </div>
+
                           <table class="table table-striped table-bordered table-hover" id="user_table">
                               <thead id="thead_users">
                               <tr>
@@ -434,15 +462,12 @@
                               </tbody>
                           </table>
 
-                          <div class="col text-center">
-                         <input type="text" class="form-control-lg" name="chat_name" autofocus placeholder="Chat name..." style="border-bottom-right-radius: 12px;border-bottom-left-radius: 12px;border-top-style: none;border-right-style: none;border-bottom: 2px solid var(--blue) ;border-left-style: none;" required minlength="5" maxlength="15" />
-                          </div>
-                      </div>
-                  </div>
               </div>
               <div class="modal-footer">
-                  <button class="btn btn-outline-danger btn-lg" type="button" data-dismiss="modal"><i class="fa fa-close"></i> Cancel</button>
-                  <button class="btn btn-outline-primary btn-lg" onclick="get_form()" type="button"><i class="fa fa-comments"></i> Create</button>
+                  <div class="col text-center">
+                      <input type="text" name="chat_name" autofocus="" placeholder="Chat name..." style="border-bottom-right-radius: 12px;border-bottom-left-radius: 12px;border-top-style: none;border-right-style: none;border-bottom: 2px solid var(--blue) ;border-left-style: none;" required="" minlength="5" maxlength="15" class="form-control">
+                      <button class="btn btn-outline-primary btn-lg" onclick="get_form()" type="button" style="margin-top: 2%;margin-left: 3%;"><i class="fa fa-comments"></i> Create</button>
+                  </div>
               </div>
           </div>
       </form>

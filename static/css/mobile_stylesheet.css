@@ -1,3 +1,4 @@
+/* CSS properties for when the website is being view on a mobile browser */
 html, body {
     background-color: #003a65;
     position: fixed;
@@ -17,7 +18,6 @@ html, body {
     text-align: center;
     --x: 0px;
     --y: 0px;
-    /*transform-style: preserve-3d;*/
 }
 
 #newcastleLogo {
@@ -65,23 +65,7 @@ html, body {
     text-shadow: 0 0 5px #000000;
 }
 
-#back {
-    height: 80px;
-    width: 80px;
-    fill: white;
-    top: 2%;
-    left: -100px;
-    position: absolute;
-    cursor: pointer;
-    z-index: 3;
-}
-
-#chatImg, #newsImg, #drinksImg, #locationImg, #healthImg, #contactsImg, #revisionImg, #accommodationImg {
-    height: 7.5vh;
-    margin-top: 17%;
-    z-index: 1;
-}
-
+/* Change position of home page bubbles so they are in one column to work better with mobile browsers */
 #bubble1 {
     height: 12vh;
     width: 12vh;
@@ -186,6 +170,18 @@ html, body {
     z-index: 0;
 }
 
+/* Positioning for bubble icons */
+#chatImg, #newsImg, #drinksImg, #locationImg, #healthImg, #contactsImg, #revisionImg, #accommodationImg {
+    height: 7.5vh;
+    margin-top: 17%;
+    z-index: 1;
+}
+
+#accommodationImg {
+    padding-bottom: 100%; /* Extra whitespace so "accommodation" can be read even with chat box dialog button. */
+}
+
+/* Change position of text for bubbles to be displayed at all times on the right hand side of the bubbles */
 .bubble1Text, .bubble2Text, .bubble3Text, .bubble4Text, .bubble5Text, .bubble6Text, .bubble7Text, .bubble8Text {
     font-family: 'GilroyMedium', 'sans-serif';
     visibility: visible !important;
@@ -194,19 +190,19 @@ html, body {
     color: #fff;
     text-align: left !important;
     padding: 0 0 !important;
-    font-size: 200%;
+    font-size: 170%;
 
-    /* Position the tooltip */
+    /* Positioning */
     position: absolute;
     z-index: 1;
     bottom: 30%;
-    left: 40vw;
+    left: 45vw;
     margin-left: -60px;
 
     opacity: 100 !important;
-    /*transition: opacity 1s;*/
 }
 
+/* Change size of sign up/login boxes to fill screen */
 .signUpDialogContent, .loginDialogContent, .gSignUpDialogContent {
     background-color: #142e51;
     padding: 20px;
@@ -227,7 +223,10 @@ html, body {
     font-size: 2vh;
 }
 
-#signUpBtn, #loginBtn, #gSignUp, #googleSignIn, h3, #registerLink, #firstName, #lastName, #signUpPassword, #signUpPasswordRepeat, #gPassword, #gPasswordRepeat, .select2-selection__rendered, .select2-results__options, #signUpEmail, #loginEmail, #loginPassword, .sth-select {
+/* Increase font size for various elements */
+#signUpBtn, #loginBtn, #gSignUp, #googleSignIn, h3, #registerLink, #firstName, #lastName, #signUpPassword,
+#signUpPasswordRepeat, #gPassword, #gPasswordRepeat, .select2-selection__rendered, .select2-results__options,
+#signUpEmail, #loginEmail, #loginPassword, .sth-select, .signUpError {
     font-size: 5vw;
 }
 
@@ -236,23 +235,22 @@ html, body {
     width: 48%;
 }
 
-.signUpError {
-    font-size: 5vw;
-}
-
 .signUpDialog {
     padding-top: 0 !important;
     top: -10% !important;
 }
 
+/* Change position of account box to be positioning better for mobile */
 .box {
     top: -10%;
 }
 
+/* Increase width of account box */
 .box-content {
     width: 80%;
 }
 
+/* Increase size of font for select menus*/
 .mobileSelect-container {
     font-size: 5vw;
     font-family: Nunito;
@@ -262,6 +260,7 @@ button.btn-mobileSelect-gen:not([class*=col-]):not([class*=form-control]):not(.i
     font-size: 4vw;
 }
 
+/* Move title text of select menu up by removing padding */
 .mobileSelect-container .mobileSelect-title {
     padding: 0px 20px !important;
 }

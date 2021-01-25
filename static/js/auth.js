@@ -1,7 +1,6 @@
 function login(email, password) {
     // As httpOnly cookies are to be used, do not persist any state client side.
     firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
-
     firebase.auth().signInWithEmailAndPassword(email, password).then(user => {
       return firebase.auth().currentUser.getIdToken(true).then(idToken => {
         fetch('/sessionLogin?idToken=' + idToken).then(()=> {
@@ -13,7 +12,137 @@ function login(email, password) {
     });
 }
 
-function signUp(firstname, lastname, course, role, email, password, picture) {
+function verifySignUp() {
+    let valid = false;
+    let emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    let passwordRegex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])([a-zA-Z0-9]{8,})$/
+    var firstname = document.getElementById("firstName");
+    var lastname = document.getElementById("lastName");
+    var nameError = document.getElementById("nameError");
+    var email = document.getElementById("signUpEmail");
+    var emailError = document.getElementById("emailError");
+    var password = document.getElementById("signUpPassword");
+    var passwordRepeat = document.getElementById("signUpPasswordRepeat");
+    var passwordError = document.getElementById("passwordError");
+    var school = document.getElementById("courses").options[document.getElementById("courses").selectedIndex];
+    var role = document.getElementById("roles").options[document.getElementById("roles").selectedIndex];
+
+    if (firstname.value !== "" && lastname.value !== "" && email.value.toLowerCase().match(emailRegex) && password.value === passwordRepeat.value &&
+        password.value.match(passwordRegex) && school.value !== "blank" && role !== "blank") {
+        valid = true;
+    }
+
+    if (firstname.value === "") {
+        showError("nameError");
+        nameError.textContent = "Enter your first name"
+        valid = false;
+    } else {
+        hideError("nameError");
+    }
+
+    if (lastname.value === "") {
+        showError("nameError");
+        nameError.textContent = "Enter your surname"
+        valid = false;
+    } else {
+        hideError("nameError");
+    }
+
+    if (firstname.value === "" && lastname.value === "") {
+        showError("nameError");
+        nameError.textContent = "Enter your name"
+        valid = false;
+    } else {
+        hideError("nameError");
+    }
+
+    if (!email.value.toLowerCase().match(emailRegex)) {
+        showError("emailError");
+        emailError.textContent = "Enter a valid email"
+        valid = false;
+    } else if (emailError.textContent === "Enter a valid email") {
+        hideError("emailError");
+    }
+
+    if (!password.value.match(passwordRegex)) {
+        showError("passwordError");
+        passwordError.textContent = "Password must contain at least 8 characters, 1 upper and lowercase character and 1 number";
+        valid = false;
+    } else if (password.value === passwordRepeat.value) {
+        hideError("passwordError");
+    }
+
+    if (password.value !== passwordRepeat.value) {
+        showError("passwordError");
+        passwordError.textContent = "Passwords do not match";
+        valid = false;
+    } else if (password.value.match(passwordRegex)) {
+        hideError("passwordError");
+    }
+
+    if (school.value === "blank") {
+        school.style.borderColor = 'red';
+        valid = false;
+    } else {
+        school.style.borderColor = '#071822';
+    }
+
+    if (role.value === "blank") {
+        role.style.borderColor = 'red';
+        valid = false;
+    } else {
+        role.style.borderColor = '#071822';
+    }
+
+    if (valid) {
+        signUp(firstname.value, lastname.value, school.text, role.text, email.value, password.value);
+    }
+}
+
+function showError(error) {
+    if (document.getElementById(error).style.marginTop !== "0px") {
+        document.getElementById(error).style.display = "block"
+        let showError = anime({
+            targets: "#" + error,
+            marginTop: ['-35px', '0px'],
+            opacity: ['0%', '100%'], duration: 1000,
+            easing: 'easeInOutQuad'
+        });
+    }
+}
+
+function hideError(error) {
+    if (document.getElementById(error).style.marginTop !== "-35px") {
+        let showError = anime({
+            targets: "#" + error,
+            marginTop: ['0px', "-35px"], duration: 1000,
+            opacity: ['100%', '0%'], duration: 1000,
+            easing: 'easeInOutQuad'
+        });
+
+        showError.finished.then(removeError);
+
+        function removeError() {
+            document.getElementById(error).style.display = "none"
+        }
+    }
+}
+
+function get_random_pic(){
+    const pics = [
+        "15ff4c_user.png",
+        "6ac492_user.png",
+        "e20090_user.png",
+        "ff1515_user.png",
+        "ff15f3_user.png",
+        "ff7315_user.png",
+        "ffdc15_user.png"
+    ];
+    return "../static/images/default_icons/" + pics[Math.floor(Math.random() * pics.length)]
+}
+
+// Create an account with Firebase authentication then add their details to the database.
+function signUp(firstname, lastname, course, role, email, password) {
     firebase.auth().createUserWithEmailAndPassword(email, password)
         .then((user) => {
             firebase.database().ref('users/' + firebase.auth().currentUser.uid).set({
@@ -22,7 +151,7 @@ function signUp(firstname, lastname, course, role, email, password, picture) {
                 course: course,
                 role: role,
                 uid: firebase.auth().currentUser.uid,
-                profilePicture: picture,
+                profilePicture: get_random_pic(),
                 mentor_verified: false
             }, (error) => {
                 if (error) {
@@ -39,7 +168,6 @@ function signUp(firstname, lastname, course, role, email, password, picture) {
             if (error.code === "auth/email-already-in-use") {
                 document.getElementById("emailError").textContent = "Email address already in use";
                 showError("emailError");
-                emailInUse(true);
             }
         });
 }

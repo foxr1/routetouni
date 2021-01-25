@@ -3,7 +3,7 @@ import os
 import flask
 from flask import Flask, render_template, session, send_from_directory, Blueprint, request, jsonify
 from flask_socketio import emit, join_room, leave_room, SocketIO
-from models import User, get_all_users, get_mentors, get_verified
+from models import User, get_all_users, get_mentors
 from socket_manage import MessageManage
 from news_and_revision import web_scraper
 
@@ -25,6 +25,8 @@ main = Blueprint('main', __name__)
 
 test_user = User()
 socket_man = MessageManage()
+
+socket_man.flush_db()
 
 
 @app.route('/sessionLogin', methods=['GET', 'POST'])
@@ -55,13 +57,12 @@ def index():
 @app.route('/admin', methods=['GET', 'POST'])
 def admin():
     session_cookie = flask.request.cookies.get('session_token')
+    user = None
     if session_cookie:
         user = test_user.verify_user
         if user.get('role') == 'admin':
-            return render_template("admin.html", unverified_mentors=get_mentors(),
-                                   verified_mentors=get_verified())
-        else:
-            return render_template("index.html", user=user)
+            return render_template("admin.html", mentors_info=get_mentors())
+    return render_template("index.html", user=user)
 
 
 @app.route('/gregister')
@@ -143,7 +144,6 @@ def create_entry():
 @app.route('/chat/create_chat', methods=['GET', 'POST'])
 def create_chat():
     user_dict = session['user_dict']
-
     user_add = []
     room_name = None
     if request.method == 'POST':
@@ -163,18 +163,16 @@ def create_chat():
 @socketio.on('joined', namespace='/chat')
 def joined(message):
     user_dict = session['user_dict']
-
     if user_dict.get('name'):
         user_conv = socket_man.conv_dict(user_dict.get('uid'))
     else:
         return chat()
-
     for category in user_conv:
         for room in user_conv[category]:
             join_room(room)
 
             emit('status', {'msg': "Has Joined the Chat", 'name': user_dict.get('name'), 'uid': user_dict['uid'],
-                            "room_id": str(room), 'color': 'success', 'user_image': user_dict.get('picture')},
+                            "room_id": str(room), 'color': 'success', 'picture': user_dict.get('picture')},
                  room=room, prev_msg=user_conv, user_name=user_dict.get('name'))
 
 
@@ -188,11 +186,11 @@ def text(message):
     # Add the user picture to the redis store
     message['picture'] = user_dict.get('picture')
 
-    if socket_man.check_user_in( user_dict.get('uid'), room):
-        socket_man.add_message(room, message,  user_dict.get('uid'))
+    if socket_man.check_user_in(user_dict.get('uid'), room):
+        socket_man.add_message(room, message, user_dict.get('uid'))
         emit('internal_msg',
-             {'msg': message['msg'], 'room_id': str(room), 'uid':  user_dict.get('uid'), 'name': user_dict.get('name'),
-              'user_image': user_dict.get('picture')},
+             {'msg': message['msg'], 'room_id': str(room), 'uid': user_dict.get('uid'), 'name': user_dict.get('name'),
+              'picture': user_dict.get('picture')},
              room=room, user_name=user_dict.get('name'))
     else:
         print("Error User not in room")
@@ -201,7 +199,7 @@ def text(message):
 @socketio.on('join_random', namespace='/chat')
 def join_random(message):
     user_dict = session['user_dict']
-    socket_man.join_random(user_dict.get('uid'), user_dict.get('uid'))
+    socket_man.join_random(user_dict.get('uid'), user_dict.get('name'))
 
 
 @socketio.on('exit_room', namespace='/chat')
@@ -209,8 +207,16 @@ def exit_room(message):
     user_dict = session['user_dict']
     socket_man.del_room(user_dict.get('uid'), message['room_id'])
     leave_room(message['room_id'])
-    emit('status', {'msg': "Has left the Chat", 'name': user_dict.get('name'), 'color': 'danger'}, room=message['room_id'],
-         user_name=user_dict.get('name'))
+    socketio.send('status', {'msg': "Has left the Chat", 'name': user_dict.get('name'), 'color': 'danger'},
+                  room=message['room_id'], user_name=user_dict.get('name'))
+
+
+@socketio.on('disconnect', namespace='/chat')
+def disconnected():
+    user_dict = session['user_dict']
+    for room in socket_man.get_rooms(user_dict.get('uid')):
+        socketio.send('status', {'msg': "Has left the Chat", 'name': user_dict.get('name'), 'color': 'danger'},
+                      room=room, user_name=user_dict.get('name'))
 
 
 if __name__ == '__main__':

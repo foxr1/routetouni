@@ -24,9 +24,7 @@ p {
     width: 42.5%;
     height: 42.5%;
     position: absolute;
-    perspective: 1000px;
-
-    /* Remove this if you don't want the 3D effect */
+    perspective: 1000px; /* Remove this if you don't want the 3D effect */
 }
 
 #flip-card-2 {
@@ -119,6 +117,7 @@ p {
 .ScrollStyle::-webkit-scrollbar {
   display: none;
 }
+
 section {
   height: 85vh;
   scroll-snap-align: start;
@@ -126,18 +125,21 @@ section {
   text-align: left;
   position: relative;
 }
-.page-2{
+
+.page-2 {
     background-color: lightblue;
     border-radius: 15px;
     border-right-width: 10px;
     background-clip: padding-box;
     height: 42.5vh;
 }
-#title-front{
+
+#title-front {
     position: center;
     bottom: 10%;
 }
-h4{
+
+h4 {
     text-align: center;
 }
 
