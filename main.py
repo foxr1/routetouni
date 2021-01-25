@@ -58,7 +58,9 @@ def admin():
     user = None
     if session_cookie:
         user = test_user.verify_user
-        if user.get('role') == 'admin':
+        if not user:
+            pass
+        elif user.get('role') == 'admin':
             return render_template("admin.html", mentors_info=get_mentors())
     return render_template("index.html", user=user)
 
