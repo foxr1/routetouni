@@ -139,6 +139,13 @@
                 return time + ' | ' + date
             }
 
+             //Update conversations tab with latest message, time and picture
+            function update_recent_conv(data, picture){
+                document.getElementById(data.room_id+'last').innerHTML = data.msg
+                document.getElementById(data.room_id+'time').innerHTML = get_time()
+                $("#"+data.room_id+'user_pict').attr("src",picture);
+            }
+
 
             //Send message on enter press
             $(document).on("keypress", "input", function(e){
@@ -149,96 +156,108 @@
             });
 
             $(document).ready(function(){
-                socket = io.connect('ws://' + location.host  +'/chat', {secure:true});
+
+                socket = io.connect('wss://' + location.host  +'/chat', {secure:true});
                 socket.on('connect', function() {
                 socket.emit('joined', {'name':local_user, 'time':get_time()});
                 });
 
-           socket.on('status', function(data) {
-               if (local_user === null){
-                local_user = data.name
-               }
-               var scroll_loc = document.getElementById(data.room_id+'message-area');
-               var chat_loc = $('#'+data.room_id+'chat');
-               $(chat_loc).append('<div class="alert alert-'+data.color +' mx-auto text-center" role="alert" style="width: 50%"><h6 class="alert-heading"><strong>'+data.name+'</strong> '+data.msg+'</h6><span>'+ get_time()+'</span></div>')
-               scroll_loc.scrollTop = scroll_loc.scrollHeight;
-           });
+                socket.on('connect_failed', function() {
+                    alert("There seems to be an issue with the connection");
+                })
 
-           socket.on('internal_msg', function(data) {
-               //Were last message in conversation
-               var msg_loc = $('#'+data.room_id+'chat');
-               //Location to scroll to the bottom
-               var scroll_loc = document.getElementById(data.room_id+'message-area');
-               //Update most recent conversations message and time
-               document.getElementById(data.room_id+'last').innerHTML = data.msg
-               document.getElementById(data.room_id+'time').innerHTML = get_time()
+                socket.on('status', function(data) {
+                    if (local_user === null){
+                        local_user = data.name
+                    }
+                    if (local_user != data.name){
+                        update_recent_conv(data, "../static/images/chat/server_image.png")
+                        var scroll_loc = document.getElementById(data.room_id+'message-area');
+                        var chat_loc = $('#'+data.room_id+'chat');
+                        $(chat_loc).append('<div class="alert alert-'+data.color +' mx-auto text-center" role="alert" style="width: 50%"><h6 class="alert-heading"><strong>'+data.name+'</strong> '+data.msg+'</h6><span>'+ get_time()+'</span></div>')
+                        scroll_loc.scrollTop = scroll_loc.scrollHeight;
 
-               // Check if message is from user and append it
-               if (data.name === local_user){
-                console.log(data.name, local_user)
-               $(msg_loc).append('<div class="row justify-content-end text-break">\n' +
-                   '                        <div class="col-md-10">\n' +
-                   '                            <div class="media w-50 mb-2 ml-auto mr-4">\n' +
-                   '                                <div class="media-body ml-3">\n' +
-                   '                                   <div class="bg-primary rounded py-2 px-3 mb-2">\n' +
-                   '                                    <p class="text-small mb-0 text-white">'+data.msg+'<\/p>\n' +
-                   '                             <\/div>\n' +
-                   '                             <p class="small text-muted">'+get_time()+'<\/p>\n' +
-                   '                                <\/div>\n' +
-                   '                            <\/div>\n' +
-                   '                        <\/div>\n' +
-                   '                    <\/div>')
-                scroll_loc.scrollTop = scroll_loc.scrollHeight;
-                }
-                else {
-                $(msg_loc).append('\t\t<div class="media w-50 mb-2 text-break" style="margin-left:5%">\n' +
-                       '\t\t\t<img alt='+data.name+' class="rounded-circle" src="'+data.picture+' "width="50">\n' +
-                       '\t\t\t<div class="media-body ml-3">\n' +
-                       '\t\t\t\t<div class="bg-light rounded py-2 px-3 mb-2">\n' +
-                       '\t\t\t\t\t<p class="text-small mb-0 text-muted">'+data.msg+'</p>\n' +
-                       '\t\t\t\t</div>\n' +
-                       '\t\t\t\t<p class="small text-muted">'+get_time()+'</p>\n' +
-                       '\t\t\t</div>\n' +
-                       '\t\t</div>')
-                scroll_loc.scrollTop = scroll_loc.scrollHeight;
-                }
-           });
+                    }
+                });
 
-           // Upade message id to the current tab to send to the correct room
-           $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                socket.on('internal_msg', function(data) {
+                    //Were last message in conversation
+                    var msg_loc = $('#'+data.room_id+'chat');
+                    //Location to scroll to the bottom
+                    var scroll_loc = document.getElementById(data.room_id+'message-area');
 
-               //Collapse main navbar on small screens when differant chat is pressed
-               if ($(window).width() < 720) {
-                   $('#navcol-1').collapse('hide')
-                }
+                   update_recent_conv(data, data.picture)
+                    // Check if message is from user and append it
+                    if (data.name === local_user){
+                        console.log(data.name, local_user)
+                        $(msg_loc).append('<div class="row justify-content-end text-break">\n' +
+                       '                        <div class="col-md-10">\n' +
+                       '                            <div class="media w-50 mb-2 ml-auto mr-4">\n' +
+                       '                                <div class="media-body ml-3">\n' +
+                       '                                   <div class="bg-primary rounded py-2 px-3 mb-2">\n' +
+                       '                                    <p class="text-small mb-0 text-white">'+data.msg+'<\/p>\n' +
+                       '                             <\/div>\n' +
+                       '                             <p class="small text-muted">'+get_time()+'<\/p>\n' +
+                       '                                <\/div>\n' +
+                       '                            <\/div>\n' +
+                       '                        <\/div>\n' +
+                       '                    <\/div>')
+                        scroll_loc.scrollTop = scroll_loc.scrollHeight;
+                    }
+                    else {
+                        $(msg_loc).append('\t\t<div class="media w-50 mb-2 text-break" style="margin-left:5%">\n' +
+                           '\t\t\t<img alt='+data.name+' class="rounded-circle" src="'+data.picture+' "width="50">\n' +
+                           '\t\t\t<div class="media-body ml-3">\n' +
+                           '\t\t\t\t<div class="bg-light rounded py-2 px-3 mb-2">\n' +
+                           '\t\t\t\t\t<p class="text-small mb-0 text-muted">'+data.msg+'</p>\n' +
+                           '\t\t\t\t</div>\n' +
+                           '\t\t\t\t<p class="small text-muted">'+get_time()+'</p>\n' +
+                           '\t\t\t</div>\n' +
+                           '\t\t</div>')
+                        scroll_loc.scrollTop = scroll_loc.scrollHeight;
+                    }
+                });
+                // Upade message id to the current tab to send to the correct room
+                $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                    //Collapse main navbar on small screens when differant chat is pressed
+                    if ($(window).width() < 720) {
+                        $('#navcol-1').collapse('hide')
+                    }
+                    //Check currently joined chat
+                    var currId = $(e.target).attr("id");
+                    curr_room = currId
 
-               //Check currently joined chat
-               var currId = $(e.target).attr("id");
-                curr_room = currId
-
-                //Scroll to bottom when tab clicked
-               var scroll_loc = document.getElementById(currId+'message-area');
-               scroll_loc.scrollTop = scroll_loc.scrollHeight;
-           })
+                    //Scroll to bottom when tab clicked
+                   var scroll_loc = document.getElementById(currId+'message-area');
+                   scroll_loc.scrollTop = scroll_loc.scrollHeight;
+                })
             });
 
-       function send_message(but_id){
-           text = $('#text'+but_id).val();
-           $('#text'+but_id).val('');
-           socket.emit('text', {msg: text, time:get_time(), name:local_user, room_id:but_id});
-       }
+            function send_message(but_id){
+                text = $('#text'+but_id).val();
+                $('#text'+but_id).val('');
+                socket.emit('text', {msg: text, time:get_time(), name:local_user, room_id:but_id});
+            }
 
-       function leave_room(room_id) {
-           socket.emit('exit_room', {msg: "Room exit request", time:get_time(), name:local_user, room_id:room_id}, function() {
-               console.log("exiting room", room_id)
-               window.location.assign('/chat');
-           });
-       }
-        function join_random() {
-           socket.emit('join_random', {msg: "Join random request", time:get_time(), name:local_user}, function() {
-               window.location.assign('/chat');
-           });
-       }
+            function leave_room(room_id) {
+                socket.emit('exit_room', {msg: "Room exit request", time:get_time(), name:local_user, room_id:room_id}, function() {
+                    //Clear All tabs and Conversations from fron-end
+                    document.getElementById('tabChat-'+room_id).remove();
+                    document.getElementById(room_id).remove();
+                    if (room_id.includes("Random")){
+                       $('#button_loc').append('<div class="row no-gutters mt-1">' +
+                           '<div class="col text-center">' +
+                           '<button class="btn btn-outline-info btn-lg"  onclick="join_random()"><i class="fa fa-users"></i> Random Chat</button>' +
+                           '</div></div>'
+                       )
+                   }
+               });
+           }
+           function join_random() {
+                socket.emit('join_random', {msg: "Join random request", time:get_time(), name:local_user}, function() {
+                    window.location.assign('/chat');
+                });
+            }
 	</script>
     {% endblock %}
 </head>
@@ -274,15 +293,15 @@
 {% endmacro %}
 
 {#Recent tab item showing name, recent message etc#}
-{% macro conv(name,time,room,last_msg,picture="../static/images/randomchat_icon.png") %}
+{% macro conv(name, time, room, last_msg, picture="../static/images/randomchat_icon.png") %}
 		<a class="list-group-item list-group-item-action rounded-0 text-break" id="{{room}}" data-toggle="tab" href="#tabChat-{{room}}" role="tab">
 		<div class="media">
-			<img alt="user" class="rounded-circle d-none d-lg-block" src="{{picture}}" width="50">
+			<img alt="user" class="rounded-circle d-none d-lg-block" id="{{ room }}user_pict" src="{{picture}}" width="50">
 			<div class="media-body ml-4">
 				<div class="d-flex align-items-center justify-content-between mb-1">
 					<h6 class="mb-0">{{name}} </h6><small id="{{ room }}time" class="small font-weight-bold d-none d-lg-block">{{time}}</small>
 
-                    <button value="{{ room }}" name="exit_butt" onclick="leave_room(this.value)" type="button" class="btn btn-danger btn rounded-0 d-md-none"><i class="fa fa-close"></i>&nbsp;Exit</button>
+                    <button value="{{ room }}" name="exit_butt" onclick="leave_room(this.value)" type="button" class="btn btn-danger d-md-none"><i class="fa fa-close"></i>&nbsp;Exit</button>
 				</div>
 				<p class="font-italic mb-0 text-small d-none d-lg-block" id="{{ room }}last">{{ last_msg }}</p>
 			</div>
@@ -349,8 +368,13 @@
 
                                         <a class="list-group-item list-group-item-action  text-white rounded-0">
                                             <div class="media">
-                                                <div class="media-body ml-4">
-                                                    <div class="d-flex align-items-center justify-content-between mb-1"></div>
+                                                <div class="media-body ml-4" id="button_loc">
+
+                                                    <div class="row no-gutters mt-1">
+                                                        <div class="col text-center">
+                                                            <button class="btn btn-outline-primary btn-lg" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-users"></i> New</button>
+                                                        </div>
+                                                    </div>
 
                                                     {% if prev_msg['random_chat']|length == 0 %}
                                                         <div class="row no-gutters mt-1">
@@ -359,13 +383,6 @@
                                                             </div>
                                                         </div>
                                                     {% endif %}
-
-                                                    <div class="row no-gutters mt-1">
-                                                        <div class="col text-center">
-                                                            <button class="btn btn-outline-primary btn-lg" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-users"></i> New</button>
-                                                        </div>
-                                                    </div>
-
                                                 </div>
                                             </div>
                                         </a>
@@ -377,7 +394,23 @@
                 </nav>
             </div>
             <div class="col px-0 bg-white">
-                <div class="tab-content">
+                <div  class="tab-content">
+
+                <div class="tab-pane fade show active" id="graduation">
+                    <div style="justify-content: center;" class="row no-gutters">
+                        <div style="" class="col-sm-9 align-self-center">
+                            <div class="jumbotron bg-white">
+                                <div class="card shadow text-center">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Conversation Area</h4>
+                                        <h6 class="text-muted card-subtitle mb-2">Select a chat to converse</h6>
+                                        <p class="card-text"></p><a class="card-link" href="/">Home</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                     {% for key, value in prev_msg['rooms'].items() %}
                         {{tab_cont(prev_msg['rooms'][key]['msgs'], key)}}
                     {% endfor %}
@@ -387,6 +420,7 @@
                     {% endfor %}
                 </div>
             </div>
+
         </div>
     </div>
 </div>

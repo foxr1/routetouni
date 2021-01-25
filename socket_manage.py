@@ -47,7 +47,7 @@ class MessageManage:
                 if user_name and self.r.xinfo_stream(room_id)['groups'] == 1:
                     self.add_message(room_id,
                                      {"name": 'server', "msg": "Chat Started by " + user_name, "time": today,
-                                      "room_name": room_name},
+                                      "room_name": room_name, "picture": "../static/images/chat/server_image.png"},
                                      user_id, room_name)
         except redis.exceptions.ResponseError as e:
             print("User probably in group", e)
@@ -58,7 +58,9 @@ class MessageManage:
         return user_rooms
 
     def del_room(self, user_id, room_id):
+        # Remove user from personal rooms list
         print(self.r.hdel(user_id, room_id))
+        # Remove user from room store
         print(self.r.xgroup_destroy(room_id, user_id))
 
         # Decrease number of people if random chat
@@ -68,7 +70,10 @@ class MessageManage:
         # Delete room If last exiting
         if self.r.xinfo_stream(room_id)['groups'] == 0:
             print(self.r.delete(room_id))
-            print(self.r.delete("random_rooms",room_id))
+            print(self.r.delete("random_rooms", room_id))
+        # Delete Room if created by user
+        elif user_id in room_id:
+            print(self.r.delete(room_id))
 
     def add_message(self, room_id, message, user_id, room_name=None):
         if 'picture' not in message:

@@ -26,6 +26,8 @@ main = Blueprint('main', __name__)
 test_user = User()
 socket_man = MessageManage()
 
+socket_man.flush_db()
+
 
 @app.route('/sessionLogin', methods=['GET', 'POST'])
 def session_login():
@@ -142,7 +144,6 @@ def create_entry():
 @app.route('/chat/create_chat', methods=['GET', 'POST'])
 def create_chat():
     user_dict = session['user_dict']
-
     user_add = []
     room_name = None
     if request.method == 'POST':
@@ -162,7 +163,6 @@ def create_chat():
 @socketio.on('joined', namespace='/chat')
 def joined(message):
     user_dict = session['user_dict']
-    print(user_dict)
     if user_dict.get('name'):
         user_conv = socket_man.conv_dict(user_dict.get('uid'))
     else:
@@ -187,9 +187,9 @@ def text(message):
     message['picture'] = user_dict.get('picture')
 
     if socket_man.check_user_in(user_dict.get('uid'), room):
-        socket_man.add_message(room, message,  user_dict.get('uid'))
+        socket_man.add_message(room, message, user_dict.get('uid'))
         emit('internal_msg',
-             {'msg': message['msg'], 'room_id': str(room), 'uid':  user_dict.get('uid'), 'name': user_dict.get('name'),
+             {'msg': message['msg'], 'room_id': str(room), 'uid': user_dict.get('uid'), 'name': user_dict.get('name'),
               'picture': user_dict.get('picture')},
              room=room, user_name=user_dict.get('name'))
     else:
@@ -207,8 +207,16 @@ def exit_room(message):
     user_dict = session['user_dict']
     socket_man.del_room(user_dict.get('uid'), message['room_id'])
     leave_room(message['room_id'])
-    emit('status', {'msg': "Has left the Chat", 'name': user_dict.get('name'), 'color': 'danger'},
-         room=message['room_id'], user_name=user_dict.get('name'))
+    socketio.send('status', {'msg': "Has left the Chat", 'name': user_dict.get('name'), 'color': 'danger'},
+                  room=message['room_id'], user_name=user_dict.get('name'))
+
+
+@socketio.on('disconnect', namespace='/chat')
+def disconnected():
+    user_dict = session['user_dict']
+    for room in socket_man.get_rooms(user_dict.get('uid')):
+        socketio.send('status', {'msg': "Has left the Chat", 'name': user_dict.get('name'), 'color': 'danger'},
+                      room=room, user_name=user_dict.get('name'))
 
 
 if __name__ == '__main__':
