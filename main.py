@@ -28,18 +28,27 @@ socket_man = MessageManage()
 
 @app.route('/sessionLogin', methods=['GET', 'POST'])
 def session_login():
+    """
+    Called by frontend when user logs in, passing
+    calling function to set cookie via token received
+    """
     response = user_obj.login_user()
     return response
 
 
 @app.route('/sessionLogout', methods=['GET', 'POST'])
 def session_logout():
+    """Passed from frontend call to logout user"""
     user_obj.logout_user()
     return index()
 
 
 @app.route('/')
 def index():
+    """
+    Check if the user exists in the session if not check if a
+    token exists for the user to add him to session.
+    """
     if "name" not in session:
         session_cookie = flask.request.cookies.get('session_token')
         if session_cookie:
@@ -159,7 +168,6 @@ def create_chat():
     """
     This function is used to create a new chat, the users it will contain as well as the name are sent via ajax
     when this function is called
-
     :return: json with status of chat creation
     """
     user_dict = session['user_dict']
