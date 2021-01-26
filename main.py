@@ -22,20 +22,19 @@ socketio = SocketIO(app, async_mode=async_mode, cors_allowed_origins=["https://e
                     logger=True, engineio_logger=True)
 
 main = Blueprint('main', __name__)
-
-test_user = User()
+user_obj = User()
 socket_man = MessageManage()
 
 
 @app.route('/sessionLogin', methods=['GET', 'POST'])
 def session_login():
-    response = test_user.login_user()
+    response = user_obj.login_user()
     return response
 
 
 @app.route('/sessionLogout', methods=['GET', 'POST'])
 def session_logout():
-    test_user.logout_user()
+    user_obj.logout_user()
     return index()
 
 
@@ -44,7 +43,7 @@ def index():
     if "name" not in session:
         session_cookie = flask.request.cookies.get('session_token')
         if session_cookie:
-            user = test_user.verify_user
+            user = user_obj.verify_user
         else:
             user = None
     else:
@@ -57,7 +56,7 @@ def admin():
     session_cookie = flask.request.cookies.get('session_token')
     user = None
     if session_cookie:
-        user = test_user.verify_user
+        user = user_obj.verify_user
         if not user:
             pass
         elif user.get('role') == 'admin':
@@ -129,7 +128,11 @@ def references():
 
 @app.route('/chat')
 def chat():
-    user = test_user.verify_user
+    """
+    Performs user authentication and sends user to chat template
+    :return: the chat template if user is authenticated else index page
+    """
+    user = user_obj.verify_user
     if not user:
         return render_template("index.html", user=user)
     else:
@@ -138,9 +141,14 @@ def chat():
 
 @app.route("/chat/get_users", methods=['GET', 'POST'])
 def create_entry():
+    """
+    Requested from chat.html via ajax in order to retrieve all users and id's for chat creation
+    :return: json containing all users in the database except user making request
+    """
+    user_dict = session['user_dict']
     if request.method == 'GET':
         ref = get_all_users()
-        ref.pop(session['user_dict'].get('uid'))
+        ref.pop(user_dict.get('uid'))
         return jsonify(ref)
     if request.method == 'POST':
         return 'Success', 200
@@ -148,12 +156,19 @@ def create_entry():
 
 @app.route('/chat/create_chat', methods=['GET', 'POST'])
 def create_chat():
+    """
+    This function is used to create a new chat, the users it will contain as well as the name are sent via ajax
+    when this function is called
+
+    :return: json with status of chat creation
+    """
     user_dict = session['user_dict']
     user_add = []
     room_name = None
     if request.method == 'POST':
         form_json = request.get_json()
         for item in form_json:
+            # Set the name of the room to be created
             if item.get('name') == 'chat_name':
                 room_name = item['value']
             else:
@@ -167,6 +182,10 @@ def create_chat():
 # When Client Enters
 @socketio.on('joined', namespace='/chat')
 def joined(message):
+    """
+    called by frontend once websocket connection is established, grabs user rooms/messages and adds the user to each one
+    :param message: {'name':user that joined, 'time':time joined}
+    """
     user_dict = session['user_dict']
     if user_dict.get('name'):
         user_conv = socket_man.conv_dict(user_dict.get('uid'))
@@ -175,14 +194,19 @@ def joined(message):
     for category in user_conv:
         for room in user_conv[category]:
             join_room(room)
-
             emit('status', {'msg': "Has Joined the Chat", 'name': user_dict.get('name'), 'uid': user_dict['uid'],
-                            "room_id": str(room), 'color': 'success', 'picture': user_dict.get('picture')},
+                            "room_id": str(room), 'color': 'success', 'picture': user_dict.get('picture'),
+                            'type': 'join'},
                  room=room, prev_msg=user_conv, user_name=user_dict.get('name'))
 
 
 @socketio.on('text', namespace='/chat')
 def text(message):
+    """
+    Called by javascript frontend when user sends message, forwards the message to all users in the room, adds it
+    to the redis database for storage
+    :param message: {msg: the users text-message, time: time sent, name: name of sender, room_id: the room received from}
+    """
     user_dict = session['user_dict']
 
     # Room Message arrived from
@@ -191,6 +215,7 @@ def text(message):
     # Add the user picture to the redis store
     message['picture'] = user_dict.get('picture')
 
+    # First check if user in the chat
     if socket_man.check_user_in(user_dict.get('uid'), room):
         socket_man.add_message(room, message, user_dict.get('uid'))
         emit('internal_msg',
@@ -203,24 +228,36 @@ def text(message):
 
 @socketio.on('join_random', namespace='/chat')
 def join_random(message):
+    """
+    Called when user requests to join
+    :param message: {msg: "Join random request", time:current time, name:local_user}
+    """
     user_dict = session['user_dict']
     socket_man.join_random(user_dict.get('uid'), user_dict.get('name'))
 
 
 @socketio.on('exit_room', namespace='/chat')
 def exit_room(message):
+    """
+    Called when a user clicks to exit a room, removes him from redis and socket.
+    :param message: {msg: "Room exit request", time: Current time, name:local_user, room_id:room_id}
+    """
     user_dict = session['user_dict']
     socket_man.del_room(user_dict.get('uid'), message['room_id'])
+    emit('status', {'msg': "Has left the Chat", 'name': user_dict.get('name'), 'color': 'danger', 'type': 'exit'},
+         room=message['room_id'], user_name=user_dict.get('name'))
+
     leave_room(message['room_id'])
-    socketio.send('status', {'msg': "Has left the Chat", 'name': user_dict.get('name'), 'color': 'danger'},
-                  room=message['room_id'], user_name=user_dict.get('name'))
 
 
 @socketio.on('disconnect', namespace='/chat')
 def disconnected():
+    """
+    Called after a minute of user disconnect, cleans of user info and sends message to the rooms he was in
+    """
     user_dict = session['user_dict']
     for room in socket_man.get_rooms(user_dict.get('uid')):
-        socketio.send('status', {'msg': "Has left the Chat", 'name': user_dict.get('name'), 'color': 'danger'},
+        socketio.send('status', {'msg': "Has left the Chat", 'name': user_dict.get('name'), 'color': 'danger', 'type': 'exit'},
                       room=room, user_name=user_dict.get('name'))
 
 
