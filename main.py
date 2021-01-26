@@ -121,6 +121,11 @@ def revision():
     return render_template("revision.html")
 
 
+@app.route('/references', methods=['GET', 'POST'])
+def references():
+    return render_template("references.html")
+
+
 @app.route('/chat')
 def chat():
     """
