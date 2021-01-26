@@ -1,7 +1,10 @@
-def test_conv_dict():
-    assert False
+from socket_manage import MessageManage
 
-#manually add user
-#create room, add room, check if room is inside
+socket_man = MessageManage()
 
-#adding a user
+
+def test_add_room():
+    socket_man.add_room("1234","Room_1","room_name","User_adding")
+    p = socket_man.r.xinfo_stream("Room_1")
+    assert p
+

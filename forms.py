@@ -8,14 +8,14 @@ r = redis.StrictRedis(host=redis_host, port=redis_port, charset="utf-8", decode_
 
 user = {"Name": "Pradeep", "Company": "SCTL", "Address": "Mumbai", "Location": "RCP"}
 
-s = (r.hgetall('oFy189SNCpWMrNUoAWSmr7zSsfI3'))
-for key,value in s.items():
-    print(key,value)
-print(r.xinfo_groups("oFy189SNCpWMrNUoAWSmr7zSsfI3_0"))
-print(r.xinfo_stream("oFy189SNCpWMrNUoAWSmr7zSsfI3_0"))
-
-if "oFy189SNCpWMrNUoAWSmr7zSsfI3" in "oFy189SNCpWMrNUoAWSmr7zSsfI3_0":
-    print('h')
+# s = (r.hgetall('oFy189SNCpWMrNUoAWSmr7zSsfI3'))
+# for key,value in s.items():
+#     print(key,value)
+print(r.xinfo_groups("Room_1"))
+# print(r.xinfo_stream("oFy189SNCpWMrNUoAWSmr7zSsfI3_0"))
+#
+# if "oFy189SNCpWMrNUoAWSmr7zSsfI3" in "oFy189SNCpWMrNUoAWSmr7zSsfI3_0":
+#     print('h')
 # print(r.hgetall('1dE06UcNkjTxMK6wlPIyd5y3h4E3'))
 # print(r.xgroup_create("Random_0", '1235512333', id="$",mkstream=True))
 
