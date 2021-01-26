@@ -741,6 +741,10 @@ button#widgetIcon .df-chat-icon {
                                   supported by Chrome, Edge, Opera and Firefox */
 }
 
+.reflink {
+    color: #d91a35;
+}
+
 #courseworkText {
     position: fixed;
     bottom: 0;
