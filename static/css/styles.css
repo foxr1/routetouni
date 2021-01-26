@@ -740,3 +740,11 @@ button#widgetIcon .df-chat-icon {
             user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
 }
+
+#courseworkText {
+    position: fixed;
+    bottom: 0;
+    text-align: center;
+    width: 87%;
+    left: 4%;
+}

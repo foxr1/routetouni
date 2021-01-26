@@ -6,9 +6,16 @@ function login(email, password) {
         fetch('/sessionLogin?idToken=' + idToken).then(()=> {
             return firebase.auth().signOut();
           }).then(() => {
+              hideError("loginError");
               window.location.assign('/');
         })
       })
+    })
+    .catch((error) => {
+        var errorCode = error.code;
+        console.log(errorCode);
+        document.getElementById("loginError").textContent = "Invalid email address or password";
+        showError("loginError");
     });
 }
 

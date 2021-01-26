@@ -264,3 +264,12 @@ button.btn-mobileSelect-gen:not([class*=col-]):not([class*=form-control]):not(.i
 .mobileSelect-container .mobileSelect-title {
     padding: 0px 20px !important;
 }
+
+#courseworkText {
+    position: absolute;
+    bottom: 0;
+    text-align: left;
+    width: 75%;
+    top: 161%;
+    margin-left: 3%;
+}
