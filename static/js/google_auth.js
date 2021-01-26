@@ -50,7 +50,6 @@ function onSignIn(googleUser, isNewUser) {
                 sessionStorage.setItem('email', googleUser.email);
                 sessionStorage.setItem('uid', googleUser.uid);
                 sessionStorage.setItem('picture', googleUser.photoURL);
-
                 window.location.assign('/gregister');
             } else {
                 // User already has signed in with Google previously so redirect to home page.

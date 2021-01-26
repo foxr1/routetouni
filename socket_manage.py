@@ -18,10 +18,10 @@ def incr_room(room_name: str) -> str:
 
 class MessageManage:
     """
+    A class for managing Redis and user messaging.
+
     :Authors:
         Filippos Solomonidis <F.solomonidis2@newcastle.ac.uk>
-
-    A class for managing Redis and user messaging.
     ...
     Attributes
     ----------
