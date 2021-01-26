@@ -273,3 +273,8 @@ button.btn-mobileSelect-gen:not([class*=col-]):not([class*=form-control]):not(.i
     top: 161%;
     margin-left: 3%;
 }
+
+#adminBtn {
+    top: 5%;
+    right: 23%;
+}
