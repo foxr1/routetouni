@@ -1,4 +1,5 @@
-""" Name: William Macpherson
+"""
+Name: William Macpherson
 This python file web scrapes off the https://www.ncl.ac.uk/press/latest/ website for information about recent news
 related to newcastle and newcastle university.
 
