@@ -6,8 +6,8 @@ students studying at Newcastle University.
 ---
 ### Functionality
 The application supports different pages that would to relate to questions a typical first year
-student would ask. The pages include Societies, Accommodation, Pubs & Clubs, Revision, News
-, Health, Campus Map and Chat.
+student would ask. The pages include Societies, Accommodation, Pubs & Clubs, Revision, News, Health, 
+Campus Map and Chat.
 Along with individual pages showing information there is
 a trained bot that will answer any questions a user would have. The Societies, Accommodation
 , Pubs & Clubs, Revision and Health pages display information on flipcards. The Chat redirects to
@@ -28,8 +28,10 @@ followed by
 
 `docker compose up`
 
+finally run the main.py file and the website will be deployed on http://localhost:5000/.
+
 ---
 ### Viewing the website online
 If you do not want to run RouteToUni locally you are able to view the website at 
-[RouteToUni](routetouni.me)
+[RouteToUni](https://routetouni.me)
 online.
