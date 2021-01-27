@@ -31,7 +31,10 @@
             <button onclick="login(document.getElementById('loginEmail').value, document.getElementById('loginPassword').value)" id="loginBtn" style="font-family: Nunito" class="noselect">Login</button>
 
             <br>
-            <img id="loginLoading" class="loading" src="../static/images/Spinner-1s-77px.svg"> {# Animation from loading.io #}
+            <div style="width: 100%; text-align: center">
+                <img id="loginLoading" class="loading" src="../static/images/Spinner-1s-77px.svg"> {# Animation from loading.io #}
+            </div>
+
 
             <button onclick="handleAuthClick()" id="googleSignIn" style="font-family: Nunito" class="noselect">Sign in with Google</button>
 
@@ -86,8 +89,9 @@
             <button onclick="verifySignUp()" id="signUpBtn" style="font-family: Nunito" class="noselect">Sign Up</button>
 
             <br>
-            <img id="signUpLoading" class="loading" src="../static/images/Spinner-1s-77px.svg"> {# Animation from loading.io #}
-            <br>
+            <div style="width: 100%; text-align: center">
+                <img id="signUpLoading" class="loading" src="../static/images/Spinner-1s-77px.svg"> {# Animation from loading.io #}
+            </div>
 
             <button onclick="handleAuthClick()" id="googleSignIn" style="font-family: Nunito" class="noselect">Sign in with Google</button>
 
