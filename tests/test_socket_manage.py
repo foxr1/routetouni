@@ -26,3 +26,9 @@ def test_join_random():
 
 def test_add_message():
     assert False
+
+
+def test_create_room():
+    socket_man.create_room("user_id", "user_name", ["user_1", "user_2", "user_3", "user_4"], "Room_name")
+    test = socket_man.r.xinfo_stream("user_id_0")
+    assert test
