@@ -410,11 +410,13 @@ sizes
                                             <div class="media">
                                                 <div class="media-body ml-4" id="button_loc">
 
+                                                {% if role == 'Peer Mentor' %}
                                                     <div class="row no-gutters mt-1">
                                                         <div class="col text-center">
                                                             <button class="btn btn-outline-primary btn-lg" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-users"></i> New</button>
                                                         </div>
                                                     </div>
+                                                {% endif %}
 
                                                     {% if prev_msg['random_chat']|length == 0 %}
                                                         <div class="row no-gutters mt-1">
@@ -465,7 +467,7 @@ sizes
 </div>
 
 
-
+  {% if role == 'Peer Mentor' %}
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
       <form  onsubmit="get_form()" id="new_chat" method="post">
@@ -506,7 +508,7 @@ sizes
       </form>
   </div>
 </div>
-
+    {% endif %}
 
 <script>
 $('#exampleModal').on('shown.bs.modal', function () {

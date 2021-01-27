@@ -150,9 +150,9 @@ class MessageManage:
         :param room_id: the id of the room to delete the user from
         """
         # Remove user from personal rooms list
-        print(self.r.hdel(user_id, room_id))
+        self.r.hdel(user_id, room_id)
         # Remove user from room store
-        print(self.r.xgroup_destroy(room_id, user_id))
+        self.r.xgroup_destroy(room_id, user_id)
 
         # Decrease number of people if random chat
         if "Random" in room_id:
@@ -160,11 +160,11 @@ class MessageManage:
 
         # Delete room If last exiting
         if self.r.xinfo_stream(room_id)['groups'] == 0:
-            print(self.r.delete(room_id))
-            print(self.r.delete("random_rooms", room_id))
+            self.r.delete(room_id)
+            self.r.delete("random_rooms", room_id)
         # Delete Room if created by user
         elif user_id in room_id:
-            print(self.r.delete(room_id))
+            self.r.delete(room_id)
 
     def add_message(self, room_id: str, message: dict, user_id: str, room_name=None) -> str:
         """
@@ -198,7 +198,6 @@ class MessageManage:
         :return: None
         """
         random_rooms = self.r.zrangebyscore("random_rooms", 0, 10)
-        print(random_rooms)
         # If no random rooms exist or all rooms full (max 10 people)
         if not random_rooms:
             last_room = self.r.zrangebylex("random_rooms", min='-', max='+')
