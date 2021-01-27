@@ -6,6 +6,8 @@ For running locally and testing purposes this script only runs when the news pag
 the website where to be deployed online this script would have to be ran on a Virtual Machine at a set time or to be run
 when the original https://www.ncl.ac.uk/press/latest/ website is updated with a new news article
 
+The News page will therefore not work when ran on https://routetouni.me
+
 Functions
 ----------
 main():
