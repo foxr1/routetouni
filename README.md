@@ -11,7 +11,7 @@ student would ask. The pages include Societies, Accommodation, Pubs & Clubs, Rev
 Along with individual pages showing information there is
 a trained bot that will answer any questions a user would have. The Societies, Accommodation
 , Pubs & Clubs, Revision and Health pages display information on flipcards. The Chat redirects to
- the chatrooms and the Campus redirects 
+ the chatrooms and the Campus redirects to a map of Newcastle with points of interest marked.
 A user can create an account and join a chatroom in which they will be randomly assigned with
 other first year students, a maximum of 10 people can join each chatroom. If a student is a peer
  mentor he/she is able to join different a chatroom. 
@@ -30,5 +30,6 @@ followed by
 
 ---
 ### Viewing the website online
-If you do not want to run RouteToUni locally you are able to view the website at routetouni.me
+If you do not want to run RouteToUni locally you are able to view the website at 
+[RouteToUni](routetouni.me)
 online.
