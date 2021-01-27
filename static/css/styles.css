@@ -611,7 +611,7 @@ button#widgetIcon .df-chat-icon {
     color: #fff;
     text-align: center;
     padding: 5px 0;
-    font-size: 1vw;
+    font-size: 1.5vh;
 
     /* Position the tooltip */
     position: absolute;
@@ -741,14 +741,14 @@ button#widgetIcon .df-chat-icon {
                                   supported by Chrome, Edge, Opera and Firefox */
 }
 
-.reflink {
-    color: #d91a35;
-}
-
 #courseworkText {
     position: fixed;
     bottom: 0;
     text-align: center;
-    width: 87%;
-    left: 4%;
+    width: 80%;
+    left: 12%;
+}
+
+.reflink {
+    color: #d91a35;
 }

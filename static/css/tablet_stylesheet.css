@@ -1,0 +1,192 @@
+#newcastleLogo {
+    height: 8vw;
+    width: 7vw;
+}
+
+#newcastleText {
+    font-size: 4vw;
+}
+
+#universityText {
+    font-size: 4.3vw;
+}
+
+/* Properties for home page bubbles */
+#bubble1 {
+    height: 11vh;
+    width: 11vh;
+    background-color: #d91a35;
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    top: 28%;
+    left: 28%;
+    box-shadow: 0 0 5px #8a1425;
+    z-index: 0;
+}
+
+#bubble2 {
+    height: 11vh;
+    width: 11vh;
+    background-color: #d91a35;
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    left: 45%;
+    top: 15%;
+    box-shadow: 0 0 5px #8a1425;
+    z-index: 0;
+}
+
+#bubble3 {
+    height: 11vh;
+    width: 11vh;
+    background-color: #d91a35;
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    top: 28%;
+    right: 24%;
+    box-shadow: 0 0 5px #8a1425;
+    z-index: 0;
+}
+
+#bubble4 {
+    height: 11vh;
+    width: 11vh;
+    background-color: #d91a35;
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    bottom: 46%;
+    right: 10%;
+    box-shadow: 0 0 5px #8a1425;
+    z-index: 0;
+}
+
+#bubble5 {
+    height: 11vh;
+    width: 11vh;
+    background-color: #d91a35;
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    bottom: 46%;
+    left: 10%;
+    box-shadow: 0 0 5px #8a1425;
+    z-index: 0;
+}
+
+#bubble6 {
+    height: 11vh;
+    width: 11vh;
+    background-color: #d91a35;
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    bottom: 28%;
+    right: 24%;
+    box-shadow: 0 0 5px #8a1425;
+    z-index: 0;
+}
+
+#bubble7 {
+    height: 11vh;
+    width: 11vh;
+    background-color: #d91a35;
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    left: 45%;
+    bottom: 15%;
+    box-shadow: 0 0 5px #8a1425;
+    z-index: 0;
+}
+
+#bubble8 {
+    height: 11vh;
+    width: 11vh;
+    background-color: #d91a35;
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    bottom: 28%;
+    left: 28%;
+    box-shadow: 0 0 5px #8a1425;
+    z-index: 0;
+}
+
+/* Positioning for bubble icons */
+#chatImg, #newsImg, #drinksImg, #locationImg, #healthImg, #contactsImg, #revisionImg, #accommodationImg {
+    height: 7vh;
+}
+
+/* Change size of sign up/login boxes to fill screen */
+.signUpDialogContent, .loginDialogContent, .gSignUpDialogContent {
+    background-color: #142e51;
+    padding: 20px;
+    border: 1px solid #081730;
+    border-radius: 5px;
+    box-shadow: 0 0 30px 1px #2b2c51;
+    margin-left: 5% !important;
+    margin-right: 5% !important;
+    margin-top: 20% !important;
+    width: auto;
+}
+
+#signUpEmail, #loginEmail, #loginPassword {
+    position: relative;
+    width: 98%;
+    max-width: 100% !important;
+    height: auto;
+    font-size: 2vh;
+}
+
+/* Increase font size for various elements */
+#signUpBtn, #loginBtn, #gSignUp, #googleSignIn, h3, #registerLink, #firstName, #lastName, #signUpPassword,
+#signUpPasswordRepeat, #gPassword, #gPasswordRepeat, .select2-selection__rendered, .select2-results__options,
+#signUpEmail, #loginEmail, #loginPassword, .sth-select, .signUpError {
+    font-size: 4vw;
+}
+
+#firstName, #lastName, #signUpPassword, #signUpPasswordRepeat, #gPassword, #gPasswordRepeat {
+    height: auto;
+    width: 48%;
+}
+
+.signUpDialog {
+    padding-top: 0 !important;
+    top: -10% !important;
+}
+
+/* Increase size of font for select menus*/
+.mobileSelect-container {
+    font-size: 4vw;
+    font-family: Nunito;
+}
+
+button.btn-mobileSelect-gen:not([class*=col-]):not([class*=form-control]):not(.input-group-btn):not(.btn-block) {
+    font-size: 4vw;
+}
+
+/* Change position of account box to be positioning better for tablet */
+.box {
+    top: 0%;
+}
+
+/* Increase width of account box */
+.box-content {
+    width: 80%;
+}
+
+#changePicture {
+    top: 42%;
+}
+
+#notetaking_pic, #library_pic, #revision_pic, #references_pic {
+    height: 22vh;
+}
+
+.navBubble1Text, .navBubble2Text, .navBubble3Text, .navBubble4Text, .navBubble5Text, .navBubble6Text, .navBubble7Text, .navBubble8Text {
+    font-size: 0.5vh;
+}

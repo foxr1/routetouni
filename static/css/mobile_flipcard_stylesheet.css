@@ -141,7 +141,12 @@ section {
 }
 
 /* Added whitespace to right of page so that you can fully center on this card when on mobile */
-#bursaries, #coronavirus, #library_pic, #checklist, #safe {
+#bursaries, #coronavirus, #checklist, #safe {
     margin-left: 26%;
+    padding-right: 40%;
+}
+
+#library_pic {
+    margin-left: 15%;
     padding-right: 40%;
 }

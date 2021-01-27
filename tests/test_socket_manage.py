@@ -1,6 +1,7 @@
 from socket_manage import MessageManage
 
 socket_man = MessageManage()
+socket_man.flush_db()
 
 
 def test_add_room():
@@ -9,9 +10,19 @@ def test_add_room():
     assert p
 
 
-def test_create_room():
-    socket_man.create_room("1234", "Room_1", ["user_1", "user_2", "user_3", "user_4"], "User_Creating")
-    t = socket_man.r.xinfo_stream("1234")
-    assert t
+def test_del_room():
+    socket_man.add_room("1234", "Room_1", "room_name", "User_adding")
+    socket_man.del_room("1234", "Room_1")
+    p = socket_man.check_user_in("1234", "Room_1")
+    print(p)
+    assert p
 
-    # create_room, check_user_in
+
+def test_join_random():
+    socket_man.join_random("1234", "Test Name")
+    user_rooms = socket_man.r.hgetall("1234")
+    assert user_rooms
+
+
+def test_add_message():
+    assert False
