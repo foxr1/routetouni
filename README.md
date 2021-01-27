@@ -14,5 +14,19 @@ a trained bot that will answer any questions a user would have. The Societies, A
 A user can create an account and join a chatroom in which they will be randomly assigned with
 other first year students, a maximum of 10 people can join each chatroom. If a student is a peer
  mentor he/she is able to join different a chatroom. 
-
+---
 ### Running RouteToUni locally
+To run RouteToUni locally you will need to download the required plugins that are shown in
+requirements.txt. The commands below are to be ran in your terminal whilst in the directory of
+routetouni.
+
+`pip install -r requirments.txt`
+
+followed by 
+
+`docker compose up`
+
+---
+### Viewing the website online
+If you do not want to run RouteToUni locally you are able to view the website at routetouni.me
+online.
