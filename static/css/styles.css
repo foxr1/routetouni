@@ -373,7 +373,6 @@ b {
 
 .loading {
     margin-top: -25%;
-    margin-left: 37.5%;
     opacity: 0%;
 }
 
@@ -418,7 +417,7 @@ b {
     margin: auto;
     padding: 20px;
     border: 1px solid #081730;
-    width: 30%;
+    width: 300px;
     border-radius: 5px;
     box-shadow: 0 0 30px 1px #2b2c51;
 }
