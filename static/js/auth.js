@@ -2,12 +2,13 @@ function login(email, password) {
     // As httpOnly cookies are to be used, do not persist any state client side.
     firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
     firebase.auth().signInWithEmailAndPassword(email, password).then(user => {
-      return firebase.auth().currentUser.getIdToken(true).then(idToken => {
-        fetch('/sessionLogin?idToken=' + idToken).then(()=> {
-            return firebase.auth().signOut();
-          }).then(() => {
-              hideError("loginError");
-              window.location.assign('/');
+        showLoading("login");
+        return firebase.auth().currentUser.getIdToken(true).then(idToken => {
+            fetch('/sessionLogin?idToken=' + idToken).then(()=> {
+                return firebase.auth().signOut();
+            }).then(() => {
+                hideError("loginError");
+                window.location.assign('/');
         })
       })
     })
@@ -31,11 +32,17 @@ function verifySignUp() {
     var password = document.getElementById("signUpPassword");
     var passwordRepeat = document.getElementById("signUpPasswordRepeat");
     var passwordError = document.getElementById("passwordError");
-    var school = document.getElementById("courses").options[document.getElementById("courses").selectedIndex];
-    var role = document.getElementById("roles").options[document.getElementById("roles").selectedIndex];
+    var school = document.getElementById("courses");
+    var schoolOption = school.options[document.getElementById("courses").selectedIndex];
+    var schoolError = document.getElementById("courseError");
+    var roles = document.getElementById("roles");
+    var roleOption = roles.options[document.getElementById("roles").selectedIndex];
+    var roleError = document.getElementById("roleError");
+
+
 
     if (firstname.value !== "" && lastname.value !== "" && email.value.toLowerCase().match(emailRegex) && password.value === passwordRepeat.value &&
-        password.value.match(passwordRegex) && school.value !== "blank" && role !== "blank") {
+        password.value.match(passwordRegex) && schoolOption.value !== "blank" && roleOption.value !== "blank") {
         valid = true;
     }
 
@@ -87,22 +94,24 @@ function verifySignUp() {
         hideError("passwordError");
     }
 
-    if (school.value === "blank") {
-        school.style.borderColor = 'red';
+    if (schoolOption.value === "blank") {
+        showError("courseError");
+        schoolError.textContent = "Select a school";
         valid = false;
     } else {
-        school.style.borderColor = '#071822';
+        hideError("courseError");
     }
 
-    if (role.value === "blank") {
-        role.style.borderColor = 'red';
+    if (roleOption.value === "blank") {
+        showError("roleError");
+        roleError.textContent = "Select a role";
         valid = false;
     } else {
-        role.style.borderColor = '#071822';
+        hideError("roleError");
     }
 
     if (valid) {
-        signUp(firstname.value, lastname.value, school.text, role.text, email.value, password.value);
+        signUp(firstname.value, lastname.value, schoolOption.text, roleOption.text, email.value, password.value);
     }
 }
 
@@ -164,6 +173,8 @@ function signUp(firstname, lastname, course, role, email, password) {
                 if (error) {
                     console.log(error);
                 } else {
+                    showLoading("signUp");
+                    hideError("emailError");
                     console.log(firstname + " " + lastname)
                     addCookieRedirect();
                 }
@@ -192,5 +203,16 @@ function addCookieRedirect(){
         console.log(idToken);
         window.location.assign('/');
         return firebase.auth().signOut();})
+    });
+}
+
+function showLoading(type) {
+    var loadingIcon = document.getElementById(type + "Loading");
+    loadingIcon.style.display = "block";
+    let showError = anime({
+        targets: "#" + type + "Loading",
+        marginTop: ['-25%', '0%'],
+        opacity: ['0%', '100%'], duration: 1000,
+        easing: 'easeInOutQuad'
     });
 }

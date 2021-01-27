@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="../static/css/styles.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
     <link rel="stylesheet" type="text/css" media="only screen and (max-device-width: 480px)" href="../static/css/mobile_stylesheet.css" />
-    <link rel="stylesheet" type="text/css" media="only screen and (min-width: 701px) and (max-width: 1050px)" href="../static/css/tablet_stylesheet.css" />
+    <link rel="stylesheet" type="text/css" media="only screen and (min-width: 701px) and (max-width: 950px)" href="../static/css/tablet_stylesheet.css" />
 
     <!-- Link all favicons for different sizes. -->
     <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='favicon/apple-touch-icon.png') }}">
@@ -30,7 +30,10 @@
 
             <button onclick="login(document.getElementById('loginEmail').value, document.getElementById('loginPassword').value)" id="loginBtn" style="font-family: Nunito" class="noselect">Login</button>
 
-            <br><br><button onclick="handleAuthClick()" id="googleSignIn" style="font-family: Nunito" class="noselect">Sign in with Google</button>
+            <br>
+            <img id="loginLoading" class="loading" src="../static/images/Spinner-1s-77px.svg"> {# Animation from loading.io #}
+
+            <button onclick="handleAuthClick()" id="googleSignIn" style="font-family: Nunito" class="noselect">Sign in with Google</button>
 
             <br><br><div style="text-align: center"><a onclick="getSignUp()" id="registerLink" style="font-family: Nunito" class="noselect">Don't have an account? Register here</a></div>
         </div>
@@ -71,19 +74,26 @@
                 <option value="mathematics">School of Mathematics, Statistics and Physics</option>
                 <option value="environmental">School of Natural and Environmental Sciences</option>
             </select><br><br>
+            <p class="signUpError" id="courseError">e</p>
 
             <select class="form-control mobileSelect" data-title="Select your role" name="roles" id="roles">
                 <option value="blank">Select your role</option>
                 <option value="student">Student</option>
                 <option value="mentor">Peer Mentor</option>
             </select><br><br>
+            <p class="signUpError" id="roleError">e</p>
 
             <button onclick="verifySignUp()" id="signUpBtn" style="font-family: Nunito" class="noselect">Sign Up</button>
 
-            <br><br><button onclick="handleAuthClick()" id="googleSignIn" style="font-family: Nunito" class="noselect">Sign in with Google</button>
+            <br>
+            <img id="signUpLoading" class="loading" src="../static/images/Spinner-1s-77px.svg"> {# Animation from loading.io #}
+            <br>
+
+            <button onclick="handleAuthClick()" id="googleSignIn" style="font-family: Nunito" class="noselect">Sign in with Google</button>
 
             <br><br><div style="text-align: center"><a onclick="getLogin()" id="registerLink" style="font-family: Nunito" class="noselect" >Already have an account? Sign in here</a></div>
         </div>
+
     </div>
 
     <script>
