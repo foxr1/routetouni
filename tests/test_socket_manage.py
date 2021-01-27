@@ -1,6 +1,7 @@
 from socket_manage import MessageManage
 
 socket_man = MessageManage()
+socket_man.flush_db()
 
 
 def test_add_room():
@@ -16,3 +17,12 @@ def test_del_room():
     print(p)
     assert p
 
+
+def test_join_random():
+    socket_man.join_random("1234", "Test Name")
+    user_rooms = socket_man.r.hgetall("1234")
+    assert user_rooms
+
+
+def test_add_message():
+    assert False
