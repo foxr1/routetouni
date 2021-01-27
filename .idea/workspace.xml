@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="46a7629e-7ad0-4f8a-afb2-ab32d36595e0" name="Default Changelist" comment="Fixed admin button">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/routetouni.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/routetouni.iml" afterDir="false" />
+    <list default="true" id="46a7629e-7ad0-4f8a-afb2-ab32d36595e0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/references.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/references.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/news_and_revision/web_scraper.py" beforeDir="false" afterPath="$PROJECT_DIR$/news_and_revision/web_scraper.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -218,7 +217,7 @@
       <workItem from="1611163093350" duration="9717000" />
       <workItem from="1611224845230" duration="3799000" />
       <workItem from="1611232174427" duration="7452000" />
-      <workItem from="1611311298042" duration="33725000" />
+      <workItem from="1611311298042" duration="35494000" />
     </task>
     <task id="LOCAL-00001" summary="combined login with chat">
       <created>1608115716378</created>
@@ -472,7 +471,14 @@
       <option name="project" value="LOCAL" />
       <updated>1611746486263</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="Completed references.html">
+      <created>1611747152842</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1611747152842</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -503,7 +509,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fixed issues with latest push" />
     <MESSAGE value="further chat room development, all chat content now dynamic depending on user joined chats. Fixed recent tab to display most recent messages and time" />
     <MESSAGE value="almost finished random chat functions (TODO select random chat), fixed few bugs (loging in multiple times per session etc)" />
     <MESSAGE value="fixed google auth cookie bug(confused with flask session), added image for chat" />
@@ -528,33 +533,34 @@
     <MESSAGE value="test" />
     <MESSAGE value="added create room test" />
     <MESSAGE value="Fixed merge" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed merge" />
+    <MESSAGE value="Completed references.html" />
+    <option name="LAST_COMMIT_MESSAGE" value="Completed references.html" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="393" y="0" key="CommitChangelistDialog2" timestamp="1611746485599">
+    <state x="393" y="0" key="CommitChangelistDialog2" timestamp="1611747152241">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="393" y="0" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1611746485599" />
-    <state x="147" y="65" width="1228" height="687" key="DiffContextDialog" timestamp="1611746677941">
+    <state x="393" y="0" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1611747152241" />
+    <state x="147" y="65" width="1228" height="687" key="DiffContextDialog" timestamp="1611747188469">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="147" y="65" width="1228" height="687" key="DiffContextDialog/0.0.1536.824@0.0.1536.824" timestamp="1611746677941" />
-    <state width="1493" height="2" key="GridCell.Tab.0.bottom" timestamp="1611747075884">
+    <state x="147" y="65" width="1228" height="687" key="DiffContextDialog/0.0.1536.824@0.0.1536.824" timestamp="1611747188469" />
+    <state width="1493" height="291" key="GridCell.Tab.0.bottom" timestamp="1611758150497">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="2" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1611747075884" />
-    <state width="1493" height="2" key="GridCell.Tab.0.center" timestamp="1611747075883">
+    <state width="1493" height="291" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1611758150497" />
+    <state width="1493" height="291" key="GridCell.Tab.0.center" timestamp="1611758150497">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="2" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1611747075883" />
-    <state width="1493" height="2" key="GridCell.Tab.0.left" timestamp="1611747075883">
+    <state width="1493" height="291" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1611758150497" />
+    <state width="1493" height="291" key="GridCell.Tab.0.left" timestamp="1611758150497">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="2" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1611747075883" />
-    <state width="1493" height="2" key="GridCell.Tab.0.right" timestamp="1611747075883">
+    <state width="1493" height="291" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1611758150497" />
+    <state width="1493" height="291" key="GridCell.Tab.0.right" timestamp="1611758150497">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="2" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1611747075883" />
+    <state width="1493" height="291" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1611758150497" />
     <state x="147" y="65" key="MergeDialog" timestamp="1611255298186">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -571,10 +577,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="277" y="57" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1611744257846" />
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1611746491967">
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1611747189786">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1611746491967" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1611747189786" />
     <state x="586" y="326" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1611746050501">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -592,7 +598,7 @@
     <SUITE FILE_PATH="coverage/gitstuff$Flask__main_py_.coverage" NAME="Flask (main.py) Coverage Results" MODIFIED="1611229957413" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/routetouni$main.coverage" NAME="main Coverage Results" MODIFIED="1607986752399" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/routetouni$app.coverage" NAME="main Coverage Results" MODIFIED="1607120043868" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/CSC2033$Flask__main_py_.coverage" NAME="Flask (main.py) Coverage Results" MODIFIED="1611747075871" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/CSC2033$Flask__main_py_.coverage" NAME="Flask (main.py) Coverage Results" MODIFIED="1611758150470" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/routetouni$test.coverage" NAME="test Coverage Results" MODIFIED="1608118330173" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/CSC2033$pytest_for_test_socket_manage_test_add_room.coverage" NAME="pytest for test_socket_manage.test_add_room Coverage Results" MODIFIED="1611744430012" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/routetouni$auth.coverage" NAME="auth Coverage Results" MODIFIED="1610382998031" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

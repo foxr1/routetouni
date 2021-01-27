@@ -2,6 +2,10 @@
 This python file web scrapes off the https://www.ncl.ac.uk/press/latest/ website for information about recent news
 related to newcastle and newcastle university.
 
+For running locally and testing purposes this script only runs when the news page is activated by the user, however if
+the website where to be deployed online this script would have to be ran on a Virtual Machine at a set time or to be run
+when the original https://www.ncl.ac.uk/press/latest/ website is updated with a new news article
+
 Functions
 ----------
 main():
@@ -20,6 +24,7 @@ organise(text_as_list, url_list):
 
 create_dictionary(news_list):
     re-formats the news_list '[list[list]]' to a dictionary format for easy of us in jinja and html
+
 
 """
 import re
