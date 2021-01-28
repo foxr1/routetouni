@@ -241,7 +241,6 @@ function addCookieRedirect() {
  */
 function showLoading(type) {
     var loadingIcon = document.getElementById(type + "Loading");
-    loadingIcon.style.display = "block";
     let showError = anime({
         targets: "#" + type + "Loading",
         marginTop: ['-25%', '0%'],

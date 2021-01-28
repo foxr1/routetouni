@@ -69,6 +69,7 @@ sizes
             var local_user = null
 
             function home_redirect(){
+                socket.disconnect();
                 window.location.assign('/');
             }
 
@@ -158,6 +159,7 @@ sizes
                  * Update conversations tab with latest message, time and picture
                  * @type {string|*|jQuery}
                  */
+
                 document.getElementById(data.room_id+'last').innerHTML = data.msg
                 document.getElementById(data.room_id+'time').innerHTML = get_time()
                 $("#"+data.room_id+'user_pict').attr("src",picture);
@@ -210,7 +212,6 @@ sizes
                    update_recent_conv(data, data.picture)
                     // Check if message is from user and append it
                     if (data.name === local_user){
-                        console.log(data.name, local_user)
                         $(msg_loc).append('<div class="row justify-content-end text-break">\n' +
                        '                        <div class="col-md-10">\n' +
                        '                            <div class="media w-50 mb-2 ml-auto mr-4">\n' +
@@ -394,7 +395,7 @@ sizes
                             <li class="nav-item" style="width: 100%;">
 
                                 <div class="bg-gray px-4 py-2 bg-light">
-                                    <img style="position: absolute; left: 5%; top: 16%;" src="../static/images/back-blue.png" width="5%">
+
                                     <p class="h5 mb-0 py-1">Chats</p>
                                 </div>
 
