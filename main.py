@@ -188,7 +188,6 @@ def create_chat():
                     room_name = item['value']
                 else:
                     user_add.append(item['name'])
-
             socket_man.create_room(user_dict.get('uid'), user_dict.get('name'), user_add, room_name)
             return json.dumps({'status': 'OK'})
         return json.dumps({'status': 'ERROR'})
@@ -234,11 +233,11 @@ def text(message):
 
     # First check if user in the chat
     if socket_man.check_user_in(user_dict.get('uid'), room):
-        socket_man.add_message(room, message, user_dict.get('uid'))
         emit('internal_msg',
              {'msg': message['msg'], 'room_id': str(room), 'uid': user_dict.get('uid'), 'name': user_dict.get('name'),
               'picture': user_dict.get('picture')},
              room=room, user_name=user_dict.get('name'))
+        socket_man.add_message(room, message, user_dict.get('uid'))
     else:
         print("Error User not in room")
 
@@ -274,7 +273,8 @@ def disconnected():
     """
     user_dict = session['user_dict']
     for room in socket_man.get_rooms(user_dict.get('uid')):
-        socketio.send('status', {'msg': "Has left the Chat", 'name': user_dict.get('name'), 'color': 'danger', 'type': 'exit'},
+        socketio.send('status',
+                      {'msg': "Has left the Chat", 'name': user_dict.get('name'), 'color': 'danger', 'type': 'exit'},
                       room=room, user_name=user_dict.get('name'))
 
 
