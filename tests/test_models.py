@@ -1,15 +1,22 @@
 import models
-import firebase_admin
-from firebase_admin import credentials
 from firebase_admin import db
 
-cred = credentials.Certificate("serviceAccountKey.json")
-firebase_admin.initialize_app(cred, {
-    'databaseURL': 'https://route2uni-default-rtdb.firebaseio.com/'
-})
 
-
+# Test that all users in the database can be retrieved
+# Expected outcome = True
 def test_get_all_users():
     assert models.get_all_users() == db.reference('users').get()
 
 
+# Test that all mentors can be correctly accessed
+# Expected outcome = True
+def test_get_mentors():
+    unverified_ment = []
+    verified_ment = []
+    ref = db.reference('users').order_by_child('role').equal_to('Peer Mentor').get()
+    for key, value in ref.items():
+        if not value['mentor_verified']:
+            unverified_ment.append(value)
+        else:
+            verified_ment.append(value)
+    assert models.get_mentors() == {"unverified": unverified_ment, "verified": verified_ment}

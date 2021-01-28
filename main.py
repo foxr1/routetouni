@@ -57,6 +57,7 @@ def index():
             user = None
     else:
         user = session['user_dict']
+    print(user)
     return render_template("index.html", user=user)
 
 
@@ -145,7 +146,12 @@ def chat():
     if not user:
         return render_template("index.html", user=user)
     else:
-        return render_template('chat.html', prev_msg=socket_man.conv_dict(user.get('uid')), user_name=user.get('name'))
+        if user.get('mentor_verified'):
+            role = 'Peer Mentor'
+        else:
+            role = 'Student'
+        return render_template('chat.html', prev_msg=socket_man.conv_dict(user.get('uid')),
+                               user_name=user.get('name'), role=role)
 
 
 @app.route("/chat/get_users", methods=['GET', 'POST'])
@@ -171,20 +177,23 @@ def create_chat():
     :return: json with status of chat creation
     """
     user_dict = session['user_dict']
-    user_add = []
-    room_name = None
-    if request.method == 'POST':
-        form_json = request.get_json()
-        for item in form_json:
-            # Set the name of the room to be created
-            if item.get('name') == 'chat_name':
-                room_name = item['value']
-            else:
-                user_add.append(item['name'])
+    if user_dict.get('mentor_verified'):
+        user_add = []
+        room_name = None
+        if request.method == 'POST':
+            form_json = request.get_json()
+            for item in form_json:
+                # Set the name of the room to be created
+                if item.get('name') == 'chat_name':
+                    room_name = item['value']
+                else:
+                    user_add.append(item['name'])
 
-        socket_man.create_room(user_dict.get('uid'), user_dict.get('name'), user_add, room_name)
-        return json.dumps({'status': 'OK'})
-    return json.dumps({'status': 'ERROR'})
+            socket_man.create_room(user_dict.get('uid'), user_dict.get('name'), user_add, room_name)
+            return json.dumps({'status': 'OK'})
+        return json.dumps({'status': 'ERROR'})
+    else:
+        return chat()
 
 
 # When Client Enters
