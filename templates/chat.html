@@ -68,6 +68,10 @@ sizes
             var curr_room = ""
             var local_user = null
 
+            function home_redirect(){
+                window.location.assign('/');
+            }
+
             function get_form() {
                 /**
                  * Function called once new chat is created, form containing chat name and members
@@ -368,7 +372,7 @@ sizes
             </div>
             <div class="input-group">
                 <div class="input-group-prepend">
-                    <button value="{{ room_id }}" name="exit_butt" onclick="leave_room(this.value)" type="button" class="btn btn-danger btn-lg rounded-0 d-none d-lg-block"><i class="fa fa-close"></i>&nbsp;Exit</button>
+                    <button value="{{ room_id }}" name="exit_butt" onclick="leave_room(this.value)" type="button" class="btn btn-danger btn-lg rounded-0 d-none d-md-block"><i class="fa fa-close"></i>&nbsp;Exit</button>
                 </div>
                 <input type="text" id="text{{ room_id }}" placeholder="Enter message" class="form-control rounded-0 border-0 py-4 bg-light text-break">
                 <div class="input-group-append">
@@ -388,10 +392,13 @@ sizes
                     <div class="collapse navbar-collapse show" id="navcol-1">
                         <ul class="nav navbar-nav" style="width: 100%;">
                             <li class="nav-item" style="width: 100%;">
+
                                 <div class="bg-gray px-4 py-2 bg-light">
                                     <img style="position: absolute; left: 5%; top: 16%;" src="../static/images/back-blue.png" width="5%">
                                     <p class="h5 mb-0 py-1">Chats</p>
                                 </div>
+
+
                                 <div class="messages-box">
                                     <div class="list-group rounded-0 active " id="myTab" role="tablist">
                                         {#Iterate over ditionary rooms and random chats adding each
@@ -410,6 +417,10 @@ sizes
                                             <div class="media">
                                                 <div class="media-body ml-4" id="button_loc">
 
+                                                <div class="row no-gutters mt-1">
+                                                        <div class="col text-center">
+                                                 <button class="btn btn-danger" onclick="home_redirect()" type="button" role="button" href="/"><i class="fa fa-home fa-2x"></i></button></div></div>
+
                                                 {% if role == 'Peer Mentor' %}
                                                     <div class="row no-gutters mt-1">
                                                         <div class="col text-center">
@@ -421,7 +432,7 @@ sizes
                                                     {% if prev_msg['random_chat']|length == 0 %}
                                                         <div class="row no-gutters mt-1">
                                                             <div class="col text-center">
-                                                                <button class="btn btn-outline-info btn-lg"  onclick="join_random()"><i class="fa fa-users"></i> Random Chat</button>
+                                                                <button class="btn btn-outline-info btn-lg"  onclick="join_random()"><i class="fa fa-wechat"></i> Random Chat</button>
                                                             </div>
                                                         </div>
                                                     {% endif %}
