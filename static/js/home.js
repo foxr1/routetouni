@@ -38,7 +38,7 @@ function checkLogin() {
     if (loggedIn) {
         showAccount();
     } else {
-        loginPageTransition('#homeLayout', 'login');
+        loginPageTransition();
     }
 }
 

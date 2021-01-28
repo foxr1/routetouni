@@ -2,7 +2,12 @@
 // All functions involved for authentication of the website including: logging in, signing up, verifying input fields
 // when signing up with showing errors and showing the loading circle for when the user submits the login/sign up.
 
-// Checks the user has entered valid details then logs the user in to the website and then redirects to the home page.
+/**
+ * Checks the user has entered valid details then logs the user in to the website and then redirects to the home page.
+ *
+ * @param {string} email    The email the user has entered
+ * @param {string} password The password the user has entered
+ */
 function login(email, password) {
     // As httpOnly cookies are to be used, do not persist any state client side.
     firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
@@ -121,7 +126,11 @@ function verifySignUp() {
     }
 }
 
-// Animate in an error message from below the given input field.
+/**
+ * Animate in an error message from below the given input field.
+ *
+ * @param {string} error The name of the error element that should be displayed
+ */
 function showError(error) {
     if (document.getElementById(error).style.marginTop !== "0px") {
         document.getElementById(error).style.display = "block"
@@ -134,13 +143,18 @@ function showError(error) {
     }
 }
 
-// Remove the error from the dialog box if an input has been amended.
+/**
+ * Remove the error from the dialog box if an input has been amended.
+ *
+ * @param {string} error The name of the error element that should be hidden
+ */
 function hideError(error) {
     if (document.getElementById(error).style.marginTop !== "-35px") {
         let showError = anime({
             targets: "#" + error,
-            marginTop: ['0px', "-35px"], duration: 1000,
-            opacity: ['100%', '0%'], duration: 1000,
+            marginTop: ['0px', "-35px"],
+            opacity: ['100%', '0%'],
+            duration: 1000,
             easing: 'easeInOutQuad'
         });
 
@@ -154,7 +168,7 @@ function hideError(error) {
 
 // Randomly assign a coloured picture from a directory of custom made profile pictures for a user when they sign up with
 // an email and password.
-function get_random_pic(){
+function getRandomPic(){
     const pics = [
         "15ff4c-user.png",
         "6ac492-user.png",
@@ -177,7 +191,7 @@ function signUp(firstname, lastname, course, role, email, password) {
                 course: course,
                 role: role,
                 uid: firebase.auth().currentUser.uid,
-                profilePicture: get_random_pic(),
+                profilePicture: getRandomPic(),
                 mentor_verified: false
             }, (error) => {
                 if (error) {
@@ -210,7 +224,7 @@ function logout() {
 }
 
 // Add the session cookie to give Flask the user's information
-function addCookieRedirect(){
+function addCookieRedirect() {
     firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
     firebase.auth().currentUser.getIdToken(true).then(idToken => {
     fetch('/sessionLogin?idToken=' + idToken).then(()=> {
@@ -220,7 +234,11 @@ function addCookieRedirect(){
     });
 }
 
-// Display the loading circle for when the user submits their information for either logging in or signing up.
+/**
+ * Display the loading circle for when the user submits their information for either logging in or signing up.
+ *
+ * @param {string} type Refers to either login or register page
+ */
 function showLoading(type) {
     var loadingIcon = document.getElementById(type + "Loading");
     loadingIcon.style.display = "block";
@@ -232,7 +250,11 @@ function showLoading(type) {
     });
 }
 
-// Function that uses Firebase's inbuilt feature to send an email to the given user and display a reset password field.
+/**
+ * Function that uses Firebase's inbuilt feature to send an email to the given user and display a reset password field.
+ *
+ * @param {string} email The email the user entered in the forgot password input field
+ */
 function forgotPassword(email) {
     firebase.auth().sendPasswordResetEmail(email).then(() => {
         showError("emailSent"); // Even though it says "showError" I'm using this function for the animation functionality.

@@ -1,3 +1,6 @@
+/* Name: Oliver Fox*/
+/* Stylesheet responsible for nearly every page of the website */
+
 /* Font imports for 'Gilroy' */
 @font-face {
     font-family: 'GilroyBold';
@@ -249,7 +252,7 @@ b {
     top: 10%;
 }
 
-#drinksBubble {
+#pubsBubble {
     top: 20%;
     right: 30%;
 }
@@ -280,7 +283,7 @@ b {
 }
 
 /* Positioning of the bubble icons */
-#chatImg, #newsImg, #drinksImg, #locationImg, #healthImg, #societiesImg, #revisionImg, #accommodationImg {
+.homeBubbleImg {
     height: 9vh;
     margin-top: 17%;
     z-index: 1;
@@ -309,7 +312,7 @@ b {
 
 /* When mouse is hovered over bubble, display text */
 #chatBubble:hover #chatBubbleTooltip, #newsBubble:hover #newsBubbleTooltip,
-#drinksBubble:hover #drinksBubbleTooltip, #mapBubble:hover #mapBubbleTooltip,
+#pubsBubble:hover #pubsBubbleTooltip, #mapBubble:hover #mapBubbleTooltip,
 #accommBubble:hover #accommBubbleTooltip, #healthBubble:hover #healthBubbleTooltip,
 #societiesBubble:hover #societiesBubbleTooltip, #revisionBubble:hover #revisionBubbleTooltip {
     visibility: visible;
@@ -545,7 +548,7 @@ button#widgetIcon .df-chat-icon {
 }
 
 /* Navigation bar buttons */
-#navBubble1, #navBubble2, #navBubble3, #navBubble4, #navBubble5, #navBubble6, #navBubble7, #navBubble8 {
+.navBubble {
     height: 5vh;
     width: 5vh;
     background-color: #d91a35;
@@ -559,14 +562,14 @@ button#widgetIcon .df-chat-icon {
 }
 
 /* Positioning of navigation icons */
-#navChatImg, #navNewsImg, #navDrinksImg, #navLocationImg, #navAccommodationImg, #navHealthImg, #navContactsImg, #navRevisionImg {
+.navBubbleImg {
     height: 3.5vh;
     z-index: 1;
     margin-top: 15%;
 }
 
 /* Positioning of bubble text tooltips */
-.navBubble1Text, .navBubble2Text, .navBubble3Text, .navBubble4Text, .navBubble5Text, .navBubble6Text, .navBubble7Text, .navBubble8Text {
+.navBubbleTooltip {
     font-family: 'GilroyMedium', 'sans-serif';
     font-weight: lighter;
     visibility: hidden;
@@ -588,10 +591,10 @@ button#widgetIcon .df-chat-icon {
 }
 
 /* Reveal tooltip text on mouse hover */
-#navBubble1:hover .navBubble1Text, #navBubble2:hover .navBubble2Text,
-#navBubble3:hover .navBubble3Text ,#navBubble4:hover .navBubble4Text,
-#navBubble5:hover .navBubble5Text, #navBubble6:hover .navBubble6Text,
-#navBubble7:hover .navBubble7Text, #navBubble8:hover .navBubble8Text {
+#navChatBubble:hover #navChatTooltip, #navNewsBubble:hover #navNewsTooltip,
+#navPubsBubble:hover #navPubsTooltip ,#navMapBubble:hover #navMapTooltip,
+#navAccommBubble:hover #navAccommTooltip, #navHealthBubble:hover #navHealthTooltip,
+#navSocietiesBubble:hover #navSocietiesTooltip, #navRevisionBubble:hover #navRevisionTooltip {
     visibility: visible;
     opacity: 1;
 }
@@ -694,7 +697,7 @@ button#widgetIcon .df-chat-icon {
 }
 
 /* Prevents text from being able to be selected */
-.noselect {
+.noSelect {
   -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
      -khtml-user-select: none; /* Konqueror HTML */
