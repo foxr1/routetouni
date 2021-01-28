@@ -7,6 +7,7 @@ from models import User, get_all_users, get_mentors
 from socket_manage import MessageManage
 from news_and_revision import web_scraper
 
+
 async_mode = None
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
@@ -60,7 +61,12 @@ def index():
 
 
 @app.route('/admin', methods=['GET', 'POST'])
+
 def admin():
+    """
+    Check if the user exists in the session and verifies this user is an Admin
+    :return: Admin page and dictionary of Peer Mentors
+    """
     session_cookie = flask.request.cookies.get('session_token')
     user = None
     if session_cookie:

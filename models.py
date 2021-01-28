@@ -19,6 +19,10 @@ def get_all_users():
 
 
 def get_mentors() -> dict:
+    """
+
+    :return: dictionary
+    """
     unverified_ment = []
     verified_ment = []
     ref = db.reference('users').order_by_child('role').equal_to('Peer Mentor').get()
