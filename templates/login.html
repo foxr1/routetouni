@@ -9,8 +9,8 @@
     <script src="static/js/node_modules/animejs/lib/anime.min.js"></script>
     <link rel="stylesheet" href="../static/css/styles.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
-    <link rel="stylesheet" type="text/css" media="only screen and (max-device-width: 480px)" href="../static/css/mobile_stylesheet.css" />
-    <link rel="stylesheet" type="text/css" media="only screen and (min-width: 701px) and (max-width: 950px)" href="../static/css/tablet_stylesheet.css" />
+    <link rel="stylesheet" type="text/css" media="only screen and (max-device-width: 480px)" href="../static/css/mobile-stylesheet.css" />
+    <link rel="stylesheet" type="text/css" media="only screen and (min-width: 701px) and (max-width: 950px)" href="../static/css/tablet-stylesheet.css" />
 
     <!-- Link all favicons for different sizes. -->
     <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='favicon/apple-touch-icon.png') }}">
@@ -32,13 +32,14 @@
 
             <br>
             <div style="width: 100%; text-align: center">
-                <img id="loginLoading" class="loading" src="../static/images/Spinner-1s-77px.svg"> {# Animation from loading.io #}
+                <img id="loginLoading" class="loading" src="../static/images/spinner.svg"> {# Animation from loading.io #}
             </div>
 
 
             <button onclick="handleAuthClick()" id="googleSignIn" style="font-family: Nunito" class="noselect">Sign in with Google</button>
 
-            <br><br><div style="text-align: center"><a onclick="getSignUp()" id="registerLink" style="font-family: Nunito" class="noselect">Don't have an account? Register here</a></div>
+            <br><br><div style="text-align: center"><a onclick="getForgotPassword()" id="registerLink" style="font-family: Nunito" class="noselect">Forgot password?</a></div>
+            <br><div style="text-align: center"><a onclick="getSignUp()" id="registerLink" style="font-family: Nunito" class="noselect">Don't have an account? Register here</a></div>
         </div>
     </div>
 
@@ -90,14 +91,25 @@
 
             <br>
             <div style="width: 100%; text-align: center">
-                <img id="signUpLoading" class="loading" src="../static/images/Spinner-1s-77px.svg"> {# Animation from loading.io #}
+                <img id="signUpLoading" class="loading" src="../static/images/spinner.svg"> {# Animation from loading.io #}
             </div>
 
             <button onclick="handleAuthClick()" id="googleSignIn" style="font-family: Nunito" class="noselect">Sign in with Google</button>
 
             <br><br><div style="text-align: center"><a onclick="getLogin()" id="registerLink" style="font-family: Nunito" class="noselect" >Already have an account? Sign in here</a></div>
         </div>
+    </div>
 
+    <div id="forgotDialog" class="forgotDialog">
+        <div class="forgotDialogContent">
+            <h3 class="noselect">Forgot Password</h3>
+            <label for="forgotEmail"></label><input type="email" name="email" id="forgotEmail" placeholder="Email for forgotten password" style="font-family: Nunito"><br><br>
+            <p style="color: darkolivegreen" class="signUpError" id="emailSent">Forgot password email sent</p>
+
+            <button onclick="forgotPassword(document.getElementById('forgotEmail').value)" id="forgotEmailBtn" style="font-family: Nunito" class="noselect">Send Email</button>
+
+            <br><br><div style="text-align: center"><a onclick="getLoginFromForgot()" id="backToSignInLink" style="font-family: Nunito" class="noselect">Back to sign in</a></div>
+        </div>
     </div>
 
     <script>
@@ -133,7 +145,7 @@
     <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-database.js"></script>
     <script src="static/js/init.js"></script>
     <script src="static/js/auth.js"></script>
-    <script src="static/js/google_auth.js"></script>
+    <script src="../static/js/google-auth.js"></script>
     <script src="static/js/animations.js"></script>
 </body>
 </html>

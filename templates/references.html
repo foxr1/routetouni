@@ -8,7 +8,7 @@
     <script src="static/js/node_modules/animejs/lib/anime.min.js"></script>
     <script src="static/js/animations.js"></script>
     <link rel="stylesheet" href="static/css/styles.css">
-    <link rel="stylesheet" type="text/css" media="only screen and (max-device-width: 480px)" href="../static/css/mobile_flipcard_stylesheet.css" />
+    <link rel="stylesheet" type="text/css" media="only screen and (max-device-width: 480px)" href="../static/css/mobile-flipcard-stylesheet.css" />
 
     <!-- Link all favicons for different sizes. -->
     <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='favicon/apple-touch-icon.png') }}">
@@ -24,59 +24,59 @@
         <img src="static/images/back.svg" id="navArrow" alt="Show navigation bar"/>
         <span id="navBubble1" onclick="window.location.assign('/chat');" onmouseover="bubbleHover('#navBubble1')" onmouseout="bubbleLeave('#navBubble1')">
             <img id="navChatImg" src="../static/images/bubbles/chat.png" alt="Chat"/>
-            <span class="navBubble1Text">Chat</span></span>
+            <span class="navBubble1Text">Chat</span>
         </span>
         <span id="navBubble2" onclick="window.location.assign('/news');" onmouseover="bubbleHover('#navBubble2')" onmouseout="bubbleLeave('#navBubble2')">
             <img id="navNewsImg" src="../static/images/bubbles/news.png" alt="News"/>
-            <span class="navBubble2Text">News</span></span>
+            <span class="navBubble2Text">News</span>
         </span>
         <span id="navBubble3" onclick="window.location.assign('/pubs');" onmouseover="bubbleHover('#navBubble3')" onmouseout="bubbleLeave('#navBubble3')">
             <img id="navDrinksImg" src="../static/images/bubbles/drinks.png" alt="Drinks"/>
-            <span class="navBubble3Text">Pubs & Clubs</span></span>
+            <span class="navBubble3Text">Pubs & Clubs</span>
         </span>
         <span id="navBubble4" onclick="window.location.assign('/map');" onmouseover="bubbleHover('#navBubble4')" onmouseout="bubbleLeave('#navBubble4')">
             <img id="navLocationImg" src="../static/images/bubbles/location.png" alt="Location"/>
-            <span class="navBubble4Text">Campus Map</span></span>
+            <span class="navBubble4Text">Campus Map</span>
         </span>
         <span id="navBubble5" onclick="window.location.assign('/accommodation');" onmouseover="bubbleHover('#navBubble5')" onmouseout="bubbleLeave('#navBubble5')">
             <img id="navAccommodationImg" src="../static/images/bubbles/home.png" alt="Accommodation"/>
-            <span class="navBubble5Text">Accommodation</span></span>
+            <span class="navBubble5Text">Accommodation</span>
         </span>
         <span id="navBubble6" onclick="window.location.assign('/health');" onmouseover="bubbleHover('#navBubble6')" onmouseout="bubbleLeave('#navBubble6')">
             <img id="navHealthImg" src="../static/images/bubbles/health.png" alt="Health"/>
-            <span class="navBubble6Text">Health</span></span>
+            <span class="navBubble6Text">Health</span>
         </span>
         <span id="navBubble7" onclick="window.location.assign('/societies');" onmouseover="bubbleHover('#navBubble7')" onmouseout="bubbleLeave('#navBubble7')">
             <img id="navContactsImg" src="../static/images/bubbles/people.png" alt="Contacts"/>
-            <span class="navBubble7Text">Societies</span></span>
+            <span class="navBubble7Text">Societies</span>
         </span>
         <span id="navBubble8" onclick="window.location.assign('/revision');" onmouseover="bubbleHover('#navBubble8')" onmouseout="bubbleLeave('#navBubble8')">
             <img id="navRevisionImg" src="../static/images/bubbles/revision.png" alt="Revision"/>
-            <span class="navBubble8Text">Revision</span></span>
+            <span class="navBubble8Text">Revision</span>
         </span>
     </div>
     <div style="margin: 5%" class="ScrollStyle">
-        <h2>Website Information</h2>
+        <h1 style="color: white; font-family: 'GilroyBold', 'sans-serif';">Website Information</h1>
         <p>This page is to show our refereneces for each page</p>
-        <h4>Pubs and Clubs Page</h4>
+        <h2>Pubs and Clubs Page</h2>
         <p>No references</p>
-        <h4>Health Page</h4>
+        <h2>Health Page</h2>
         <p>Ncl.ac.uk. 2020. Mental Health And Wellbeing
             - Student And Staff Wellbeing - Newcastle University.
             [online] Available at:
             <a class="reflink" href="<https://www.ncl.ac.uk/wellbeing/mentalwellbeing/#counsellingteam>">https://www.ncl.ac.uk/wellbeing/mentalwellbeing/#counsellingteam</a>
             [Accessed 13 December 2020].</p>
-        <h4>Societies Page</h4>
+        <h2>Societies Page</h2>
         <p>Ncl.ac.uk. 2020. Mental Health And Wellbeing - Student And Staff Wellbeing - Newcastle University. [online] Available at:
             <a class="reflink" href="<https://www.ncl.ac.uk/wellbeing/mentalwellbeing/#counsellingteam>">https://www.ncl.ac.uk/wellbeing/mentalwellbeing/#counsellingteam</a>
             [Accessed 13 December 2020].</p>
-        <h4>Revision Page</h4>
+        <h2>Revision Page</h2>
         <p>STUDY_SKILLS_BOOKLET.pdf, Booklet provided to peer mentors. Created by: Gabrielle Vallons</p>
-        <h4>Accommodation Page</h4>
+        <h2>Accommodation Page</h2>
         <p>Nusu.co.uk. 2020. Accommodation And Housing. [online] Available at:
             <a class="reflink" href="<https://www.nusu.co.uk/support/sac/housing/>">https://www.nusu.co.uk/support/sac/housing/</a>
             [Accessed 12 December 2020].</p>
-        <h4>News Page</h4>
+        <h2>News Page</h2>
         <p>Ncl.ac.uk. 2020. Press Office - Latest News. [online] Available at: <a class="reflink" href="https://www.ncl.ac.uk/press/latest/">https://www.ncl.ac.uk/press/latest/</a>
             [Accessed whenever program is run]</p>
     </div>

@@ -59,6 +59,7 @@ function onSignIn(googleUser, isNewUser) {
     });
 }
 
+// Add the session cookie to give Flask the user's information
 function addCookieRedirect(){
     firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
     firebase.auth().currentUser.getIdToken(true).then(idToken => {

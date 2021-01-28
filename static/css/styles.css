@@ -67,19 +67,15 @@ h2, h4 {
     font-family: 'GilroyBold', 'sans-serif';
     color: white;
 }
-
-
 p {
     font-family: 'GilroyMedium', 'sans-serif';
     font-weight: lighter;
     color: white;
 }
-
 b {
     font-family: 'GilroyMedium', 'sans-serif';
     color: white;
 }
-
 
 
 /* Firework animations */
@@ -118,7 +114,6 @@ b {
     text-align: center;
     --x: 0px;
     --y: 0px;
-    /*transform-style: preserve-3d;*/
 }
 
 #newcastleLogo {
@@ -200,6 +195,7 @@ b {
     transition: 1s;
 }
 
+/* Login button located on the home screen */
 #login {
     font-family: 'GilroyBold', 'sans-serif';
     color: white;
@@ -214,6 +210,7 @@ b {
     font-size: 1em;
 }
 
+/* Admin button displayed only when an admin is logged in */
 #adminBtn {
     font-family: 'GilroyBold', 'sans-serif';
     color: white;
@@ -230,119 +227,67 @@ b {
 }
 
 /* Properties for home page bubbles */
-#bubble1 {
+.homePageBubble {
     height: 14vh;
     width: 14vh;
     background-color: #d91a35;
     border-radius: 50%;
     display: inline-block;
     position: absolute;
-    top: 20%;
-    left: 30%;
     box-shadow: 0 0 5px #8a1425;
     z-index: 0;
 }
 
-#bubble2 {
-    height: 14vh;
-    width: 14vh;
-    background-color: #d91a35;
-    border-radius: 50%;
-    display: inline-block;
-    position: absolute;
+/* Positioning of home page bubbles */
+#chatBubble {
+    top: 20%;
+    left: 30%;
+}
+
+#newsBubble {
     left: 46%;
     top: 10%;
-    box-shadow: 0 0 5px #8a1425;
-    z-index: 0;
 }
 
-#bubble3 {
-    height: 14vh;
-    width: 14vh;
-    background-color: #d91a35;
-    border-radius: 50%;
-    display: inline-block;
-    position: absolute;
+#drinksBubble {
     top: 20%;
     right: 30%;
-    box-shadow: 0 0 5px #8a1425;
-    z-index: 0;
 }
 
-#bubble4 {
-    height: 14vh;
-    width: 14vh;
-    background-color: #d91a35;
-    border-radius: 50%;
-    display: inline-block;
-    position: absolute;
+#mapBubble {
     bottom: 44%;
     right: 22%;
-    box-shadow: 0 0 5px #8a1425;
-    z-index: 0;
 }
 
-#bubble5 {
-    height: 14vh;
-    width: 14vh;
-    background-color: #d91a35;
-    border-radius: 50%;
-    display: inline-block;
-    position: absolute;
+#accommBubble {
     bottom: 44%;
     left: 22%;
-    box-shadow: 0 0 5px #8a1425;
-    z-index: 0;
 }
 
-#bubble6 {
-    height: 14vh;
-    width: 14vh;
-    background-color: #d91a35;
-    border-radius: 50%;
-    display: inline-block;
-    position: absolute;
+#healthBubble {
     bottom: 20%;
     right: 30%;
-    box-shadow: 0 0 5px #8a1425;
-    z-index: 0;
 }
 
-#bubble7 {
-    height: 14vh;
-    width: 14vh;
-    background-color: #d91a35;
-    border-radius: 50%;
-    display: inline-block;
-    position: absolute;
+#societiesBubble {
     left: 46%;
     bottom: 10%;
-    box-shadow: 0 0 5px #8a1425;
-    z-index: 0;
 }
 
-#bubble8 {
-    height: 14vh;
-    width: 14vh;
-    background-color: #d91a35;
-    border-radius: 50%;
-    display: inline-block;
-    position: absolute;
+#revisionBubble {
     bottom: 20%;
     left: 30%;
-    box-shadow: 0 0 5px #8a1425;
-    z-index: 0;
 }
 
 /* Positioning of the bubble icons */
-#chatImg, #newsImg, #drinksImg, #locationImg, #healthImg, #contactsImg, #revisionImg, #accommodationImg {
+#chatImg, #newsImg, #drinksImg, #locationImg, #healthImg, #societiesImg, #revisionImg, #accommodationImg {
     height: 9vh;
     margin-top: 17%;
     z-index: 1;
 }
 
 /* Positioning for the tooltip text when hovering over a bubble on the home screen */
-.bubble1Text, .bubble2Text, .bubble3Text, .bubble4Text, .bubble5Text, .bubble6Text, .bubble7Text, .bubble8Text {
+.bubbleTooltip {
     font-family: 'GilroyMedium', 'sans-serif';
     font-weight: lighter;
     visibility: hidden;
@@ -363,14 +308,15 @@ b {
 }
 
 /* When mouse is hovered over bubble, display text */
-#bubble1:hover .bubble1Text, #bubble2:hover .bubble2Text,
-#bubble3:hover .bubble3Text ,#bubble4:hover .bubble4Text,
-#bubble5:hover .bubble5Text, #bubble6:hover .bubble6Text,
-#bubble7:hover .bubble7Text, #bubble8:hover .bubble8Text {
+#chatBubble:hover #chatBubbleTooltip, #newsBubble:hover #newsBubbleTooltip,
+#drinksBubble:hover #drinksBubbleTooltip, #mapBubble:hover #mapBubbleTooltip,
+#accommBubble:hover #accommBubbleTooltip, #healthBubble:hover #healthBubbleTooltip,
+#societiesBubble:hover #societiesBubbleTooltip, #revisionBubble:hover #revisionBubbleTooltip {
     visibility: visible;
     opacity: 1;
 }
 
+/* Hide loading symbol for sign up and loading boxes */
 .loading {
     margin-top: -25%;
     opacity: 0%;
@@ -394,6 +340,24 @@ b {
     transform: translateX(-1500px); /* Start off screen so it animates in from the left on load */
 }
 
+/* Forgot password dialog box */
+.forgotDialog  {
+    position: fixed;
+    z-index: 1;
+    padding-top: 2%;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0, 0, 0, 0); /* Black w/ opacity */
+    transform: translateX(1500px); /* Start off screen so it animates in from the left on load */
+}
+
 /* Dialog box for when the user has signed in with Google */
 .gSignUpDialog {
     position: fixed;
@@ -412,7 +376,7 @@ b {
 }
 
 /* Set styling of sign-up/login boxes */
-.signUpDialogContent, .loginDialogContent, .gSignUpDialogContent {
+.signUpDialogContent, .loginDialogContent, .gSignUpDialogContent, .forgotDialogContent {
     background-color: #142e51;
     margin: auto;
     padding: 20px;
@@ -422,7 +386,8 @@ b {
     box-shadow: 0 0 30px 1px #2b2c51;
 }
 
-#signUpEmail, #loginEmail, #loginPassword {
+/* Input fields that should fit to the width of the dialog boxes*/
+#signUpEmail, #loginEmail, #loginPassword, #forgotEmail {
     position: relative;
     width: 95%;
     z-index: 1;
@@ -434,12 +399,13 @@ b {
     z-index: 1;
 }
 
-#registerLink {
+#registerLink, #backToSignInLink {
     cursor: pointer;
     color: #5163ba;
     text-align: center;
 }
 
+/* Styling for input boxes */
 input{
     -webkit-border-radius: 20px;
     -moz-border-radius: 20px;
@@ -451,12 +417,14 @@ input{
     font-family: Nunito, serif;
 }
 
+/* Remove outline of box when input field is selected */
 input:focus {
     outline: none;
     border: 1px solid #459bc8;
 }
 
-#signUpBtn, #loginBtn, #gSignUp {
+/* Styling for buttons in login page */
+#signUpBtn, #loginBtn, #gSignUp, #forgotEmailBtn {
     -webkit-border-radius: 20px;
     -moz-border-radius: 20px;
     border-radius: 15px;
@@ -469,6 +437,7 @@ input:focus {
     z-index: 1;
 }
 
+/* Styling for Google sign in button*/
 #googleSignIn {
     -webkit-border-radius: 20px;
     -moz-border-radius: 20px;
@@ -495,15 +464,6 @@ button.btn-mobileSelect-gen:not([class*=col-]):not([class*=form-control]):not(.i
 /* Set colour of select menu text to black */
 .mobileSelect-container.mac .list-container .mobileSelect-control {
     color: black;
-}
-
-
-
-hr {
-    border: 0;
-    height: 0;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 /* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
@@ -744,6 +704,7 @@ button#widgetIcon .df-chat-icon {
                                   supported by Chrome, Edge, Opera and Firefox */
 }
 
+/* Text at the bottom of the home page */
 #courseworkText {
     position: fixed;
     bottom: 0;
@@ -752,6 +713,7 @@ button#widgetIcon .df-chat-icon {
     left: 12%;
 }
 
+/* Referral link colour */
 .reflink {
     color: #d91a35;
 }

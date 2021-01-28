@@ -65,113 +65,55 @@ html, body {
     text-shadow: 0 0 5px #000000;
 }
 
-/* Change position of home page bubbles so they are in one column to work better with mobile browsers */
-#bubble1 {
+/* Change size of bubbles for mobile */
+#chatBubble, #newsBubble, #drinksBubble, #mapBubble, #accommBubble, #healthBubble, #societiesBubble, #revisionBubble {
     height: 12vh;
     width: 12vh;
-    background-color: #d91a35;
-    border-radius: 50%;
-    display: inline-block;
-    position: absolute;
+}
+
+/* Positioning of bubbles on home page for mobile */
+#chatBubble {
     top: 36%;
     left: 5%;
-    box-shadow: 0 0 5px #8a1425;
-    z-index: 0;
 }
 
-#bubble2 {
-    height: 12vh;
-    width: 12vh;
-    background-color: #d91a35;
-    border-radius: 50%;
-    display: inline-block;
-    position: absolute;
+#newsBubble {
     left: 5%;
     top: 52%;
-    box-shadow: 0 0 5px #8a1425;
-    z-index: 0;
 }
 
-#bubble3 {
-    height: 12vh;
-    width: 12vh;
-    background-color: #d91a35;
-    border-radius: 50%;
-    display: inline-block;
-    position: absolute;
+#drinksBubble {
     top: 68%;
     left: 5%;
-    box-shadow: 0 0 5px #8a1425;
-    z-index: 0;
 }
 
-#bubble4 {
-    height: 12vh;
-    width: 12vh;
-    background-color: #d91a35;
-    border-radius: 50%;
-    display: inline-block;
-    position: absolute;
+#mapBubble {
     top: 84%;
     left: 5%;
-    box-shadow: 0 0 5px #8a1425;
-    z-index: 0;
 }
 
-#bubble5 {
-    height: 12vh;
-    width: 12vh;
-    background-color: #d91a35;
-    border-radius: 50%;
-    display: inline-block;
-    position: absolute;
+#accommBubble {
     top: 148%;
     left: 5%;
-    box-shadow: 0 0 5px #8a1425;
-    z-index: 0;
 }
 
-#bubble6 {
-    height: 12vh;
-    width: 12vh;
-    background-color: #d91a35;
-    border-radius: 50%;
-    display: inline-block;
-    position: absolute;
+#healthBubble {
     top: 100%;
     left: 5%;
-    box-shadow: 0 0 5px #8a1425;
-    z-index: 0;
 }
 
-#bubble7 {
-    height: 12vh;
-    width: 12vh;
-    background-color: #d91a35;
-    border-radius: 50%;
-    display: inline-block;
-    position: absolute;
+#societiesBubble {
     left: 5%;
     top: 116%;
-    box-shadow: 0 0 5px #8a1425;
-    z-index: 0;
 }
 
-#bubble8 {
-    height: 12vh;
-    width: 12vh;
-    background-color: #d91a35;
-    border-radius: 50%;
-    display: inline-block;
-    position: absolute;
+#revisionBubble {
     top: 132%;
     left: 5%;
-    box-shadow: 0 0 5px #8a1425;
-    z-index: 0;
 }
 
 /* Positioning for bubble icons */
-#chatImg, #newsImg, #drinksImg, #locationImg, #healthImg, #contactsImg, #revisionImg, #accommodationImg {
+#chatImg, #newsImg, #drinksImg, #locationImg, #healthImg, #societiesImg, #revisionImg, #accommodationImg {
     height: 7.5vh;
     margin-top: 17%;
     z-index: 1;
@@ -235,6 +177,7 @@ html, body {
     width: 48%;
 }
 
+/* Move dialog box further to top of the screen */
 .signUpDialog {
     padding-top: 0 !important;
     top: -10% !important;
@@ -265,13 +208,14 @@ button.btn-mobileSelect-gen:not([class*=col-]):not([class*=form-control]):not(.i
     padding: 0px 20px !important;
 }
 
+/* Change width of text at bottom of home page so that it is not obscurred by the AI chat box button */
 #courseworkText {
     position: absolute;
     bottom: 0;
     text-align: left;
     width: 75%;
     top: 161%;
-    margin-left: 3%;
+    margin-left: -9%;
 }
 
 #adminBtn {

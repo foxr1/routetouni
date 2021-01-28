@@ -334,7 +334,7 @@ sizes
 {% endmacro %}
 
 {#Recent conversations tab showing name, recent message, picture etc#}
-{% macro conv(name, time, room, last_msg, picture="../static/images/randomchat_icon.png") %}
+{% macro conv(name, time, room, last_msg, picture="../static/images/random-chat-icon.png") %}
 		<a class="list-group-item list-group-item-action rounded-0 text-break" id="{{room}}" data-toggle="tab" href="#tabChat-{{room}}" role="tab">
 		<div class="media">
 			<img alt="user" class="rounded-circle d-none d-lg-block" id="{{ room }}user_pict" src="{{picture}}" width="50">

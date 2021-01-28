@@ -22,8 +22,8 @@ a randomly selected colour. You can change your profile picture from this accoun
     <meta name="google-signin-client_id" content="1081173404847-ddjfjkqhfj79u9qiv7lrsajibo3vtgqc.apps.googleusercontent.com"/>
     <script src="static/js/node_modules/animejs/lib/anime.min.js"></script>
     <link rel="stylesheet" href="../static/css/styles.css">
-    <link rel="stylesheet" type="text/css" media="only screen and (max-width: 480px)" href="../static/css/mobile_stylesheet.css" />
-    <link rel="stylesheet" type="text/css" media="only screen and (min-width: 701px) and (max-width: 950px)" href="../static/css/tablet_stylesheet.css" />
+    <link rel="stylesheet" type="text/css" media="only screen and (max-width: 480px)" href="../static/css/mobile-stylesheet.css" />
+    <link rel="stylesheet" type="text/css" media="only screen and (min-width: 701px) and (max-width: 950px)" href="../static/css/tablet-stylesheet.css" />
 
     <!-- Link all favicons for different sizes. -->
     <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='favicon/apple-touch-icon.png') }}">
@@ -68,36 +68,36 @@ a randomly selected colour. You can change your profile picture from this accoun
         </span>
 
         <div id="universityHeading" class="noselect">
-            <img src="../static/images/home/newcasltelogo.png" id="newcastleLogo" alt="Newcastle University logo"/>
+            <img src="../static/images/home/newcaslte-logo.png" id="newcastleLogo" alt="Newcastle University logo"/>
             <h1 id="newcastleText">Newcastle</h1>
             <h1 id="universityText">University</h1>
         </div>
 
         <!-- All bubbles in ring on home page -->
-        <span id="bubble1" onclick="bubbleClick('bubble1', '#chatImg', 'chat')" onmouseover="bubbleHover('#bubble1')" onmouseout="bubbleLeave('#bubble1')">
+        <span id="chatBubble" class="homePageBubble" onclick="bubbleClick('chatBubble', '#chatImg', 'chat')" onmouseover="bubbleHover('#chatBubble')" onmouseout="bubbleLeave('#chatBubble')">
             <img id="chatImg" src="../static/images/bubbles/chat.png" alt="Chat"/>
-            <span class="bubble1Text noselect">Chat</span></span>
-        <span id="bubble2" onclick="bubbleClick('bubble2', '#newsImg', 'news')" onmouseover="bubbleHover('#bubble2')" onmouseout="bubbleLeave('#bubble2')">
+            <span id="chatBubbleTooltip" class="bubbleTooltip noselect">Chat</span></span>
+        <span id="newsBubble" class="homePageBubble" onclick="bubbleClick('newsBubble', '#newsImg', 'news')" onmouseover="bubbleHover('#newsBubble')" onmouseout="bubbleLeave('#newsBubble')">
             <img id="newsImg" src="../static/images/bubbles/news.png" alt="News"/>
-            <span class="bubble2Text noselect">News</span></span>
-        <span id="bubble3" onclick="bubbleClick('bubble3', '#drinksImg', 'pubs')" onmouseover="bubbleHover('#bubble3')" onmouseout="bubbleLeave('#bubble3')">
+            <span id="newsBubbleTooltip" class="bubbleTooltip noselect">News</span></span>
+        <span id="drinksBubble" class="homePageBubble" onclick="bubbleClick('drinksBubble', '#drinksImg', 'pubs')" onmouseover="bubbleHover('#drinksBubble')" onmouseout="bubbleLeave('#drinksBubble')">
             <img id="drinksImg" src="../static/images/bubbles/drinks.png" alt="Drinks"/>
-            <span class="bubble3Text noselect">Pubs & Clubs</span></span>
-        <span id="bubble4" onclick="bubbleClick('bubble4', '#locationImg', 'map')" onmouseover="bubbleHover('#bubble4')" onmouseout="bubbleLeave('#bubble4')">
+            <span id="drinksBubbleTooltip" class="bubbleTooltip noselect">Pubs & Clubs</span></span>
+        <span id="mapBubble" class="homePageBubble" onclick="bubbleClick('mapBubble', '#locationImg', 'map')" onmouseover="bubbleHover('#mapBubble')" onmouseout="bubbleLeave('#mapBubble')">
             <img id="locationImg" src="../static/images/bubbles/location.png" alt="Location"/>
-            <span class="bubble4Text noselect">Campus Map</span></span>
-        <span id="bubble5" onclick="bubbleClick('bubble5', '#accommodationImg', 'accommodation')" onmouseover="bubbleHover('#bubble5')" onmouseout="bubbleLeave('#bubble5')">
+            <span id="mapBubbleTooltip" class="bubbleTooltip noselect">Campus Map</span></span>
+        <span id="accommBubble" class="homePageBubble" onclick="bubbleClick('accommBubble', '#accommodationImg', 'accommodation')" onmouseover="bubbleHover('#accommBubble')" onmouseout="bubbleLeave('#accommBubble')">
             <img id="accommodationImg" src="../static/images/bubbles/home.png" alt="Accommodation"/>
-            <span class="bubble5Text noselect">Accommodation</span></span>
-        <span id="bubble6" onclick="bubbleClick('bubble6', '#healthImg', 'health')" onmouseover="bubbleHover('#bubble6')" onmouseout="bubbleLeave('#bubble6')">
+            <span id="accommBubbleTooltip" class="bubbleTooltip noselect">Accommodation</span></span>
+        <span id="healthBubble" class="homePageBubble" onclick="bubbleClick('healthBubble', '#healthImg', 'health')" onmouseover="bubbleHover('#healthBubble')" onmouseout="bubbleLeave('#healthBubble')">
             <img id="healthImg" src="../static/images/bubbles/health.png" alt="Health"/>
-            <span class="bubble6Text noselect">Health</span></span>
-        <span id="bubble7" onclick="bubbleClick('bubble7', '#contactsImg', 'societies')" onmouseover="bubbleHover('#bubble7')" onmouseout="bubbleLeave('#bubble7')">
-            <img id="contactsImg" src="../static/images/bubbles/people.png" alt="Contacts"/>
-            <span class="bubble7Text noselect">Societies</span></span>
-        <span id="bubble8" onclick="bubbleClick('bubble8', '#revisionImg', 'revision')" onmouseover="bubbleHover('#bubble8')" onmouseout="bubbleLeave('#bubble8')">
+            <span id="healthBubbleTooltip" class="bubbleTooltip noselect">Health</span></span>
+        <span id="societiesBubble" class="homePageBubble" onclick="bubbleClick('societiesBubble', '#societiesImg', 'societies')" onmouseover="bubbleHover('#societiesBubble')" onmouseout="bubbleLeave('#societiesBubble')">
+            <img id="societiesImg" src="../static/images/bubbles/people.png" alt="Contacts"/>
+            <span id="societiesBubbleTooltip" class="bubbleTooltip noselect">Societies</span></span>
+        <span id="revisionBubble" class="homePageBubble" onclick="bubbleClick('revisionBubble', '#revisionImg', 'revision')" onmouseover="bubbleHover('#revisionBubble')" onmouseout="bubbleLeave('#revisionBubble')">
             <img id="revisionImg" src="../static/images/bubbles/revision.png" alt="Revision"/>
-            <span class="bubble8Text noselect">Revision</span></span><br><br><br><br>
+            <span id="revisionBubbleTooltip" class="bubbleTooltip noselect">Revision</span></span><br><br><br><br>
 
         <p id="courseworkText">This website was made as part of a Computer Science coursework project at Newcastle University,
             a list of all sources used for information displayed on the website can be found <a style="color: #d91a35" href='/references'>here</a>.</p>

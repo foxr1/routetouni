@@ -1,3 +1,6 @@
+/* Name: Oliver Fox */
+/* All styling properties for the tablet version of the website */
+
 #newcastleLogo {
     height: 8vw;
     width: 7vw;
@@ -11,113 +14,55 @@
     font-size: 4.3vw;
 }
 
-/* Properties for home page bubbles */
-#bubble1 {
+/* Change size of bubbles for tablet */
+#chatBubble, #newsBubble, #drinksBubble, #mapBubble, #accommBubble, #healthBubble, #societiesBubble, #revisionBubble {
     height: 11vh;
     width: 11vh;
-    background-color: #d91a35;
-    border-radius: 50%;
-    display: inline-block;
-    position: absolute;
-    top: 28%;
-    left: 28%;
-    box-shadow: 0 0 5px #8a1425;
-    z-index: 0;
 }
 
-#bubble2 {
-    height: 11vh;
-    width: 11vh;
-    background-color: #d91a35;
-    border-radius: 50%;
-    display: inline-block;
-    position: absolute;
+/* Change bubble positions for tablet */
+#chatBubble {
+    top: 28%;
+    left: 28%;
+}
+
+#newsBubble {
     left: 45%;
     top: 15%;
-    box-shadow: 0 0 5px #8a1425;
-    z-index: 0;
 }
 
-#bubble3 {
-    height: 11vh;
-    width: 11vh;
-    background-color: #d91a35;
-    border-radius: 50%;
-    display: inline-block;
-    position: absolute;
+#drinksBubble {
     top: 28%;
     right: 24%;
-    box-shadow: 0 0 5px #8a1425;
-    z-index: 0;
 }
 
-#bubble4 {
-    height: 11vh;
-    width: 11vh;
-    background-color: #d91a35;
-    border-radius: 50%;
-    display: inline-block;
-    position: absolute;
+#mapBubble {
     bottom: 46%;
     right: 10%;
-    box-shadow: 0 0 5px #8a1425;
-    z-index: 0;
 }
 
-#bubble5 {
-    height: 11vh;
-    width: 11vh;
-    background-color: #d91a35;
-    border-radius: 50%;
-    display: inline-block;
-    position: absolute;
+#accommBubble {
     bottom: 46%;
     left: 10%;
-    box-shadow: 0 0 5px #8a1425;
-    z-index: 0;
 }
 
-#bubble6 {
-    height: 11vh;
-    width: 11vh;
-    background-color: #d91a35;
-    border-radius: 50%;
-    display: inline-block;
-    position: absolute;
+#healthBubble {
     bottom: 28%;
     right: 24%;
-    box-shadow: 0 0 5px #8a1425;
-    z-index: 0;
 }
 
-#bubble7 {
-    height: 11vh;
-    width: 11vh;
-    background-color: #d91a35;
-    border-radius: 50%;
-    display: inline-block;
-    position: absolute;
+#societiesBubble {
     left: 45%;
     bottom: 15%;
-    box-shadow: 0 0 5px #8a1425;
-    z-index: 0;
 }
 
-#bubble8 {
-    height: 11vh;
-    width: 11vh;
-    background-color: #d91a35;
-    border-radius: 50%;
-    display: inline-block;
-    position: absolute;
+#revisionBubble {
     bottom: 28%;
     left: 28%;
-    box-shadow: 0 0 5px #8a1425;
-    z-index: 0;
 }
 
 /* Positioning for bubble icons */
-#chatImg, #newsImg, #drinksImg, #locationImg, #healthImg, #contactsImg, #revisionImg, #accommodationImg {
+#chatImg, #newsImg, #drinksImg, #locationImg, #healthImg, #societiesImg, #revisionImg, #accommodationImg {
     height: 7vh;
 }
 

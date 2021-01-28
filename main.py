@@ -75,7 +75,7 @@ def admin():
 
 @app.route('/gregister')
 def gregister():
-    return render_template("google_login.html")
+    return render_template("google-login.html")
 
 
 @app.route('/login')
@@ -97,7 +97,7 @@ def health():
 @app.route('/news', methods=['GET', 'POST'])
 def news_feed():
     news_data = web_scraper.main()
-    return render_template("news_feed.html", news_data=news_data)
+    return render_template("news-feed.html", news_data=news_data)
 
 
 @app.route('/revision', methods=['GET', 'POST'])
@@ -107,7 +107,7 @@ def revision_feed():
 
 @app.route('/map', methods=['GET', 'POST'])
 def campus_map():
-    return render_template("campus_map.html")
+    return render_template("campus-map.html")
 
 
 @app.route('/accommodation', methods=['GET', 'POST'])
