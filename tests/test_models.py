@@ -8,7 +8,8 @@ def test_get_all_users():
     assert models.get_all_users() == db.reference('users').get()
 
 
-
+# Test that all mentors can be correctly accessed
+# Expected outcome = True
 def test_get_mentors():
     unverified_ment = []
     verified_ment = []
