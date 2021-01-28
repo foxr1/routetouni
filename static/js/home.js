@@ -1,4 +1,6 @@
-// All functions involved when using the home page.
+// Name: Oliver Fox
+// All functions involved when using the home page including: checking the user is logged in, redirecting to login page,
+// check if they are an admin to display admin button and showing and hiding the account box.
 
 // Check if a user is logged in.
 var loginBtn = document.getElementById("login");
@@ -20,7 +22,9 @@ if (user) {
     loginBtn.style.padding = "15px";
     loginBtn.textContent = "Login";
     loggedIn = false;
-    var chatBubble = document.getElementById("bubble1");
+
+    // If the user is not logged in disable the chat bubble.
+    var chatBubble = document.getElementById("chatBubble");
     chatBubble.style.backgroundColor = "grey";
     chatBubble.onclick = function () {
         alert("You must be logged in to access the chat.");
@@ -34,7 +38,7 @@ function checkLogin() {
     if (loggedIn) {
         showAccount();
     } else {
-        loginPageTransition('#homeLayout', 'login');
+        loginPageTransition();
     }
 }
 

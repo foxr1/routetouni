@@ -19,7 +19,6 @@ sizes
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js" type="text/javascript"></script>
     <style>
-
         html, body {
         background: #003a65; !important;
         position: fixed;
@@ -68,6 +67,10 @@ sizes
         <script charset="utf-8" type="text/javascript">
             var curr_room = ""
             var local_user = null
+
+            function home_redirect(){
+                window.location.assign('/');
+            }
 
             function get_form() {
                 /**
@@ -172,7 +175,7 @@ sizes
                 /**
                  * Establish a websocket connection with the backend, all socket.io handling functions are performed here
                  */
-                socket = io.connect('ws://' + location.host  +'/chat', {secure:true});
+                socket = io.connect('wss://' + location.host  +'/chat', {secure:true});
                 socket.on('connect', function() {
                     // Send Message to backend once connection established
                     socket.emit('joined', {'name':local_user, 'time':get_time()});
@@ -334,7 +337,7 @@ sizes
 {% endmacro %}
 
 {#Recent conversations tab showing name, recent message, picture etc#}
-{% macro conv(name, time, room, last_msg, picture="../static/images/randomchat_icon.png") %}
+{% macro conv(name, time, room, last_msg, picture="../static/images/random-chat-icon.png") %}
 		<a class="list-group-item list-group-item-action rounded-0 text-break" id="{{room}}" data-toggle="tab" href="#tabChat-{{room}}" role="tab">
 		<div class="media">
 			<img alt="user" class="rounded-circle d-none d-lg-block" id="{{ room }}user_pict" src="{{picture}}" width="50">
@@ -369,7 +372,7 @@ sizes
             </div>
             <div class="input-group">
                 <div class="input-group-prepend">
-                    <button value="{{ room_id }}" name="exit_butt" onclick="leave_room(this.value)" type="button" class="btn btn-danger btn-lg rounded-0 d-none d-lg-block"><i class="fa fa-close"></i>&nbsp;Exit</button>
+                    <button value="{{ room_id }}" name="exit_butt" onclick="leave_room(this.value)" type="button" class="btn btn-danger btn-lg rounded-0 d-none d-md-block"><i class="fa fa-close"></i>&nbsp;Exit</button>
                 </div>
                 <input type="text" id="text{{ room_id }}" placeholder="Enter message" class="form-control rounded-0 border-0 py-4 bg-light text-break">
                 <div class="input-group-append">
@@ -389,9 +392,13 @@ sizes
                     <div class="collapse navbar-collapse show" id="navcol-1">
                         <ul class="nav navbar-nav" style="width: 100%;">
                             <li class="nav-item" style="width: 100%;">
+
                                 <div class="bg-gray px-4 py-2 bg-light">
+                                    <img style="position: absolute; left: 5%; top: 16%;" src="../static/images/back-blue.png" width="5%">
                                     <p class="h5 mb-0 py-1">Chats</p>
                                 </div>
+
+
                                 <div class="messages-box">
                                     <div class="list-group rounded-0 active " id="myTab" role="tablist">
                                         {#Iterate over ditionary rooms and random chats adding each
@@ -410,16 +417,22 @@ sizes
                                             <div class="media">
                                                 <div class="media-body ml-4" id="button_loc">
 
+                                                <div class="row no-gutters mt-1">
+                                                        <div class="col text-center">
+                                                 <button class="btn btn-danger" onclick="home_redirect()" type="button" role="button" href="/"><i class="fa fa-home fa-2x"></i></button></div></div>
+
+                                                {% if role == 'Peer Mentor' %}
                                                     <div class="row no-gutters mt-1">
                                                         <div class="col text-center">
                                                             <button class="btn btn-outline-primary btn-lg" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-users"></i> New</button>
                                                         </div>
                                                     </div>
+                                                {% endif %}
 
                                                     {% if prev_msg['random_chat']|length == 0 %}
                                                         <div class="row no-gutters mt-1">
                                                             <div class="col text-center">
-                                                                <button class="btn btn-outline-info btn-lg"  onclick="join_random()"><i class="fa fa-users"></i> Random Chat</button>
+                                                                <button class="btn btn-outline-info btn-lg"  onclick="join_random()"><i class="fa fa-wechat"></i> Random Chat</button>
                                                             </div>
                                                         </div>
                                                     {% endif %}
@@ -465,7 +478,7 @@ sizes
 </div>
 
 
-
+  {% if role == 'Peer Mentor' %}
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
       <form  onsubmit="get_form()" id="new_chat" method="post">
@@ -506,7 +519,7 @@ sizes
       </form>
   </div>
 </div>
-
+    {% endif %}
 
 <script>
 $('#exampleModal').on('shown.bs.modal', function () {

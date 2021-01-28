@@ -8,8 +8,8 @@
     <script src="static/js/node_modules/animejs/lib/anime.min.js"></script>
     <script src="static/js/animations.js"></script>
     <link rel="stylesheet" href="static/css/styles.css">
-    <link rel="stylesheet" href="../static/css/revision_flipcard_stylesheet.css">
-    <link rel="stylesheet" type="text/css" media="only screen and (max-device-width: 480px)" href="../static/css/mobile_flipcard_stylesheet.css" />
+    <link rel="stylesheet" href="../static/css/revision-flipcard-stylesheet.css">
+    <link rel="stylesheet" type="text/css" media="only screen and (max-device-width: 480px)" href="../static/css/mobile-flipcard-stylesheet.css" />
 
     <!-- Link all favicons for different sizes. -->
     <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='favicon/apple-touch-icon.png') }}">
@@ -23,44 +23,44 @@
     <div class="topnav">
         <img src="static/images/back.svg" id="back" onclick="backPress()" alt="Back button"/>
         <img src="static/images/back.svg" id="navArrow" alt="Show navigation bar"/>
-        <span id="navBubble1" onclick="window.location.assign('/chat');" onmouseover="bubbleHover('#navBubble1')" onmouseout="bubbleLeave('#navBubble1')">
-            <img id="navChatImg" src="../static/images/bubbles/chat.png" alt="Chat"/>
-            <span class="navBubble1Text">Chat</span></span>
+        <span id="navChatBubble" class="navBubble" onclick="window.location.assign('/chat');" onmouseover="bubbleHover('#navChatBubble')" onmouseout="bubbleLeave('#navChatBubble')">
+            <img id="navChatImg" class="navBubbleImg" src="../static/images/bubbles/chat.png" alt="Chat"/>
+            <span id="navChatTooltip" class="navBubbleTooltip">Chat</span>
         </span>
-        <span id="navBubble2" onclick="window.location.assign('/news');" onmouseover="bubbleHover('#navBubble2')" onmouseout="bubbleLeave('#navBubble2')">
-            <img id="navNewsImg" src="../static/images/bubbles/news.png" alt="News"/>
-            <span class="navBubble2Text">News</span></span>
+        <span id="navNewsBubble" class="navBubble" onclick="window.location.assign('/news');" onmouseover="bubbleHover('#navNewsBubble')" onmouseout="bubbleLeave('#navNewsBubble')">
+            <img id="navNewsImg" class="navBubbleImg" src="../static/images/bubbles/news.png" alt="News"/>
+            <span id="navNewsTooltip" class="navBubbleTooltip">News</span>
         </span>
-        <span id="navBubble3" onclick="window.location.assign('/pubs');" onmouseover="bubbleHover('#navBubble3')" onmouseout="bubbleLeave('#navBubble3')">
-            <img id="navDrinksImg" src="../static/images/bubbles/drinks.png" alt="Drinks"/>
-            <span class="navBubble3Text">Pubs & Clubs</span></span>
+        <span id="navPubsBubble" class="navBubble" onclick="window.location.assign('/pubs');" onmouseover="bubbleHover('#navPubsBubble')" onmouseout="bubbleLeave('#navPubsBubble')">
+            <img id="navPubsImg" class="navBubbleImg" src="../static/images/bubbles/drinks.png" alt="Pubs & Clubs"/>
+            <span id="navPubsTooltip" class="navBubbleTooltip">Pubs & Clubs</span>
         </span>
-        <span id="navBubble4" onclick="window.location.assign('/map');" onmouseover="bubbleHover('#navBubble4')" onmouseout="bubbleLeave('#navBubble4')">
-            <img id="navLocationImg" src="../static/images/bubbles/location.png" alt="Location"/>
-            <span class="navBubble4Text">Campus Map</span></span>
+        <span id="navMapBubble" class="navBubble" onclick="window.location.assign('/map');" onmouseover="bubbleHover('#navMapBubble')" onmouseout="bubbleLeave('#navMapBubble')">
+            <img id="navLocationImg" class="navBubbleImg" src="../static/images/bubbles/location.png" alt="Map"/>
+            <span id="navMapTooltip" class="navBubbleTooltip">Campus Map</span>
         </span>
-        <span id="navBubble5" onclick="window.location.assign('/accommodation');" onmouseover="bubbleHover('#navBubble5')" onmouseout="bubbleLeave('#navBubble5')">
-            <img id="navAccommodationImg" src="../static/images/bubbles/home.png" alt="Accommodation"/>
-            <span class="navBubble5Text">Accommodation</span></span>
+        <span id="navAccommBubble" class="navBubble" onclick="window.location.assign('/accommodation');" onmouseover="bubbleHover('#navAccommBubble')" onmouseout="bubbleLeave('#navAccommBubble')">
+            <img id="navAccommodationImg" class="navBubbleImg" src="../static/images/bubbles/home.png" alt="Accommodation"/>
+            <span id="navAccommTooltip" class="navBubbleTooltip">Accommodation</span>
         </span>
-        <span id="navBubble6" onclick="window.location.assign('/health');" onmouseover="bubbleHover('#navBubble6')" onmouseout="bubbleLeave('#navBubble6')">
-            <img id="navHealthImg" src="../static/images/bubbles/health.png" alt="Health"/>
-            <span class="navBubble6Text">Health</span></span>
+        <span id="navHealthBubble" class="navBubble" onclick="window.location.assign('/health');" onmouseover="bubbleHover('#navHealthBubble')" onmouseout="bubbleLeave('#navHealthBubble')">
+            <img id="navHealthImg" class="navBubbleImg" src="../static/images/bubbles/health.png" alt="Health"/>
+            <span id="navHealthTooltip" class="navBubbleTooltip">Health</span>
         </span>
-        <span id="navBubble7" onclick="window.location.assign('/societies');" onmouseover="bubbleHover('#navBubble7')" onmouseout="bubbleLeave('#navBubble7')">
-            <img id="navContactsImg" src="../static/images/bubbles/people.png" alt="Contacts"/>
-            <span class="navBubble7Text">Societies</span></span>
+        <span id="navSocietiesBubble" class="navBubble" onclick="window.location.assign('/societies');" onmouseover="bubbleHover('#navSocietiesBubble')" onmouseout="bubbleLeave('#navSocietiesBubble')">
+            <img id="navContactsImg" class="navBubbleImg" src="../static/images/bubbles/people.png" alt="Societies"/>
+            <span id="navSocietiesTooltip" class="navBubbleTooltip">Societies</span>
         </span>
-        <span id="navBubble8" onclick="window.location.assign('/revision');" onmouseover="bubbleHover('#navBubble8')" onmouseout="bubbleLeave('#navBubble8')">
-            <img id="navRevisionImg" src="../static/images/bubbles/revision.png" alt="Revision"/>
-            <span class="navBubble8Text">Revision</span></span>
+        <span id="navRevisionBubble" class="navBubble" onclick="window.location.assign('/revision');" onmouseover="bubbleHover('#navRevisionBubble')" onmouseout="bubbleLeave('#navRevisionBubble')">
+            <img id="navRevisionImg" class="navBubbleImg" src="../static/images/bubbles/revision.png" alt="Revision"/>
+            <span id="navRevisionTooltip" class="navBubbleTooltip">Revision</span>
         </span>
     </div>
     <div class="card_container">
         <div class="card_child" id="flip-card-1">
         <div class="flip-card-inner">
             <div class="flip-card-front">
-                <img id="notetaking_pic" src="../static/images/revision/notetaking.png">
+                <img id="notetaking_pic" src="../static/images/revision/note-taking.png">
                 <h2 id="title-front">Note Taking</h2>
             </div>
             <div class="flip-card-back">

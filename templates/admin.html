@@ -7,8 +7,7 @@ It will also allow the Administrator to view a list of all peer mentors and
 filter this by course.
 -->
 <!DOCTYPE html>
-<html style="background: #003a65;">
-
+<html style="background: #003a65;" lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
@@ -36,149 +35,104 @@ filter this by course.
     <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-storage.js"></script>
     <script src="static/js/init.js"></script>
     <script src="static/js/auth.js"></script>
-    <script charset="utf-8" type="text/javascript">
-
-        //If the user is verified as a peer mentor, verification is set to true in firebase database
-        function yes_pm(uid) {
-            firebase.database().ref('users/' + uid).update({
-                mentor_verified: true
-            }) .then(() => {
-                location.reload();
-            });
-        }
-
-        //If the user is rejected as being a peer mentor, their role is changed to student in the firebase database
-        function not_pm(uid) {
-            firebase.database().ref('users/' + uid).update({
-                role: 'Student'
-            }) .then(() => {
-                location.reload();
-            });
-        }
-
-
-        //allows the user to display all peer mentors for a specific school.
-        function searchbycourse() {
-            var input, filter, table, tr, td, i, txtValue;
-            input = document.getElementById("school_input");
-            filter = input.value.toUpperCase();
-            table = document.getElementById("displaypm_table");
-            tr = table.getElementsByTagName("tr");
-
-            // Loop through all table rows, and hide those who don't match the search query
-            for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td")[2];
-                if (td) {
-                    txtValue = td.textContent || td.innerText;
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        tr[i].style.display = "";
-                    } else {
-                        tr[i].style.display = "none";
-                    }
-                }
-            }
-        }
-
-    </script>
+    <script src="static/js/admin.js"></script>
 </head>
-
 <body style="background: rgb(0,58,101);">
-<div style="background: #fffefe;" class="jumbotron vertical-center border rounded mt-5 pt-2 mb-5 pb-2 ml-5 pl-5 mr-5 pr-5">
-    <!-- Start: header -->
-    <div class="row">
-        <div class="col-2 align-items-center"><img onclick="window.location.assign('/');" src="../static/images/back_blue.png" id="adminBack" width="30vh"></div>
-        <div class="col-8 d-flex justify-content-center">
-            <h1 class="display-4">Admin Page</h1>
-        </div>
-    </div>
-
-
-    <div class="row mt-3 pt-3 justify-content-center">
-
-        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-            <li class="nav-item"><a class="nav-link" id="pills-verify-tab"data-toggle="pill" href="#tab1" role="tab" aria-controls="pills-verify" aria-selected="true">Verify New Peer Mentors</a></li>
-            <li class="nav-item"><a class="nav-link" id="pills-viewall-tab" data-toggle="pill" href="#tab2" role="tab" aria-controls="pills-viewall" aria-selected="true">View All Peer Mentors</a></li>
-
-        </ul>
-    </div>
-        <div id="pills-tabContent" class="tab-content">
-        <div class="tab-pane fade" id="tab1" role="tabpanel" aria-labelledby="pills-verify-tab">
-            <div class=" row justify-content-center"><h3 class="display-4" style="font-size: 25px;" id="view_all_text">Verify Peer Mentors</h3></div>
-
-           {# display new peer mentors in verification table#}
-            <div class="table-responsive text-left mt-2 pt-2">
-            <table id="verifypm_table  mt-3 pt-3" class="table table-sm" id="user_table">
-            <caption>Verify Peer Mentors Table</caption>
-                <thead>
-                <tr class="text-left justify-content-between">
-                    <th>User ID</th>
-                    <th>Name</th>
-                    <th>School</th>
-                    <th>Accept</th>
-                    <th>Reject</th>
-                </tr>
-                </thead>
-                <tbody>
-
-                {%  for value in mentors_info['unverified']%}
-                    <tr>
-                        <td>{{value['uid']}}</td>
-                        <td>{{value['name']}}</td>
-                        <td>{{value['course']}}</td>
-                        <td><button class="btn btn-success btn-block" name="{{value['uid']}}" id="accept"  onload="" onclick="yes_pm(this.name)" type="button">&#10004;</button></td>
-                        <td><button class="btn btn-danger btn-block" name="{{value['uid']}}" id="reject" onclick="not_pm(this.name)" type="button">&#10006;</button></td>
-                    </tr>
-                {%  endfor %}
-
-
-                </tbody>
-            </table>
+    <div style="background: #fffefe;" class="jumbotron vertical-center border rounded mt-5 pt-2 mb-5 pb-2 ml-5 pl-5 mr-5 pr-5">
+        <!-- Start: header -->
+        <div class="row">
+            <div class="col-2 align-items-center"><img onclick="window.location.assign('/');" src="../static/images/back-blue.png" id="adminBack" width="30vh"></div>
+            <div class="col-8 d-flex justify-content-center">
+                <h1 class="display-4">Admin Page</h1>
             </div>
         </div>
-        <!-- End: verify_new -->
-        <!-- Start: all_mentors -->
 
-            <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="pills-viewall-tab">
-        <div class="row justify-content-center"><h3 class="display-4" style="font-size: 25px;" id="view_all_text">Current Peer Mentors</h3>
+
+        <div class="row mt-3 pt-3 justify-content-center">
+            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                <li class="nav-item"><a class="nav-link" id="pills-verify-tab"data-toggle="pill" href="#tab1" role="tab" aria-controls="pills-verify" aria-selected="true">Verify New Peer Mentors</a></li>
+                <li class="nav-item"><a class="nav-link" id="pills-viewall-tab" data-toggle="pill" href="#tab2" role="tab" aria-controls="pills-viewall" aria-selected="true">View All Peer Mentors</a></li>
+
+            </ul>
         </div>
+            <div id="pills-tabContent" class="tab-content">
+            <div class="tab-pane fade" id="tab1" role="tabpanel" aria-labelledby="pills-verify-tab">
+                <div class=" row justify-content-center"><h3 class="display-4" style="font-size: 25px;" id="view_all_text">Verify Peer Mentors</h3></div>
 
-
-            <div class="row justify-content-start">
-                <p class="mt-2 pt-2 mr-2 pr-2">Search: </p>
-                <input class="" type="text" id="school_input" onkeyup="searchbycourse()" placeholder="Search by school.."></div>
-
+               {# display new peer mentors in verification table#}
                 <div class="table-responsive text-left mt-2 pt-2">
-            <table id="displaypm_table" class="table table-sm">
-                <caption>List of all Current Peer Mentors</caption>
-                <thead>
-                <tr class="text-left justify-content-between">
-                    <th>User ID</th>
-                    <th>Name</th>
-                    <th>School</th>
-                    <th>Email</th>
-                </tr>
-                </thead>
-                <tbody>
-
-                {%  for value in mentors_info['verified'] %}
-                    <tr>
-                        <td>{{value['uid']}}</td>
-                        <td>{{value['name']}}</td>
-                        <td>{{value['course']}}</td>
-                        <td>{{value['email']}}</td>
+                <table id="verifypm_table  mt-3 pt-3" class="table table-sm" id="user_table">
+                <caption>Verify Peer Mentors Table</caption>
+                    <thead>
+                    <tr class="text-left justify-content-between">
+                        <th>User ID</th>
+                        <th>Name</th>
+                        <th>School</th>
+                        <th>Accept</th>
+                        <th>Reject</th>
                     </tr>
-                {%  endfor %}
+                    </thead>
+                    <tbody>
 
-                </tbody>
-            </table>
+                    {%  for value in mentors_info['unverified']%}
+                        <tr>
+                            <td>{{value['uid']}}</td>
+                            <td>{{value['name']}}</td>
+                            <td>{{value['course']}}</td>
+                            <td><button class="btn btn-success btn-block" name="{{value['uid']}}" id="accept"  onload="" onclick="isPeerMentor(this.name)" type="button">&#10004;</button></td>
+                            <td><button class="btn btn-danger btn-block" name="{{value['uid']}}" id="reject" onclick="notPeerMentor(this.name)" type="button">&#10006;</button></td>
+                        </tr>
+                    {%  endfor %}
+
+
+                    </tbody>
+                </table>
+                </div>
+            </div>
+            <!-- End: verify_new -->
+            <!-- Start: all_mentors -->
+
+                <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="pills-viewall-tab">
+            <div class="row justify-content-center"><h3 class="display-4" style="font-size: 25px;" id="view_all_text">Current Peer Mentors</h3>
+            </div>
+
+
+                <div class="row justify-content-start">
+                    <p class="mt-2 pt-2 mr-2 pr-2">Search: </p>
+                    <input class="" type="text" id="school_input" onkeyup="searchByCourse()" placeholder="Search by school.."></div>
+
+                    <div class="table-responsive text-left mt-2 pt-2">
+                <table id="displaypm_table" class="table table-sm">
+                    <caption>List of all Current Peer Mentors</caption>
+                    <thead>
+                    <tr class="text-left justify-content-between">
+                        <th>User ID</th>
+                        <th>Name</th>
+                        <th>School</th>
+                        <th>Email</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {%  for value in mentors_info['verified'] %}
+                        <tr>
+                            <td>{{value['uid']}}</td>
+                            <td>{{value['name']}}</td>
+                            <td>{{value['course']}}</td>
+                            <td>{{value['email']}}</td>
+                        </tr>
+                    {%  endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+            </div>
+
+            <!-- End: all_mentors -->
+
         </div>
-        </div>
-
-        <!-- End: all_mentors -->
-
     </div>
-</div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="static/bootstrap/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="static/bootstrap/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>

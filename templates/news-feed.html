@@ -8,6 +8,7 @@
     <script src="static/js/node_modules/animejs/lib/anime.min.js"></script>
     <script src="static/js/animations.js"></script>
     <link rel="stylesheet" href="static/css/styles.css">
+    <link rel="stylesheet" href="../static/css/flipcard-stylesheet.css">
     <link rel="stylesheet" type="text/css" media="only screen and (max-device-width: 480px)" href="../static/css/mobile-flipcard-stylesheet.css" />
 
     <!-- Link all favicons for different sizes. -->
@@ -16,9 +17,9 @@
     <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon/favicon-16x16.png') }}">
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon/favicon.ico') }}">
     <link rel="manifest" href="{{ url_for('static', filename='favicon/site.webmanifest') }}"> <!-- Manifest responsible for working as a web app on mobile devices. -->
-    <title>References - RouteToUni</title>
+    <title>News - RouteToUni</title>
 </head>
-<body style="overflow-y: auto !important;">
+<body>
     <div class="topnav">
         <img src="static/images/back.svg" id="back" onclick="backPress()" alt="Back button"/>
         <img src="static/images/back.svg" id="navArrow" alt="Show navigation bar"/>
@@ -55,31 +56,22 @@
             <span id="navRevisionTooltip" class="navBubbleTooltip">Revision</span>
         </span>
     </div>
-    <div style="margin: 5%" class="ScrollStyle">
-        <h1 style="color: white; font-family: 'GilroyBold', 'sans-serif'; font-size: 2em !important;">Website Information</h1>
-        <p>This page is to show our refereneces for each page</p>
-        <h2>Pubs and Clubs Page</h2>
-        <p>No references</p>
-        <h2>Health Page</h2>
-        <p>Ncl.ac.uk. 2020. Mental Health And Wellbeing
-            - Student And Staff Wellbeing - Newcastle University.
-            [online] Available at:
-            <a class="reflink" href="<https://www.ncl.ac.uk/wellbeing/mentalwellbeing/#counsellingteam>">https://www.ncl.ac.uk/wellbeing/mentalwellbeing/#counsellingteam</a>
-            [Accessed 13 December 2020].</p>
-        <h2>Societies Page</h2>
-        <p>Ncl.ac.uk. 2020. Mental Health And Wellbeing - Student And Staff Wellbeing - Newcastle University. [online] Available at:
-            <a class="reflink" href="<https://www.ncl.ac.uk/wellbeing/mentalwellbeing/#counsellingteam>">https://www.ncl.ac.uk/wellbeing/mentalwellbeing/#counsellingteam</a>
-            [Accessed 13 December 2020].</p>
-        <h2>Revision Page</h2>
-        <p>STUDY_SKILLS_BOOKLET.pdf, Booklet provided to peer mentors. Created by: Gabrielle Vallons</p>
-        <h2>Accommodation Page</h2>
-        <p>Nusu.co.uk. 2020. Accommodation And Housing. [online] Available at:
-            <a class="reflink" href="<https://www.nusu.co.uk/support/sac/housing/>">https://www.nusu.co.uk/support/sac/housing/</a>
-            [Accessed 12 December 2020].</p>
-        <h2>News Page</h2>
-        <p>Ncl.ac.uk. 2020. Press Office - Latest News. [online] Available at: <a class="reflink" href="https://www.ncl.ac.uk/press/latest/">https://www.ncl.ac.uk/press/latest/</a>
-            [Accessed whenever program is run]</p>
-    </div>
+    <div class="card_container">
+        {% for key, value in news_data.items() %}
+       <div class="card_child" id="{{ news_data[key]['ID']}}">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <h1>{{ key }}</h1>
+                </div>
+                <div class="flip-card-back">
+                    <p>{{ news_data[key]['Description'] }}</p>
+                    <p>{{ news_data[key]['Date'] }}</p>
+                    <a href="{{ news_data[key]['URL'] }}">Click here for Link to article</a>
 
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 </body>
 </html>

@@ -1,3 +1,13 @@
+// Name: Oliver Fox & Phillip Solomodis
+// All functions involved for authentication of the website including: logging in, signing up, verifying input fields
+// when signing up with showing errors and showing the loading circle for when the user submits the login/sign up.
+
+/**
+ * Checks the user has entered valid details then logs the user in to the website and then redirects to the home page.
+ *
+ * @param {string} email    The email the user has entered
+ * @param {string} password The password the user has entered
+ */
 function login(email, password) {
     // As httpOnly cookies are to be used, do not persist any state client side.
     firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
@@ -20,6 +30,9 @@ function login(email, password) {
     });
 }
 
+// Do various validation checks for when the user tries to sign up with an email and password including: checking a name
+// has been entered, password matches given regex and the repeated passwords match, they have selected a school and they
+// have selected a role.
 function verifySignUp() {
     let valid = false;
     let emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -38,8 +51,6 @@ function verifySignUp() {
     var roles = document.getElementById("roles");
     var roleOption = roles.options[document.getElementById("roles").selectedIndex];
     var roleError = document.getElementById("roleError");
-
-
 
     if (firstname.value !== "" && lastname.value !== "" && email.value.toLowerCase().match(emailRegex) && password.value === passwordRepeat.value &&
         password.value.match(passwordRegex) && schoolOption.value !== "blank" && roleOption.value !== "blank") {
@@ -115,6 +126,11 @@ function verifySignUp() {
     }
 }
 
+/**
+ * Animate in an error message from below the given input field.
+ *
+ * @param {string} error The name of the error element that should be displayed
+ */
 function showError(error) {
     if (document.getElementById(error).style.marginTop !== "0px") {
         document.getElementById(error).style.display = "block"
@@ -127,12 +143,18 @@ function showError(error) {
     }
 }
 
+/**
+ * Remove the error from the dialog box if an input has been amended.
+ *
+ * @param {string} error The name of the error element that should be hidden
+ */
 function hideError(error) {
     if (document.getElementById(error).style.marginTop !== "-35px") {
         let showError = anime({
             targets: "#" + error,
-            marginTop: ['0px', "-35px"], duration: 1000,
-            opacity: ['100%', '0%'], duration: 1000,
+            marginTop: ['0px', "-35px"],
+            opacity: ['100%', '0%'],
+            duration: 1000,
             easing: 'easeInOutQuad'
         });
 
@@ -144,15 +166,17 @@ function hideError(error) {
     }
 }
 
-function get_random_pic(){
+// Randomly assign a coloured picture from a directory of custom made profile pictures for a user when they sign up with
+// an email and password.
+function getRandomPic(){
     const pics = [
-        "15ff4c_user.png",
-        "6ac492_user.png",
-        "e20090_user.png",
-        "ff1515_user.png",
-        "ff15f3_user.png",
-        "ff7315_user.png",
-        "ffdc15_user.png"
+        "15ff4c-user.png",
+        "6ac492-user.png",
+        "e20090-user.png",
+        "ff1515-user.png",
+        "ff15f3-user.png",
+        "ff7315-user.png",
+        "ffdc15-user.png"
     ];
     return "../static/images/default_icons/" + pics[Math.floor(Math.random() * pics.length)]
 }
@@ -167,7 +191,7 @@ function signUp(firstname, lastname, course, role, email, password) {
                 course: course,
                 role: role,
                 uid: firebase.auth().currentUser.uid,
-                profilePicture: get_random_pic(),
+                profilePicture: getRandomPic(),
                 mentor_verified: false
             }, (error) => {
                 if (error) {
@@ -183,6 +207,8 @@ function signUp(firstname, lastname, course, role, email, password) {
         .catch((error) => {
             var errorCode = error.code;
             console.log(errorCode);
+
+            // Check the user's email at this stage to prevent spam of people trying to find whether an email is already registered with the site.
             if (error.code === "auth/email-already-in-use") {
                 document.getElementById("emailError").textContent = "Email address already in use";
                 showError("emailError");
@@ -190,13 +216,15 @@ function signUp(firstname, lastname, course, role, email, password) {
         });
 }
 
+// Log the user out of the session and redirect to the home page (refresh).
 function logout() {
     fetch('/sessionLogout').then(()=> {
         window.location.assign('/');
     })
 }
 
-function addCookieRedirect(){
+// Add the session cookie to give Flask the user's information
+function addCookieRedirect() {
     firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
     firebase.auth().currentUser.getIdToken(true).then(idToken => {
     fetch('/sessionLogin?idToken=' + idToken).then(()=> {
@@ -206,6 +234,11 @@ function addCookieRedirect(){
     });
 }
 
+/**
+ * Display the loading circle for when the user submits their information for either logging in or signing up.
+ *
+ * @param {string} type Refers to either login or register page
+ */
 function showLoading(type) {
     var loadingIcon = document.getElementById(type + "Loading");
     loadingIcon.style.display = "block";
@@ -214,5 +247,16 @@ function showLoading(type) {
         marginTop: ['-25%', '0%'],
         opacity: ['0%', '100%'], duration: 1000,
         easing: 'easeInOutQuad'
+    });
+}
+
+/**
+ * Function that uses Firebase's inbuilt feature to send an email to the given user and display a reset password field.
+ *
+ * @param {string} email The email the user entered in the forgot password input field
+ */
+function forgotPassword(email) {
+    firebase.auth().sendPasswordResetEmail(email).then(() => {
+        showError("emailSent"); // Even though it says "showError" I'm using this function for the animation functionality.
     });
 }

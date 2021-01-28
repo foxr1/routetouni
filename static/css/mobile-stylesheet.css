@@ -1,4 +1,6 @@
+/* Name: Oliver Fox */
 /* CSS properties for when the website is being view on a mobile browser */
+
 html, body {
     background-color: #003a65;
     position: fixed;
@@ -65,113 +67,55 @@ html, body {
     text-shadow: 0 0 5px #000000;
 }
 
-/* Change position of home page bubbles so they are in one column to work better with mobile browsers */
-#bubble1 {
+/* Change size of bubbles for mobile */
+.homePageBubble {
     height: 12vh;
     width: 12vh;
-    background-color: #d91a35;
-    border-radius: 50%;
-    display: inline-block;
-    position: absolute;
+}
+
+/* Positioning of bubbles on home page for mobile */
+#chatBubble {
     top: 36%;
     left: 5%;
-    box-shadow: 0 0 5px #8a1425;
-    z-index: 0;
 }
 
-#bubble2 {
-    height: 12vh;
-    width: 12vh;
-    background-color: #d91a35;
-    border-radius: 50%;
-    display: inline-block;
-    position: absolute;
+#newsBubble {
     left: 5%;
     top: 52%;
-    box-shadow: 0 0 5px #8a1425;
-    z-index: 0;
 }
 
-#bubble3 {
-    height: 12vh;
-    width: 12vh;
-    background-color: #d91a35;
-    border-radius: 50%;
-    display: inline-block;
-    position: absolute;
+#pubsBubble {
     top: 68%;
     left: 5%;
-    box-shadow: 0 0 5px #8a1425;
-    z-index: 0;
 }
 
-#bubble4 {
-    height: 12vh;
-    width: 12vh;
-    background-color: #d91a35;
-    border-radius: 50%;
-    display: inline-block;
-    position: absolute;
+#mapBubble {
     top: 84%;
     left: 5%;
-    box-shadow: 0 0 5px #8a1425;
-    z-index: 0;
 }
 
-#bubble5 {
-    height: 12vh;
-    width: 12vh;
-    background-color: #d91a35;
-    border-radius: 50%;
-    display: inline-block;
-    position: absolute;
+#accommBubble {
     top: 148%;
     left: 5%;
-    box-shadow: 0 0 5px #8a1425;
-    z-index: 0;
 }
 
-#bubble6 {
-    height: 12vh;
-    width: 12vh;
-    background-color: #d91a35;
-    border-radius: 50%;
-    display: inline-block;
-    position: absolute;
+#healthBubble {
     top: 100%;
     left: 5%;
-    box-shadow: 0 0 5px #8a1425;
-    z-index: 0;
 }
 
-#bubble7 {
-    height: 12vh;
-    width: 12vh;
-    background-color: #d91a35;
-    border-radius: 50%;
-    display: inline-block;
-    position: absolute;
+#societiesBubble {
     left: 5%;
     top: 116%;
-    box-shadow: 0 0 5px #8a1425;
-    z-index: 0;
 }
 
-#bubble8 {
-    height: 12vh;
-    width: 12vh;
-    background-color: #d91a35;
-    border-radius: 50%;
-    display: inline-block;
-    position: absolute;
+#revisionBubble {
     top: 132%;
     left: 5%;
-    box-shadow: 0 0 5px #8a1425;
-    z-index: 0;
 }
 
 /* Positioning for bubble icons */
-#chatImg, #newsImg, #drinksImg, #locationImg, #healthImg, #contactsImg, #revisionImg, #accommodationImg {
+.homeBubbleImg {
     height: 7.5vh;
     margin-top: 17%;
     z-index: 1;
@@ -182,7 +126,7 @@ html, body {
 }
 
 /* Change position of text for bubbles to be displayed at all times on the right hand side of the bubbles */
-.bubble1Text, .bubble2Text, .bubble3Text, .bubble4Text, .bubble5Text, .bubble6Text, .bubble7Text, .bubble8Text {
+.bubbleTooltip {
     font-family: 'GilroyMedium', 'sans-serif';
     visibility: visible !important;
     font-weight: lighter;
@@ -196,14 +140,14 @@ html, body {
     position: absolute;
     z-index: 1;
     bottom: 30%;
-    left: 45vw;
+    left: 43vw;
     margin-left: -60px;
 
     opacity: 100 !important;
 }
 
 /* Change size of sign up/login boxes to fill screen */
-.signUpDialogContent, .loginDialogContent, .gSignUpDialogContent {
+.signUpDialogContent, .loginDialogContent, .gSignUpDialogContent, .forgotDialogContent {
     background-color: #142e51;
     padding: 20px;
     border: 1px solid #081730;
@@ -211,11 +155,11 @@ html, body {
     box-shadow: 0 0 30px 1px #2b2c51;
     margin-left: 5% !important;
     margin-right: 5% !important;
-    margin-top: 50% !important;
+    margin-top: 25% !important;
     width: auto;
 }
 
-#signUpEmail, #loginEmail, #loginPassword {
+#signUpEmail, #loginEmail, #loginPassword, #forgotEmail {
     position: relative;
     width: 98%;
     max-width: 100% !important;
@@ -223,10 +167,10 @@ html, body {
     font-size: 2vh;
 }
 
-/* Increase font size for various elements */
+/* Change font size for various elements */
 #signUpBtn, #loginBtn, #gSignUp, #googleSignIn, h3, #registerLink, #firstName, #lastName, #signUpPassword,
 #signUpPasswordRepeat, #gPassword, #gPasswordRepeat, .select2-selection__rendered, .select2-results__options,
-#signUpEmail, #loginEmail, #loginPassword, .sth-select, .signUpError {
+#signUpEmail, #loginEmail, #loginPassword, .sth-select, .signUpError, #forgotEmail, #forgotEmailBtn, #backToSignInLink {
     font-size: 5vw;
 }
 
@@ -235,6 +179,7 @@ html, body {
     width: 48%;
 }
 
+/* Move dialog box further to top of the screen */
 .signUpDialog {
     padding-top: 0 !important;
     top: -10% !important;
@@ -265,13 +210,14 @@ button.btn-mobileSelect-gen:not([class*=col-]):not([class*=form-control]):not(.i
     padding: 0px 20px !important;
 }
 
+/* Change width of text at bottom of home page so that it is not obscured by the AI chat box button */
 #courseworkText {
     position: absolute;
     bottom: 0;
     text-align: left;
     width: 75%;
     top: 161%;
-    margin-left: 3%;
+    margin-left: -9%;
 }
 
 #adminBtn {

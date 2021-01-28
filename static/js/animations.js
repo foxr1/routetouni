@@ -1,5 +1,12 @@
+// Name: Oliver Fox
+// All the functions involved with the animations on the website, including: the initial landing page animation of the
+// bubbles appearing in a circle around the Newcastle University logo, bubbles expanding on click on the home screen,
+// slight expansions of bubbles when a mouse hovers over them, transition for clicking the login button from the home
+// screen and switching between login, sign up and forgot password from the login page.
+
+// Global variables for the bubbles attributes to be accessed from various functions within this file.
 var bTop, bBottom, bLeft, bRight = '0%'; // Position of bubble before being clicked.
-var bImg; // Last bubble's image.
+var bImg; // Last bubble's image from home screen.
 var bSize; // Size of bubble before click (mobile/desktop).
 
 // Which ever bubble is clicked from the home page is stored temporarily so it can be referenced when the user clicks
@@ -7,12 +14,12 @@ var bSize; // Size of bubble before click (mobile/desktop).
 var tempBubble;
 var tempBubbleHtml;
 
+// Timeline of all the bubbles animating in when the page loads in a ring around the Newcastle logo.
 let tl = anime.timeline({
     easing: 'easeOutExpo',
     duration: 500
 });
 
-// Timeline of all the bubbles animating in when the page loads in a ring around the Newcastle logo.
 tl
 .add({
     targets: '#universityHeading',
@@ -21,49 +28,49 @@ tl
     easing: 'spring',
 }, 100)
 .add({
-    targets: '#bubble1',
+    targets: '#chatBubble',
     scale: [0,1],
     borderRadius: '50%',
     easing: 'spring',
 }, 300)
 .add({
-    targets: '#bubble2',
+    targets: '#newsBubble',
     scale: [0,1],
     borderRadius: '50%',
     easing: 'spring',
 }, 400)
 .add({
-    targets: '#bubble3',
+    targets: '#pubsBubble',
     scale: [0,1],
     borderRadius: '50%',
     easing: 'spring',
 }, 500)
 .add({
-    targets: '#bubble4',
+    targets: '#mapBubble',
     scale: [0,1],
     borderRadius: '50%',
     easing: 'spring',
 }, 600)
 .add({
-    targets: '#bubble6',
+    targets: '#healthBubble',
     scale: [0,1],
     borderRadius: '50%',
     easing: 'spring',
 }, 700)
 .add({
-    targets: '#bubble7',
+    targets: '#societiesBubble',
     scale: [0,1],
     borderRadius: '50%',
     easing: 'spring',
 }, 800)
 .add({
-    targets: '#bubble8',
+    targets: '#revisionBubble',
     scale: [0,1],
     borderRadius: '50%',
     easing: 'spring',
 }, 900)
 .add({
-    targets: '#bubble5',
+    targets: '#accommBubble',
     scale: [0,1],
     borderRadius: '50%',
     easing: 'spring',
@@ -79,6 +86,15 @@ tl
     easing: 'spring',
 }, 1200);
 
+
+/**
+ * Function to expand the bubble to fill the screen then change the contents of the bubble to which ever page the user
+ * has selected.
+ *
+ * @param {string} bubble   The name of the bubble that the user has clicked
+ * @param {string} img      The name of the image variable for the bubble that has been selected
+ * @param {string} nextPage The page that the bubble is to go to after the animation completes
+ */
 function bubbleClick(bubble, img, nextPage) {
     let bubbleEl = document.getElementById(bubble)
     let bubbleStyles = window.getComputedStyle(document.querySelector('#' + bubble));
@@ -132,6 +148,8 @@ function bubbleClick(bubble, img, nextPage) {
 
         expandBubble.finished.then(loadPage);
 
+        // Only redirect if the chat has been selected as there are specific functions that need to be executed from a
+        // separate page.
         function loadPage() {
             if (nextPage === "chat") {
                 window.location.assign("/chat")
@@ -142,6 +160,11 @@ function bubbleClick(bubble, img, nextPage) {
     }
 }
 
+/**
+ * Enlarge the bubble slightly when the user hovers over the bubble with their mouse.
+ *
+ * @param {string} bubble The name of the bubble that the user has hovered over
+ */
 function bubbleHover(bubble) {
     let bubbleStyles = window.getComputedStyle(document.querySelector(bubble));
     if (bubbleStyles.zIndex === '0') {
@@ -153,6 +176,11 @@ function bubbleHover(bubble) {
     }
 }
 
+/**
+ * Shrink the bubble back when the user's mouse is not hovered over the bubble.
+ *
+ * @param {string} bubble The name of the bubble the user's mouse has left
+ */
 function bubbleLeave(bubble) {
     let bubbleStyles = window.getComputedStyle(document.querySelector(bubble));
     if (bubbleStyles.zIndex === '0') {
@@ -164,19 +192,23 @@ function bubbleLeave(bubble) {
     }
 }
 
+// If the user has pressed a bubble from the home screen, pressing the back button within the navigation bar will shrink
+// the bubble back down to it's original size and position on the home screen, if they have been directed to a page from
+// the navigation bar buttons they will simply be redirected to the home page.
 function backPress() {
-    let bubble1 = document.getElementById("bubble1");
-    let bubble2 = document.getElementById("bubble2");
-    let bubble3 = document.getElementById("bubble3");
-    let bubble4 = document.getElementById("bubble4");
-    let bubble5 = document.getElementById("bubble5");
-    let bubble6 = document.getElementById("bubble6");
-    let bubble7 = document.getElementById("bubble7");
-    let bubble8 = document.getElementById("bubble8");
+    let bubble1 = document.getElementById("chatBubble");
+    let bubble2 = document.getElementById("newsBubble");
+    let bubble3 = document.getElementById("pubsBubble");
+    let bubble4 = document.getElementById("mapBubble");
+    let bubble5 = document.getElementById("accommBubble");
+    let bubble6 = document.getElementById("healthBubble");
+    let bubble7 = document.getElementById("societiesBubble");
+    let bubble8 = document.getElementById("revisionBubble");
     let bubbles = [bubble1, bubble2, bubble3, bubble4, bubble5, bubble6, bubble7, bubble8];
-    let bubblesIds = ["#bubble1", "#bubble2", "#bubble3", "#bubble4", "#bubble5", "#bubble6", "#bubble7", "#bubble8"];
+    let bubblesIds = ["#chatBubble", "#newsBubble", "#drinksBubble", "#mapBubble", "#accommBubble", "#healthBubble", "#societiesBubble", "#revisionBubble"];
 
     if (tempBubble != null) { // Check if the user has previously come from the home page.
+        // Loop through all bubbles to check which one is at the front of the page, i.e. which page the user is currently on
         for (let i = 0; i < 8; i++) {
             if (bubbles[i].style.zIndex === '2') {
                 bubbles[i].style.top = bTop;
@@ -208,22 +240,22 @@ function backPress() {
             }
         }
     } else { // If they have redirected from the navigation bar then do a redirect back to the home page.
-        window.open("/", "_self");
+        window.location.assign("/")
     }
 }
 
 // Animate page to move off to the left and then redirect to login page which will animate on load.
-function loginPageTransition(page1, page2) {
-    let page1Transition = anime({
-        targets: page1,
+function loginPageTransition() {
+    let homePageTransition = anime({
+        targets: '#homeLayout',
         left: '-110%', duration: 750,
         easing: 'easeInOutQuad'
     });
 
-    page1Transition.finished.then(openNextPage);
+    homePageTransition.finished.then(openLoginPage);
 
-    function openNextPage() {
-        window.open(page2, "_self");
+    function openLoginPage() {
+        window.location.assign("/login");
     }
 }
 
@@ -242,6 +274,21 @@ function getSignUp() {
     });
 }
 
+// Animated forgot password dialog screen to the right and the login dialog back in from the left.
+function getLoginFromForgot() {
+    let loginAnim = anime({
+        targets: '#loginDialog',
+        translateX: [-1500, 0], duration: 750,
+        easing: 'easeInOutQuad'
+    });
+
+    let forgotAnim = anime({
+        targets: '#forgotDialog',
+        translateX: [0, 1500], duration: 750,
+        easing: 'easeInOutQuad'
+    });
+}
+
 // Animate sign up box to move to the left and move login box from the right.
 function getLogin() {
     let signUpAnim = anime({
@@ -253,6 +300,21 @@ function getLogin() {
     let loginAnim = anime({
         targets: '#loginDialog',
         translateX: [1500, 0], duration: 750,
+        easing: 'easeInOutQuad'
+    });
+}
+
+// Animate login box to move to the left and move forgot password field in from the right.
+function getForgotPassword() {
+    let forgotAnim = anime({
+        targets: '#forgotDialog',
+        translateX: [1500, 0], duration: 750,
+        easing: 'easeInOutQuad'
+    });
+
+    let loginAnim = anime({
+        targets: '#loginDialog',
+        translateX: [0, -1500], duration: 750,
         easing: 'easeInOutQuad'
     });
 }

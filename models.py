@@ -5,7 +5,6 @@ import firebase_admin
 from firebase_admin import credentials, auth, exceptions
 from firebase_admin import db
 
-
 cred = credentials.Certificate("serviceAccountKey.json")
 firebase_admin.initialize_app(cred, {
     'databaseURL': 'https://route2uni-default-rtdb.firebaseio.com/'
@@ -32,7 +31,6 @@ def get_mentors() -> dict:
 
 
 class User:
-
     """
     Class for managing users, using firebase and cookies. Implemented using this documentation  and partly adapted
     from the default google firebase management
@@ -79,6 +77,7 @@ class User:
         self.picture = None
         self.role = None
         self.school = None
+        self.verified = None
         self.user_dict = None
 
     def clear_data(self):
@@ -130,9 +129,9 @@ class User:
                     self.role = user_info['role']
                     self.school = user_info['course']
                     self.picture = user_info['profilePicture']
-
+                    self.verified = user_info['mentor_verified']
                     self.user_dict = {"name": self.name, "email": self.email, "role": self.role, "school": self.school,
-                                      "picture": self.picture, "uid": self.uid}
+                                      "picture": self.picture, "uid": self.uid, 'mentor_verified': self.verified}
 
                     self.set_session()
                 return self.user_dict

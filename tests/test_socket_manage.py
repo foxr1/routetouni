@@ -9,9 +9,10 @@ socket_man.flush_db()
 
 def test_add_room():
     socket_man.flush_db()
-    socket_man.add_room("1234", "Room_1", "room_name", "User_adding")
+    socket_man.add_room("1234", "Room_1", "Johns_Room", "User_adding")
     new_room = socket_man.r.xinfo_stream("Room_1")
-    assert new_room['first-entry']['room_name'] == "Room_1"
+    print(new_room)
+    assert new_room['first-entry'][1]['room_name'] == "Johns_Room"
 
 
 # Test that a user can delete a room
