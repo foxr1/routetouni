@@ -69,6 +69,7 @@ sizes
             var local_user = null
 
             function home_redirect(){
+                socket.disconnect();
                 window.location.assign('/');
             }
 
@@ -175,7 +176,7 @@ sizes
                 /**
                  * Establish a websocket connection with the backend, all socket.io handling functions are performed here
                  */
-                socket = io.connect('wss://' + location.host  +'/chat', {secure:true});
+                socket = io.connect('ws://' + location.host  +'/chat', {secure:true});
                 socket.on('connect', function() {
                     // Send Message to backend once connection established
                     socket.emit('joined', {'name':local_user, 'time':get_time()});
