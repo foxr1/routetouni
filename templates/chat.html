@@ -69,6 +69,10 @@ sizes
             var curr_room = ""
             var local_user = null
 
+            function home_redirect(){
+                window.location.assign('/');
+            }
+
             function get_form() {
                 /**
                  * Function called once new chat is created, form containing chat name and members
@@ -389,9 +393,12 @@ sizes
                     <div class="collapse navbar-collapse show" id="navcol-1">
                         <ul class="nav navbar-nav" style="width: 100%;">
                             <li class="nav-item" style="width: 100%;">
+
                                 <div class="bg-gray px-4 py-2 bg-light">
                                     <p class="h5 mb-0 py-1">Chats</p>
                                 </div>
+
+
                                 <div class="messages-box">
                                     <div class="list-group rounded-0 active " id="myTab" role="tablist">
                                         {#Iterate over ditionary rooms and random chats adding each
@@ -409,6 +416,10 @@ sizes
                                         <a class="list-group-item list-group-item-action  text-white rounded-0">
                                             <div class="media">
                                                 <div class="media-body ml-4" id="button_loc">
+
+                                                <div class="row no-gutters mt-1">
+                                                        <div class="col text-center">
+                                                 <button class="btn btn-danger" onclick="home_redirect()" type="button" role="button" href="/"><i class="fa fa-home fa-2x"></i></button></div></div>
 
                                                 {% if role == 'Peer Mentor' %}
                                                     <div class="row no-gutters mt-1">
