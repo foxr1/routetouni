@@ -1,3 +1,8 @@
+<!--
+Name: William Macpherson
+
+This page shows the recent news that has been web scraped from the wbe_scraper.py script
+-->
 <!DOCTYPE html>
 <html lang="en">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -56,6 +61,7 @@
             <span id="navRevisionTooltip" class="navBubbleTooltip">Revision</span>
         </span>
     </div>
+    <!--This is the container that uses jinja to insert information into each flipcard, it iterates 6 times to give 6 flipcards-->
     <div class="card_container">
         {% for key, value in news_data.items() %}
        <div class="card_child" id="{{ news_data[key]['ID']}}">
