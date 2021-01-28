@@ -20,6 +20,12 @@ if (user) {
     loginBtn.style.padding = "15px";
     loginBtn.textContent = "Login";
     loggedIn = false;
+    var chatBubble = document.getElementById("bubble1");
+    chatBubble.style.backgroundColor = "grey";
+    chatBubble.onclick = function () {
+        alert("You must be logged in to access the chat.");
+    }
+    chatBubble.onmouseover = null;
 }
 
 // Change function of button depending on whether a user is logged in, if they are it displays the account screen,

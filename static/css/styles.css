@@ -38,10 +38,23 @@ html, body {
 }
 
 /* Background gradient animation */
+/* Adapted from https://codepen.io/P1N2O/pen/pyBNzX */
 body {
 	background: linear-gradient(-45deg, #003a65, #103f67, #113448, #0d0c4e);
 	background-size: 400% 400%;
 	animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
 }
 
 /* Global font and colour for certain text tags */
@@ -50,12 +63,7 @@ h3 {
     color: white;
     text-align: center;
 }
-h4{
-    font-family: 'GilroyBold', 'sans-serif';
-    color: white;
-}
-
-h2{
+h2, h4 {
     font-family: 'GilroyBold', 'sans-serif';
     color: white;
 }
@@ -72,17 +80,7 @@ b {
     color: white;
 }
 
-@keyframes gradient {
-	0% {
-		background-position: 0% 50%;
-	}
-	50% {
-		background-position: 100% 50%;
-	}
-	100% {
-		background-position: 0% 50%;
-	}
-}
+
 
 /* Firework animations */
 @keyframes    firework-animation {
@@ -373,11 +371,16 @@ b {
     opacity: 1;
 }
 
-/* Register Page */
+.loading {
+    margin-top: -25%;
+    opacity: 0%;
+}
+
+/* Login/Register Page */
 .signUpDialog, .loginDialog  {
     position: fixed;
     z-index: 1;
-    padding-top: 5%;
+    padding-top: 2%;
     left: 0;
     top: 0;
     right: 0;
