@@ -57,6 +57,7 @@ def index():
             user = None
     else:
         user = session['user_dict']
+    print(user)
     return render_template("index.html", user=user)
 
 
@@ -145,8 +146,12 @@ def chat():
     if not user:
         return render_template("index.html", user=user)
     else:
+        if user.get('mentor_verified'):
+            role = 'Peer Mentor'
+        else:
+            role = 'Student'
         return render_template('chat.html', prev_msg=socket_man.conv_dict(user.get('uid')),
-                               user_name=user.get('name'), role=user.get('role'))
+                               user_name=user.get('name'), role=role)
 
 
 @app.route("/chat/get_users", methods=['GET', 'POST'])
@@ -172,7 +177,7 @@ def create_chat():
     :return: json with status of chat creation
     """
     user_dict = session['user_dict']
-    if user_dict.get('role') == 'Peer Mentor':
+    if user_dict.get('mentor_verified'):
         user_add = []
         room_name = None
         if request.method == 'POST':
