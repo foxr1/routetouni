@@ -159,6 +159,7 @@ sizes
                  * Update conversations tab with latest message, time and picture
                  * @type {string|*|jQuery}
                  */
+
                 document.getElementById(data.room_id+'last').innerHTML = data.msg
                 document.getElementById(data.room_id+'time').innerHTML = get_time()
                 $("#"+data.room_id+'user_pict').attr("src",picture);
@@ -176,7 +177,7 @@ sizes
                 /**
                  * Establish a websocket connection with the backend, all socket.io handling functions are performed here
                  */
-                socket = io.connect('ws://' + location.host  +'/chat', {secure:true});
+                socket = io.connect('wss://' + location.host  +'/chat', {secure:true});
                 socket.on('connect', function() {
                     // Send Message to backend once connection established
                     socket.emit('joined', {'name':local_user, 'time':get_time()});
@@ -211,7 +212,6 @@ sizes
                    update_recent_conv(data, data.picture)
                     // Check if message is from user and append it
                     if (data.name === local_user){
-                        console.log(data.name, local_user)
                         $(msg_loc).append('<div class="row justify-content-end text-break">\n' +
                        '                        <div class="col-md-10">\n' +
                        '                            <div class="media w-50 mb-2 ml-auto mr-4">\n' +
@@ -395,6 +395,7 @@ sizes
                             <li class="nav-item" style="width: 100%;">
 
                                 <div class="bg-gray px-4 py-2 bg-light">
+
                                     <p class="h5 mb-0 py-1">Chats</p>
                                 </div>
 

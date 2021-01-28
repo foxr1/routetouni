@@ -15,9 +15,7 @@ app.config.update(
     SESSION_COOKIE_HTTPONLY=True,
     SESSION_COOKIE_SAMESITE='Lax')
 
-socketio = SocketIO(app, async_mode=async_mode, cors_allowed_origins=["https://extreme-lattice-298010.nw.r.appspot.com",
-                                                                      "http://extreme-lattice-298010.nw.r.appspot.com",
-                                                                      "http://localhost:5000",
+socketio = SocketIO(app, async_mode=async_mode, cors_allowed_origins=["http://localhost:5000",
                                                                       "https://routetouni.me"],
                     logger=True, engineio_logger=True)
 
@@ -260,7 +258,7 @@ def exit_room(message):
     """
     user_dict = session['user_dict']
     socket_man.del_room(user_dict.get('uid'), message['room_id'])
-    emit('status', {'msg': "Has left the Chat", 'name': user_dict.get('name'), 'color': 'danger', 'type': 'exit'},
+    emit('status', {'msg': "Has left the Chat", 'name': user_dict.get('name'), 'color': 'danger', 'type': 'exit','room_id':message['room_id']},
          room=message['room_id'], user_name=user_dict.get('name'))
 
     leave_room(message['room_id'])
