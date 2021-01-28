@@ -3,11 +3,6 @@ Name: William Macpherson
 This python file web scrapes off the https://www.ncl.ac.uk/press/latest/ website for information about recent news
 related to newcastle and newcastle university.
 
-For running locally and testing purposes this script only runs when the news page is activated by the user, however if
-the website where to be deployed online this script would have to be ran on a Virtual Machine at a set time or to be run
-when the original https://www.ncl.ac.uk/press/latest/ website is updated with a new news article
-
-The News page will therefore not work when ran on https://routetouni.me
 
 Functions
 ----------
@@ -33,19 +28,17 @@ create_dictionary(news_list):
 import re
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
-import io
 
 
 # Runs the program when called with the appropriate text file and url for the website that is scraped
 def main():
     news_url = "https://www.ncl.ac.uk/press/latest/"
-    news_file = "news_and_revision/news_data.txt"
-    news_dict = scrape_data(news_url, news_file)
+    news_dict = scrape_data(news_url)
     # Returns a dictionary of the news articles
     return news_dict
 
 
-def scrape_data(url, news_file):
+def scrape_data(url):
     html = urlopen(url).read()
     soup = BeautifulSoup(html, features="html.parser")
     for script in soup(["script", "style"]):
@@ -72,32 +65,21 @@ def scrape_data(url, news_file):
     lines = (line.strip() for line in text.splitlines())
     chunks = (phrase.strip() for line in lines for phrase in line.split("  "))
     text = '\n'.join(chunk for chunk in chunks if chunk)
-    # Writes to a news_file that can be accessed later
-    with io.open(news_file, "w", encoding="utf-8") as f:
-        f.write(text)
-    news_list = read_news(news_file, correct_url_list)
-    return news_list
-
-
-def read_news(news_file, url_list):
-    text_as_list = []
-    #
-    with io.open(news_file, "r", encoding="utf-8") as f:
-        for line in f:
-            text_as_list.append(line)
-    news_list = organise(text_as_list, url_list)
+    # Adds each line of text into a file
+    text_as_list = text.split('\n')
+    news_list = organise(text_as_list, correct_url_list)
     return news_list
 
 
 def organise(text_as_list, url_list):
     for i in range(len(text_as_list)):
-        if text_as_list[i] == "Latest News\n":
+        if text_as_list[i] == "Latest News":
             text_as_list = text_as_list[i + 1:i + 301]
             break
-    # Error handling with all articles starting with 'Writing for The Conversation, \n' due to the title being
+    # Error handling with all articles starting with 'Writing for The Conversation,' due to the title being
     # separate items on the list
     for g in range(250):
-        if text_as_list[g] == 'Writing for The Conversation,\n':
+        if text_as_list[g] == 'Writing for The Conversation,':
             text_as_list.pop(g)
             text_as_list[g] = 'Writing for The Conversation, ' + text_as_list[g]
     correct_list = []
