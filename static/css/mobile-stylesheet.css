@@ -1,4 +1,6 @@
+/* Name: Oliver Fox */
 /* CSS properties for when the website is being view on a mobile browser */
+
 html, body {
     background-color: #003a65;
     position: fixed;
@@ -66,7 +68,7 @@ html, body {
 }
 
 /* Change size of bubbles for mobile */
-#chatBubble, #newsBubble, #drinksBubble, #mapBubble, #accommBubble, #healthBubble, #societiesBubble, #revisionBubble {
+.homePageBubble {
     height: 12vh;
     width: 12vh;
 }
@@ -82,7 +84,7 @@ html, body {
     top: 52%;
 }
 
-#drinksBubble {
+#pubsBubble {
     top: 68%;
     left: 5%;
 }
@@ -113,7 +115,7 @@ html, body {
 }
 
 /* Positioning for bubble icons */
-#chatImg, #newsImg, #drinksImg, #locationImg, #healthImg, #societiesImg, #revisionImg, #accommodationImg {
+.homeBubbleImg {
     height: 7.5vh;
     margin-top: 17%;
     z-index: 1;
@@ -124,7 +126,7 @@ html, body {
 }
 
 /* Change position of text for bubbles to be displayed at all times on the right hand side of the bubbles */
-.bubble1Text, .bubble2Text, .bubble3Text, .bubble4Text, .bubble5Text, .bubble6Text, .bubble7Text, .bubble8Text {
+.bubbleTooltip {
     font-family: 'GilroyMedium', 'sans-serif';
     visibility: visible !important;
     font-weight: lighter;
@@ -138,14 +140,14 @@ html, body {
     position: absolute;
     z-index: 1;
     bottom: 30%;
-    left: 45vw;
+    left: 43vw;
     margin-left: -60px;
 
     opacity: 100 !important;
 }
 
 /* Change size of sign up/login boxes to fill screen */
-.signUpDialogContent, .loginDialogContent, .gSignUpDialogContent {
+.signUpDialogContent, .loginDialogContent, .gSignUpDialogContent, .forgotDialogContent {
     background-color: #142e51;
     padding: 20px;
     border: 1px solid #081730;
@@ -153,11 +155,11 @@ html, body {
     box-shadow: 0 0 30px 1px #2b2c51;
     margin-left: 5% !important;
     margin-right: 5% !important;
-    margin-top: 50% !important;
+    margin-top: 25% !important;
     width: auto;
 }
 
-#signUpEmail, #loginEmail, #loginPassword {
+#signUpEmail, #loginEmail, #loginPassword, #forgotEmail {
     position: relative;
     width: 98%;
     max-width: 100% !important;
@@ -165,10 +167,10 @@ html, body {
     font-size: 2vh;
 }
 
-/* Increase font size for various elements */
+/* Change font size for various elements */
 #signUpBtn, #loginBtn, #gSignUp, #googleSignIn, h3, #registerLink, #firstName, #lastName, #signUpPassword,
 #signUpPasswordRepeat, #gPassword, #gPasswordRepeat, .select2-selection__rendered, .select2-results__options,
-#signUpEmail, #loginEmail, #loginPassword, .sth-select, .signUpError {
+#signUpEmail, #loginEmail, #loginPassword, .sth-select, .signUpError, #forgotEmail, #forgotEmailBtn, #backToSignInLink {
     font-size: 5vw;
 }
 
@@ -208,7 +210,7 @@ button.btn-mobileSelect-gen:not([class*=col-]):not([class*=form-control]):not(.i
     padding: 0px 20px !important;
 }
 
-/* Change width of text at bottom of home page so that it is not obscurred by the AI chat box button */
+/* Change width of text at bottom of home page so that it is not obscured by the AI chat box button */
 #courseworkText {
     position: absolute;
     bottom: 0;

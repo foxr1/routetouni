@@ -40,38 +40,38 @@ h1 {
 }
 
 /* Change margin and position type for all navigation bubbles */
-#navBubble1, #navBubble2, #navBubble3, #navBubble4, #navBubble5, #navBubble6, #navBubble7, #navBubble8 {
+#navChatBubble, #navNewsBubble, #navPubsBubble, #navMapBubble, #navAccommBubble, #navHealthBubble, #navSocietiesBubble, #navRevisionBubble {
     margin-top: 5%;
     position: absolute;
 }
 
 /* Change position of navigation bubbles to be in a 2x4 grid rather than a row of icons so their is more space for the
 back button */
-#navBubble1 {
+#navChatBubble {
     left: 28%;
 }
-#navBubble2 {
+#navNewsBubble {
     left: 42%
 }
-#navBubble3 {
+#navPubsBubble {
     right: 35%;
 }
-#navBubble4 {
+#navMapBubble {
     right: 22%;
 }
-#navBubble5 {
+#navAccommBubble {
     top: 32%;
     left: 28%;
 }
-#navBubble6 {
+#navHealthBubble {
     top: 32%;
     left: 42%
 }
-#navBubble7 {
+#navSocietiesBubble {
     top: 32%;
     right: 35%;
 }
-#navBubble8 {
+#navRevisionBubble {
     top: 32%;
     right: 22%;
 }

@@ -40,7 +40,7 @@ tl
     easing: 'spring',
 }, 400)
 .add({
-    targets: '#drinksBubble',
+    targets: '#pubsBubble',
     scale: [0,1],
     borderRadius: '50%',
     easing: 'spring',
@@ -87,8 +87,14 @@ tl
 }, 1200);
 
 
-// Function to expand the bubble to fill the screen then change the contents of the bubble to which ever page the user
-// has selected.
+/**
+ * Function to expand the bubble to fill the screen then change the contents of the bubble to which ever page the user
+ * has selected.
+ *
+ * @param {string} bubble   The name of the bubble that the user has clicked
+ * @param {string} img      The name of the image variable for the bubble that has been selected
+ * @param {string} nextPage The page that the bubble is to go to after the animation completes
+ */
 function bubbleClick(bubble, img, nextPage) {
     let bubbleEl = document.getElementById(bubble)
     let bubbleStyles = window.getComputedStyle(document.querySelector('#' + bubble));
@@ -154,7 +160,11 @@ function bubbleClick(bubble, img, nextPage) {
     }
 }
 
-// Enlarge the bubble slightly when the user hovers over the bubble with their mouse.
+/**
+ * Enlarge the bubble slightly when the user hovers over the bubble with their mouse.
+ *
+ * @param {string} bubble The name of the bubble that the user has hovered over
+ */
 function bubbleHover(bubble) {
     let bubbleStyles = window.getComputedStyle(document.querySelector(bubble));
     if (bubbleStyles.zIndex === '0') {
@@ -166,7 +176,11 @@ function bubbleHover(bubble) {
     }
 }
 
-// Shrink the bubble back when the user's mouse is not hovered over the bubble.
+/**
+ * Shrink the bubble back when the user's mouse is not hovered over the bubble.
+ *
+ * @param {string} bubble The name of the bubble the user's mouse has left
+ */
 function bubbleLeave(bubble) {
     let bubbleStyles = window.getComputedStyle(document.querySelector(bubble));
     if (bubbleStyles.zIndex === '0') {
@@ -184,16 +198,17 @@ function bubbleLeave(bubble) {
 function backPress() {
     let bubble1 = document.getElementById("chatBubble");
     let bubble2 = document.getElementById("newsBubble");
-    let bubble3 = document.getElementById("drinksBubble");
+    let bubble3 = document.getElementById("pubsBubble");
     let bubble4 = document.getElementById("mapBubble");
     let bubble5 = document.getElementById("accommBubble");
     let bubble6 = document.getElementById("healthBubble");
     let bubble7 = document.getElementById("societiesBubble");
     let bubble8 = document.getElementById("revisionBubble");
     let bubbles = [bubble1, bubble2, bubble3, bubble4, bubble5, bubble6, bubble7, bubble8];
-    let bubblesIds = ["#bubble1", "#bubble2", "#bubble3", "#bubble4", "#bubble5", "#bubble6", "#bubble7", "#bubble8"];
+    let bubblesIds = ["#chatBubble", "#newsBubble", "#drinksBubble", "#mapBubble", "#accommBubble", "#healthBubble", "#societiesBubble", "#revisionBubble"];
 
     if (tempBubble != null) { // Check if the user has previously come from the home page.
+        // Loop through all bubbles to check which one is at the front of the page, i.e. which page the user is currently on
         for (let i = 0; i < 8; i++) {
             if (bubbles[i].style.zIndex === '2') {
                 bubbles[i].style.top = bTop;
@@ -230,17 +245,17 @@ function backPress() {
 }
 
 // Animate page to move off to the left and then redirect to login page which will animate on load.
-function loginPageTransition(page1, page2) {
-    let page1Transition = anime({
-        targets: page1,
+function loginPageTransition() {
+    let homePageTransition = anime({
+        targets: '#homeLayout',
         left: '-110%', duration: 750,
         easing: 'easeInOutQuad'
     });
 
-    page1Transition.finished.then(openNextPage);
+    homePageTransition.finished.then(openLoginPage);
 
-    function openNextPage() {
-        window.open(page2, "_self");
+    function openLoginPage() {
+        window.location.assign("/login");
     }
 }
 

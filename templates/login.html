@@ -1,3 +1,10 @@
+<!--
+Name: Oliver Fox
+
+This is the login.html page which contains dialog boxes for logging in, signing up and if you want to reset your passsword
+with a "forgotten password" field.
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,12 +30,12 @@
 <body>
     <div id="loginDialog" class="loginDialog">
         <div class="loginDialogContent">
-            <h3 class="noselect">Login</h3>
+            <h3 class="noSelect">Login</h3>
             <label for="loginEmail"></label><input type="email" name="email" id="loginEmail" placeholder="Email" style="font-family: Nunito"><br><br>
             <label for="loginPassword"></label><input type="password" name="password" id="loginPassword" placeholder="Password" style="font-family: Nunito"><br><br>
             <p class="signUpError" id="loginError">e</p>
 
-            <button onclick="login(document.getElementById('loginEmail').value, document.getElementById('loginPassword').value)" id="loginBtn" style="font-family: Nunito" class="noselect">Login</button>
+            <button onclick="login(document.getElementById('loginEmail').value, document.getElementById('loginPassword').value)" id="loginBtn" style="font-family: Nunito" class="noSelect">Login</button>
 
             <br>
             <div style="width: 100%; text-align: center">
@@ -36,16 +43,16 @@
             </div>
 
 
-            <button onclick="handleAuthClick()" id="googleSignIn" style="font-family: Nunito" class="noselect">Sign in with Google</button>
+            <button onclick="handleAuthClick()" id="googleSignIn" style="font-family: Nunito" class="noSelect">Sign in with Google</button>
 
-            <br><br><div style="text-align: center"><a onclick="getForgotPassword()" id="registerLink" style="font-family: Nunito" class="noselect">Forgot password?</a></div>
-            <br><div style="text-align: center"><a onclick="getSignUp()" id="registerLink" style="font-family: Nunito" class="noselect">Don't have an account? Register here</a></div>
+            <br><br><div style="text-align: center"><a onclick="getForgotPassword()" id="registerLink" style="font-family: Nunito" class="noSelect">Forgot password?</a></div>
+            <br><div style="text-align: center"><a onclick="getSignUp()" id="registerLink" style="font-family: Nunito" class="noSelect">Don't have an account? Register here</a></div>
         </div>
     </div>
 
     <div id="signUpDialog" class="signUpDialog">
         <div class="signUpDialogContent">
-            <h3 class="noselect">Sign Up</h3>
+            <h3 class="noSelect">Sign Up</h3>
             <label for="firstName"></label><input type="text" name="firstname" id="firstName" placeholder="First Name" style="font-family: Nunito"><label for="lastName"></label><input type="text" name="lastname" id="lastName" placeholder="Surname" style="font-family: Nunito"><br><br>
             <p class="signUpError" id="nameError">e</p>
 
@@ -87,28 +94,28 @@
             </select><br><br>
             <p class="signUpError" id="roleError">e</p>
 
-            <button onclick="verifySignUp()" id="signUpBtn" style="font-family: Nunito" class="noselect">Sign Up</button>
+            <button onclick="verifySignUp()" id="signUpBtn" style="font-family: Nunito" class="noSelect">Sign Up</button>
 
             <br>
             <div style="width: 100%; text-align: center">
                 <img id="signUpLoading" class="loading" src="../static/images/spinner.svg"> {# Animation from loading.io #}
             </div>
 
-            <button onclick="handleAuthClick()" id="googleSignIn" style="font-family: Nunito" class="noselect">Sign in with Google</button>
+            <button onclick="handleAuthClick()" id="googleSignIn" style="font-family: Nunito" class="noSelect">Sign in with Google</button>
 
-            <br><br><div style="text-align: center"><a onclick="getLogin()" id="registerLink" style="font-family: Nunito" class="noselect" >Already have an account? Sign in here</a></div>
+            <br><br><div style="text-align: center"><a onclick="getLogin()" id="registerLink" style="font-family: Nunito" class="noSelect" >Already have an account? Sign in here</a></div>
         </div>
     </div>
 
     <div id="forgotDialog" class="forgotDialog">
         <div class="forgotDialogContent">
-            <h3 class="noselect">Forgot Password</h3>
+            <h3 class="noSelect">Forgot Password</h3>
             <label for="forgotEmail"></label><input type="email" name="email" id="forgotEmail" placeholder="Email for forgotten password" style="font-family: Nunito"><br><br>
             <p style="color: darkolivegreen" class="signUpError" id="emailSent">Forgot password email sent</p>
 
-            <button onclick="forgotPassword(document.getElementById('forgotEmail').value)" id="forgotEmailBtn" style="font-family: Nunito" class="noselect">Send Email</button>
+            <button onclick="forgotPassword(document.getElementById('forgotEmail').value)" id="forgotEmailBtn" style="font-family: Nunito" class="noSelect">Send Email</button>
 
-            <br><br><div style="text-align: center"><a onclick="getLoginFromForgot()" id="backToSignInLink" style="font-family: Nunito" class="noselect">Back to sign in</a></div>
+            <br><br><div style="text-align: center"><a onclick="getLoginFromForgot()" id="backToSignInLink" style="font-family: Nunito" class="noSelect">Back to sign in</a></div>
         </div>
     </div>
 

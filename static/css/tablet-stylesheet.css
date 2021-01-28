@@ -15,7 +15,7 @@
 }
 
 /* Change size of bubbles for tablet */
-#chatBubble, #newsBubble, #drinksBubble, #mapBubble, #accommBubble, #healthBubble, #societiesBubble, #revisionBubble {
+.homePageBubble {
     height: 11vh;
     width: 11vh;
 }
@@ -31,7 +31,7 @@
     top: 15%;
 }
 
-#drinksBubble {
+#pubsBubble {
     top: 28%;
     right: 24%;
 }
@@ -62,7 +62,7 @@
 }
 
 /* Positioning for bubble icons */
-#chatImg, #newsImg, #drinksImg, #locationImg, #healthImg, #societiesImg, #revisionImg, #accommodationImg {
+.homeBubbleImg {
     height: 7vh;
 }
 
@@ -132,6 +132,6 @@ button.btn-mobileSelect-gen:not([class*=col-]):not([class*=form-control]):not(.i
     height: 22vh;
 }
 
-.navBubble1Text, .navBubble2Text, .navBubble3Text, .navBubble4Text, .navBubble5Text, .navBubble6Text, .navBubble7Text, .navBubble8Text {
+.navBubbleTooltip {
     font-size: 0.5vh;
 }
