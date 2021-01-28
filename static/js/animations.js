@@ -205,7 +205,7 @@ function backPress() {
     let bubble7 = document.getElementById("societiesBubble");
     let bubble8 = document.getElementById("revisionBubble");
     let bubbles = [bubble1, bubble2, bubble3, bubble4, bubble5, bubble6, bubble7, bubble8];
-    let bubblesIds = ["#chatBubble", "#newsBubble", "#drinksBubble", "#mapBubble", "#accommBubble", "#healthBubble", "#societiesBubble", "#revisionBubble"];
+    let bubblesIds = ["#chatBubble", "#newsBubble", "#pubsBubble", "#mapBubble", "#accommBubble", "#healthBubble", "#societiesBubble", "#revisionBubble"];
 
     if (tempBubble != null) { // Check if the user has previously come from the home page.
         // Loop through all bubbles to check which one is at the front of the page, i.e. which page the user is currently on
