@@ -172,7 +172,7 @@ sizes
                 /**
                  * Establish a websocket connection with the backend, all socket.io handling functions are performed here
                  */
-                socket = io.connect('wss://' + location.host  +'/chat', {secure:true});
+                socket = io.connect('ws://' + location.host  +'/chat', {secure:true});
                 socket.on('connect', function() {
                     // Send Message to backend once connection established
                     socket.emit('joined', {'name':local_user, 'time':get_time()});
@@ -369,7 +369,7 @@ sizes
             </div>
             <div class="input-group">
                 <div class="input-group-prepend">
-                    <button value="{{ room_id }}" name="exit_butt" onclick="leave_room(this.value)" type="button" class="btn btn-danger btn-lg rounded-0 d-none d-lg-block"><i class="fa fa-close"></i>&nbsp;Exit</button>
+                    <button value="{{ room_id }}" name="exit_butt" onclick="leave_room(this.value)" type="button" class="btn btn-danger btn-lg rounded-0 d-none d-md-block"><i class="fa fa-close"></i>&nbsp;Exit</button>
                 </div>
                 <input type="text" id="text{{ room_id }}" placeholder="Enter message" class="form-control rounded-0 border-0 py-4 bg-light text-break">
                 <div class="input-group-append">
@@ -421,7 +421,7 @@ sizes
                                                     {% if prev_msg['random_chat']|length == 0 %}
                                                         <div class="row no-gutters mt-1">
                                                             <div class="col text-center">
-                                                                <button class="btn btn-outline-info btn-lg"  onclick="join_random()"><i class="fa fa-users"></i> Random Chat</button>
+                                                                <button class="btn btn-outline-info btn-lg"  onclick="join_random()"><i class="fa fa-wechat"></i> Random Chat</button>
                                                             </div>
                                                         </div>
                                                     {% endif %}
