@@ -62,6 +62,10 @@ def index():
 
 @app.route('/admin', methods=['GET', 'POST'])
 def admin():
+    """
+    Checks if user is admin and redirects accordingly forwarding mentors query if verified
+    :return: template
+    """
     session_cookie = flask.request.cookies.get('session_token')
     user = None
     if session_cookie:
