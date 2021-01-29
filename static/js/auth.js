@@ -1,4 +1,4 @@
-// Name: Oliver Fox & Phillip Solomodis
+// Name: Oliver Fox & Filippos Solomonidis
 // All functions involved for authentication of the website including: logging in, signing up, verifying input fields
 // when signing up with showing errors and showing the loading circle for when the user submits the login/sign up.
 
@@ -36,7 +36,7 @@ function login(email, password) {
 function verifySignUp() {
     let valid = false;
     let emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    let passwordRegex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])([a-zA-Z0-9]{8,})$/
+    let passwordRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
     var firstname = document.getElementById("firstName");
     var lastname = document.getElementById("lastName");
     var nameError = document.getElementById("nameError");
@@ -91,7 +91,7 @@ function verifySignUp() {
 
     if (!password.value.match(passwordRegex)) {
         showError("passwordError");
-        passwordError.textContent = "Password must contain at least 8 characters, 1 upper and lowercase character and 1 number";
+        passwordError.textContent = "Password must contain at least 8 characters, 1 upper and lowercase character, 1 number and 1 special character";
         valid = false;
     } else if (password.value === passwordRepeat.value) {
         hideError("passwordError");

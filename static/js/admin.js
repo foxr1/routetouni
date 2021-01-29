@@ -4,7 +4,7 @@
  */
 
 
-/*!
+/**
  * If the user is verified as a peer mentor, verified attribute is updated
  * to be true in Firebase Database
  *
@@ -18,7 +18,7 @@ function isPeerMentor(uid) {
     });
 }
 
-/*!
+/**
  * If the user is rejected as being a peer mentor,
  * their role is changed to student in the firebase database
  *
