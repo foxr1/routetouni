@@ -1,34 +1,29 @@
 import json
 import os
 import flask
-from flask import Flask, render_template, session, send_from_directory, request, jsonify
+from flask import Flask, render_template, session, send_from_directory, request, jsonify, Blueprint
 from flask_socketio import emit, join_room, leave_room, SocketIO
 from models import User, get_all_users, get_mentors
 from socket_manage import MessageManage
 from news_and_revision import web_scraper
 
+"""Flask Configuration files starts user object, Redis and flask app"""
+async_mode = None
+app = Flask(__name__)
+app.config['SECRET_KEY'] = 'secret!'
+app.config.update(
+    SESSION_COOKIE_SECURE=True,
+    SESSION_COOKIE_HTTPONLY=True,
+    SESSION_COOKIE_SAMESITE='Lax')
 
-def flask_conf(key):
-    """Flask Configuration files starts user object, Redis and flask app
-    :param key: key for development
-    :rtype: Flask object, User object, MessageManage object
-    """
-    app_con = Flask(__name__)
-    app_con.config['SECRET_KEY'] = key
-    app_con.config.update(
-        SESSION_COOKIE_SECURE=True,
-        SESSION_COOKIE_HTTPONLY=True,
-        SESSION_COOKIE_SAMESITE='Lax')
-    return app_con, User(), MessageManage()
+socketio = SocketIO(app, async_mode=async_mode, cors_allowed_origins=["http://localhost:5000",
+                                                                      "https://routetouni.me",
+                                                                      "https://www.routetouni.me"],
+                    logger=True, engineio_logger=True)
 
-
-# Initialize user object
-app, user_obj, socket_man = flask_conf(os.urandom(16))
-
-# Initialize Sockets
-socketio = SocketIO(app, async_mode=None, cors_allowed_origins=["http://localhost:5000",
-                                                                "https://routetouni.me"], logger=True,
-                    engineio_logger=True)
+main = Blueprint('main', __name__)
+user_obj = User()
+socket_man = MessageManage()
 
 
 @app.route('/sessionLogin', methods=['GET', 'POST'])
