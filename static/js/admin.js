@@ -1,4 +1,15 @@
-//If the user is verified as a peer mentor, verification is set to true in firebase database
+/*!
+ * Name: Katie Fallon
+ * All functions required for the admin.html page.
+ */
+
+
+/*!
+ * If the user is verified as a peer mentor, verified attribute is updated
+ * to be true in Firebase Database
+ *
+ * @param {string} uid      The uid of the user verified
+ */
 function isPeerMentor(uid) {
     firebase.database().ref('users/' + uid).update({
         mentor_verified: true
@@ -7,7 +18,12 @@ function isPeerMentor(uid) {
     });
 }
 
-//If the user is rejected as being a peer mentor, their role is changed to student in the firebase database
+/*!
+ * If the user is rejected as being a peer mentor,
+ * their role is changed to student in the firebase database
+ *
+ * @param {string} uid      The uid of the user rejected
+ */
 function notPeerMentor(uid) {
     firebase.database().ref('users/' + uid).update({
         role: 'Student'

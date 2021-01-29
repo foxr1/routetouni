@@ -1,3 +1,10 @@
+"""
+Name: Katie Fallon & Will Macpherson
+
+This page tests the socket_manage.py for the
+chat functionality which was created by Phillip
+"""
+
 from socket_manage import MessageManage
 
 socket_man = MessageManage()
