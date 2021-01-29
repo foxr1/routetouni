@@ -1,6 +1,10 @@
 // Followed these instructions for Google sign in:
 //https://firebase.google.com/docs/auth/web/google-signin#advanced-handle-the-sign-in-flow-manually
 function handleAuthClick() {
+    /**
+     * Send user to google if sign in with google clicked
+     * @type {firebase.auth.GoogleAuthProvider}
+     */
     var provider = new firebase.auth.GoogleAuthProvider();
     provider.addScope('profile');
     provider.addScope('email');
@@ -10,18 +14,19 @@ firebase.auth().signInWithPopup(provider).then(function(result) {
     var isNewUser = result.additionalUserInfo.isNewUser;
     onSignIn(user, isNewUser);
 }).catch(function(error) {
-        // Handle Errors here.
         var errorCode = error.code;
-        var errorMessage = error.message;
-        // The email of the user's account used.
-        var email = error.email;
-        // The firebase.auth.AuthCredential type that was used.
-        var credential = error.credential;
+        console.log(errorCode)
+
     });
 }
 
 function onSignIn(googleUser, isNewUser) {
-    console.log('Google Auth Response', googleUser);
+    /**
+     * Sign in user from google to firebase to retrieve a token for backend cookie creation
+     * @param {JSON} googleUser
+     * @param {Boolean} isNewUser
+     */
+
     // We need to register an Observer on Firebase Auth to make sure auth is initialized.
     var unsubscribe = firebase.auth().onAuthStateChanged((firebaseUser) => {
         unsubscribe();
@@ -32,19 +37,11 @@ function onSignIn(googleUser, isNewUser) {
 
             // Sign in with credential from the Google user.
             firebase.auth().signInWithCredential(credential).catch((error) => {
-                // Handle Errors here.
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                // The email of the user's account used.
-                var email = error.email;
-                // The firebase.auth.AuthCredential type that was used.
-                var credential = error.credential;
-                // ...
             });
             addCookieRedirect();
 
         } else {
-            console.log('User already signed-in Firebase.');
+
             if (isNewUser) {
                 sessionStorage.setItem("name", googleUser.displayName);
                 sessionStorage.setItem('email', googleUser.email);
@@ -70,6 +67,11 @@ function addCookieRedirect(){
 }
 
 function isUserEqual(googleUser, firebaseUser) {
+    /**
+     * Checks if user is the same with firebase user
+     * @param googleUser {JSON}
+     * @param firebaseUser {JSON}
+     */
     if (firebaseUser) {
         var providerData = firebaseUser.providerData;
         for (var i = 0; i < providerData.length; i++) {

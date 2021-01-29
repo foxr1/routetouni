@@ -11,16 +11,22 @@ user = {"Name": "Pradeep", "Company": "SCTL", "Address": "Mumbai", "Location": "
 # s = (r.hgetall('oFy189SNCpWMrNUoAWSmr7zSsfI3'))
 # for key,value in s.items():
 #     print(key,value)
-print(r.xinfo_groups("Room_1"))
+
 # print(r.xinfo_stream("oFy189SNCpWMrNUoAWSmr7zSsfI3_0"))
 #
 # if "oFy189SNCpWMrNUoAWSmr7zSsfI3" in "oFy189SNCpWMrNUoAWSmr7zSsfI3_0":
 #     print('h')
-# print(r.hgetall('1dE06UcNkjTxMK6wlPIyd5y3h4E3'))
+
+
+
+
+
 # print(r.xgroup_create("Random_0", '1235512333', id="$",mkstream=True))
 
 # print(r.zscore("random_rooms","Random_0"))
-# print(r.zrangebyscore("random_rooms", 0, 10))
+
+print(r.xrange("Random_0", "-", "+", count=20))
+
 # print(r.delete("random_rooms","Random_0"))
 # print(r.rpushx("random","random_1"))
 # print(r.zadd("random_rooms",mapping={"Random_0": 1}))
