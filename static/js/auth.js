@@ -182,6 +182,7 @@ function getRandomPic(){
     ];
     return "../static/images/default_icons/" + pics[Math.floor(Math.random() * pics.length)]
 }
+
 /**
  Create an account with Firebase authentication then add their details to the database.
  * @param {string} firstname

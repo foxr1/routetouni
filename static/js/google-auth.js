@@ -1,3 +1,6 @@
+// Name: Filippos Solomonidis
+// Authentication involved for Google authentication.
+
 // Followed these instructions for Google sign in:
 //https://firebase.google.com/docs/auth/web/google-signin#advanced-handle-the-sign-in-flow-manually
 function handleAuthClick() {
@@ -20,13 +23,12 @@ firebase.auth().signInWithPopup(provider).then(function(result) {
     });
 }
 
-function onSignIn(googleUser, isNewUser) {
-    /**
+/**
      * Sign in user from google to firebase to retrieve a token for backend cookie creation
      * @param {JSON} googleUser
      * @param {Boolean} isNewUser
      */
-
+function onSignIn(googleUser, isNewUser) {
     // We need to register an Observer on Firebase Auth to make sure auth is initialized.
     var unsubscribe = firebase.auth().onAuthStateChanged((firebaseUser) => {
         unsubscribe();
@@ -56,22 +58,13 @@ function onSignIn(googleUser, isNewUser) {
     });
 }
 
-// Add the session cookie to give Flask the user's information
-function addCookieRedirect(){
-    firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
-    firebase.auth().currentUser.getIdToken(true).then(idToken => {
-    fetch('/sessionLogin?idToken=' + idToken).then(()=> {
-        window.location.assign('/');
-        return firebase.auth().signOut();})
-    });
-}
-
+/**
+ * Checks if user is the same with firebase user
+ * @param googleUser {JSON}
+ * @param firebaseUser {JSON}
+ */
 function isUserEqual(googleUser, firebaseUser) {
-    /**
-     * Checks if user is the same with firebase user
-     * @param googleUser {JSON}
-     * @param firebaseUser {JSON}
-     */
+
     if (firebaseUser) {
         var providerData = firebaseUser.providerData;
         for (var i = 0; i < providerData.length; i++) {
