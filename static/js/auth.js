@@ -165,9 +165,11 @@ function hideError(error) {
         }
     }
 }
-
-// Randomly assign a coloured picture from a directory of custom made profile pictures for a user when they sign up with
-// an email and password.
+/**
+Randomly assign a coloured picture from a directory of custom made profile pictures for a user when they sign up with
+ an email and password.
+ @return {string}: image url
+  */
 function getRandomPic(){
     const pics = [
         "15ff4c-user.png",
@@ -180,11 +182,19 @@ function getRandomPic(){
     ];
     return "../static/images/default_icons/" + pics[Math.floor(Math.random() * pics.length)]
 }
-
-// Create an account with Firebase authentication then add their details to the database.
+/**
+ Create an account with Firebase authentication then add their details to the database.
+ * @param {string} firstname
+ * @param {string} lastname
+ * @param {string} course
+ * @param {string} role
+ * @param {string} email
+ * @param {string} password
+ */
 function signUp(firstname, lastname, course, role, email, password) {
     firebase.auth().createUserWithEmailAndPassword(email, password)
         .then((user) => {
+            //Set the values added on sign up screen to firebase
             firebase.database().ref('users/' + firebase.auth().currentUser.uid).set({
                 name: firstname + " " + lastname,
                 email: email,
@@ -216,19 +226,25 @@ function signUp(firstname, lastname, course, role, email, password) {
         });
 }
 
-// Log the user out of the session and redirect to the home page (refresh).
+/**
+Log the user out of the session and redirect to the home page (refresh).
+ */
 function logout() {
     fetch('/sessionLogout').then(()=> {
         window.location.assign('/');
     })
 }
 
-// Add the session cookie to give Flask the user's information
+/**
+ *  Add the session cookie to give Flask the user's information
+ *  @return {Boolean}
+ */
 function addCookieRedirect() {
     firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
+    //Login with firebase auth token
     firebase.auth().currentUser.getIdToken(true).then(idToken => {
-    fetch('/sessionLogin?idToken=' + idToken).then(()=> {
-        console.log(idToken);
+        //Send Details to frontend along with the request
+        fetch('/sessionLogin?idToken=' + idToken).then(()=> {
         window.location.assign('/');
         return firebase.auth().signOut();})
     });
