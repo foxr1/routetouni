@@ -16,9 +16,10 @@ app.config.update(
     SESSION_COOKIE_HTTPONLY=True,
     SESSION_COOKIE_SAMESITE='Lax')
 
-socketio = SocketIO(app, async_mode=async_mode, cors_allowed_origins=["http://localhost:5000",
-                                                                      "https://routetouni.me",
-                                                                      "https://www.routetouni.me"],
+socketio = SocketIO(app, async_mode=async_mode, pingInterval=10000, pingTimeout=10000,
+                    cors_allowed_origins=["http://localhost:5000",
+                                          "https://routetouni.me",
+                                          "https://www.routetouni.me"],
                     logger=True, engineio_logger=True)
 
 main = Blueprint('main', __name__)
